@@ -14,6 +14,7 @@ if [ "$(git rev-list --count HEAD ^origin/$(git rev-parse --abbrev-ref HEAD))" -
 # Squash the unpushed commits into a single commit
 git reset --soft origin/$(git rev-parse --abbrev-ref HEAD)
 TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+# NOTE: Assumes my fork -> https://github.com/orjahren/ai-commit 
 AI_MSG=$(node ai-commit/index.js --message-only 2>/dev/null)
 git commit -m "Autosync: $AI_MSG"
 # Push the squashed commit to the remote repository
