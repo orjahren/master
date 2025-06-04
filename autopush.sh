@@ -13,7 +13,8 @@ if [ "$(git rev-list --count HEAD ^origin/$(git rev-parse --abbrev-ref HEAD))" -
 
 # Squash the unpushed commits into a single commit
 git reset --soft origin/$(git rev-parse --abbrev-ref HEAD)
-git commit -m "Autosync: Squashed unpushed commits"
+TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+git commit -m "Autosync: Squashed unpushed commits as of $TIMESTAMP"
 # Push the squashed commit to the remote repository
 git push origin HEAD:$(git rev-parse --abbrev-ref HEAD) --force
 echo "Unpushed commits have been squashed and pushed to the remote repository."
