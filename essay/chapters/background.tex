@@ -58,7 +58,7 @@ articles~\cite[982]{scenes}, but \citeauthor{scenes} propose standardising the d
     as well as  as all actors’ and observers’ self-representations, and the relationships among those entities}~\cite[983]{scenes}.
 
 \paragraph{situation} is, like \textit{scene}, employed in various fashions. \citeauthor{scenes}
-give a background detaling its usage ranging from \textit{"the entirety of circumstances,
+give a background detailing its usage ranging from \textit{"the entirety of circumstances,
     which are to be considered by a robot for its selection of an appropriate behavior pattern in a
     particular moment'}\footnote{The translation from German is borrowed from \citeauthor{scenes},
     \cite[984]{scenes}}, in  \citeauthor{scenarioTysk}~\cite[3]{scenarioTysk} to
@@ -212,6 +212,18 @@ account other actors in the scene such as pedestrians or cyclists.
 
 
 \tanke{This can be expanded if needed}.
+
+\subsection*{The complexities of \acrshort{ad} testing}\label{sec:adsTestingComplexity}
+
+As we have seen, \acrshort{ads} can perform several tasks, in several environments. As such, there
+are several relevant factors for testing them. It is common to modularize the testing of
+\acrshort{ads} so that the individual modules can be tested in isolation.
+
+The modules of an \acrshort{ad} typically include a motion planner, a \acrfull{cv} system, and
+LIDAR. This allows for testing the individual modules in a way that makes sense for their specific
+domains.
+
+\todo{This subsection must be cited.}
 
 \subsection{\acrfull{llms}}
 

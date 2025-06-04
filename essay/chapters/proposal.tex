@@ -17,7 +17,13 @@ run. Without this, we cannot compare it to other test cases.
 
 Furhtermore, as outlined in \citeauthor{LLM4AD}, \acrlong{llms} can be applied to several aspects
 of \acrlong{ads}. It is not feasible that we focus on \textit{all} these aspects, and as such we
-should narrow down our scope.
+should narrow down our scope. Let us review some of the relevant aspects.
+
+\subsubsection{The applicability of \acrshort{llms} in \acrshort{ad} testing}
+
+\acrlong{ads} are typically modular, as we have seen in \Nameref{sec:adsTestingComplexity}.
+\acrshort{llms} are applicable to the differnet modules in different ways.
+
 
 \todo{Declare the scope / what we focus on !!}
 
@@ -27,7 +33,7 @@ Let the pipeline tool be known as \hefe.
 
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=User history
-of using \hefe]\label{user-history}
+        of using \hefe]\label{user-history}
     I have a set of \acrfull{ad} test cases. I provide this set to \hefe. It will run the entire
     set, and generate a baseline of my \acrshort{ad} performance.
 
@@ -45,7 +51,7 @@ of using \hefe]\label{user-history}
 The tool follows a natural pipeline structure. We have some base test cases that
 need to be ran in order to get a baseline for the results, we then have to
 improve these, and run the improved versions and compare them to their original
-versions. 
+versions.
 
 The architecture of the tool is visualised in \cref{fig:hefeArch}.
 
@@ -66,22 +72,22 @@ our execution times. Libraries such as Joblib provide Python with plug-and-play
 meomization, which will allow us to re-use values that have already been
 computed, saving time and energy.
 
- \subsubsection{The room for concurrency}
- 
- Python is in many ways a \textit{sequential language},  and our problem of
- \acrshort{ad} test case enhancement is \textit{embarrassingly parallelizable}
- \footnote{\url{https://en.wikipedia.org/wiki/Embarrassingly_parallel}}
- For this reason, we could instead  opt to implement the pipeline in a language
- with greater support for concurrent  programming such as  Go~\cite[102]{go}.
- Due to Python having excellent support for several important 
- dependencies, we would at any rate need to write actual test case processing in
- Python, but Go could serve as an orchestrator, spinning up several Python
- processes side by side.
- For practical reasons due to limitations in Carla, it is not relevant to look
- into \textit{running} several test cases in parallel, wheras the \acrshort{llm}
- step can provide several advantages when done in parallel.
+\subsubsection{The room for concurrency}
 
- \tanke{This should be re-written to not mention Go but instead proposing having concurrency in Python.}
+Python is in many ways a \textit{sequential language},  and our problem of
+\acrshort{ad} test case enhancement is \textit{embarrassingly parallelizable}
+\footnote{\url{https://en.wikipedia.org/wiki/Embarrassingly_parallel}}
+For this reason, we could instead  opt to implement the pipeline in a language
+with greater support for concurrent  programming such as  Go~\cite[102]{go}.
+Due to Python having excellent support for several important
+dependencies, we would at any rate need to write actual test case processing in
+Python, but Go could serve as an orchestrator, spinning up several Python
+processes side by side.
+For practical reasons due to limitations in Carla, it is not relevant to look
+into \textit{running} several test cases in parallel, wheras the \acrshort{llm}
+step can provide several advantages when done in parallel.
+
+\tanke{This should be re-written to not mention Go but instead proposing having concurrency in Python.}
 
 \subsection{Components of the \hefe~pipeline}
 
@@ -89,24 +95,24 @@ The pipeline architecture is visualised in \cref{fig:hefeArch}. Here we breifly
 present the major components and their responsibilties, before going into more
 detail in the remaining part of the  \namecref{sec:solutionProposal}.
 
-    \paragraph{Test case repositories.} We have a set of test cases for \acrshort{ad} testing.
-    \paragraph{Test case runner.} The system will automatically run all
-    our base test cases using Carla, and collect datapoints to get a baseline. It will later
-    also run the mutated \acrshort{llm}-enhanced versions of the base cases.
-    \paragraph{\acrshort{llm} enhancement.} The base test cases will
-    individually be enhanced using AI.
-    \paragraph{The results.} We will compare the results from running
-    the baseline unmodified test case and comparing it with the results from
-    running the \acrshort{llm}-enhanced version and returning to the user. Ideally with
-    some automatic analasys of the results.
+\paragraph{Test case repositories.} We have a set of test cases for \acrshort{ad} testing.
+\paragraph{Test case runner.} The system will automatically run all
+our base test cases using Carla, and collect datapoints to get a baseline. It will later
+also run the mutated \acrshort{llm}-enhanced versions of the base cases.
+\paragraph{\acrshort{llm} enhancement.} The base test cases will
+individually be enhanced using AI.
+\paragraph{The results.} We will compare the results from running
+the baseline unmodified test case and comparing it with the results from
+running the \acrshort{llm}-enhanced version and returning to the user. Ideally with
+some automatic analasys of the results.
 
 \subsection{Test case enhancement}
 
 \subsubsection{Test case repositories}
 
 We have seen in \nameref{sec:relatedWork} that there are existing repositories of
-\acrshort{ad} test cases. These will provide us with \begin{inparaenum} 
-    \item a baseline, 
+\acrshort{ad} test cases. These will provide us with \begin{inparaenum}
+    \item a baseline,
     and
     \item data onto which we can apply our \acrshort{llm} enhancements.
 \end{inparaenum}
@@ -116,7 +122,7 @@ We have seen in \nameref{sec:relatedWork} that there are existing repositories o
 For performing the actual improvement, it is essential that we \begin{inparaenum}
     \item test several \acrshort{llm},
     \item give clear prompts
-\info{I'm inclined to find some fitting prompts through trial and error, as such a I do not wish to describe them in detail at this time.} 
+    \info{I'm inclined to find some fitting prompts through trial and error, as such a I do not wish to describe them in detail at this time.}
     and
     \item verify that the returned test case adheres to the strictly nessecary
     syntax rules. This last point is important due to our knowledge of
@@ -128,13 +134,13 @@ In order to facilitate testing various \acrlong{llms}, we should employ
 write code for a common interface and test several \acrshort{llms} that may all
 have different internal \acrfull{apis} without having to modify our test code
 for specific \acrshort{apis}. This \begin{inparaenum}
-    \item saves time 
+    \item saves time
     and
     \item makes for more even test conditions
 \end{inparaenum}.
 Some pieces of software providing this type of functionality include
 \textsc{aisuite}\footnote{\url{https://github.com/andrewyng/aisuite}}, RamaLama
-from RedHat\footnote{\url{https://github.com/containers/ramalama}}, and 
+from RedHat\footnote{\url{https://github.com/containers/ramalama}}, and
 
 \textsc{guidance}\footnote{\url{https://github.com/guidance-ai/guidance}} is a
 framework for limiting the room in which \acrshort{llms} may operate, which
@@ -145,7 +151,7 @@ migth be useful if we run into issues with excessive halluciation.
 
 OpenSCENARIO is a format for \acrshort{ad} test scenarios, and there exist free
 online cloud services for verifying them such as
-\footnote{\url{https://smc.app.avl.com/validation}}. We should however strive for 
+\footnote{\url{https://smc.app.avl.com/validation}}. We should however strive for
 running a local verification service to \begin{inparaenum}
     \item save time and compute,
     and
@@ -153,9 +159,9 @@ running a local verification service to \begin{inparaenum}
 \end{inparaenum}
 
 Besides, it is generally a good idea to limit the number of external dependcies\footnote{
-Note for example how LGSVL\cite{lgsvl} was shut down, preventing projects such as
-DeepScenario of \citeauthor{DeepScenario} to be further developed on the
-original platform.}.
+    Note for example how LGSVL\cite{lgsvl} was shut down, preventing projects such as
+    DeepScenario of \citeauthor{DeepScenario} to be further developed on the
+    original platform.}.
 
 \subsection{Running and evaluating}
 
@@ -163,7 +169,7 @@ We have already ran the test cases in their base form. We will now run their
 improved versions in order to compare them to see what effect the \acrshort{llm}
 enhancement (see \cref{sec:llmEnhancement}) has had.
 
-For the reasons we have seen in~\cref{sec:simulatorOverview}, we want to run our 
+For the reasons we have seen in~\cref{sec:simulatorOverview}, we want to run our
 test cases on Carla. It is the best offering as it is open source, under active
 development and has a feature rich Python \acrshort{api}.
 
@@ -179,7 +185,7 @@ results. The results will be stored in \acrfull{csv} files, allowing \begin{inpa
     \item further analysis in Python/Jupyter,
     and
     \item easy transaltion to \LaTeX tables for the final report.
-\end{inparaenum} 
+\end{inparaenum}
 
 This is the final step of the envisioned pipeline. Where we have our result, and
 need to analyse them.
