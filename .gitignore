@@ -356,6 +356,6 @@ TSWLatexianTemp*
 .bak 
 .mtc
 build/
-.zip 
+*.zip 
 
 ai-commit
