@@ -227,21 +227,15 @@ domains.
 
 \subsection{\acrfull{llms}}
 
-\acrfull{llms} are \acrlong{llms}. They are \textbf{language models} - with the added property of
-being \textit{large}. Large refers to the amount of data they are trained on.
-\todo{This paragraph must be rewritten.}
+\acrfull{llms} are transformer-based language models that typically contain several hundred billion
+parameters and are trained on massive text data~\cite[4]{llmSurvey}.
+Base language models, as the name implies, \textit{model language}. They are typically statistical
+models and an example of \acrfull{ml}.
 
-\subsubsection{Language models}
-
-% For å vise utviklingen over til \textit{large} language models
-
-Language models, as the name implies, \textit{model language}. They are typically statistical models
-and an example of \acrfull{ml}.
-
-\subsubsection{\acrfull{llm} architecture}\label{sec:llmArch}
+\subsubsection*{\acrfull{llm} architecture}\label{sec:llmArch}
 
 A \acrlong{llm} is a neural network trained on big
-data~\cite[3]{llmSurvey}. They expand on the older statistical models by
+data~\cite[3]{llmSurvey}. They expand on the older statistical language models by
 training on more data. This gives rise to \textit{emerging abilities} such as in
 context learning~\cite[3]{llmSurvey} (\cref{sec:emergentAbilities}). These older statistical models are also
 neural networks, but they were impractical to train on large amounts of data. It
