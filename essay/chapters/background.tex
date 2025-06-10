@@ -28,20 +28,20 @@ determining the test scenarios and they lower cost and effort required to perfor
 Due to the appeal of running \acrshort{ad} simulation, several contenders exist
 on the market.
 
-\paragraph{Carla} is a widely used \acrshort{ad} simulator~\cite{Carla}. It is implemented
+\textbf{Carla} is a widely used \acrshort{ad} simulator~\cite{Carla}. It is implemented
 using the game engine UnrealEngine~\cite{unrealengine} and allows for running
 test cases under various scenarios and collecting their results. Carla is fully
 open source and is under active development. It has been applied in projects such as KITTI-Carla,
 which generated a KITTI dataset using Carla~\cite{kittiCarla}.
 
-\paragraph{LGSVL} is a deprecated simulator from LG~\cite{lgsvl}. It was used in projects such
+\textbf{LGSVL} is a deprecated simulator from LG~\cite{lgsvl}. It was used in projects such
 as DeepScenario~\cite{DeepScenario}. It allowed for running various maps with various vehicles and
 tracking their data. It was also capable of generating HD
 maps \footnote{\url{https://github.com/lgsvl/simulator?tab=readme-ov-file\#introduction}}.
 DeepScenario is a project similar to this, concerned with testing \acrlong{ads}. Further details
 about it in are located in \Nameref{sec:relatedWork}.
 
-\paragraph{AirSim} is Microsoft's offering~\cite{airsim}. It has, like LGSVL,
+\textbf{AirSim} is Microsoft's offering~\cite{airsim}. It has, like LGSVL,
 been deprecated. It is also bulit using UnrealEngine. Unlike the other
 simulators we have seen, this also focused on autonomous vehicles outside of
 only cars, such as drones.
@@ -52,12 +52,12 @@ only cars, such as drones.
 \citeauthor{scenes} draw up an outline for the terms \textit{scene}, \textit{situation}, and
 \textit{scenario}, that are all concepts widely used in \acrshort{ad} simulation testing.
 
-\paragraph{scene} is a term that is used in different manners in various
+\textbf{scene} is a term that is used in different manners in various
 articles~\cite[982]{scenes}, but \citeauthor{scenes} propose standardising the definition on
 \textit{a scene describing a snapshot of the environment including the scenery and dynamic elements,
     as well as  as all actors’ and observers’ self-representations, and the relationships among those entities}~\cite[983]{scenes}.
 
-\paragraph{situation} is, like \textit{scene}, employed in various fashions. \citeauthor{scenes}
+\textbf{situation} is, like \textit{scene}, employed in various fashions. \citeauthor{scenes}
 give a background detailing its usage ranging from \textit{"the entirety of circumstances,
     which are to be considered by a robot for its selection of an appropriate behavior pattern in a
     particular moment'}\footnote{The translation from German is borrowed from \citeauthor{scenes},
@@ -70,7 +70,7 @@ described~\cite[892]{schmidtScenario}.
     the entirety of circumstances, which  are to be considered for the selection of an
     appropriate behavior pattern at a particular point of time}~\cite[985]{scenes}.
 
-\paragraph{scenario} refers to \textit{'the temporal development between several scenes in a sequence
+\textbf{scenario} refers to \textit{'the temporal development between several scenes in a sequence
     of scenes'}\cite[986]{scenes}. We note how the definition a a scenario utilises that of a scene.
 Furthermore, \citeauthor{scenes} hold it to be the case that \textit{'every scenario starts with an
     initial scene. Actions \& events as well as goals \& values may be  specified to characterize
@@ -106,7 +106,7 @@ and \textit{X-in-the-loop testing}~\cite[163-164]{ADTestingReview16}.
 
 \subsubsection*{\acrlong{ad} driveability}\label{sec:adsDrivability}
 
-\paragraph{Driveability} is a high-level estimator of the overall driving
+\textbf{Driveability} is a high-level estimator of the overall driving
 condition of an \acrshort{ad}, derived from several lower-level sources~\cite[3140]{safeToDrive}.
 It can be used to refer to various aspects of a scene.
 \citeauthor{safeToDrive} discuss the concept further, using the  scene definition
@@ -136,9 +136,8 @@ observation~\cite[3136]{safeToDrive}.
 They continue to give an overview of various \textit{driveability factors} and
 their associated difficulties, using a a split between \textit{explicit} and
 \textit{implicit} factors.
-\tanke{It says \textit{`Handling each factor presents its own research challenge and existing approaches are still far from delivering robustsolutions that incorporate all factors}'. Is there room for this project here?? Knowledge gap}
 
-\paragraph{Explicit driveability factors} will typically include factors such as
+\textbf{Explicit driveability factors} will typically include factors such as
 \textbf{Extreme wheather} such as \begin{inparaenum}
     \item fog,
     \item heavy rain,
@@ -159,7 +158,7 @@ external factor, satisfying our natural intuition that \textit{intersections}
 and \textit{roundabouts} are more difficult to drive through than straight
 highways~\cite[3137]{safeToDrive}.
 
-\paragraph{Implicit driveability factors} will typically include factors such as
+\textbf{Implicit driveability factors} will typically include factors such as
 lorem ipsum dolor sit amet
 \todo{Either finish or remove this}
 
@@ -176,15 +175,14 @@ quantifying driveability: \begin{inparaenum}
     \item behaviour-based risk.
 \end{inparaenum}
 
-\paragraph{Scene driveability} refers to how easy a scene is for an
+\textbf{Scene driveability} refers to how easy a scene is for an
 \acrshort{ad} to navigate, and the \textit{scene driveability score} refers to
 how likely the \acrlong{ad} is to fail at traversing thhe
 scene~\cite[3140]{safeToDrive}. It is typically found through and end-to-end
 approach. Note how this is a metric for \textit{scenes}, without taking into
 account the performance of any specific \acrshort{ad}.
-\tanke{Is this a relevant metric for the thesis? Only focusing on scenes, not on running any actual ADSs?}
 
-\paragraph{Collision-based risk} comes in two kinds - \begin{inparaenum}
+\textbf{Collision-based risk} comes in two kinds - \begin{inparaenum}
     \item binary risk indicator, and
     \item probabilistic risk indicator.
 \end{inparaenum} \citeauthor{safeToDrive} posit that the prior, binary metric, indicates wheter a
@@ -192,7 +190,7 @@ collision will happen in the near future in a binary `either-or' sense, wheras t
 probability calculated based on current states, event, choice of hypothesis, future states and
 damage~\cite[3140]{safeToDrive}.
 
-\paragraph{Behaviour-based risk} estimation also represents a binary classification problem wherein
+\textbf{Behaviour-based risk} estimation also represents a binary classification problem wherein
 nominal behaviours are learnt from data, and then dangerous behaviours are detected on that. This
 requires a definition of `nominal behaviour', which is typically defined on on acceptable speeds,
 traffic roles, location semantics, weather conditions and/or the level of fatique of the
@@ -206,7 +204,7 @@ account other actors in the scene such as pedestrians or cyclists.
 %Furthermore, \citeauthor{safeToDrive} also give an overview of metrics and their relevant factors.
 
 
-\tanke{This can be expanded if needed}.
+\tanke{This can be expanded if needed}
 
 \subsection*{The complexities of \acrshort{ad} testing}\label{sec:adsTestingComplexity}
 
@@ -282,20 +280,35 @@ meaning~\cite[185-186]{jm}.
 \Cref{fig:paraAttention} demonstrates how a multi head transformer based architecture
 allows from greater concurrency than traditional approaches.
 
-\subsubsection*{Pre-training}
+% \subsubsection*{Pre-training}
+%
+% \acrshort{llms} rely on \textit{pretraining}.
+% Lorem ipsum dolor sit amet.
 
-\acrshort{llms} rely on \textit{pretraining}.
-Lorem ipsum dolor sit amet.
+\subsubsection{The importance of training data}
 
-\subsubsection*{Generative pretrained transformer models (GPTs)}
+As a conseuqence of \acrshort{llms} being statistical models of a certain input
+data~\cite[1]{llmSurvey}, what data the model is trained on is of great
+importance for the capabilities of the model~\cite[6]{llmSurvey}.
+\citeauthor{llmSurvey} give an overview of various \acrshort{llms} and what
+kinds of corpora\footnote{A corpus (pl. corpora) refers to a document
+    collection.} they have been trained on~\cite[11-14]{llmSurvey}.
 
-\acrlong{llms} on their own represent a statistical model without any inherent
-function [ctiation needed]. It is not until the model is motivated to do work
-that it becomes practically applicable. A common way of achieving this is by
-utilising the generative pretrained transformer (GPT) approach. The morphemes
-each point at how this system works.
+The training data will provide the model with its base understanding of the
+world, and as such it will dictate \begin{inparaenum}
+    \item what it `knows', and
+    \item how we should interact with it.
+\end{inparaenum}
+E.g., if we want to solve problems related to software code, we should employ a
+model that has been \textit{trained} on software code related topics so that the
+probability of it predicting correct tokens will be higher. If it has not seen
+any code during its training it would not have any base `knowledge' for solving
+our problem, and its output would be bad. The \acrshort{llm} would however have
+no way of knowing if its output would be right or wrong, and we could say that
+it would have \textit{hallucinated}.
+See \cref{sec:llmProblems} for furhter information
+about hallucination.
 
-\todo{Dette er søppel!!}
 
 \subsubsection{Emergent abilities}\label{sec:emergentAbilities}
 

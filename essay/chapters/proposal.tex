@@ -74,20 +74,19 @@ computed, saving time and energy.
 
 \subsubsection{The room for concurrency}
 
-Python is in many ways a \textit{sequential language},  and our problem of
-\acrshort{ad} test case enhancement is \textit{embarrassingly parallelizable}
-\footnote{\url{https://en.wikipedia.org/wiki/Embarrassingly_parallel}}
-For this reason, we could instead  opt to implement the pipeline in a language
-with greater support for concurrent  programming such as  Go~\cite[102]{go}.
-Due to Python having excellent support for several important
-dependencies, we would at any rate need to write actual test case processing in
-Python, but Go could serve as an orchestrator, spinning up several Python
-processes side by side.
-For practical reasons due to limitations in Carla, it is not relevant to look
-into \textit{running} several test cases in parallel, wheras the \acrshort{llm}
-step can provide several advantages when done in parallel.
-
-\tanke{This should be re-written to not mention Go but instead proposing having concurrency in Python.}
+When evaluating \acrshort{ad} test cases, the test cases are independent of each
+other. This means that our problem is \textit{embarrassingly parallelizable}
+\footnote{\url{https://en.wikipedia.org/wiki/Embarrassingly_parallel}} and we can
+trivially process several test cases in parallel. Due to practical limitations
+in Carla, \textit{running} the test cases should however probably be done
+sequentially. But \begin{inparaenum}
+    \item prompting,
+    \item enhancing, and
+    \item validating,
+\end{inparaenum}
+can all be done concurrently. While Python lacks support of traditional threads,
+it has some support for multiprocessing
+\footnote{\url{https://docs.python.org/3/library/multiprocessing.html}}.
 
 \subsection{Components of the \hefe~pipeline}
 
