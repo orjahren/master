@@ -141,11 +141,12 @@ have different internal \acrfull{apis} without having to modify our test code
 for specific \acrshort{apis}. This \begin{inparaenum}
     \item saves time
     and
-    \item makes for more even test conditions
-\end{inparaenum}.
-Some pieces of software providing this type of functionality include
-\textsc{aisuite}\footnote{\url{https://github.com/andrewyng/aisuite}}, RamaLama
-from RedHat\footnote{\url{https://github.com/containers/ramalama}}, and
+    \item makes for more even test conditions \end{inparaenum}. Some pieces of software providing
+this type of functionality include
+\textsc{aisuite}\footnote{\url{https://github.com/andrewyng/aisuite}}, RamaLama from
+RedHat\footnote{\url{https://github.com/containers/ramalama}}, and the MIT licensed
+Ollama\footnote{\url{https://github.com/ollama/ollama}}, both supporting a plethora of
+\acrlong{llms}.
 
 \textsc{guidance}\footnote{\url{https://github.com/guidance-ai/guidance}} is a
 framework for limiting the room in which \acrshort{llms} may operate, which
@@ -163,10 +164,9 @@ running a local verification service to \begin{inparaenum}
     \item preserve data privacy.
 \end{inparaenum}
 
-Besides, it is generally a good idea to limit the number of external dependcies\footnote{
-    Note for example how LGSVL\cite{lgsvl} was shut down, preventing projects such as
-    DeepScenario of \citeauthor{DeepScenario} to be further developed on the
-    original platform.}.
+Besides, it is generally a good idea to limit the number of external dependcies\footnote{Note for
+    example how LGSVL\cite{lgsvl} was shut down, preventing projects such as DeepScenario of
+    \citeauthor{DeepScenario} to be further developed on the original platform.}.
 
 \subsection{Running and evaluating}
 
