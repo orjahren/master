@@ -134,7 +134,25 @@ account other actors in the scene such as pedestrians or cyclists.
 
 As we have seen, \acrshort{ads} can perform several tasks, in several environments. As such, there
 are several relevant factors for testing them. It is not feasible to test all potential variations
-of all potential environments in the real world.
+of all potential environments in the real world, meaning that the \textit{test coverage} typically
+will be low.
+
+Some of the factors that complicate \acrshort{ad} operations are \begin{inparaenum}
+    \item timing,
+    \item sequence of events, and
+    \item parameter settings such as speed.
+\end{inparaenum}
+\todo{Citations.}
+
+\citeauthor{adsComplexityIndex18} posit that \textit{the concept of complexity exists everywhere,
+    but there is no agreement on one for driving situations}~\cite[1182]{adsComplexityIndex18}.
+Therefore they introduce their own concept of \acrfull{dsc}, which serves to give a metric of a
+the complexity of a given driving situation. Their \acrshort{dsc} is defined as the output of a
+mathematical formula taking into account the perplexity and standard deviation of several
+control variables $\mathcal{M}$ representing the surrounding vehicles's
+behaviour~\cite[1182]{adsComplexityIndex18}. Their formula also takes into account the ratio of
+\textit{V2X}-capable vehicles~\cite[1182]{adsComplexityIndex18}, i.e. the vehicles that are
+connected and capable of communicating~\cite[1]{v2xTestingSurvey2019}.
 
 % It is common to modularize the testing of \acrshort{ads} so that the individual modules can be
 % tested in isolation. The modules of an \acrshort{ad} typically include a motion planner, a
@@ -449,7 +467,7 @@ tasks~\cite{llmCarbon}. They did however fail to consider other relevant factors
 as water consumption.
 
 
-\subsubsection{The \acrshort{llm} jungle}
+\subsubsection{The \acrshort{llm} jungle}\label{sec:llmJungle}
 
 There are several available \acrshort{llms}, some of which are open source, and some proprietary.
 Open source \acrshort{llms} afford greater insight into their composition and underlying training

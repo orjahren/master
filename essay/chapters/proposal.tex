@@ -1,6 +1,8 @@
 \section{Proposed solution}\label{sec:solutionProposal}
 
-We will build a tool for
+We have seen that \acrshort{ad} testing is \textit{complex} and that it is difficult to get a good
+test coverage (\cref{sec:adsTestingComplexity}). Furhtermore, we have seen that \acrshort{llms} have
+\textit{emergent abilities} (\cref{sec:emergentAbilities}). We therefore propse a tool for
 \begin{inparaenum}
     \item running a base \acrshort{ad} test case,
     \item enhancing the test case using \acrshort{llms},
@@ -8,6 +10,10 @@ We will build a tool for
     and
     \item comparing the results of the two runs.
 \end{inparaenum}
+
+This will allow us to learn the extent to which \acrshort{llms} can be applied for enhancing
+\acrlong{ad} test cases. We will survey several \acrshort{llms} and evaluate their applicability for
+the problem at hand, in light of what we know about \acrshort{llms} (\cref{sec:llmJungle}).
 
 We want to have a pipeline that is able to process several test cases in succession, in order to get
 a substansial dataset.
