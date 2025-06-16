@@ -17,8 +17,12 @@ if [ "$(git rev-list --count HEAD ^origin/$(git rev-parse --abbrev-ref HEAD))" -
 
 # Squash the unpushed commits into a single commit
 git reset --soft origin/$(git rev-parse --abbrev-ref HEAD)
-# NOTE: Assumes my fork -> https://github.com/orjahren/ai-commit 
-AI_MSG=$(node ai-commit/index.js --message-only 2>/dev/null)
+# NOTE: Assumes my fork -> https://github.com/orjahren/ai-commit
+AI_MSG=$(node ai-commit/index.js --message-only 2>> ~/autopush.log)
+if [ $? -ne 0 ]; then
+    notify-send "Autosync" "Unable to generate commit message. Please check the logs."
+    exit 1
+fi
 git commit -m "Autosync: $AI_MSG"
 # Push the squashed commit to the remote repository
 git push origin HEAD:$(git rev-parse --abbrev-ref HEAD) --force
