@@ -16,82 +16,6 @@
 typical operating scenarios of a car it is pivotal that the \acrlong{ads} maintain a high safety standard. A common way to assert safety
 is to use simulator based testing~\cite[1]{DeepScenario}.
 
-\subsubsection{\acrlong{ad} simulation}
-
-Due to the complexity involved in testing \acrlong{ads}, simulators are
-typically used~\cite{DeepScenario}. Simulators allow for greater flexibility in
-determining the test scenarios and they lower cost and effort required to perform
-\acrshort{ad} testing.
-
-\subsubsection*{The \acrshort{ad} simulator jungle}\label{sec:simulatorOverview}
-
-Due to the appeal of running \acrshort{ad} simulation, several contenders exist
-on the market.
-
-\textbf{Carla} is a widely used \acrshort{ad} simulator~\cite{Carla}. It is implemented
-using the game engine UnrealEngine~\cite{unrealengine} and allows for running
-test cases under various scenarios and collecting their results. Carla is fully
-open source and is under active development. It has been applied in projects such as KITTI-Carla,
-which generated a KITTI dataset using Carla~\cite{kittiCarla}.
-
-\textbf{LGSVL} is a deprecated simulator from LG~\cite{lgsvl}. It was used in projects such
-as DeepScenario~\cite{DeepScenario}. It allowed for running various maps with various vehicles and
-tracking their data. It was also capable of generating HD
-maps \footnote{\url{https://github.com/lgsvl/simulator?tab=readme-ov-file\#introduction}}.
-DeepScenario is a project similar to this, concerned with testing \acrlong{ads}. Further details
-about it in are located in \Nameref{sec:relatedWork}.
-
-\textbf{AirSim} is Microsoft's offering~\cite{airsim}. It has, like LGSVL,
-been deprecated. It is also bulit using UnrealEngine. Unlike the other
-simulators we have seen, this also focused on autonomous vehicles outside of
-only cars, such as drones.
-
-
-\subsubsection*{Concepts of \acrshort{ad} simulation}\label{sec:adsSimConcepts}
-
-\citeauthor{scenes} draw up an outline for the terms \textit{scene}, \textit{situation}, and
-\textit{scenario}, that are all concepts widely used in \acrshort{ad} simulation testing.
-
-\textbf{scene} is a term that is used in different manners in various
-articles~\cite[982]{scenes}, but \citeauthor{scenes} propose standardising the definition on
-\textit{a scene describing a snapshot of the environment including the scenery and dynamic elements,
-    as well as  as all actors’ and observers’ self-representations, and the relationships among those entities}~\cite[983]{scenes}.
-
-\textbf{situation} is, like \textit{scene}, employed in various fashions. \citeauthor{scenes}
-give a background detailing its usage ranging from \textit{"the entirety of circumstances,
-    which are to be considered by a robot for its selection of an appropriate behavior pattern in a
-    particular moment'}\footnote{The translation from German is borrowed from \citeauthor{scenes},
-    \cite[984]{scenes}}, in  \citeauthor{scenarioTysk}~\cite[3]{scenarioTysk} to
-\citeauthor{schmidtScenario} introducing a distinction between \textit{the true world} in a formal
-sense, and that being the ground truth upon which a situation is
-described~\cite[892]{schmidtScenario}.
-
-\citeauthor{scenes} propose to standardise on the definition of a situation being \textit{
-    the entirety of circumstances, which  are to be considered for the selection of an
-    appropriate behavior pattern at a particular point of time}~\cite[985]{scenes}.
-
-\textbf{scenario} refers to \textit{'the temporal development between several scenes in a sequence
-    of scenes'}\cite[986]{scenes}. We note how the definition a a scenario utilises that of a scene.
-Furthermore, \citeauthor{scenes} hold it to be the case that \textit{'every scenario starts with an
-    initial scene. Actions \& events as well as goals \& values may be  specified to characterize
-    this temporal development in a scenario'}~\cite[986]{scenes}, clearifying the distinction
-between a scenario and a scene.
-
-Lastly they posit that a scenario spans a certain amount of time, wheras a scene has no such
-temporal aspect to it.
-
-
-When running a simulation, we refer to the autonomous vehicle that is being
-simulated as the \textit{ego vehicle}~\cite{egoDefinition}.
-
-% introduce the concept of a \textit{scene}, which denotes 
-
-% An alternate simulator is LG SVL~\cite{lgsvl}, but it has been deprecated since
-% 2022 and as such it does not seem proper to build a new solution on top of it.
-% The DeepScenario dataset~\cite{DeepScenario} utilises this simulator framework.
-% \tanke{The LGSVL part can be removed - not relevant?}
-
-
 \subsubsection{\acrlong{ad} testing}
 
 Testing is essential for assuring \acrlong{ad} operative safety~\cite[163]{ADTestingReview16}.
@@ -206,17 +130,105 @@ account other actors in the scene such as pedestrians or cyclists.
 
 \tanke{This can be expanded if needed}
 
-\subsection*{The complexities of \acrshort{ad} testing}\label{sec:adsTestingComplexity}
+\subsubsection*{The complexities of \acrshort{ad} testing}\label{sec:adsTestingComplexity}
 
 As we have seen, \acrshort{ads} can perform several tasks, in several environments. As such, there
-are several relevant factors for testing them. It is common to modularize the testing of
-\acrshort{ads} so that the individual modules can be tested in isolation.
+are several relevant factors for testing them. It is not feasible to test all potential variations
+of all potential environments in the real world.
 
-The modules of an \acrshort{ad} typically include a motion planner, a \acrfull{cv} system, and
-LIDAR. This allows for testing the individual modules in a way that makes sense for their specific
-domains.
+% It is common to modularize the testing of \acrshort{ads} so that the individual modules can be
+% tested in isolation. The modules of an \acrshort{ad} typically include a motion planner, a
+% \acrfull{cv} system, and % LIDAR. This allows for testing the individual modules in a way that
+% makes sense for their specific domains.
 
-\todo{This subsection must be cited.}
+\subsubsection{\acrlong{ad} simulation}
+
+Due to the complexity involved in testing \acrlong{ads} (\cref{sec:adsTestingComplexity}),
+simulators are typically used for this purpose~\cite{DeepScenario}. While the same points about not
+being able to test \textit{all} possible scenarios do remain true for simulator based testing due to
+the sheer number of factors, using a simulator allows for far greater testing at far lower cost due
+to the minimal overhead of
+\begin{inparaenum}
+    \item generating,
+    \item running, and
+    \item evaluating the outcome of
+\end{inparaenum}
+test cases.
+
+Furhtermore, simulators allow for greater flexibility in determining the test scenarios due to not
+being confined by the  physical world that is available to the scientist that wishes to perform the
+testing. Using a simulator, a Europe-based scientist can test their \acrshort{ad} for North American
+conditions, or vice-versa.
+
+\subsubsection*{The \acrshort{ad} simulator jungle}\label{sec:simulatorOverview}
+
+Due to the appeal of running \acrshort{ad} simulation, several contenders exist
+on the market.
+
+\textbf{Carla} is a widely used \acrshort{ad} simulator~\cite{Carla}. It is implemented
+using the game engine UnrealEngine~\cite{unrealengine} and allows for running
+test cases under various scenarios and collecting their results. Carla is fully
+open source and is under active development. It has been applied in projects such as KITTI-Carla,
+which generated a KITTI dataset using Carla~\cite{kittiCarla}.
+
+\textbf{LGSVL} is a deprecated simulator from LG~\cite{lgsvl}. It was used in projects such
+as DeepScenario~\cite{DeepScenario}. It allowed for running various maps with various vehicles and
+tracking their data. It was also capable of generating HD
+maps \footnote{\url{https://github.com/lgsvl/simulator?tab=readme-ov-file\#introduction}}.
+DeepScenario is a project similar to this, concerned with testing \acrlong{ads}. Further details
+about it in are located in \Nameref{sec:relatedWork}.
+
+\textbf{AirSim} is Microsoft's offering~\cite{airsim}. It has, like LGSVL,
+been deprecated. It is also bulit using UnrealEngine. Unlike the other
+simulators we have seen, this also focused on autonomous vehicles outside of
+only cars, such as drones.
+
+
+\subsubsection*{Concepts of \acrshort{ad} simulation}\label{sec:adsSimConcepts}
+
+\citeauthor{scenes} draw up an outline for the terms \textit{scene}, \textit{situation}, and
+\textit{scenario}, that are all concepts widely used in \acrshort{ad} simulation testing.
+
+\textbf{scene} is a term that is used in different manners in various
+articles~\cite[982]{scenes}, but \citeauthor{scenes} propose standardising the definition on
+\textit{a scene describing a snapshot of the environment including the scenery and dynamic elements,
+    as well as  as all actors’ and observers’ self-representations, and the relationships among those entities}~\cite[983]{scenes}.
+
+\textbf{situation} is, like \textit{scene}, employed in various fashions. \citeauthor{scenes}
+give a background detailing its usage ranging from \textit{"the entirety of circumstances,
+    which are to be considered by a robot for its selection of an appropriate behavior pattern in a
+    particular moment'}\footnote{The translation from German is borrowed from \citeauthor{scenes},
+    \cite[984]{scenes}}, in  \citeauthor{scenarioTysk}~\cite[3]{scenarioTysk} to
+\citeauthor{schmidtScenario} introducing a distinction between \textit{the true world} in a formal
+sense, and that being the ground truth upon which a situation is
+described~\cite[892]{schmidtScenario}.
+
+\citeauthor{scenes} propose to standardise on the definition of a situation being \textit{
+    the entirety of circumstances, which  are to be considered for the selection of an
+    appropriate behavior pattern at a particular point of time}~\cite[985]{scenes}.
+
+\textbf{scenario} refers to \textit{'the temporal development between several scenes in a sequence
+    of scenes'}\cite[986]{scenes}. We note how the definition a a scenario utilises that of a scene.
+Furthermore, \citeauthor{scenes} hold it to be the case that \textit{'every scenario starts with an
+    initial scene. Actions \& events as well as goals \& values may be  specified to characterize
+    this temporal development in a scenario'}~\cite[986]{scenes}, clearifying the distinction
+between a scenario and a scene.
+
+Lastly they posit that a scenario spans a certain amount of time, wheras a scene has no such
+temporal aspect to it.
+
+
+When running a simulation, we refer to the autonomous vehicle that is being
+simulated as the \textit{ego vehicle}~\cite{egoDefinition}.
+
+% introduce the concept of a \textit{scene}, which denotes 
+
+% An alternate simulator is LG SVL~\cite{lgsvl}, but it has been deprecated since
+% 2022 and as such it does not seem proper to build a new solution on top of it.
+% The DeepScenario dataset~\cite{DeepScenario} utilises this simulator framework.
+% \tanke{The LGSVL part can be removed - not relevant?}
+
+
 
 \subsection{\acrfull{llms}}
 
