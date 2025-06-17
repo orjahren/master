@@ -379,11 +379,10 @@ explain how they `\textit{think}': \begin{inparaenum}
 \subsubsection*{Stochastic parrot}\label{sec:llmParrot}
 
 \citeauthor{parrot} outline how \acrshort{llms} can \textit{fool} humans as they
-consume ever larger amounts of parameters and data, appearing to be in possession of an
+are trained on ever larger amounts of parameters and data, appearing to be in possession of an
 intelligence~\cite[610-611]{parrot}.
-\todo{\acrlong{llms} don't consume parameters.}
 
-This anticipates the phenomenon of hallucination (\cref{sec:llmProblems}).
+This anticipates the phenomenon of hallucination (\cref{sec:llmHallucination}).
 
 \subsubsection*{Sapir-Whorf hypothesis}
 
@@ -462,7 +461,7 @@ We have seen that \acrshort{llms} demonstrate promising abilities
 (\cref{sec:emergentAbilities} \& \cref{sec:llmIntelligence}) But they have nevertheless
 certain issues attached to them that we need to be aware of.
 
-\subsubsection*{Hallucination}
+\subsubsection*{Hallucination}\label{sec:llmHallucination}
 
 As we saw in \cref{sec:llmParrot}, \acrshort{llms} are prone to
 \textit{bullshitting}. They have no intuition of, or concern with \textit{the
@@ -484,60 +483,23 @@ tasks~\cite{llmCarbon}. They did however fail to consider other relevant factors
 as water consumption.
 
 
-\subsubsection{The \acrshort{llm} jungle}\label{sec:llmJungle}
+\subsubsection{The different kinds of \acrshort{llms}}\label{sec:llmJungle}
 
 There are several available \acrshort{llms}, some of which are open source, and some proprietary.
 Open source \acrshort{llms} afford greater insight into their composition and underlying training
-data, wheras proprietary models appear more like black boxes.
-\todo{Citations.}
+data, wheras proprietary models appear more like black boxes. Some popular model families include
+the GPTs, Gemeni, Llama, Claude, Mistral, and DeepSeek.
 
-\subsubsection*{OpenAI - GPT family}
+The \acrshort{llms} differ primarily in their \begin{inparaenum}
+    \item parameters, and
+    \item training data.
+\end{inparaenum}
+As we saw in \cref{sec:llmArch}, all typical \acrshort{llms} utilise a transformer-based neural
+network. But due to their various different properties, different models can behave differently for
+different tasks regardless of their similar architecture.
 
-The american company OpenAI have built several models known as generative pretrained transformers
-(GPT). They have seen widespread  commercial application through their easily accessible offerings
-such as ChatGPT, offering consumers a simple chatbot intreface.
-\todo{Citations.}
-
-\subsubsection*{Google - Bert, PaLM \& Gemeni}
-
-\textbf{Bert}, which stands for Bidirectional Encoder Representations from
-Transformers~\cite{bertPaper}, was Google's initial \acrshort{llm}, having been released in 2018,
-just after the 2017 paper of~\citeauthor{attentionIsAllYouNeed}. However,~\citeauthor{llmSurvey}
-highlight that Bert is available in serveral versions with different numbers of parameters, not all
-of which are to be considered \textit{large} language models due to their lack of emergent
-abilities~\cite[1, 3, 86]{llmSurvey}.
-
-\textbf{PaLM} is Google's later offering TODO
-
-\textbf{Gemeni} is Google's most latest offering, moving away from the architecture of Bert, but
-still utilising a transformer architecture~\cite[3]{gemeniReport}. Gemeni is trained on input data
-that is both \begin{inparaenum}
-    \item multimodal, and
-    \item multilingual
-\end{inparaenum}~\cite[5]{gemeniReport}.
-
-\subsubsection*{Meta - LLama}
-
-
-\subsubsection*{Anthropic - Claude}
-
-American proprietary
-
-\subsubsection*{Mistral AI - Mistral}
-
-French FOSS
-
-\subsubsection*{DeepSeek}
-
-Chinese  FOSS
-
-\subsubsection*{Open source demo projects}
-
-For scientific purposes, there are several implementations of demo models that demonstrate the
-training and inner workings of \acrshort{llms}.
-
-\tanke{Is this relevant?}
-
+What they all share is their ability to perform \textit{inference}, meaning that they predict output
+tokens given some input tokens (see \cref{sec:llmParrot,sec:llmHallucination}).
 
 \subsection{Existing \acrshort{llm} applications for \acrshort{ads}}
 
