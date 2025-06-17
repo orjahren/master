@@ -422,23 +422,34 @@ linguistic data.
 % Conceptual blending is a theory on both machine and human intelligence. 
 
 
-\subsubsection{Prompt engineering}
+\subsubsection{Utilising \acrshort{llms} - Prompt engineering}\label{sec:llmUtilization}
 
 
-As we saw in \cref{sec:emergentAbilities}, the level of performance you are able
-to extract from your \acrlong{llm} can depend a great deal on how you interact
-with it. A typical way of interacting with \acrshort{llms} is
-\textit{prompting}.
+A typical way of interacting with \acrshort{llms} is \textit{prompting}~\cite[44]{llmSurvey}. You
+prompt the model to solve various tasks. As we saw in \cref{sec:emergentAbilities}, the level of
+performance you are able to extract from your \acrlong{llm} can depend a great deal on how you
+interact with it. The process of manually creating a suitable prompt is called \textbf{prompt
+    engineering}~\cite[44]{llmSurvey}.~\citeauthor{llmSurvey} outline three principal prompting
+approaches:
 
-\todo{This needs more content?}
+\textbf{\acrfull{icl}} is a representative prompting method that formulates the task
+description and/or deminstrastions in natural language text~\cite[44]{llmSurvey}. It is based on
+\textit{tuning-free prompting} and it, as the name implies, never tunes the parameters of the
+\acrshort{llm}~\cite[15]{promptingSurvey}. One the one hand, this allows for efficiency, but on the
+other hand, heavy engineering is typically required to achieve high accuracy, meaning you must
+provide the \acrshort{llm} with several answered prompts~\cite[16]{promptingSurvey}. In layman's
+terms, \acrshort{icl} entails including examples of the process you want the model to perform when
+prompting it.
 
-% \citeauthor{prompting} gives an outline of 
+\textbf{Chain-of-thought prompting} can be employed to enhance in-context learning by involving a
+series of intermediate reasoning steps in prompts~\cite[44]{llmSurvey}.
 
-%Viktig å ha bra prompt for å få bra resultat.
+\textbf{Planning} is proposed for solving complex tasks, which first breaks them down into smaller
+sub-tasks and then generatews a plan of action to solve the sub-tasks one by
+one~\cite[44]{llmSurvey}.
 
-\subsubsection{\acrshort{llm} problems}\label{sec:llmProblems}
 
-Hallucination etc
+\subsubsection{Challenges with \acrshort{llms}}\label{sec:llmProblems}
 
 We have seen that \acrshort{llms} demonstrate promising abilities
 (\cref{sec:emergentAbilities} \& \cref{sec:llmIntelligence}) But they have nevertheless
