@@ -134,8 +134,8 @@ account other actors in the scene such as pedestrians or cyclists.
 
 As we have seen, \acrshort{ads} can perform several tasks, in several environments. As such, there
 are several relevant factors for testing them. It is not feasible to test all potential variations
-of all potential environments in the real world, meaning that the \textit{test coverage} typically
-will be low.
+of all potential environments in the real world, meaning that the \textit{test
+    coverage}\footnote{See \cref{sec:testCoverage}} typically will be low.
 
 Some of the factors that complicate \acrshort{ad} operations are \begin{inparaenum}
     \item timing,
@@ -246,6 +246,19 @@ simulated as the \textit{ego vehicle}~\cite{egoDefinition}.
 % \tanke{The LGSVL part can be removed - not relevant?}
 
 
+\subsection{Testing}
+
+We need to establish some basic testing concepts.
+
+\subsubsection{Test coverage}\label{sec:testCoverage}
+
+\textbf{Test coverage} refers to the what degree the entire system is being tested. The concept can
+be used to describe both hardware and software test
+coverage~\cite[187]{testCoverage94}.~\citeauthor{testCoverage94} posit that hardware-based test
+coverage is measured in terms of the number of possible faults covered, wheras software-based test
+coverage is measured in terms of the amount of structural or data-flow units that have been
+exercised~\cite[187]{testCoverage94}. A test case that exercised every single code line of the
+system would by definition have perfect test coverage.
 
 \subsection{\acrfull{llms}}
 
