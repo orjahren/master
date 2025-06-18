@@ -8,5 +8,4 @@ driving system testing](https://www.simula.no/education/masters-students/masters
 The thesis is being written at [Simula Research Laboratory](https://simula.no)
 and is scheduled for final submission 17 November 2025.
 
-TeX sources are autosynced every hour. PDFs and code will be published
-when ready.
+TeX sources are autosynced every hour. CI-generated essay PDF is [available here](https://orjahren.github.io/master/essay/main.pdf).
