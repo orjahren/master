@@ -1,0 +1,94 @@
+%% TODO: think about what style is appropriate
+%% Set the default bold math sans font to be `sbc` (sans bold condensed)
+%% https://tex.stackexchange.com/questions/27843/level-of-boldness-changeable
+\NewDocumentCommand{\mathsfbfdefault}{}{sbc}
+\SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{\mathsfbfdefault}{n}
+% \SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{\bfdefault}{\sldefault}
+
+%% Math sans slanted font
+\DeclareMathAlphabet{\mathsfit}{T1}{\sfdefault}{\mddefault}{\sldefault}
+\SetMathAlphabet{\mathsfit}{bold}{T1}{\sfdefault}{\bfdefault}{\sldefault}
+
+%% When using sans font for surrounding text, also adapt the math font
+%%  -> use Computer Modern Bright when `\mathversion{sans}` is active
+%% see https://tex.stackexchange.com/q/33165
+%%     https://mirrors.nic.cz/tex-archive/fonts/cmbright/cmbright.pdf
+\DeclareMathVersion{sans}
+\SetSymbolFont{operators}{sans}{OT1}{cmbr}{m}{n}
+\SetSymbolFont{letters}{sans}{OML}{cmbrm}{m}{it}
+\SetSymbolFont{symbols}{sans}{OMS}{cmbrs}{m}{n}
+\SetSymbolFont{largesymbols}{sans}{OMX}{iwona}{m}{n}
+\SetMathAlphabet{\mathit}{sans}{OT1}{cmbr}{m}{sl}
+\SetMathAlphabet{\mathsf}{sans}{OT1}{lmss}{m}{n} % still use `lmodern` for `\mathsf`
+\SetMathAlphabet{\mathbf}{sans}{OT1}{cmbr}{bx}{n}
+\SetMathAlphabet{\mathtt}{sans}{OT1}{cmtl}{m}{n}
+
+%% TODO: bold sans math is not optimal...
+\DeclareMathVersion{boldsans}
+\SetSymbolFont{operators}{boldsans}{OT1}{cmbr}{b}{n}
+\SetSymbolFont{letters}{boldsans}{OML}{cmbrm}{b}{it}
+\SetSymbolFont{symbols}{boldsans}{OMS}{cmbrs}{b}{n}
+\SetSymbolFont{largesymbols}{boldsans}{OMX}{iwona}{bx}{n}
+\SetMathAlphabet{\mathit}{boldsans}{OT1}{cmbr}{b}{sl}
+\SetMathAlphabet{\mathsf}{boldsans}{OT1}{lmss}{\mathsfbfdefault}{n} % still use `lmodern` for `\mathsf`
+\SetMathAlphabet{\mathbf}{boldsans}{OT1}{cmbr}{bx}{n}
+\SetMathAlphabet{\mathtt}{boldsans}{OT1}{cmtl}{b}{n}
+
+%%% Automatic switching between math versions
+\newif\ifInSansMode % keep track of whether we are in sans mode
+\newif\ifInBoldMode % keep track of whether we are in sans mode
+%% automatically switch to sans math version in `\sffamily` text
+%% automatically switch to normal math version in `\rmfamily` text
+\NewCommandCopy{\sffamilyOrig}{\sffamily}
+\NewCommandCopy{\rmfamilyOrig}{\rmfamily}
+\RenewDocumentCommand{\sffamily}{}{\sffamilyOrig\InSansModetrue%
+    \ifInBoldMode\mathversion{boldsans}\else\mathversion{sans}\fi
+}
+\RenewDocumentCommand{\rmfamily}{}{\rmfamilyOrig\InSansModefalse%
+    \ifInBoldMode\mathversion{bold}\else\mathversion{normal}\fi
+}
+%% automatically switch to bold math version in `\bfseries` text
+%% automatically switch to normal math version in `\bfseries` text
+\NewCommandCopy{\bfseriesOrig}{\bfseries}
+\NewCommandCopy{\mdseriesOrig}{\mdseries}
+\RenewDocumentCommand{\bfseries}{}{\bfseriesOrig\InBoldModetrue%
+    \ifInSansMode\mathversion{boldsans}\else\mathversion{bold}\fi%
+}
+\RenewDocumentCommand{\mdseries}{}{\mdseriesOrig\InBoldModefalse%
+    \ifInSansMode\mathversion{sans}\else\mathversion{normal}\fi%
+}
+
+
+%% BUG: \mathbf{} is weird, use \bm with \mathrm
+\NewDocumentCommand{\bmrm}{m}{\bm{\mathrm{#1}}}
+
+%% Sans Greek Letters
+\DeclareSymbolFont{sfletters}{OML}{cmbrm}{m}{it}
+\DeclareSymbolFont{sflettersbold}{OML}{cmbrm}{b}{it}
+\DeclareMathSymbol{\sbGamma}{\mathalpha}{sflettersbold}{0}
+
+%% Alternative caligraphic math font `mathpazo`
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+%% Load doublebrackets symbols
+%% (need to declare `pdfglyphtounicode` translations to satisfy PDF/A -> done in `pdfA-compliance.tex`)
+\DeclareSymbolFont{stmry}{U}{stmry}{m}{n}
+\DeclareMathDelimiter{\dblbracketleft}{\mathopen}{stmry}{"4A}{stmry}{"71}
+\DeclareMathDelimiter{\dblbracketright}{\mathclose}{stmry}{"4B}{stmry}{"79}
+
+%% Shorter minus sign - https://tex.stackexchange.com/a/469724
+\DeclareMathSymbol{\shortminus}{\mathbin}{AMSa}{"39}
+\NewDocumentCommand{\shortminusone}{}{\mspace{-1.1mu}\scalemath{1.2}[1]{\shortminus}\mspace{-1.4mu} 1}
+
+
+%% HACK: Reduce verbosity of "No alphabet change ..." messages
+%% https://tex.stackexchange.com/a/663843
+\makeatletter
+\let\old@font@info\@font@info
+\def\@font@info#1{%
+    \expandafter\ifx\csname\detokenize{#1}\endcsname\relax
+        \old@font@info{#1}%
+    \fi
+    \expandafter\xdef\csname\detokenize{#1}\endcsname{}%
+}
+\makeatother

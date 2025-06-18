@@ -1,0 +1,35 @@
+\chapter{Example of Appendix Chapter} \label{appendix:example}
+
+\begin{example}[Figure Caption Tweaking]
+    Now we will show off some figures with tweaked position/extent of the captions.
+    \Cref{fig:parallel-plate-capacitor} has a side-caption, while \Cref{fig:tighter_caption} has a caption that spans just the width of the figure.
+    This utilizes the \package{floatrow} package and is inspired by ITT \LaTeX{} template \autocite{ITTtemplate}.
+\end{example}
+
+
+
+\section{Appendix Section}%
+\label{sec:Appendix Section}
+
+Note the numbering of various environments in the appendix.
+
+\begin{definition}[Math in the Description --- \(\sin(\alpha)\approx\alpha\)]
+    This is an example definition in an Appendix.
+    Note the automatic switch to the alternative sans math font in the Definition description.
+\end{definition}
+
+\begin{remark}
+    The page header reflects that this is an appendix page.
+\end{remark}
+
+\begin{example}[Equation Numbering and Referencing]
+    As was mentioned already in \Cref{sec:Document Structure}, equations share numbering with \emph{structure environments}. For example, the equation
+    \begin{equation} \label{eq:appendix_equation}
+        \phi^{*}\bm{g}' \overset{!}{=} \Omega^{2}\bm{g} \equiv \E*^{2\omega}\bm{g}
+    \end{equation}
+    is numbered as \eqref{eq:appendix_equation} in the appendix.
+
+    We can reference this equation using \custommacro{\Cref} as \Cref{eq:appendix_equation}.
+    Starred variant \custommacro{\Cref*} results in \Cref*{eq:appendix_equation}.
+    If you desire less verbose output, you can use \macro{\eqref}, which gives \eqref{eq:appendix_equation}.
+\end{example}

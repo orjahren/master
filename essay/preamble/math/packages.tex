@@ -1,0 +1,53 @@
+%% Math/Physics packages
+\usepackage{amsmath}    % extensions for typesetting of math
+\usepackage{mathtools}  % advanced math typesetting
+\usepackage{scalerel}   % scaling of math symbols (\ThisStyle, \SavedStyle, ...)
+% \usepackage{esint}      % various fancy integral symbols
+% \usepackage{arydshln}   % dashlines
+
+%% Math fonts & symbols
+\usepackage{amsfonts}   % math fonts
+\usepackage{amssymb}    % math fonts
+\usepackage{bm}         % boldface math via `\bm`
+
+
+\usepackage{mathfixs}   % fix some odd behaviour in math mode, add math macros
+% \ProvideMathFix{autobold} % TeXtured contains automatic swith to bold and sans math
+\ProvideMathFix{greekcaps=it}
+\ProvideMathFix{frac,rfrac,vfrac,vfracskippre=4mu}
+% \ProvideMathFix{der,diff}
+
+%% Tiny space in math mode
+%% As of now the `mathfixs` implementation doesn't work in section titles
+% \ProvideMathFix{multskip=1mu} % tiny space `\.` in math mode
+\NewCommandCopy{\dotaccent}{\.}
+\RenewDocumentCommand{\.}{}{\TextOrMath{\dotaccent}{\mspace{1mu}}}
+\NewCommandCopy{\acuteaccent}{\'}
+\RenewDocumentCommand{\'}{}{\TextOrMath{\acuteaccent}{\mspace{-1mu}}}
+
+%% TODO: try out `delimset`, `eqnlines`, maybe `metastr`
+
+%% Some notation used in physics
+\usepackage[italicdiff]{physics}
+
+% \usepackage{tensor}     % tensor indices
+\usepackage{tensind}    % tensor indices
+\tensordelimiter{@}
+\tensorformat{c}
+\NewDocumentCommand{\tens}{o m m}{
+    \IfValueTF{#1}{@[#1]{#2}#3@}{@{#2}#3@}
+}
+
+%% Numbers/Units
+\usepackage{siunitx}
+%% TODO: customize font style propagation
+\sisetup{
+    range-phrase = {--},            % en-dash as number range separator
+    range-units = single,           % print unit only once at the end
+    exponent-product = {\cdot},     % default is `\times`
+    per-mode = symbol,              % use `/` for per
+    uncertainty-mode = separate,    % use `±` for uncertainties
+    % table-align-uncertainty = false,
+    % table-alignment-mode = format,
+    % table-number-alignment = center,
+}

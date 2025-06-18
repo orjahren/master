@@ -1,0 +1,33 @@
+%%% Typesetting, figures, tables, etc.
+
+\ifpdftex % only for pdfLaTeX
+    \usepackage[T1]{fontenc} % better support for accented characters
+\fi
+\usepackage{lmodern}  % Latin Modern fonts
+\usepackage{romanbar} % Roman numerals with bars, provides `\Romanbar{...}`
+
+%% slightly more breathing space between lines
+\linespread{1.05}\selectfont
+
+%% Commands for accessing extra Latin Modern fonts
+%%     - `sbc` - sans bold condensed
+%%     - `sfe` - sans serif extended (font family `lmssq` for "Latin Modern Sans Serif Quotation")
+%% https://www.tug.org/pracjourn/2006-1/robertson/robertson.pdf
+\NewDocumentCommand{\sbcseries}{}{\sffamily\fontseries{sbc}\selectfont}
+\NewDocumentCommand{\sfefamily}{}{\fontfamily{lmssq}\selectfont}
+\DeclareTextFontCommand{\textsbc}{\sbcseries}
+\DeclareTextFontCommand{\textsfe}{\sfefamily}
+
+%% use slanted shape for emphasis `\emph{...}`, and for nested emphasis use italics
+\DeclareEmphSequence{\slshape,\itshape}
+
+\usepackage{microtype}           % improve typography
+\DisableLigatures[-]{family=tt*} % disable ligatures in typewriter font
+\usepackage{parskip}             % no paragraph indentation
+\usepackage{csquotes}            % context-sensitive quotation facilities
+
+%% Enumerate/itemize environments
+\usepackage[alwaysadjust,neverdecrease]{paralist}   % improved enumerate and itemize
+\setdefaultleftmargin{1.87em}{1.7em}{1.5em}{1em}{1em}{1em}
+\setdefaultitem{$\bullet$}{\textbullet}{\textasteriskcentered}{\textperiodcentered}
+\setdefaultenum{\bfseries (1)}{\bfseries (a)}{\bfseries (i)}{A.}

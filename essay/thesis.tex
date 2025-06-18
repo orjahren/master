@@ -12,10 +12,6 @@
 \documentclass[12pt,a4paper]{report}                      % single-side (electronic)
 % \documentclass[12pt,a4paper,openright,twoside]{report}  % two-sided (for printing)
 
-% \documentclass[draft, a4paper, english]{article}
-%\documentclass[a4paper, english]{article}
-
-
 %% Set some toggle flags to control some of the document properties
 \input{preamble/toggles}
 % \FANCYfalse % disable some of the more fancy stylistic choices
@@ -45,33 +41,6 @@
     % chapters/Appendix,
 }
 
- \usepackage{glossaries}
- \setglossarystyle{altlist}
-
-\newcommand{\hefe}{\textsc{Hefe}}
-
-\setdefaultenum{(1)}{(a)}{i.}{A.}
-\interfootnotelinepenalty=10000 % https://tex.stackexchange.com/questions/32208/footnote-runs-onto-second-page
-
-\addbibresource{refs.bib}
-
-% \makeglossaries
-\newacronym{llm}{LLM}{Large Language Model}
-\newacronym{llms}{LLMs}{Large Language Models}
-\newacronym{ads}{ADSs}{Autonomous driving systems} 
-\newacronym{ad}{ADS}{Autonomous driving system} 
-\newacronym{jit}{JIT}{Just-In-Time} 
-\newacronym{ml}{ML}{Machine learning} 
-\newacronym{dl}{DL}{Deep learning} 
-\newacronym{api}{API}{Application programming interface} 
-\newacronym{apis}{APIs}{Application programming interfaces} 
-\newacronym{csv}{CSV}{Comma separeted values} 
-\newacronym{gui}{GUI}{Graphical user interface} 
-\newacronym{cv}{CV}{Computer Vision} 
-\newacronym{dsc}{DSC}{Driving situation complexity}
-\newacronym{icl}{ICL}{In-context learning}
-\newacronym{cot}{CoT}{Chain-of-Thought}
-
 \begin{document}
 
 \frontmatter
@@ -80,19 +49,23 @@
 % \include{frontmatter/dedication}
 % \include{frontmatter/information}
 
-\include{chapters/introduction}
-
 \contentsandlists
 
+\include{chapters/Introduction}
+\include{chapters/QuickSummary}
+\include{chapters/Notation}
+
 \mainmatter
-
-\chapter{Essay}
-
-\input{chapters/background}
-\input{chapters/related-work}
-\input{chapters/proposal}
+\include{chapters/Design}
+\include{chapters/Usage}
+\include{chapters/Features}
+\include{chapters/Tips}
 
 \backmatter
+\include{chapters/Summary}
+
+\appendix
+\include{chapters/Appendix}
 
 \references
 

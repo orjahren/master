@@ -1,0 +1,517 @@
+\chapter{Features of \TeXtured{}} \label{ch:Features}
+
+In the following sections, we will describe the features of \TeXtured{} template, implemented by utilizing various \LaTeX{} packages and custom macros.
+
+\begin{remark}[Packages and Macros]
+    We will refer to various \LaTeX{} packages and macros using the following styles:
+    \begin{itemize}
+        \item \package{package} --- a package (together with a link to its \textsf{CTAN} page),
+        \item \macro{\macro} --- a command/macro, either built-in or provided by a package,
+        \item \custommacro{\custommacro} --- a custom macro defined in the \TeXtured{} template. \qedhere*
+    \end{itemize}
+\end{remark}
+
+\section{Code Organization}%
+\label{sec:Code Organization}
+
+To avoid large and hard to navigate preamble files, the code is organized into multiple directories/files in the \path{preamble/} directory, each focusing on a particular function/feature, see \Cref{fig:preamble-file-structure}.
+\begin{figure}[!ht]
+    \fcapside[\FBwidth]{%
+        \captionsetup{parskip = .5\baselineskip plus 1pt}%
+        \caption[Structure of Preamble Directory]{%
+            Structure of the \path{preamble/} directory.
+
+            It is critical that the \path{preamble/pdfA-compliance/glyphtounicode.tex} file ensuring the PDF/A compliance is sourced before \fakemacro{\documentclass}.
+
+            The \path{preamble/toggles.tex} files defines various toggles, which should be appropriately set right after.
+            Finally, the rest of \grayenclose{preamble} files are then loaded through the \path{preamble/main.tex} file.
+
+            When possible, add your own tweaks and macros to the \path{preamble/user/} directory reserved for this purpose.
+            This way, you can easily update to newer versions of \TeXtured{} (hopefully) without conflicts.
+        }%
+        \label{fig:preamble-file-structure}%
+    }{%
+        \begin{tikzpicture}[dirtree]
+            \node[directory] {preamble/}
+            child { node {bibliography.bib}}
+            child { node {data.tex}}
+            child { node {toggles.tex}}
+            child { node {main.tex}}
+            child { node[directory] {debug/...}
+                % child { node {commands.tex}}
+                % child { node {line-numbers.tex}}
+            }
+            % child [missing] {} child [missing] {}
+            child { node[directory] {environments/...}
+                % child { node {init.tex}}
+                % child { node {remark-like.tex}}
+                % child { node {theorem-like.tex}}
+                % child { node {todo-like.tex}}
+            }
+            % child [missing] {} child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {general/...}
+                % child { node {colors.tex}}
+                % child { node {floats.tex}}
+                % child { node {hyperref.tex}}
+                % child { node {typesetting.tex}}
+            }
+            % child [missing] {} child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {hacks/...}
+                % child { node {custom-reference-boxes.tex}}
+                % child { node {fix-qed.tex}}
+                % child { node {floatrow-parskip.tex}}
+            }
+            % child [missing] {} child [missing] {}
+            child { node[directory] {layout/...}
+                % child { node {geometry.tex}}
+                % child { node {headers.tex}}
+                % child { node {numbering.tex}}
+                % child { node {titles.tex}}
+                % child { node {toc.tex}}
+            }
+            % child [missing] {} child [missing] {} child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {math/...}
+                % child { node {fonts.tex}}
+                % child { node {macros.tex}}
+                % child { node {packages.tex}}
+                % child { node {spacing.tex}}
+            }
+            % child [missing] {} child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {misc/...}
+                % child { node {inkscape.tex}}
+                % child { node {macros.tex}}
+                % child { node {tikz.tex}}
+            }
+            % child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {pdfA-compliance/...}
+                % child { node {glyphtounicode.tex}}
+                % child { node[directory] {LaTeX-find-glyph-name/}
+                %     child { node {LaTeX-find-glyph-name.tex}}
+                % }
+            }
+            % child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {references/...}
+                % child { node {backref.tex}}
+                % child { node {biblatex-extra-fields.dbx}}
+                % child { node {biblatex.tex}}
+                % child { node {cite.tex}}
+                % child { node {doi-eprint-url.tex}}
+                % child { node {fields.tex}}
+                % child { node {style.tex}}
+            }
+            % child [missing] {} child [missing] {} child [missing] {} child [missing] {} child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {user/...}
+                % child { node {macros.tex}}
+                % child { node {math.tex}}
+            }
+            % child [missing] {} child [missing] {}
+            ;
+        \end{tikzpicture}%
+    }
+\end{figure}
+
+\begin{remark}[Pointers to Directories/Files]
+    If you want to tweak some aspect of the template --- or learn how a given feature is implemented --- pointers to the relevant directories/files are provided next to the subsequent section/subsection titles to help you navigate the code.
+\end{remark}
+
+\begin{remark}[Custom User Macros]
+    Store your own macros in the \path{preamble/user/} directory, which is reserved precisely for this purpose.
+    Then, if you would like to update to a newer version of \TeXtured{}, you will be having easier time --- less mixing of your code with the template code will result in fewer conflicts you must resolve manually.
+\end{remark}
+
+\begin{remark}[Auxiliary Files]
+    To avoid cluttering the directories with \emph{auxiliary files} generated during the compilation, it is recommended to use the \macro{aux_dir} setting in the \path{.latexmkrc} file (enabled by default, the \macro{aux_dir} being \path{.aux/}).
+    All auxiliary files are then stored in a separate directory, leaving the rest tidy.
+\end{remark}
+
+\begin{remark}[Suggestion: One Sentence Per Line]
+    It is a good practice to follow \enquote{one sentence per line} rule (or something similar), since it improves diffs for versioning systems like \texttt{git}.
+    Tools like \texttt{latexindent} can help.
+    \begin{Note}
+        My config for \texttt{latexindent} mostly works, but some corner cases can surface.
+        Will share someday.
+    \end{Note}
+    If multiple sentences are on the same line, changing just one word results in the whole line being marked as changed, making it harder to see how much the text was actually changed in a given commit.
+\end{remark}
+
+
+
+\section{Page Layout and Style}%
+\label{sec:Page Layout}
+\dirTeXtured{preamble/layout/}
+
+We will first describe the page layout and style, which includes page dimensions, headers and footers, page numbering, and heading style.
+
+\subsection{Page Dimensions, Printing Layout}%
+\label{sub:Page Dimensions}
+\fileTeXtured{preamble/layout/geometry.tex}
+
+Using \package{geometry} package --- set up the page layout (supported single/double-sided printing).
+Apply \macro{\flushbottom} --- try to make text body on all pages have the same height.
+
+\subsection{Page Headers and Footers}%
+\label{sub:Headers Footers}
+\fileTeXtured{preamble/layout/headers.tex}
+
+Using \package{fancyhdr} package --- page headers and footers --- consistent style also for initial page of a chapter (not totally different style with numbering in the bottom center \ldots).
+
+\subsection{Page Numbering}%
+\label{sub:Page Numbering}
+\fileTeXtured{preamble/layout/numbering.tex}
+
+Placing custom \custommacro{\frontmatter}, \custommacro{\mainmatter}, and \custommacro{\backmatter} macros at appropriate places in \path{thesis.tex}, \emph{roman numbering} is set up for \emph{front matter}, that is until the start of first numbered chapter, and then \emph{arabic numbering} for the rest of the document.
+
+
+\subsection{Heading Style}%
+\label{sub:Heading Style}
+\fileTeXtured{preamble/layout/titles.tex}
+
+Pretty chapter heading style --- big calligraphic number/letter behind the title.
+
+
+\section{Sane Typographical Defaults}%
+\label{sec:Sane Typographical Defaults}
+\dirTeXtured{preamble/general/}
+
+Now we will concern ourselves with more intricate and detailed typography, more at level of paragraphs, sentences, words, and even letters.
+
+\subsection{Paragraphs}%
+\label{sub:Paragraphs}
+\fileTeXtured{preamble/general/typesetting.tex}
+
+No paragraph indentation, proper space between paragraphs --- \package{parskip}.
+
+\subsection{Floats, Captions}%
+\label{sub:Floats_Captions}
+\fileTeXtured{preamble/general/floats.tex}
+
+Caption styling includes a slight hang, \macro{\footnotesize} font, and a bold sans label.
+See \Cref{appendix:example} for a showcase of the different caption types.
+
+
+\subsection{Font and Related Stuff}%
+\label{sub:Font}
+\fileTeXtured{preamble/general/typesetting.tex}
+
+The default choice are \emph{Latin Modern} fonts --- a classic really.
+Various families and shapes are typically used for different purposes:
+\begin{itemize}
+    \item \emph{Serif} family for the main text
+    \item \emph{Slanted} shape for emphasis using \macro{\emph} macro (instead of the default \emph{Italic} shape, which is reserved mainly for math formulas)
+          \begin{remark}[Nested Emphasis]
+              Nested emphasis is displayed in \emph{Italic} shape.
+              It is rather rare to nest an \emph{additional \emph{emphasis} inside an emphasis}.
+          \end{remark}
+    \item \emph{(Bold) Sans} family for headings and other structural elements
+    \item \emph{Typewriter} family for computer code and similar stuff
+\end{itemize}
+\vspace{1ex}
+
+\begin{example}
+    Quick showcase of some font families and shapes:\par \leftskip=1em
+
+    {                  This is Latin Modern Serif \(\alpha = 2^{2}\)}\\
+    {\slshape          This is Latin Modern Serif Oblique \(\alpha = 2^{2}\)}\\
+    {\bfseries         This is Latin Modern Serif Bold \(\alpha = 2^{\bm{{2}}}\)}\\
+    {\bfseries\slshape This is Latin Modern Serif Bold Oblique \(\alpha = 2^{2}\)}
+
+    {\sffamily                  This is Latin Modern Sans \(\alpha = 2^{2}\)}\\
+    {\sffamily\slshape          This is Latin Modern Sans Oblique \(\alpha = 2^{2}\)}\\
+    {\sffamily\bfseries         This is Latin Modern Sans Bold \(\alpha = 2^{2}\)}\\
+    {\sffamily\bfseries\slshape This is Latin Modern Sans Bold Oblique \(\alpha = 2^{2}\)}
+\end{example}
+\begin{Note}
+    Sans math font has problems with showing properly all bold symbols (sub/superscripts don't work automatically).
+\end{Note}
+
+For consistent quotation use \macro{\enquote} macro provided by \package{csquotes}.
+
+\subsection{\texorpdfstring{Micro-\!Typography}{Micro-Typography}}%
+\label{sub:Micro-Typography}
+\fileTeXtured{preamble/general/typesetting.tex}
+
+Enable micro-typographic extensions with package \package{microtype}, most prominently character protrusion and font expansion.
+
+Following quote from \package{microtype} documentation nicely explains what it is about:
+\begin{displayquote}
+    Micro-typography is the art of enhancing the appearance and readability of a
+    document while exhibiting a minimum degree of visual obtrusion.
+    It is concerned with what happens between or at the margins of characters, words or lines.
+    Whereas the macro-typographical aspects of a document (i.e., its layout) are clearly visible even to the untrained eye, micro-typographical refinements should ideally not even be recognizable.
+    That is, you may think that a document looks beautiful, but you might not be able to tell exactly why: good micro-typographic practice tries to reduce all potential irritations that might disturb a reader.
+\end{displayquote}
+
+
+\section{Document Structure}%
+\label{sec:Document Structure}
+
+It is important to have a clear and consistent structure of the document.
+This can be achieved by using various environments for different types of content, and by providing clear and informative titles for each part of the document, thus making it easier to navigate and understand.
+
+\subsection{Structure Environments}%
+\label{sub:Structure Environments}
+\fileTeXtured{preamble/environments/*.tex}
+% \fileTeXtured{preamble/environments/init.tex}
+% \fileTeXtured{preamble/environments/theorem-like.tex}
+% \fileTeXtured{preamble/environments/remark-like.tex}
+% \fileTeXtured{preamble/environments/todo-like.tex}
+
+Inspired by the structured mathematical texts, enclosing various parts of the document in corresponding environments can help making the document more structured and easier to read.
+Implemented mostly via \package{tcolorbox} package (and \package{thmtools}).
+
+\begin{remark}[Default Environments]
+    There are predefined boxed \enquote{theorem-like} environments for \textsf{Definition}, \textsf{Theorem}, \textsf{Lemma}, \textsf{Corollary}, \textsf{Proposition},
+    and non-boxed \enquote{remark-like} environments for \textsf{Remark}, \textsf{Proof}, \textsf{Example}, \textsf{Derivation}, \textsf{Calculation}, \textsf{Idea}, and \textsf{Tip} (these have at least a mark indicating the end of the environment).
+
+    Names of the corresponding environments are lowercase, for example \texttt{definition}, \texttt{remark}, and so on.
+    They also accept an optional argument for a short description.
+\end{remark}
+
+Some additional points about the \emph{structure environments}:
+\begin{itemize}
+    \item provide clear structure, enables high level of interlinking
+    \item they make the text easy to skim through, quickly get an idea, and know roughly what to expect
+    \item have shared numbering, together with tables, figures, equations --- leads to a linear increase of the reference number, making them easier to locate
+    \item not only for physics/math texts, can be generally used to highlight key ideas
+          \begin{tip}[Custom Structure Environments]
+              You can easily create additional \enquote{structure} environments, see \Cref{sec:Structure}.
+          \end{tip}
+    \item avoid using emphasis for the whole body of \enquote{theorem-like} environments, since we already have a whole box around it to make them stand out
+\end{itemize}
+\vspace{1ex}
+
+\begin{remark}
+    There are also helper environments for \textsf{Todo}-like notes.
+    By default, there are \textsf{Todo}, \textsf{Note}, \textsf{Suggestion}, and \textsf{Question} environments, but you can easily create your own.
+
+    To avoid conflicts with possible existing macros/environments, names of these environments are capitalized, for example \texttt{Todo}, \texttt{Note}, and so on.
+\end{remark}
+
+\begin{Note}
+    No \enquote{code listing} setup yet.
+    PRs welcome.
+\end{Note}
+
+\subsection{References and Links}%
+\label{sub:References Links}
+\fileTeXtured{preamble/hacks/custom-reference-boxes.tex}
+
+Custom reference/link/citation styles using \package{tcolorbox} package.
+\begin{Note}[Slight Inconvenience --- Line Breaks]
+    There is a slight inconvenience due to small flexibility around line breaks.
+    It would be nice to have a proper workaround.
+\end{Note}
+\begin{remark}[Rationale]
+    I like to have clearly distinguished references, links, and citations.
+    By default, \package{hyperref} provides frames around links, but they are not that pretty, and the PDF viewer must support them.
+    Using just colors can sometimes look better, but I still wasn't satisfied.
+
+    Sometimes it is nice to know the precise location of the reference, especially when printed, where you can't click on them.
+    % Additionally, it is sometimes good to have an idea where the links point, especially when printed, where you can't click on them.
+    Therefore, the page number is (by default) included with \custommacro{\Cref} --- use starred variant \custommacro{\Cref*} to omit it.
+\end{remark}
+\begin{remark}[Automatic Reference Type Detection]
+    Package \package{cleveref} provides \macro{\Cref} command, which automatically detects the type of reference, and formats it accordingly.
+    This behavior is adapted in \TeXtured{} with the macro of the same name \custommacro{\Cref}.
+\end{remark}
+
+\subsection{Table of Contents and Outline/Index}%
+\label{sub:Table of Contents and Index}
+\fileTeXtured{preamble/layout/toc.tex}
+
+Clear and elegant Table of Contents, which includes all of the important parts --- also (unnumbered) subsections, but in a more compact style.
+
+Similarly, automatically populate the PDF Outline/Index (digital Table of Contents in PDF viewer).
+It is very handy for navigating longer documents, and includes also other important pages other than just initial pages of main chapters: Title Page, Contents, Introduction, References, and so on.
+\begin{remark}
+    I use \texttt{Zathura} as my PDF viewer, with the Outline/Index just one \macro{Tab} away, allowing me to quickly jump to the desired part of the document.
+\end{remark}
+
+\begin{remark}[List of Figures, Tables, \ldots{}]
+    If you want/need to include a List of Figures, List of Tables, and so on, you can easily do so by uncommenting the relevant lines in the \custommacro{\contentsandlists} macro.
+\end{remark}
+
+
+\section{Bibliography/References}%
+\label{sec:Bibliography/References}
+\dirTeXtured{preamble/references/}
+
+Pretty and functional Bibliography/References, via \package{biblatex} package.
+
+\subsection{Bibliography Style}%
+\label{sub:Bibliography Style}
+\fileTeXtured{preamble/references/*.tex}
+% \fileTeXtured{preamble/references/biblatex.tex}
+% \fileTeXtured{preamble/references/style.tex}
+% \fileTeXtured{preamble/references/fields.tex}
+
+Entries in \Nref{ch:References} have a clean consistent style, which builds on the \macro{ext-numeric-verb} style from \package{biblatex-ext} package.
+
+\begin{tip}[Bibliography Data]
+    Make sure to gather all the relevant data you need for every reference.
+    If you later decide you want to reduce the amount of presented information, \package{biblatex} can help you with that.
+    For example, it is possible to automatically
+    \begin{itemize}
+        \item remove \macro{url} field if \macro{doi} field is present,
+        \item ignore unwanted fields (\macro{pages}, \macro{number}, \macro{volume}, \macro{series}, \macro{location}, \ldots). \qedhere*
+    \end{itemize}
+\end{tip}
+
+\subsection{Extra Fields}%
+\label{sub:Extra Fields}
+\fileTeXtured{preamble/references/biblatex-extra-fields.dbx}
+
+Support extra \custommacro{github} field.
+
+\subsection{Custom External Links}%
+\label{sub:Custom External Links}
+\fileTeXtured{preamble/references/doi-eprint-url.tex}
+
+Have the external \textsf{DOI/arXiv/URL/GitHub} links displayed in custom boxes, and place them on the new line.
+
+\subsection{Backreferences}%
+\label{sub:Backreferences}
+\fileTeXtured{preamble/references/backref.tex}
+
+Include \emph{backreferences}, which point from the bibliography to the pages where the reference was cited.
+
+\subsection{Citation Style}%
+\label{sub:Citation Style}
+\fileTeXtured{preamble/references/cite.tex}
+
+Include \texttt{[} and \texttt{]} characters around citation number inside the link (and wrap in \package{tcolorbox} \ldots), for example \autocite{TeXtured}.
+
+
+\section{PDF/A Compliance}%
+\label{sec:PDF/A Compliance}
+\dirTeXtured{preamble/pdfA-compliance/}
+
+Proper metadata setup (via \package{hyperref} and \macro{\DocumentMetadata}).
+\begin{remark}[Document Data]
+    Various data about the work should be entered in \path{preamble/data.tex} file.
+    When the relevant entries contain \LaTeX{} commands (for example to obtain specific formatting of the title), it is necessary to provide \enquote{plaintext} variations, so that \package{hyperref} can properly set up PDF metadata.
+\end{remark}
+
+Next we will describe various common violations of PDF/A standard, and how to fix them.
+
+\subsection{Glyph to Unicode Map}%
+\label{sub:Glyph to Unicode Map}
+\fileTeXtured{.../pdfA-compliance/glyphtounicode.tex}
+% \fileTeXtured[0ex]{preamble/pdfA-compliance/glyphtounicode.tex}
+
+To obtain PDF/A compliant PDF, we need to have Unicode mapping for all glyphs used in the document.
+It can happen --- mainly when using fonts providing extra mathematical symbols --- that certain glyphs are not covered by mappings loaded in \path{preamble/pdfA-compliance/glyphtounicode.tex}.
+
+In the \path{preamble/pdfA-compliance/glyphtounicode.tex} file you can also find an example \textsf{veraPDF} output for a PDF with a problematic glyph.
+It also points to a guide located in \path{preamble/pdfA-compliance/LaTeX-find-glyph-name/} directory, which explains how to find out the glyph name, and how to provide the \emph{glyph to Unicode} mapping with \macro{\pdfglyphtounicode} command.
+
+
+\subsection{PDF \texorpdfstring{\fakemacro{/Interpolation}}{/Interpolation} Key}%
+\label{sub:PDF Interpolation Key}
+
+Some PDFs can have enabled the \macro{/Interpolation} key, for example \texttt{Inkscape} generated PDFs with blur parts.
+However, PDF/A requires it to be disabled.
+
+This is automatically fixed by \path{figures/Inkscape/inkscape-export-to-latex} shell script.
+
+
+\section{Miscellaneous}%
+\label{sec:Miscellaneous}
+
+\subsection{Math-Related Tweaks --- \texorpdfstring{\rmfamily\(\E^{\I\pi}\)}{exp(iπ)}}%
+\label{sub:Math Macros}
+\fileTeXtured{preamble/math/}
+
+Some of the math-related tweaks:
+\begin{itemize}
+    \item Use \macro{\boldmath} automatically for \macro{\textbf} text (useful mainly in headings).
+    \item Possible to use sans italic font for math via \custommacro{\mathsfit}.
+    \item Better extendable arrows with \package{TikZ}.
+    \item \emph{(Optional, disabled by default)} Automatically change usage of \macro{\textcolor} to \macro{\mathcolor} in math mode, so that we get proper math spacing, for example
+          \[ a \mathcolor{gray}{\times} b \text{ (right spacing)} \qquad\text{versus}\qquad a \textcolor{gray}{\times} b \text{ (wrong spacing)}\eqend \]
+          However, it is recommended to explicitly use \macro{\mathcolor} when appropriate, since it leads to easier maintenance of the code (copy-pasting to other projects will work without problems).
+\end{itemize}
+
+\vspace{1ex}
+Following practice is highly recommended.
+\begin{tip}[Define Your Own Math Macros]
+    Frequently define macros for notation used more than once. Advantages are for example:
+    \begin{itemize}
+        \item Code is easier to read/write, since it is more \enquote{semantic}.
+        \item To tweak notation, you only need to change it in one place.
+        \item Easier to find all occurrences of a certain notion. \qedhere
+    \end{itemize}
+\end{tip}
+
+\subsection{GitHub Actions}%
+\label{sub:GitHub Actions}
+\fileTeXtured{.github/workflows/}
+
+Describe implemented \textsf{GitHub Actions}:
+\begin{itemize}
+    \item Automatic \texttt{latexmk} build of the latest PDF version.
+    \item PDF/A verification via \textsf{veraPDF}.
+    \item Deploy to \texttt{gh-pages} branch.
+          One can furthermore enable (in repo settings) \textsf{GitHub Pages} for \texttt{gh-pages} branch, which will automatically upload latest PDF to \texttt{https://username.github.io/reponame/thesis.pdf}.
+          This enables convenient sharing of your (even continuously evolving) work without needing to commit the PDF (resulting in large repository size) or compiling the PDF on the receiving side.
+          \begin{remark}[Private Repositories]
+              Even for private repositories such link is publicly accessible.
+              This is why \textsf{GitHub Pages} setup is not done automatically for you.
+              If you want to share the work more \enquote{privately}, there are other solutions, for example \textsf{GitHub Action} which uploads PDF to \textsf{Google Drive}, and sharing via a private link.
+              Also look at \Cref{sub:Censoring}.
+          \end{remark}
+\end{itemize}
+
+\subsection{Censoring}%
+\label{sub:Censoring}
+\fileTeXtured{preamble/debug/censor.tex}
+
+Censoring/redaction using \package{censor} package.
+Use \macro{\censor} or \macro{\censorbox}.
+For example, censor the following sentence: \censor{\TeXtured{} is an amazing template!}.
+
+\subsection{\texorpdfstring{\texttt{Inkscape}}{Inkscape} Integration}%
+\label{sub:Inkscape Integration}
+\fileTeXtured{preamble/misc/inkscape.tex}
+
+\begin{itemize}
+    \item automatic export after changing the \texttt{svg} (need to enable \macro{--shell-escape} for \hologo{pdfTeX} or \hologo{LuaTeX}, done via \path{.latexmkrc})
+    \item watermark via \texttt{ps} injection
+          \begin{remark}[Watermark String]
+              Edit the watermark text in the shell script \path{figures/Inkscape/inkscape-export-to-latex} to your liking.
+          \end{remark}
+          \begin{Todo}
+              Make it easier to change the watermark text.
+              Or extract it somehow automatically from the PDF document?
+          \end{Todo}
+    \item automatic fix of \macro{/Interpolation} key problem
+\end{itemize}
+
+
+\section{Non-Features}%
+\label{sec:Non-Features}
+
+These features were deemed unnecessary, or even counterproductive, and thus were not implemented/not customized.
+This does not mean that it is hard or not compatible to use them with \TeXtured{}.
+
+\subsection{Footnotes}%
+\label{sub:Footnotes}
+
+\begin{itemize}
+    \item they break the flow of reading, can be distracting
+    \item either it is important and you want it there --- no need to use footnotes,
+          or it is not so important (maybe just a reminder/remark), but then there
+          are in my opinion better ways to handle such situation
+          \begin{itemize}
+              \item grayed out/smaller text, sidenotes are better alternative, if the page layout enables them
+              \item it is not bad to remind reader of something in the main text\ldots
+          \end{itemize}
+\end{itemize}
+
+\subsection{Index, Glossary}%
+\label{sub:Index Glossary}
+
+\begin{itemize}
+    \item since the text is primarily intended for electronic use, finding usage of certain terms is easy
+    \item text should be ideally structured in such a way, that finding definitions of important terms is straightforward --- interlinking/referencing in proper places to indicate where the notion to be used was defined/discussed
+\end{itemize}

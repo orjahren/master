@@ -1,0 +1,70 @@
+%% Chapter without number, but included in header and TOC
+\NewDocumentCommand{\chapternotnumbered}{m}{
+    \chapter*{#1}
+    \markboth{#1}{#1}                   % use chapter title in header
+    \addcontentsline{toc}{chapter}{#1}  % include chapter in TOC
+}
+
+%%% Chapter and section formatting
+%% `clearempty` option removes page numbers from empty pages when using `\cleardoublepage`
+\usepackage[newparttoc, clearempty]{titlesec}
+
+%% NOTE: also include `\phantomsection` so that hyperlink anchors are properly placed 
+%%                                                     (even non-numbered subsections)
+\titleformat{\section}   {\phantomsection\Large\sffamily\bfseries}{\thesection}   {0.8em}{}
+\titleformat{\subsection}{\phantomsection\large\sffamily\bfseries}{\thesubsection}{0.8em}{}
+\titleformat{\paragraph}[runin]{\phantomsection\normalsize\sffamily\bfseries}{\theparagraph}{0em}{}
+
+%% Part title (page) formatting
+\titleformat{\part}[display]
+{\thispagestyle{empty}\sffamily}
+{\LARGE Part \Romanbar{\thepart}}
+{0.2em}{\fontsize{30pt}{36pt}\selectfont\bfseries}
+
+%%% Chapter title formatting
+%% No extra space above and below chapter headings, big number/letter behind chapter title
+%% inspired by https://tex.stackexchange.com/a/690632
+\NewDocumentCommand{\chaphead}{m O{}}{
+    \vspace*{-25pt}% reduce vertical space before the title
+    {\setlength{\parindent}{0pt}\raggedright
+        \Huge\sffamily\bfseries
+        \ifFANCY%
+            \chapterheadingletter{#2}% fancy Chapter number/letter
+        \else%
+            \IfBlankF{#2}{\thechapter\hspace{0.7em}}% just basic Chapter number
+        \fi%
+        #1\par\nobreak% Chapter title
+        \vspace{20pt}% extra vertical space after the title
+    }
+}
+%% -> modifying /usr/share/texmf-dist/tex/latex/base/report.cls
+\makeatletter
+\def\@makechapterhead#1{\chaphead{#1}[\thechapter]} % For numbered Chapters use their number
+\def\@makeschapterhead#1{
+    \ifFANCY
+        \chaphead{#1}[\extract{#1}{1}] % extract first letter of the current chapter title
+    \else
+        \chaphead{#1} % just Chapter title
+    \fi
+}
+\makeatother
+
+%% Chapter number/letter formatting
+\NewDocumentCommand{\chapterheadingletter}{m}{%
+    \makebox[0pt][l]{%              Make box of zero width, don't move other stuff horizontally
+        \raisebox{-16pt}[0pt][0pt]{% Align the number vertically, don't move other stuff vertically
+            \hspace{6pt} \color{ChapterNumberColor}% Horizontal whitespace, text color
+            \usefont{T1}{qzc}{m}{it}\fontsize{95pt}{95pt}\selectfont% Font type and size (TeX Gyre Chorus)
+            #1 % Chapter heading letter
+        }%
+    }%
+}
+%% Macro to extract first `#2` characters from `#1`
+%% https://tex.stackexchange.com/questions/402835/extract-first-character-of-string-stored-in-macro-using-expl3
+%% TODO: latex treesitter grammar support ExplSyntaxOn/Off, command names containting also `_:`
+\ExplSyntaxOn
+\cs_generate_variant:Nn \tl_item:nn { f }
+\DeclareExpandableDocumentCommand{\extract}{mm}{
+    \tl_item:fn { #1 } { #2 }
+}
+\ExplSyntaxOff

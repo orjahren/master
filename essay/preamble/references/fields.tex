@@ -1,0 +1,46 @@
+%%% Modification of fields in References/Bibliography
+
+%% if DOI is present, remove URL
+%% ignore certain fields completely
+%% set year to current year if title is TODO
+\DeclareSourcemap{
+    \maps[datatype=bibtex]{
+        \map[overwrite]{
+            \step[fieldsource=doi, final]  % if DOI is not present, terminate
+            \step[fieldset=url, null]      % (if DOI is present) remove URL
+            % \step[fieldset=eprint, null]
+        }
+        \map{
+            \step[fieldset=pages, null]
+            \step[fieldset=number, null]
+            \step[fieldset=volume, null]
+            \step[fieldset=series, null]
+            \step[fieldset=location, null]
+            \step[fieldset=address, null]
+        }
+        \map{
+            \step[fieldsource=title, match={TODO}, final] % match TODO in title
+            \step[fieldset=year, fieldvalue={\the\year}]  % set year to current year
+        }
+    }
+}
+
+%% Custom localisation strings
+\DeclareCapitalPunctuation{} % disable automatic capitalization of localisation strings
+\NewBibliographyString{arxiv, github, gitlab} % define new localisation strings
+\DefineBibliographyStrings{english}{
+    url = {\textsc{url}},
+    arxiv = {\textsc{arXiv}},
+    github = {\textsc{GitHub}},
+    gitlab = {\textsc{GitLab}},
+    in = {\footnotesize\textsc{In}},
+    % in = {},
+    editor = {editor},
+    editors = {editors},
+}
+
+%% smaller space after "in:"
+\renewcommand*{\intitlepunct}{{\footnotesize\addcolon\,}}
+% \renewcommand*{\intitlepunct}{\addcolon\space}
+
+%% TODO: PhD or Ph.D.?

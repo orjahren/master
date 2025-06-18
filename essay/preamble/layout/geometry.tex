@@ -1,0 +1,40 @@
+%%% Page dimensions
+%% single-side (electronic) -> use `\documentclass[12pt,a4paper]{report}`
+%% two-sided (for printing) -> use `\documentclass[12pt,a4paper,twoside,openright]{report}`
+\usepackage{geometry} % flexible interface for adjusting page layout/dimensions
+\makeatletter
+\if@twoside%
+    \setlength\Gm@bindingoffset{15mm} % binding offset for two-sided printing
+\fi%
+\makeatother
+\geometry{
+    width=145mm,
+    height=250mm,
+    hmarginratio=1:1,   % space ratio between left and right margins
+    vmarginratio=3:4,   % space ratio between top and bottom margins
+    includehead,        % include header in total height
+    headheight=2.5em,   % height of the header (includes space below the rule)
+    headsep=0mm,        % no extra space between header and text
+    % showframe,          % for DEBUG: helper lines for adjusting layout
+}
+\ifWIP\ifEXTRAMARGIN
+        \geometry{
+            paperwidth=260mm,   % PDF will be wider
+            paperheight=297mm,  % A4 paper height
+            layoutwidth=210mm,  % Real A4 content area
+            layoutheight=297mm,
+            layoutoffset=0mm,   % Align A4 layout to left edge
+            % showcrop,
+        }
+        \usepackage{eso-pic}
+        \AddToShipoutPicture{%
+            \begin{tikzpicture}[remember picture, overlay]
+                \draw[dashed, black!10, line width=0.3pt]
+                ([xshift=210mm]current page.south west) --
+                ([xshift=210mm]current page.north west);
+            \end{tikzpicture}
+        }
+    \fi\fi
+
+%% try to make text on all pages have the same height (default for `twoside`)
+\flushbottom

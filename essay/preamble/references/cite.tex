@@ -1,0 +1,41 @@
+%%% Wrap whole citation with braces in a `\citebox` frame, the whole being clickable link
+
+% \DeclareOuterCiteDelims{cite}{\bibopenbracket}{\bibclosebracket}
+\DeclareOuterCiteDelims{cite}{}{} % disable default outer delimiters
+
+%% modifying /usr/share/texmf-dist/tex/latex/biblatex/cbx/numeric-verb.cbx
+%% loaded subsequently in /usr/share/texmf-dist/tex/latex/biblatex-ext/ext-numeric-verb.cbx
+\renewbibmacro*{cite}{%
+    \printtext[bibhyperref]{%
+        \citebox{%    <---- wrap the whole citation with a `tcolorbox` frame
+            %% turn postnote into custom prenote
+            \iffieldundef{postnote}{}{{\normalfont\hspace{0.18em}\printfield{postnote}\hspace{0.15em}}}%
+            \lbrack%  <---- always consistently use brackets
+            \printfield{labelprefix}%
+            \printfield{labelnumber}%
+            \ifbool{bbx:subentry}{\printfield{entrysetcount}}{}%
+            \rbrack%  <---- always consistently use brackets
+        }%
+    }%
+}
+
+%% do not put commas between multiple citations when using `\cite{something,something}`
+\renewcommand*{\multicitedelim}{\space}
+% \renewcommand*{\multicitedelim}{\addsemicolon\space}
+
+%% disable default postnote
+\renewbibmacro*{postnote}{%
+    % \iffieldundef{postnote}
+    % {}
+    % {\setunit{\printdelim{postnotedelim}}%
+    %     \printfield{postnote}}
+}
+
+%%% Alternative style of multicitations
+% \renewcommand*{\multicitedelim}{\addcomma} % no space between multiple citations, just a comma
+%
+% %% wrap the citation commands in a `\citebox`
+% \NewCommandCopy{\autociteOrig}{\autocite}
+% \NewCommandCopy{\citeOrig}    {\cite}
+% \RenewDocumentCommand{\autocite}{O{} O{} m}{\citebox{\autociteOrig[#1][#2]{#3}}}
+% \RenewDocumentCommand{\cite}    {O{} O{} m}{\citebox{\citeOrig[#1][#2]{#3}}}

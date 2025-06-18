@@ -1,0 +1,19 @@
+%% Page numbering style and counters for different parts of the document
+\makeatletter
+\NewDocumentCommand{\frontmatter}{}{     % the front matter
+    \pagenumbering{roman}                %   roman page numbering
+    \gdef\thechapter{\@Alph\c@chapter}   %   uppercase roman chapter numbering
+}
+\NewDocumentCommand{\mainmatter}{}{      % the main matter
+    \cleardoublepage                     %   start on the right page
+    \pagenumbering{arabic}               %   arabic page numbering
+    \setcounter{chapter}{0}              %   reset chapter counter
+    \setcounter{section}{0}              %   reset section counter
+    \gdef\thechapter{\@arabic\c@chapter} %   arabic chapter numbering
+}
+\NewDocumentCommand{\backmatter}{}{      % the back matter (continue with arabic page numbering)
+    \bookmarksetup{startatroot}          %   reset bookmarks level (in case parts are used)
+    %% BUG: following line does not work as expected (adds space too late)
+    % \addtocontents{toc}{\vspace{2ex}}    %   add some space after last part in TOC
+}
+\makeatother

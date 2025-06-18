@@ -1,0 +1,31 @@
+%%% Mandatory information page of the thesis
+
+%% NOTE: MFF guidelines can be found at
+%% https://www.mff.cuni.cz/cs/vnitrni-zalezitosti/predpisy/opatreni-dekana/opatreni-dekana-c-27-2023
+%%     -> no special formatting is required, so it should be fine to customize it
+
+\cleardoublepage
+
+% \chapternotnumbered{Information \& Abstract}
+\phantomsection
+\addcontentsline{toc}{chapter}{Information \& Abstract}
+\markboth{Information \& Abstract}{Information \& Abstract}
+
+\subsection*{Information}
+
+\begin{tblr}{
+        colspec = {r X},
+        column{1} = {font=\small\sffamily\color{Gray40}},
+        column{2} = {font=\small},
+    }
+    Title       & \ThesisTitle                             \\
+    Author      & \ThesisAuthor                            \\
+    \DeptType{} & \Department                              \\
+    Supervisor  & \Supervisor{} --- \SupervisorsDepartment \\
+    % Abstract    & \Abstract                                \\
+    Keywords    & \Keywords                                \\
+\end{tblr}
+
+\subsection*{Abstract}
+
+\Abstract

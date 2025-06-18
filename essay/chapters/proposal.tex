@@ -18,7 +18,7 @@ the problem at hand, in light of what we know about \acrshort{llms} (\cref{sec:l
 We want to have a pipeline that is able to process several test cases in succession, in order to get
 a substansial dataset.
 
-Let the pipeline tool be known as \hefe\info{This name is naturally just a placeholder.}.
+Let the pipeline tool be known as \hefe%\info{This name is naturally just a placeholder.}.
 The tool follows a natural pipeline structure. We have some base test cases that
 need to be ran in order to get a baseline for the results, we then have to
 improve these, and run the improved versions and compare them to their original
@@ -26,7 +26,9 @@ versions. The architecture of the tool is visualised in \cref{fig:hefeArch}.
 
 \begin{figure}[h]
     \centering
-    \includesvg[width=0.7\textwidth]{media/solution-proposal.drawio.svg}
+    %\includesvg[width=0.7\textwidth]{}
+    \includegraphics[width=0.7\textwidth]{master-essay-solution-proposal.drawio.pdf}
+    % \includesvg[width=0.7\textwidth]{../media/solution-proposal.drawio.pdf}
     \caption{\hefe~pipeline architecture}\label{fig:hefeArch}
 \end{figure}
 
@@ -111,7 +113,7 @@ individually be enhanced by prompting the \acrshort{llm}. We will experiment wit
 For performing the actual improvement, it is essential that we \begin{inparaenum}
     \item test several \acrshort{llm},
     \item give clear prompts
-    \info{I'm inclined to find some fitting prompts through trial and error, as such a I do not wish to describe them in detail at this time.}
+    % \info{I'm inclined to find some fitting prompts through trial and error, as such a I do not wish to describe them in detail at this time.}
     and
     \item verify that the returned test case adheres to the strictly nessecary
     syntax rules. This last point is important due to our knowledge of
