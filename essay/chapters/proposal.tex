@@ -85,7 +85,7 @@ can all be done concurrently. While Python lacks support of traditional threads,
 it has some support for multiprocessing
 \footnote{\url{https://docs.python.org/3/library/multiprocessing.html}}.
 
-\subsection{Components of the \hefe~pipeline}
+\subsection*{Overview of the components of the \hefe~pipeline}
 
 The pipeline architecture is visualised in \cref{fig:hefeArch}. Here we
 present the major components and their responsibilties
@@ -93,7 +93,7 @@ present the major components and their responsibilties
 
 \subsection*{Test case enhancement}
 
-\subsubsection{Test case repositories}
+\subsection{Test case repositories}
 
 We have seen in \nameref{sec:relatedWork} that there are existing repositories of
 \acrshort{ad} test cases. These will provide us with \begin{inparaenum}
@@ -102,7 +102,7 @@ We have seen in \nameref{sec:relatedWork} that there are existing repositories o
     \item data onto which we can apply our \acrshort{llm} enhancements.
 \end{inparaenum}
 
-\subsubsection{\acrshort{llm} enhancement}\label{sec:llmEnhancement}
+\subsection{\acrshort{llm} enhancement}\label{sec:llmEnhancement}
 
 \paragraph{\acrshort{llm} enhancement.} The base test cases will
 individually be enhanced by prompting the \acrshort{llm}. We will experiment with several
@@ -137,7 +137,10 @@ framework for limiting the room in which \acrshort{llms} may operate, which
 migth be useful if we run into issues with excessive halluciation.
 
 
-\subsubsection{Validation}
+\subsection{Enhanced test case validation}
+
+We must expect the \acrshort{llm} to hallucinate to some extent (\cref{sec:llmHallucination}). We
+therefore propse to verify the format of the enhanced file before running it.
 
 OpenSCENARIO is a format for \acrshort{ad} test scenarios, and there exist free
 online cloud services for verifying them such as
@@ -148,13 +151,13 @@ running a local verification service to \begin{inparaenum}
     \item preserve data privacy.
 \end{inparaenum}
 
-Besides, it is generally a good idea to limit the number of external dependcies\footnote{Note for
+Besides, it is generally a good idea to limit the number of external dependencies\footnote{Note for
     example how LGSVL\cite{lgsvl} was shut down, preventing projects such as DeepScenario of
     \citeauthor{DeepScenario} to be further developed on the original platform.}.
 
 \subsection*{Test case running and evaluation}
 
-\subsubsection{Test case runner.}
+\subsection{Test case runner.}
 
 The system will automatically run all
 our base test cases using an \acrshort{ad} simulator, and collect datapoints to get a baseline. It
@@ -168,12 +171,12 @@ For the reasons we have seen in~\cref{sec:simulatorOverview}, we want to run our
 test cases on Carla. It is the best offering as it is open source, under active
 development and has a feature rich Python \acrshort{api}.
 
-\subsubsection{Test case improvement evaluation}\label{sec:testCaseEval}
+\subsection{Test case improvement evaluation}\label{sec:testCaseEval}
 
 We saw in \cref{sec:adsMetrics} that there are several metrics for assessing
 \acrshort{ads}. We will use these metrics when evaluating our improvements.
 
-\subsubsection{Test case result reporting}
+\subsection{Test case result reporting}
 
 We will compare the results from running
 the baseline unmodified test case and comparing it with the results from
