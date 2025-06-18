@@ -18,6 +18,18 @@ the problem at hand, in light of what we know about \acrshort{llms} (\cref{sec:l
 We want to have a pipeline that is able to process several test cases in succession, in order to get
 a substansial dataset.
 
+Let the pipeline tool be known as \hefe\info{This name is naturally just a placeholder.}.
+The tool follows a natural pipeline structure. We have some base test cases that
+need to be ran in order to get a baseline for the results, we then have to
+improve these, and run the improved versions and compare them to their original
+versions. The architecture of the tool is visualised in \cref{fig:hefeArch}.
+
+\begin{figure}[h]
+    \centering
+    \includesvg[width=0.7\textwidth]{media/solution-proposal.drawio.svg}
+    \caption{\hefe~pipeline architecture}\label{fig:hefeArch}
+\end{figure}
+
 We need to define what requirement we will use for determining the \textit{result} of a test case
 run. Without this, we cannot compare it to other test cases.
 
@@ -25,18 +37,10 @@ Furhtermore, as outlined in \citeauthor{LLM4AD}, \acrlong{llms} can be applied t
 of \acrlong{ads}. It is not feasible that we focus on \textit{all} these aspects, and as such we
 should narrow down our scope. Let us review some of the relevant aspects.
 
-\subsubsection{The applicability of \acrshort{llms} in \acrshort{ad} testing}
+\subsubsection*{The applicability of \acrshort{llms} in \acrshort{ad} testing}
 
 \acrlong{ads} are typically modular, as we have seen in \Nameref{sec:adsTestingComplexity}.
-\acrshort{llms} are applicable to the differnet modules in different ways.
-
-
-\todo{Declare the scope / what we focus on !!}
-
-\tanke{We should focus on something which allows itself to be tested similarly to DeepScenario}
-
-Let the pipeline tool be known as \hefe.
-
+\acrshort{llms} are applicable to the differnet modules in different ways as we saw in \cref{sec:llmsForAds}.
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=User history
         of using \hefe]\label{user-history}
@@ -54,19 +58,6 @@ Let the pipeline tool be known as \hefe.
 \end{tcolorbox}
 
 
-The tool follows a natural pipeline structure. We have some base test cases that
-need to be ran in order to get a baseline for the results, we then have to
-improve these, and run the improved versions and compare them to their original
-versions.
-
-The architecture of the tool is visualised in \cref{fig:hefeArch}.
-
-\begin{figure}[h]
-    \centering
-    \includesvg[width=\textwidth]{media/solution-proposal.drawio.svg}
-    \caption{\hefe~pipeline architecture}\label{fig:hefeArch}
-\end{figure}
-
 \subsection{Implementation language}
 
 The programming lanuage \textsc{Python} is widely used for \acrfull{ad} simulation. It is a high
@@ -78,7 +69,7 @@ our execution times. Libraries such as Joblib provide Python with plug-and-play
 meomization, which will allow us to re-use values that have already been
 computed, saving time and energy.
 
-\subsubsection{The room for concurrency}
+\subsubsection*{The room for concurrency}
 
 When evaluating \acrshort{ad} test cases, the test cases are independent of each
 other. This means that our problem is \textit{embarrassingly parallelizable}
@@ -96,22 +87,11 @@ it has some support for multiprocessing
 
 \subsection{Components of the \hefe~pipeline}
 
-The pipeline architecture is visualised in \cref{fig:hefeArch}. Here we breifly
-present the major components and their responsibilties, before going into more
-detail in the remaining part of the  \namecref{sec:solutionProposal}.
+The pipeline architecture is visualised in \cref{fig:hefeArch}. Here we
+present the major components and their responsibilties
 
-\paragraph{Test case repositories.} We have a set of test cases for \acrshort{ad} testing.
-\paragraph{Test case runner.} The system will automatically run all
-our base test cases using Carla, and collect datapoints to get a baseline. It will later
-also run the mutated \acrshort{llm}-enhanced versions of the base cases.
-\paragraph{\acrshort{llm} enhancement.} The base test cases will
-individually be enhanced using AI.
-\paragraph{The results.} We will compare the results from running
-the baseline unmodified test case and comparing it with the results from
-running the \acrshort{llm}-enhanced version and returning to the user. Ideally with
-some automatic analasys of the results.
 
-\subsection{Test case enhancement}
+\subsection*{Test case enhancement}
 
 \subsubsection{Test case repositories}
 
@@ -123,6 +103,10 @@ We have seen in \nameref{sec:relatedWork} that there are existing repositories o
 \end{inparaenum}
 
 \subsubsection{\acrshort{llm} enhancement}\label{sec:llmEnhancement}
+
+\paragraph{\acrshort{llm} enhancement.} The base test cases will
+individually be enhanced by prompting the \acrshort{llm}. We will experiment with several
+\acrshort{llms}.
 
 For performing the actual improvement, it is essential that we \begin{inparaenum}
     \item test several \acrshort{llm},
@@ -168,7 +152,13 @@ Besides, it is generally a good idea to limit the number of external dependcies\
     example how LGSVL\cite{lgsvl} was shut down, preventing projects such as DeepScenario of
     \citeauthor{DeepScenario} to be further developed on the original platform.}.
 
-\subsection{Running and evaluating}
+\subsection*{Test case running and evaluation}
+
+\subsubsection{Test case runner.}
+
+The system will automatically run all
+our base test cases using an \acrshort{ad} simulator, and collect datapoints to get a baseline. It
+will later also run the mutated \acrshort{llm}-enhanced versions of the base cases.
 
 We have already ran the test cases in their base form. We will now run their
 improved versions in order to compare them to see what effect the \acrshort{llm}
@@ -184,6 +174,11 @@ We saw in \cref{sec:adsMetrics} that there are several metrics for assessing
 \acrshort{ads}. We will use these metrics when evaluating our improvements.
 
 \subsubsection{Test case result reporting}
+
+We will compare the results from running
+the baseline unmodified test case and comparing it with the results from
+running the \acrshort{llm}-enhanced version and returning to the user. Ideally with
+some automatic analasys of the results.
 
 Having ran both the base test case and its enhanced counterpart, we have
 results. The results will be stored in \acrfull{csv} files, allowing \begin{inparaenum}
