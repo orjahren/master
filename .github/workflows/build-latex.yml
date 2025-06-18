@@ -1,6 +1,9 @@
 # Lånt fra https://github.com/jdujava/TeXtured/blob/master/.github/workflows/main.yml
 name: CI
 
+env:
+  THESIS_FOLDER: essay
+
 on:
   push:
     branches: [main]
@@ -22,7 +25,7 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          working_directory: essay
+          working_directory: ${{ env.THESIS_FOLDER }}
           root_file: main.tex
           latexmk_shell_escape: true
           texlive_version: latest # must be `2024` or later (`latest` chosen by default)
@@ -30,10 +33,10 @@ jobs:
       - name: Upload the artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Thesis
+          name: ${{ env.THESIS_FOLDER }}
           path: |
             README.md
-            main.pdf
+            ${{ env.THESIS_FOLDER }}/main.pdf
   verify:
     name: Verify PDF/A
     runs-on: ubuntu-latest
@@ -43,7 +46,7 @@ jobs:
       - name: Get the PDF file from the artifact
         uses: actions/download-artifact@v4
       - name: Verify the PDF file with VeraPDF
-        run: verify Thesis/*.pdf | tee /dev/stderr | grep -qE 'nonCompliant="0" failedJobs="0"'
+        run: verify ${{ env.THESIS_FOLDER }}/main.pdf | tee /dev/stderr | grep -qE 'nonCompliant="0" failedJobs="0"'
 
   ## inspired by https://github.com/Pseudomanifold/latex-mimosis
   deploy:
@@ -58,7 +61,7 @@ jobs:
         uses: actions/download-artifact@v4
       - name: Commit and push the PDF and README.md to `gh-pages` branch
         run: |
-          cd Thesis
+          cd ${{ env.THESIS_FOLDER }}
           git init -b temp
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
