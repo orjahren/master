@@ -1,20 +1,9 @@
-\NewExpandableDocumentCommand{\TeXturedVERSION}{}{1.2.0} %% TeXtured 2025-05-03
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% NOTE: If you find any issues or have any suggestions, please open %%
-%%       an Issue on GitHub: https://github.com/jdujava/TeXtured     %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\NewExpandableDocumentCommand{\TeXturedVERSION}{}{1.2.0}
 %% Enable built-in LaTeX support for PDF/A compliance (must be before `\documentclass`)
 \DocumentMetadata{lang=en, pdfversion=1.7, pdfstandard=A-2u}
 \input{preamble/pdfA-compliance/glyphtounicode}
 
-%% NOTE: Choose the desirable page layout version (electronic vs print)
-\documentclass[12pt,a4paper]{report}                      % single-side (electronic)
-% \documentclass[12pt,a4paper,openright,twoside]{report}  % two-sided (for printing)
-
-% \documentclass[draft, a4paper, english]{article}
-%\documentclass[a4paper, english]{article}
-
+\documentclass[12pt,a4paper]{report}
 
 %% Set some toggle flags to control some of the document properties
 \input{preamble/toggles}
@@ -27,35 +16,16 @@
 %% Preamble - data, packages, macros, and more
 \input{preamble/main}
 
-%% Only uncommented files are included (faster compilation)
-%% NOTE: If no files are uncommented, all files are included
-\includeonlysmart{
-    % frontmatter/title,
-    % frontmatter/declaration,
-    % frontmatter/dedication,
-    % frontmatter/information,
-    % chapters/Introduction,
-    % chapters/QuickSummary,
-    % chapters/Notation,
-    % chapters/Design,
-    % chapters/Usage,
-    % chapters/Features,
-    % chapters/Tips,
-    % chapters/Summary,
-    % chapters/Appendix,
-}
-
  \usepackage{glossaries}
  \setglossarystyle{altlist}
 
 \newcommand{\hefe}{\textsc{Hefe}}
 
 \setdefaultenum{(1)}{(a)}{i.}{A.}
-\interfootnotelinepenalty=10000 % https://tex.stackexchange.com/questions/32208/footnote-runs-onto-second-page
+\interfootnotelinepenalty=10000 
 
 \addbibresource{refs.bib}
 
-% \makeglossaries
 \newacronym{llm}{LLM}{Large Language Model}
 \newacronym{llms}{LLMs}{Large Language Models}
 \newacronym{ads}{ADSs}{Autonomous driving systems} 
@@ -76,18 +46,12 @@
 
 \frontmatter
 \include{frontmatter/title}
-% \include{frontmatter/declaration}
-% \include{frontmatter/dedication}
-% \include{frontmatter/information}
-
-\include{chapters/introduction}
-
 \contentsandlists
 
 \mainmatter
-
 \chapter{Essay}
 
+\input{chapters/introduction}
 \input{chapters/background}
 \input{chapters/related-work}
 \input{chapters/proposal}
