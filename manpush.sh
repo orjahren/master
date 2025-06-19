@@ -25,7 +25,7 @@ fi
 
 git commit -m "Mansync: $AI_MSG"
 # Push the squashed commit to the remote repository
-git push origin HEAD:$(git rev-parse --abbrev-ref HEAD) --force
+git push origin HEAD:$(git rev-parse --abbrev-ref HEAD)
 echo "$TIMESTAMP: Unpushed commits have been squashed and pushed to the remote repository." >> ~/autopush.log
 notify-send "Mansync" "🍏 Unpushed commits have been squashed and pushed to the remote repository."
 exit 0
