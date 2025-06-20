@@ -1,5 +1,32 @@
 \section{Background}
 
+\subsection{Testing}
+
+First, we need to establish some basic testing concepts.
+
+\subsubsection{Pre- and post-conditions}\label{sec:testingConditions}
+
+When running test cases, the concept of \textit{Pre-conditions}
+refers to certain properties that
+obtain \textit{before} running a given test case. E.g that the \acrshort{ad} ego vehicle is
+stationary.
+
+In many ways mirroring pre-conditions, \textit{post-conditions} refers to the properties that obtain
+\textit{after} having ran a test. E.g. that the ego vehicle will be moving after having performed
+the test.
+
+% TODO: The testing conditons should ideally be cited.
+
+\subsubsection{Test coverage}\label{sec:testCoverage}
+
+\textbf{Test coverage} refers to the what degree the entire system is being tested. The concept can
+be used to describe both hardware and software test
+coverage~\cite[187]{testCoverage94}.~\citeauthor{testCoverage94} posit that hardware-based test
+coverage is measured in terms of the number of possible faults covered, wheras software-based test
+coverage is measured in terms of the amount of structural or data-flow units that have been
+exercised~\cite[187]{testCoverage94}. A test case that exercised every single code line of the
+system would by definition have perfect test coverage.
+
 
 % \subsection{Autonomous systems}
 % 
@@ -216,7 +243,7 @@ as DeepScenario~\cite{DeepScenario}. It allowed for running various maps with va
 tracking their data. It was also capable of generating HD
 maps \footnote{\url{https://github.com/lgsvl/simulator?tab=readme-ov-file\#introduction}}.
 DeepScenario is a project similar to this, concerned with testing \acrlong{ads}. Further details
-about it in are located in \Nameref{sec:relatedWork}.
+about it in are located in \Nref{sec:relatedWork}.
 
 \textbf{AirSim} is Microsoft's offering~\cite{airsim}. It has, like LGSVL,
 been deprecated. It is also bulit using UnrealEngine. Unlike the other
@@ -268,20 +295,6 @@ simulated as the \textit{ego vehicle}~\cite{egoDefinition}.
 % The DeepScenario dataset~\cite{DeepScenario} utilises this simulator framework.
 % \tanke{The LGSVL part can be removed - not relevant?}
 
-
-\subsection{Testing}
-
-We need to establish some basic testing concepts.
-
-\subsubsection{Test coverage}\label{sec:testCoverage}
-
-\textbf{Test coverage} refers to the what degree the entire system is being tested. The concept can
-be used to describe both hardware and software test
-coverage~\cite[187]{testCoverage94}.~\citeauthor{testCoverage94} posit that hardware-based test
-coverage is measured in terms of the number of possible faults covered, wheras software-based test
-coverage is measured in terms of the amount of structural or data-flow units that have been
-exercised~\cite[187]{testCoverage94}. A test case that exercised every single code line of the
-system would by definition have perfect test coverage.
 
 \subsection{\acrfull{llms}}
 
@@ -517,6 +530,14 @@ eating up the resources for human communities.
 significantly lower for \acrshort{llms} than humans for specific
 tasks~\cite{llmCarbon}. They did however fail to consider other relevant factors such
 as water consumption.
+
+% TODO: Include or not?
+% \subsubsection{Cognitive atrophy}
+% https://arxiv.org/abs/2506.08872 
+
+% TODO: Include or not?
+% \subsubsection{LLM collapse}
+% https://machinelearning.apple.com/research/illusion-of-thinking 
 
 
 \subsubsection{The different kinds of \acrshort{llms}}\label{sec:llmJungle}
