@@ -22,7 +22,7 @@ the test.
 \textbf{Test coverage} refers to the what degree the entire system is being tested. The concept can
 be used to describe both hardware and software test
 coverage~\cite[187]{testCoverage94}.~\citeauthor{testCoverage94} posit that hardware-based test
-coverage is measured in terms of the number of possible faults covered, wheras software-based test
+coverage is measured in terms of the number of possible faults covered, whereas software-based test
 coverage is measured in terms of the amount of structural or data-flow units that have been
 exercised~\cite[187]{testCoverage94}. A test case that exercised every single code line of the
 system would by definition have perfect test coverage.
@@ -39,7 +39,7 @@ system would by definition have perfect test coverage.
 
 \subsection{\acrfull{ads}}
 
-\acrfull{ads} are systems that enable automative vehicles to drive autonomously. Due to the
+\acrfull{ads} are systems that enable automotive vehicles to drive autonomously. Due to the
 typical operating scenarios of a car it is pivotal that the \acrlong{ads} maintain a high safety standard. A common way to assert safety
 is to use simulator based testing~\cite[1]{DeepScenario}.
 
@@ -77,7 +77,7 @@ can be used to refer to a \begin{inparaenum}\setcounter{enumi}{2}
 
 The main method for the assessing driveability of a scene comes form assessing the environment
 of the scene. Factors such as \begin{inparaenum}
-    \item wheather,
+    \item weather,
     \item traffic flow,
     \item road condition,
     \item obstacles
@@ -89,27 +89,27 @@ their associated difficulties, using a a split between \textit{explicit} and
 \textit{implicit} factors.
 
 \textbf{Explicit driveability factors} will typically include factors such as
-\textbf{Extreme wheather} such as \begin{inparaenum}
+\textbf{Extreme weather} such as \begin{inparaenum}
     \item fog,
     \item heavy rain,
     \item snow,
 \end{inparaenum}
-all serving to impair road visibility and causuing increased difficulties for
+all serving to impair road visibility and causing increased difficulties for
 vision-based tasks such as road detection and object
 tracking~\cite[3136-3137]{safeToDrive}. \textbf{Illumination} also poses
 various challenges for typical \acrshort{ad} tasks as a typical \acrshort{ad}
 will be required to operate in a plethora of scenes with varying degrees of
 illumination depending on factors such as time of day and location (e.g. if the
-\acrshort{ad} is operation in a dimly lit tunnell)~\cite[3137]{safeToDrive}. The
+\acrshort{ad} is operation in a dimly lit tunnel)~\cite[3137]{safeToDrive}. The
 authors highlight how low illumination may serve as an advantage for the
 \acrshort{ad} as this allows for using the head lights of other vehicles as a
-feature for detecting them, wheras it make pedestrian detection significantly
+feature for detecting them, whereas it make pedestrian detection significantly
 more challenging~\cite[3137]{safeToDrive}. \textbf{Road geometry} is another
 external factor, satisfying our natural intuition that \textit{intersections}
 and \textit{roundabouts} are more difficult to drive through than straight
 highways~\cite[3137]{safeToDrive}.
 
-\textbf{Implicit driveability factors} consist of behaviors and intent of other road users
+\textbf{Implicit driveability factors} consist of behaviours and intent of other road users
 interacting with the autonomous car~\cite[3138]{safeToDrive}. This includes the actions of other
 vehicles such as their \begin{inparaenum}
     \item overtaking,
@@ -117,7 +117,7 @@ vehicles such as their \begin{inparaenum}
     \item rear-ending,
     \item speeding, and
     \item failure to obey traffic laws \end{inparaenum}.~\citeauthor{safeToDrive} call these factors
-\textbf{vehicle behaviours}~\cite[3138]{safeToDrive}. Furhtermore, \textbf{pedestrian behaviours}
+\textbf{vehicle behaviours}~\cite[3138]{safeToDrive}. Furthermore, \textbf{pedestrian behaviours}
 are also taken into account, noting how pedestrians can sometimes
 \begin{inparaenum}\setcounter{enumi}{5}
     \item cross the road,
@@ -126,13 +126,13 @@ are also taken into account, noting how pedestrians can sometimes
 to describe the \textbf{driver behaviour} of other drivers pointing out how
 \begin{inparaenum}\setcounter{enumi}{8}
     \item distraction, and
-    \item drowziness \end{inparaenum} can be factors that caus accidents even for
+    \item drowsiness \end{inparaenum} can be factors that cause accidents even for
 \acrshort{ad}-enhanced vehicles due to the other, manual, cars
 interfering with their operation~\cite[3138-3139]{safeToDrive}. Lastly
 \textbf{motorcyclist/bicyclist behaviours} cause their own source of implicit driveability factors:
 The models and methods developed for analysing the group's behaviour are far more limited than other
 groups of road users~\cite[3139]{safeToDrive}.~\citeauthor{safeToDrive} theorise that this comes
-down to the lack of available dataset thats that capture and label the trajectories and behaviours
+down to the lack of available datasets that capture and label the trajectories and behaviours
 of motorcyclists and bicyclists~\cite[3139]{safeToDrive}, causing potential issues for any
 \acrshort{ad} that wishes to operate in a shared traffic environment with this group.
 
@@ -151,7 +151,7 @@ quantifying driveability: \begin{inparaenum}
 
 \textbf{Scene driveability} refers to how easy a scene is for an
 \acrshort{ad} to navigate, and the \textit{scene driveability score} refers to
-how likely the \acrlong{ad} is to fail at traversing thhe
+how likely the \acrlong{ad} is to fail at traversing the
 scene~\cite[3140]{safeToDrive}. It is typically found through and end-to-end
 approach. Note how this is a metric for \textit{scenes}, without taking into
 account the performance of any specific \acrshort{ad}.
@@ -159,26 +159,20 @@ account the performance of any specific \acrshort{ad}.
 \textbf{Collision-based risk} comes in two kinds - \begin{inparaenum}
     \item binary risk indicator, and
     \item probabilistic risk indicator.
-\end{inparaenum} \citeauthor{safeToDrive} posit that the prior, binary metric, indicates wheter a
-collision will happen in the near future in a binary `either-or' sense, wheras the latter yields a
+\end{inparaenum} \citeauthor{safeToDrive} posit that the prior, binary metric, indicates whether a
+collision will happen in the near future in a binary `either-or' sense, whereas the latter yields a
 probability calculated based on current states, event, choice of hypothesis, future states and
 damage~\cite[3140]{safeToDrive}.
 
 \textbf{Behaviour-based risk} estimation also represents a binary classification problem wherein
 nominal behaviours are learnt from data, and then dangerous behaviours are detected on that. This
 requires a definition of `nominal behaviour', which is typically defined on on acceptable speeds,
-traffic roles, location semantics, weather conditions and/or the level of fatique of the
+traffic roles, location semantics, weather conditions and/or the level of fatigue of the
 driver~\cite[3140]{safeToDrive}. Furthermore \citeauthor{safeToDrive} describe how this metric also
 allows more than one \acrshort{ads} to be labelled as `conflicting' or `not
 conflicting'~\cite[3140]{safeToDrive}, representing a ruling on their compatibility. Finally, they
 note how behaviour-based risk assessment typically focuses on driver behaviours, not taking into
 account other actors in the scene such as pedestrians or cyclists.
-
-%Furthermore, \citeauthor{safeToDrive} also give an overview of metrics and their relevant factors.
-%Furthermore, \citeauthor{safeToDrive} also give an overview of metrics and their relevant factors.
-
-
-% \tanke{This can be expanded if needed}
 
 \subsubsection*{The complexities of \acrshort{ad} testing}\label{sec:adsTestingComplexity}
 
@@ -198,7 +192,7 @@ Some of the factors that complicate \acrshort{ad} operations are \begin{inparaen
 Therefore they introduce their own concept of \acrfull{dsc}, which serves to give a metric of a
 the complexity of a given driving situation. Their \acrshort{dsc} is defined as the output of a
 mathematical formula taking into account the perplexity and standard deviation of several
-control variables $\mathcal{M}$ representing the surrounding vehicles's
+control variables $\mathcal{M}$ representing the surrounding vehicle's
 behaviour~\cite[1182]{adsComplexityIndex18}. Their formula also takes into account the ratio of
 \textit{V2X}-capable vehicles~\cite[1182]{adsComplexityIndex18}, i.e. the vehicles that are
 connected and capable of communicating~\cite[1]{v2xTestingSurvey2019}.
@@ -222,7 +216,7 @@ to the minimal overhead of
 \end{inparaenum}
 test cases.
 
-Furhtermore, simulators allow for greater flexibility in determining the test scenarios due to not
+Furthermore, simulators allow for greater flexibility in determining the test scenarios due to not
 being confined by the  physical world that is available to the scientist that wishes to perform the
 testing. Using a simulator, a Europe-based scientist can test their \acrshort{ad} for North American
 conditions, or vice-versa.
@@ -246,7 +240,7 @@ DeepScenario is a project similar to this, concerned with testing \acrlong{ads}.
 about it in are located in \Nref{sec:relatedWork}.
 
 \textbf{AirSim} is Microsoft's offering~\cite{airsim}. It has, like LGSVL,
-been deprecated. It is also bulit using UnrealEngine. Unlike the other
+been deprecated. It is also built using UnrealEngine. Unlike the other
 simulators we have seen, this also focused on autonomous vehicles outside of
 only cars, such as drones.
 
@@ -263,7 +257,7 @@ articles~\cite[982]{scenes}, but \citeauthor{scenes} propose standardising the d
 
 \textbf{situation} is, like \textit{scene}, employed in various fashions. \citeauthor{scenes}
 give a background detailing its usage ranging from \textit{"the entirety of circumstances,
-    which are to be considered by a robot for its selection of an appropriate behavior pattern in a
+    which are to be considered by a robot for its selection of an appropriate behaviour pattern in a
     particular moment'}\footnote{The translation from German is borrowed from \citeauthor{scenes},
     \cite[984]{scenes}}, in  \citeauthor{scenarioTysk}~\cite[3]{scenarioTysk} to
 \citeauthor{schmidtScenario} introducing a distinction between \textit{the true world} in a formal
@@ -272,16 +266,16 @@ described~\cite[892]{schmidtScenario}.
 
 \citeauthor{scenes} propose to standardise on the definition of a situation being \textit{
     the entirety of circumstances, which  are to be considered for the selection of an
-    appropriate behavior pattern at a particular point of time}~\cite[985]{scenes}.
+    appropriate behaviour pattern at a particular point of time}~\cite[985]{scenes}.
 
 \textbf{scenario} refers to \textit{'the temporal development between several scenes in a sequence
     of scenes'}\cite[986]{scenes}. We note how the definition a a scenario utilises that of a scene.
 Furthermore, \citeauthor{scenes} hold it to be the case that \textit{'every scenario starts with an
     initial scene. Actions \& events as well as goals \& values may be  specified to characterize
-    this temporal development in a scenario'}~\cite[986]{scenes}, clearifying the distinction
+    this temporal development in a scenario'}~\cite[986]{scenes}, clarifying the distinction
 between a scenario and a scene.
 
-Lastly they posit that a scenario spans a certain amount of time, wheras a scene has no such
+Lastly they posit that a scenario spans a certain amount of time, whereas a scene has no such
 temporal aspect to it.
 
 
@@ -326,7 +320,7 @@ At the heart of every \acrshort{llm} lies a transformer based neural
 network~\cite[4]{llmSurvey}.
 
 We saw in \cref{sec:llmArch} that the \citeauthor{attentionIsAllYouNeed} concept
-of \textit{attention} was pivotal for scaling up our langauge models into our
+of \textit{attention} was pivotal for scaling up our language models into our
 better \acrlong{llms}.
 
 \subsubsection*{Attention mechanism}
@@ -338,7 +332,7 @@ in parallel~\cite[2]{attentionIsAllYouNeed}.
 \citeauthor{jm} describe the intuition behind the attention mechanism with
 regard to it modelling the semantic \textit{meaning} of our
 tokens~\cite[185]{jm}. They underline how a traditional vectorized token will
-represent the same meaning regardless of \textit{context}, wheras the attention
+represent the same meaning regardless of \textit{context}, whereas the attention
 mechanism allows a given homograph token to take on several different
 contextualized vector representations given its context and thus its
 meaning~\cite[185-186]{jm}.
@@ -365,7 +359,7 @@ allows from greater concurrency than traditional approaches.
 
 \subsubsection{The importance of training data}
 
-As a conseuqence of \acrshort{llms} being statistical models of a certain input
+As a consequence of \acrshort{llms} being statistical models of a certain input
 data~\cite[1]{llmSurvey}, what data the model is trained on is of great
 importance for the capabilities of the model~\cite[6]{llmSurvey}.
 \citeauthor{llmSurvey} give an overview of various \acrshort{llms} and what
@@ -384,7 +378,7 @@ any code during its training it would not have any base `knowledge' for solving
 our problem, and its output would be bad. The \acrshort{llm} would however have
 no way of knowing if its output would be right or wrong, and we could say that
 it would have \textit{hallucinated}.
-See \cref{sec:llmProblems} for furhter information
+See \cref{sec:llmProblems} for further information
 about hallucination.
 
 
@@ -394,12 +388,12 @@ about hallucination.
 when scaling up language models~\cite[1]{emergentabilitiesLLM}. They define
 \textit{emergent ability} to refer to abilities that are not present in smaller
 models, but present in the larger ones\cite[1]{emergentabilitiesLLM}, building
-on physisist~\citeauthor{anderson1972more} stating that \textit{Emergence is
+on physicist~\citeauthor{anderson1972more} stating that \textit{Emergence is
     when quantitative changes in a system result in qualitative changes in
-    behavior.}~\cite[2]{emergentabilitiesLLM}.
+    behaviour.}~\cite[2]{emergentabilitiesLLM}.
 
-Furhtermore, they discuss how \textit{few-shot prompting} typically can achieve
-far superior results for harvesting \acrshort{llm} emergent abilities, wheras
+Furthermore, they discuss how \textit{few-shot prompting} typically can achieve
+far superior results for harvesting \acrshort{llm} emergent abilities, whereas
 one-shot prompting can perform worse than randomized
 results~\cite[3-4]{emergentabilitiesLLM}.
 
@@ -449,11 +443,11 @@ Or: \textbf{Language} defines the possible room for \textbf{thought}.
 %Relevant?
 
 Conceptual blending is a theory on intelligence. It refers to the basic mental
-operaion that leads to new meaning or insight that occurses when one identifies
+operation that leads to new meaning or insight that occurs when one identifies
 a match between to input mental spaces, to project selectively from those inputs
 into a new `blended' mental space~\cite[57-58]{conceptBlending}.
 
-This phenomenon explains how we are able to imagine phenomenonae that logically
+This phenomenon explains how we are able to imagine phenomena that logically
 should not exist such as \textit{land yacht} (\cref{fig:landYacht})
 
 \begin{figure}[h]
@@ -481,7 +475,7 @@ interact with it. The process of manually creating a suitable prompt is called \
 approaches:
 
 \textbf{\acrfull{icl}} is a representative prompting method that formulates the task
-description and/or deminstrastions in natural language text~\cite[44]{llmSurvey}. It is based on
+description and/or demonstrations in natural language text~\cite[44]{llmSurvey}. It is based on
 \textit{tuning-free prompting} and it, as the name implies, never tunes the parameters of the
 \acrshort{llm}~\cite[15]{promptingSurvey}. One the one hand, this allows for efficiency, but on the
 other hand, heavy engineering is typically required to achieve high accuracy, meaning you must
@@ -500,8 +494,8 @@ use~\cite[52]{llmSurvey}.
 \textbf{Planning} is proposed for solving complex tasks, which first breaks them down into smaller
 sub-tasks and then generates a plan of action to solve the sub-tasks one by
 one~\cite[44, 54]{llmSurvey}. The plans are being generated by the \acrshort{llm} itself upon
-prompting it, and there is a distinction between text-based and code-based approches. Text-based
-approches utilise natural language, wheras code-based approches utilise executable computer code~\cite[54-55]{llmSurvey}.
+prompting it, and there is a distinction between text-based and code-based approaches. Text-based
+approaches utilise natural language, whereas code-based approaches utilise executable computer code~\cite[54-55]{llmSurvey}.
 
 
 \subsubsection{General challenges with \acrshort{llms}}\label{sec:llmProblems}
@@ -526,7 +520,7 @@ As we saw in \cref{sec:llmParrot}, \acrshort{llms} are prone to
 \end{inparaenum}
 eating up the resources for human communities.
 
-\citeauthor{llmCarbon} did however find that spefically Co2-emissions can be
+\citeauthor{llmCarbon} did however find that specifically Co2-emissions can be
 significantly lower for \acrshort{llms} than humans for specific
 tasks~\cite{llmCarbon}. They did however fail to consider other relevant factors such
 as water consumption.
@@ -544,8 +538,8 @@ as water consumption.
 
 There are several available \acrshort{llms}, some of which are open source, and some proprietary.
 Open source \acrshort{llms} afford greater insight into their composition and underlying training
-data, wheras proprietary models appear more like black boxes. Some popular model families include
-the GPTs, Gemeni, Llama, Claude, Mistral, and DeepSeek.
+data, whereas proprietary models appear more like black boxes. Some popular model families include
+the GPTs, Gemini, Llama, Claude, Mistral, and DeepSeek.
 
 The \acrshort{llms} differ primarily in their \begin{inparaenum}
     \item parameters, and
@@ -568,7 +562,7 @@ adjusting the driving mode, or aiding in the decision-making
 process~\cite[1]{LLM4AD}.~\citeauthor{driveAsYouSpeak} delve further into these aspects in their
 other work \citetitle{driveAsYouSpeak}, providing a framework for integrating \acrlong{llm}'s
 \begin{inparaenum}
-    \item natural langauge capabilities,
+    \item natural language capabilities,
     \item contextual understanding,
     \item specialized tool usage,
     \item synergizing reasoning, and

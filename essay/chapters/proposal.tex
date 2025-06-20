@@ -1,8 +1,8 @@
 \section{Proposed solution}\label{sec:solutionProposal}
 
 We have seen that \acrshort{ad} testing is \textit{complex} and that it is difficult to get a good
-test coverage (\cref{sec:adsTestingComplexity}). Furhtermore, we have seen that \acrshort{llms} have
-\textit{emergent abilities} (\cref{sec:emergentAbilities}). We therefore propse a tool for
+test coverage (\cref{sec:adsTestingComplexity}). Furthermore, we have seen that \acrshort{llms} have
+\textit{emergent abilities} (\cref{sec:emergentAbilities}). We therefore propose a tool for
 \begin{inparaenum}
     \item running a base \acrshort{ad} test case,
     \item enhancing the test case using \acrshort{llms},
@@ -16,7 +16,7 @@ This will allow us to learn the extent to which \acrshort{llms} can be applied f
 the problem at hand, in light of what we know about \acrshort{llms} (\cref{sec:llmJungle}).
 
 We want to have a pipeline that is able to process several test cases in succession, in order to get
-a substansial dataset.
+a substantial dataset.
 
 Let the pipeline tool be known as \hefe%\info{This name is naturally just a placeholder.}.
 The tool follows a natural pipeline structure. We have some base test cases that
@@ -35,14 +35,14 @@ versions. The architecture of the tool is visualised in \cref{fig:hefeArch}.
 We need to define what requirement we will use for determining the \textit{result} of a test case
 run. Without this, we cannot compare it to other test cases.
 
-Furhtermore, as outlined in \citeauthor{LLM4AD}, \acrlong{llms} can be applied to several aspects
+Furthermore, as outlined in \citeauthor{LLM4AD}, \acrlong{llms} can be applied to several aspects
 of \acrlong{ads}. It is not feasible that we focus on \textit{all} these aspects, and as such we
 should narrow down our scope. Let us review some of the relevant aspects.
 
 \subsubsection*{The applicability of \acrshort{llms} in \acrshort{ad} testing}
 
 \acrlong{ads} are typically modular, as we have seen in \Nameref{sec:adsTestingComplexity}.
-\acrshort{llms} are applicable to the differnet modules in different ways as we saw in \cref{sec:llmsForAds}.
+\acrshort{llms} are applicable to the different modules in different ways as we saw in \cref{sec:llmsForAds}.
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=User history
         of using \hefe]\label{user-history}
@@ -62,8 +62,8 @@ should narrow down our scope. Let us review some of the relevant aspects.
 
 \subsection{Implementation language}
 
-The programming lanuage \textsc{Python} is widely used for \acrfull{ad} simulation. It is a high
-level lanuage, allowing the user great flexibility and developer experience. For this reason, I will
+The programming language \textsc{Python} is widely used for \acrfull{ad} simulation. It is a high
+level language, allowing the user great flexibility and developer experience. For this reason, I will
 implement \hefe~using Python.
 
 Python can be optimized using \acrfull{jit} compilers such as Numba~\cite{numba}, which can speed up
@@ -90,7 +90,7 @@ it has some support for multiprocessing
 \subsection*{Overview of the components of the \hefe~pipeline}
 
 The pipeline architecture is visualised in \cref{fig:hefeArch}. Here we
-present the major components and their responsibilties
+present the major components and their responsibilities
 
 
 \subsection*{Test case enhancement}
@@ -115,7 +115,7 @@ For performing the actual improvement, it is essential that we \begin{inparaenum
     \item give clear prompts
     % \info{I'm inclined to find some fitting prompts through trial and error, as such a I do not wish to describe them in detail at this time.}
     and
-    \item verify that the returned test case adheres to the strictly nessecary
+    \item verify that the returned test case adheres to the strictly necessary
     syntax rules. This last point is important due to our knowledge of
     \acrshort{llms} hallucinating (see \cref{sec:llmProblems}).
 \end{inparaenum}
@@ -136,13 +136,13 @@ Ollama\footnote{\url{https://github.com/ollama/ollama}}, both supporting a pleth
 
 \textsc{guidance}\footnote{\url{https://github.com/guidance-ai/guidance}} is a
 framework for limiting the room in which \acrshort{llms} may operate, which
-migth be useful if we run into issues with excessive halluciation.
+might be useful if we run into issues with excessive hallucination.
 
 
 \subsection{Enhanced test case validation}
 
 We must expect the \acrshort{llm} to hallucinate to some extent (\cref{sec:llmHallucination}). We
-therefore propse to verify the format of the enhanced file before running it.
+therefore propose to verify the format of the enhanced file before running it.
 
 OpenSCENARIO is a format for \acrshort{ad} test scenarios, and there exist free
 online cloud services for verifying them such as
@@ -162,7 +162,7 @@ Besides, it is generally a good idea to limit the number of external dependencie
 \subsection{Test case runner.}
 
 The system will automatically run all
-our base test cases using an \acrshort{ad} simulator, and collect datapoints to get a baseline. It
+our base test cases using an \acrshort{ad} simulator, and collect data points to get a baseline. It
 will later also run the mutated \acrshort{llm}-enhanced versions of the base cases.
 
 We have already ran the test cases in their base form. We will now run their
@@ -183,13 +183,13 @@ We saw in \cref{sec:adsMetrics} that there are several metrics for assessing
 We will compare the results from running
 the baseline unmodified test case and comparing it with the results from
 running the \acrshort{llm}-enhanced version and returning to the user. Ideally with
-some automatic analasys of the results.
+some automatic analysis of the results.
 
 Having ran both the base test case and its enhanced counterpart, we have
 results. The results will be stored in \acrfull{csv} files, allowing \begin{inparaenum}
     \item further analysis in Python/Jupyter,
     and
-    \item easy transaltion to \LaTeX tables for the final report.
+    \item easy translation to \LaTeX tables for the final report.
 \end{inparaenum}
 
 This is the final step of the envisioned pipeline. Where we have our result, and
@@ -198,7 +198,7 @@ need to analyse them.
 This last step has great opportunities for being scoped up to a fully integrated
 test suite which allows for both running test cases and analysing the results in
 a \acrfull{gui}. But we should focus on the prior steps for now, only creating a
-\acrshort{gui} if there is sufficent time towards the end of the project to
+\acrshort{gui} if there is sufficient time towards the end of the project to
 focus on such non-\acrshort{llm} related topics.
 
 Initially, the results will consist of numerical comparison of the

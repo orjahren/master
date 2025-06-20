@@ -3,25 +3,25 @@
 \subsection{\citetitle{DeepScenario}}\label{sec:deepScenario}
 
 DeepScenario is both a dataset and a toolset aimed at \acrlong{ad} testing~\cite{DeepScenario}. The
-principal value proposition of this work lies in regocnizing the fact that \begin{inparaenum}
+principal value proposition of this work lies in recognizing the fact that \begin{inparaenum}
     \item there are an infinite number of possible driving scenarios, and
     \item generating critical driving scenarios is very costly with regard to time costs and
-    computational resources\end{inparaenum}~\cite[52]{DeepScenario}. The authors therefor propose
-an open driving scenario of more than \num{30000} diriving scenarios focusing on \acrshort{ad}
+    computational resources\end{inparaenum}~\cite[52]{DeepScenario}. The authors therefore propose
+an open driving scenario of more than \num{30000} driving scenarios focusing on \acrshort{ad}
 testing~\cite[52]{DeepScenario}. The project utilises traditional machine learning
-methodologies, having been performed prior to the broad adoptation of \acrshort{llms}.
+methodologies, having been performed prior to the broad adaptation of \acrshort{llms}.
 
 Its scenarios are intended for the simulator SVL by LG (\Cref{sec:simulatorOverview}).
 
 \subsection{\citetitle{RTCM}}
 
 RTCM is a \acrshort{ad} testing framework that allows the user to utilise natural language for
-synthezising test cases. The authors propose a domain-specific language --- called RTCM, after
-\textsc{Restricted Test Case Modeling} --- for specyfing test cases. It is based on natural language
+synthesizing test cases. The authors propose a domain-specific language --- called RTCM, after
+\textsc{Restricted Test Case Modelling} --- for specifying test cases. It is based on natural language
 and composed of \begin{inparaenum}
     \item an easy-to-use template,
     \item a set of restriction rules, and
-    \item keywords \end{inparaenum}~\cite[397]{RTCM}.  Furhtermore, they also propose a tyool to
+    \item keywords \end{inparaenum}~\cite[397]{RTCM}.  Furthermore, they also propose a tool to
 take this RTCM source code as input and generating either \begin{inparaenum}
     \item manual, or
     \item automatically \end{inparaenum} executable test cases~\cite[397]{RTCM}. The proposed tools
@@ -37,7 +37,7 @@ training 4 DeepCollision models, then using \begin{inparaenum}
     \item random, and
     \item greedy
 \end{inparaenum} models for generating a baseline to compare their models with. The results showed
-that DeepCollision demonstrated significantly betterw effectiveness in obtaining collisions than the
+that DeepCollision demonstrated significantly better effectiveness in obtaining collisions than the
 baselines.
 
 \begin{Note}[On the relevance of DeepCollision]
@@ -69,7 +69,7 @@ several of the various \acrshort{ad} applications where \acrshort{llms} are rele
     \item zero-shot and few shot planning allowing \acrshort{llms} to perform tasks they weren't trained
     on, helping with handling edge cases
     \item continuous learning and personalization, and finally
-    \item interpretability and trust \end{inparaenum}~\cite[2]{LLM4AD}. Furhtermore, the authors
+    \item interpretability and trust \end{inparaenum}~\cite[2]{LLM4AD}. Furthermore, the authors
 also propose a comprehensive benchmark for evaluating the instruction-following abilities of an
 \acrshort{llm} based system in \acrshort{ad} simulation~\cite[1]{LLM4AD}.
 
@@ -89,7 +89,7 @@ cognitive load~\cite[173]{LLMDrivenTestingADS24}.
 \citeauthor{requirementsAllYouNeed} provide an overview of \acrshort{llms} for \acrshort{ads} in
 their recent preprint~\citetitle{requirementsAllYouNeed}\footnote{This was submitted to Arxiv on
     2025-05-19.}, focusing on \acrshort{llm}'s abilities for translating abstract requirements extracted
-from automative standards and documents into configuration for \carla (\Cref{sec:simulatorOverview})
+from automotive standards and documents into configuration for \carla (\Cref{sec:simulatorOverview})
 simulations~\cite{requirementsAllYouNeed}. Their experiments include employing the
 \textit{autonomous emergency braking} system and the sensors of the \acrshort{ad}. Furthermore, they
 split the requirements into \num{3} categories: \begin{inparaenum}
@@ -100,6 +100,6 @@ split the requirements into \num{3} categories: \begin{inparaenum}
 \begin{inparaenum}
     \item agent placement,
     \item desired agent behaviour, and
-    \item weather conditions amongst others\end{inparaenum}, wheras their postconditions reflected
+    \item weather conditions amongst others\end{inparaenum}, whereas their postconditions reflected
 the desired outcomes of the tests, primarily related to the vehicle's
 telemetry~\cite{requirementsAllYouNeed}.
