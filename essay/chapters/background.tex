@@ -61,7 +61,7 @@ and \textit{X-in-the-loop testing}~\cite[163-164]{ADTestingReview16}.
 condition of an \acrshort{ad}, derived from several lower-level sources~\cite[3140]{safeToDrive}.
 It can be used to refer to various aspects of a scene.
 \citeauthor{safeToDrive} discuss the concept further, using the  scene definition
-of~\citeauthor{scenes} as outlined in  \cref{sec:adsSimConcepts}, they describe
+of~\citeauthor{scenes} as outlined in  \Cref{sec:adsSimConcepts}, they describe
 how driveability can refer both to \begin{inparaenum}
     \item road conditions, and
     \item human driver performance.
@@ -141,7 +141,7 @@ of motorcyclists and bicyclists~\cite[3139]{safeToDrive}, causing potential issu
 When evaluating \acrshort{ad} testing, several metrics can be used. What metric to use will depend
 on what the relevant test is measuring.
 
-Building on what we have learnt about driveability (\cref{sec:adsDrivability}),
+Building on what we have learnt about driveability (\Cref{sec:adsDrivability}),
 we take after \citeauthor{safeToDrive} and review three metrics for
 quantifying driveability: \begin{inparaenum}
     \item scene driveability,
@@ -179,7 +179,7 @@ account other actors in the scene such as pedestrians or cyclists.
 As we have seen, \acrshort{ads} can perform several tasks, in several environments. As such, there
 are several relevant factors for testing them. It is not feasible to test all potential variations
 of all potential environments in the real world, meaning that the \textit{test
-    coverage}\footnote{See \cref{sec:testCoverage}} typically will be low.
+    coverage}\footnote{See \Nref{sec:testCoverage}} typically will be low.
 
 Some of the factors that complicate \acrshort{ad} operations are \begin{inparaenum}
     \item timing,
@@ -204,7 +204,7 @@ connected and capable of communicating~\cite[1]{v2xTestingSurvey2019}.
 
 \subsubsection{\acrlong{ad} simulation}
 
-Due to the complexity involved in testing \acrlong{ads} (\cref{sec:adsTestingComplexity}),
+Due to the complexity involved in testing \acrlong{ads} (\Cref{sec:adsTestingComplexity}),
 simulators are typically used for this purpose~\cite{DeepScenario}. While the same points about not
 being able to test \textit{all} possible scenarios do remain true for simulator based testing due to
 the sheer number of factors, using a simulator allows for far greater testing at far lower cost due
@@ -299,16 +299,15 @@ models and an example of \acrfull{ml}.
 
 \subsubsection*{\acrfull{llm} architecture}\label{sec:llmArch}
 
-A \acrlong{llm} is a neural network trained on big
-data~\cite[3]{llmSurvey}. They expand on the older statistical language models by
-training on more data. This gives rise to \textit{emerging abilities} such as in
-context learning~\cite[3]{llmSurvey} (\cref{sec:emergentAbilities}). These older statistical models are also
-neural networks, but they were impractical to train on large amounts of data. It
-was not until the seminal paper \textsc{Attention is all you
-    need}~\cite{attentionIsAllYouNeed} that a Google team headed by~\citeauthor{attentionIsAllYouNeed} showed how neural networks
-can be trained in parallel using their new \textit{attention} mechanism. This
-allowed for using amounts of data that was not technologically practical up
-until that point, opening the door for later advancements such as
+A \acrlong{llm} is a neural network trained on big data~\cite[3]{llmSurvey}. They expand on the
+older statistical language models by training on more data. This gives rise to \textit{emerging
+    abilities} such as in context learning~\cite[3]{llmSurvey} (\Nref{sec:emergentAbilities}). These
+older statistical models are also neural networks, but they were impractical to train on large
+amounts of data. It was not until the seminal paper \textsc{Attention is all you
+    need}~\cite{attentionIsAllYouNeed} that a Google team headed by~\citeauthor{attentionIsAllYouNeed}
+showed how neural networks can be trained in parallel using their new \textit{attention} mechanism.
+This allowed for using amounts of data that was not technologically practical up until that point,
+opening the door for later advancements such as
 ChatGPT~\cite[9]{llmSurvey}
 
 % \todo{Should elaborate further?}
@@ -319,7 +318,7 @@ ChatGPT~\cite[9]{llmSurvey}
 At the heart of every \acrshort{llm} lies a transformer based neural
 network~\cite[4]{llmSurvey}.
 
-We saw in \cref{sec:llmArch} that the \citeauthor{attentionIsAllYouNeed} concept
+We saw in \Cref{sec:llmArch} that the \citeauthor{attentionIsAllYouNeed} concept
 of \textit{attention} was pivotal for scaling up our language models into our
 better \acrlong{llms}.
 
@@ -378,7 +377,7 @@ any code during its training it would not have any base `knowledge' for solving
 our problem, and its output would be bad. The \acrshort{llm} would however have
 no way of knowing if its output would be right or wrong, and we could say that
 it would have \textit{hallucinated}.
-See \cref{sec:llmProblems} for further information
+See \Nref{sec:llmProblems} for further information
 about hallucination.
 
 
@@ -425,7 +424,7 @@ explain how they `\textit{think}': \begin{inparaenum}
 are trained on ever larger amounts of parameters and data, appearing to be in possession of an
 intelligence~\cite[610-611]{parrot}.
 
-This anticipates the phenomenon of hallucination (\cref{sec:llmHallucination}).
+This anticipates the phenomenon of hallucination (\Cref{sec:llmHallucination}).
 
 \subsubsection*{Sapir-Whorf hypothesis}
 
@@ -448,7 +447,7 @@ a match between to input mental spaces, to project selectively from those inputs
 into a new `blended' mental space~\cite[57-58]{conceptBlending}.
 
 This phenomenon explains how we are able to imagine phenomena that logically
-should not exist such as \textit{land yacht} (\cref{fig:landYacht})
+should not exist such as \textit{land yacht} (\Nref{fig:landYacht})
 
 \begin{figure}[h]
     \centering
@@ -468,7 +467,7 @@ linguistic data.
 
 
 A typical way of interacting with \acrshort{llms} is \textit{prompting}~\cite[44]{llmSurvey}. You
-prompt the model to solve various tasks. As we saw in \cref{sec:emergentAbilities}, the level of
+prompt the model to solve various tasks. As we saw in \Nref{sec:emergentAbilities}, the level of
 performance you are able to extract from your \acrlong{llm} can depend a great deal on how you
 interact with it. The process of manually creating a suitable prompt is called \textbf{prompt
     engineering}~\cite[44]{llmSurvey}.~\citeauthor{llmSurvey} outline three principal prompting
@@ -500,13 +499,11 @@ approaches utilise natural language, whereas code-based approaches utilise execu
 
 \subsubsection{General challenges with \acrshort{llms}}\label{sec:llmProblems}
 
-We have seen that \acrshort{llms} demonstrate promising abilities
-(\cref{sec:emergentAbilities} \& \cref{sec:llmIntelligence}) But they have nevertheless
-certain issues attached to them that we need to be aware of.
+We have seen that \acrshort{llms} demonstrate promising abilities (\Nref{sec:emergentAbilities}) But they have nevertheless certain issues attached to them that we need to be aware of.
 
 \subsubsection*{Hallucination}\label{sec:llmHallucination}
 
-As we saw in \cref{sec:llmParrot}, \acrshort{llms} are prone to
+As we saw in \Cref{sec:llmParrot}, \acrshort{llms} are prone to
 \textit{bullshitting}. They have no intuition of, or concern with \textit{the
     truth}. They only ever yield whatever response is the most probable under their
 \textsc{beam search} algorithm being applied on their training data.
@@ -545,12 +542,12 @@ The \acrshort{llms} differ primarily in their \begin{inparaenum}
     \item parameters, and
     \item training data.
 \end{inparaenum}
-As we saw in \cref{sec:llmArch}, all typical \acrshort{llms} utilise a transformer-based neural
+As we saw in \Cref{sec:llmArch}, all typical \acrshort{llms} utilise a transformer-based neural
 network. But due to their various different properties, different models can behave differently for
 different tasks regardless of their similar architecture.
 
 What they all share is their ability to perform \textit{inference}, meaning that they predict output
-tokens given some input tokens (see \cref{sec:llmParrot,sec:llmHallucination}).
+tokens given some input tokens (see \Cref{sec:llmParrot}).
 
 \subsection{Existing \acrshort{llm} applications for \acrshort{ads}}\label{sec:llmsForAds}
 

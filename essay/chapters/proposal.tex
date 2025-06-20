@@ -1,8 +1,8 @@
 \section{Proposed solution}\label{sec:solutionProposal}
 
 We have seen that \acrshort{ad} testing is \textit{complex} and that it is difficult to get a good
-test coverage (\cref{sec:adsTestingComplexity}). Furthermore, we have seen that \acrshort{llms} have
-\textit{emergent abilities} (\cref{sec:emergentAbilities}). We therefore propose a tool for
+test coverage (\Cref{sec:adsTestingComplexity}). Furthermore, we have seen that \acrshort{llms} have
+\textit{emergent abilities} (\Cref{sec:emergentAbilities}). We therefore propose a tool for
 \begin{inparaenum}
     \item running a base \acrshort{ad} test case,
     \item enhancing the test case using \acrshort{llms},
@@ -13,7 +13,7 @@ test coverage (\cref{sec:adsTestingComplexity}). Furthermore, we have seen that 
 
 This will allow us to learn the extent to which \acrshort{llms} can be applied for enhancing
 \acrlong{ad} test cases. We will survey several \acrshort{llms} and evaluate their applicability for
-the problem at hand, in light of what we know about \acrshort{llms} (\cref{sec:llmJungle}).
+the problem at hand, in light of what we know about \acrshort{llms} (\Nref{sec:llmJungle}).
 
 We want to have a pipeline that is able to process several test cases in succession, in order to get
 a substantial dataset.
@@ -22,7 +22,7 @@ Let the pipeline tool be known as \hefe%\info{This name is naturally just a plac
 The tool follows a natural pipeline structure. We have some base test cases that
 need to be ran in order to get a baseline for the results, we then have to
 improve these, and run the improved versions and compare them to their original
-versions. The architecture of the tool is visualised in \cref{fig:hefeArch}.
+versions. The architecture of the tool is visualised in \Cref{fig:hefeArch}.
 
 \begin{figure}[h]
     \centering
@@ -41,8 +41,10 @@ should narrow down our scope. Let us review some of the relevant aspects.
 
 \subsubsection*{The applicability of \acrshort{llms} in \acrshort{ad} testing}
 
-\acrlong{ads} are typically modular, as we have seen in \Nameref{sec:adsTestingComplexity}.
-\acrshort{llms} are applicable to the different modules in different ways as we saw in \cref{sec:llmsForAds}.
+\acrlong{ads} are typically modular, as we have seen in \Cref{sec:adsTestingComplexity}.
+\acrshort{llms} are applicable to the different modules in different ways as we saw in
+\Nref{sec:relatedWork}.
+% TODO: Make more specific reference to what part of Related Work
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=User history
         of using \hefe]\label{user-history}
@@ -89,7 +91,7 @@ it has some support for multiprocessing
 
 \subsection*{Overview of the components of the \hefe~pipeline}
 
-The pipeline architecture is visualised in \cref{fig:hefeArch}. Here we
+The pipeline architecture is visualised in \Nref{fig:hefeArch}. Here we
 present the major components and their responsibilities
 
 
@@ -97,7 +99,8 @@ present the major components and their responsibilities
 
 \subsection{Test case repositories}
 
-We have seen in \nameref{sec:relatedWork} that there are existing repositories of
+We have seen in \Nref{sec:relatedWork} that there are existing repositories of
+% TODO: Make more specific reference to what part of Related Work
 \acrshort{ad} test cases. These will provide us with \begin{inparaenum}
     \item a baseline,
     and
@@ -117,7 +120,8 @@ For performing the actual improvement, it is essential that we \begin{inparaenum
     and
     \item verify that the returned test case adheres to the strictly necessary
     syntax rules. This last point is important due to our knowledge of
-    \acrshort{llms} hallucinating (see \cref{sec:llmProblems}).
+    \acrshort{llms} hallucinating (see \Nref{sec:llmProblems}).
+    % TODO: More specific reference to Halucination intead of all LLm problems?
 \end{inparaenum}
 
 In order to facilitate testing various \acrlong{llms}, we should employ
@@ -141,7 +145,7 @@ might be useful if we run into issues with excessive hallucination.
 
 \subsection{Enhanced test case validation}
 
-We must expect the \acrshort{llm} to hallucinate to some extent (\cref{sec:llmHallucination}). We
+We must expect the \acrshort{llm} to hallucinate to some extent (\Cref{sec:llmHallucination}). We
 therefore propose to verify the format of the enhanced file before running it.
 
 OpenSCENARIO is a format for \acrshort{ad} test scenarios, and there exist free
@@ -167,15 +171,15 @@ will later also run the mutated \acrshort{llm}-enhanced versions of the base cas
 
 We have already ran the test cases in their base form. We will now run their
 improved versions in order to compare them to see what effect the \acrshort{llm}
-enhancement (see \cref{sec:llmEnhancement}) has had.
+enhancement (see \Cref{sec:llmEnhancement}) has had.
 
-For the reasons we have seen in~\cref{sec:simulatorOverview}, we want to run our
+For the reasons we have seen in~\Cref{sec:simulatorOverview}, we want to run our
 test cases on Carla. It is the best offering as it is open source, under active
 development and has a feature rich Python \acrshort{api}.
 
 \subsection{Test case improvement evaluation}\label{sec:testCaseEval}
 
-We saw in \cref{sec:adsMetrics} that there are several metrics for assessing
+We saw in \Cref{sec:adsMetrics} that there are several metrics for assessing
 \acrshort{ads}. We will use these metrics when evaluating our improvements.
 
 \subsection{Test case result reporting}
@@ -203,4 +207,4 @@ focus on such non-\acrshort{llm} related topics.
 
 Initially, the results will consist of numerical comparison of the
 \acrshort{csv}s with regard to the relevant metrics outlined in
-\cref{sec:testCaseEval}.
+\Nref{sec:testCaseEval}.
