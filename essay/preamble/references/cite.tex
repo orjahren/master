@@ -9,7 +9,9 @@
     \printtext[bibhyperref]{%
         \citebox{%    <---- wrap the whole citation with a `tcolorbox` frame
             %% turn postnote into custom prenote
-            \iffieldundef{postnote}{}{{\normalfont\hspace{0.18em}\printfield{postnote}\hspace{0.15em}}}%
+            % \iffieldundef{postnote}{}{{\normalfont\hspace{0.18em}\printfield{postnote}\hspace{0.15em}}}%
+            % NOTE: ^utkommenterte denne for å ikke få sidetall i PDFen selv om
+            % de ligger i TeXen.
             \lbrack%  <---- always consistently use brackets
             \printfield{labelprefix}%
             \printfield{labelnumber}%

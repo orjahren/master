@@ -1,10 +1,10 @@
-\section{Background}
+\chapter{Background}
 
-\subsection{Testing}
+\section{Testing}
 
 First, we need to establish some basic testing concepts.
 
-\subsubsection{Pre- and post-conditions}\label{sec:testingConditions}
+\subsection{Pre- and post-conditions}\label{sec:testingConditions}
 
 When running test cases, the concept of \textit{Pre-conditions}
 refers to certain properties that
@@ -17,7 +17,7 @@ the test.
 
 % TODO: The testing conditons should ideally be cited.
 
-\subsubsection{Test coverage}\label{sec:testCoverage}
+\subsection{Test coverage}\label{sec:testCoverage}
 
 \textbf{Test coverage} refers to the what degree the entire system is being tested. The concept can
 be used to describe both hardware and software test
@@ -37,13 +37,13 @@ system would by definition have perfect test coverage.
 % environments. Some systems operate in the maritime domain, some in the air, and
 % others on the ground in the terrestrial operating domain~\cite[369-370]{watson2005autonomous}.
 
-\subsection{\acrfull{ads}}
+\section{\acrfull{ads}}
 
 \acrfull{ads} are systems that enable automotive vehicles to drive autonomously. Due to the
 typical operating scenarios of a car it is pivotal that the \acrlong{ads} maintain a high safety standard. A common way to assert safety
 is to use simulator based testing~\cite[1]{DeepScenario}.
 
-\subsubsection{\acrlong{ad} testing}
+\subsection{\acrlong{ad} testing}
 
 Testing is essential for assuring \acrlong{ad} operative safety~\cite[163]{ADTestingReview16}.
 Several methods for testing exist, testing various aspects of the \acrlong{ad}. An \acrshort{ad}
@@ -55,7 +55,7 @@ drawing on traditional software testing traditions outlining how \textit{softwar
 used alongside more specialized \acrshort{ad} testing techniques such as \textit{simulation testing}
 and \textit{X-in-the-loop testing}~\cite[163-164]{ADTestingReview16}.
 
-\subsubsection*{\acrlong{ad} driveability}\label{sec:adsDrivability}
+\subsection{\acrlong{ad} driveability}\label{sec:adsDrivability}
 
 \textbf{Driveability} is a high-level estimator of the overall driving
 condition of an \acrshort{ad}, derived from several lower-level sources~\cite[3140]{safeToDrive}.
@@ -136,7 +136,7 @@ down to the lack of available datasets that capture and label the trajectories a
 of motorcyclists and bicyclists~\cite[3139]{safeToDrive}, causing potential issues for any
 \acrshort{ad} that wishes to operate in a shared traffic environment with this group.
 
-\subsubsection*{\acrlong{ad} testing metrics}\label{sec:adsMetrics}
+\subsection{\acrlong{ad} testing metrics}\label{sec:adsMetrics}
 
 When evaluating \acrshort{ad} testing, several metrics can be used. What metric to use will depend
 on what the relevant test is measuring.
@@ -174,7 +174,7 @@ conflicting'~\cite[3140]{safeToDrive}, representing a ruling on their compatibil
 note how behaviour-based risk assessment typically focuses on driver behaviours, not taking into
 account other actors in the scene such as pedestrians or cyclists.
 
-\subsubsection*{The complexities of \acrshort{ad} testing}\label{sec:adsTestingComplexity}
+\subsection{The complexities of \acrshort{ad} testing}\label{sec:adsTestingComplexity}
 
 As we have seen, \acrshort{ads} can perform several tasks, in several environments. As such, there
 are several relevant factors for testing them. It is not feasible to test all potential variations
@@ -202,7 +202,7 @@ connected and capable of communicating~\cite[1]{v2xTestingSurvey2019}.
 % \acrfull{cv} system, and % LIDAR. This allows for testing the individual modules in a way that
 % makes sense for their specific domains.
 
-\subsubsection{\acrlong{ad} simulation}
+\subsection{\acrlong{ad} simulation}
 
 Due to the complexity involved in testing \acrlong{ads} (\Cref{sec:adsTestingComplexity}),
 simulators are typically used for this purpose~\cite{DeepScenario}. While the same points about not
@@ -221,7 +221,7 @@ being confined by the  physical world that is available to the scientist that wi
 testing. Using a simulator, a Europe-based scientist can test their \acrshort{ad} for North American
 conditions, or vice-versa.
 
-\subsubsection*{The \acrshort{ad} simulator jungle}\label{sec:simulatorOverview}
+\subsection{The \acrshort{ad} simulator jungle}\label{sec:simulatorOverview}
 
 Due to the appeal of running \acrshort{ad} simulation, several contenders exist
 on the market.
@@ -245,7 +245,7 @@ simulators we have seen, this also focused on autonomous vehicles outside of
 only cars, such as drones.
 
 
-\subsubsection*{Concepts of \acrshort{ad} simulation}\label{sec:adsSimConcepts}
+\subsection{Concepts of \acrshort{ad} simulation}\label{sec:adsSimConcepts}
 
 \citeauthor{scenes} draw up an outline for the terms \textit{scene}, \textit{situation}, and
 \textit{scenario}, that are all concepts widely used in \acrshort{ad} simulation testing.
@@ -290,14 +290,14 @@ simulated as the \textit{ego vehicle}~\cite{egoDefinition}.
 % \tanke{The LGSVL part can be removed - not relevant?}
 
 
-\subsection{\acrfull{llms}}
+\section{\acrfull{llms}}
 
 \acrfull{llms} are transformer-based language models that typically contain several hundred billion
 parameters and are trained on massive text data~\cite[4]{llmSurvey}.
 Base language models, as the name implies, \textit{model language}. They are typically statistical
 models and an example of \acrfull{ml}.
 
-\subsubsection*{\acrfull{llm} architecture}\label{sec:llmArch}
+\subsection{\acrfull{llm} architecture}\label{sec:llmArch}
 
 A \acrlong{llm} is a neural network trained on big data~\cite[3]{llmSurvey}. They expand on the
 older statistical language models by training on more data. This gives rise to \textit{emerging
@@ -313,7 +313,7 @@ ChatGPT~\cite[9]{llmSurvey}
 % \todo{Should elaborate further?}
 \citeauthor{jm} describe how \acrshort{llms} rely on \textit{pretraining}.
 
-\subsubsection*{Transformers}
+\subsubsection{Transformers}
 
 At the heart of every \acrshort{llm} lies a transformer based neural
 network~\cite[4]{llmSurvey}.
@@ -322,7 +322,7 @@ We saw in \Cref{sec:llmArch} that the \citeauthor{attentionIsAllYouNeed} concept
 of \textit{attention} was pivotal for scaling up our language models into our
 better \acrlong{llms}.
 
-\subsubsection*{Attention mechanism}
+\subsubsection{Attention mechanism}
 
 Relying on the attention mechanism is circumventing the
 prior models sequential nature, which is what allows for training \acrlong{llms}
@@ -381,7 +381,7 @@ See \Nref{sec:llmProblems} for further information
 about hallucination.
 
 
-\subsubsection{Emergent abilities}\label{sec:emergentAbilities}
+\subsection{Emergent abilities}\label{sec:emergentAbilities}
 
 \citeauthor{emergentabilitiesLLM} outline how \textit{emergent abilities} appear
 when scaling up language models~\cite[1]{emergentabilitiesLLM}. They define
@@ -408,7 +408,7 @@ all serve as possible ways of increasing \acrshort{llm} performance~\cite[5]{eme
 
 % \tanke{Burde bygge på forrige seksjon om "små" language models}
 
-\subsubsection{Intelligence in \acrshort{llms}}\label{sec:llmIntelligence}
+\subsection{Intelligence in \acrshort{llms}}\label{sec:llmIntelligence}
 
 There are three theories on machine intelligence, each serving to
 explain how they `\textit{think}': \begin{inparaenum}
@@ -418,7 +418,7 @@ explain how they `\textit{think}': \begin{inparaenum}
     \item conceptual blending.
 \end{inparaenum}
 
-\subsubsection*{Stochastic parrot}\label{sec:llmParrot}
+\subsubsection{Stochastic parrot}\label{sec:llmParrot}
 
 \citeauthor{parrot} outline how \acrshort{llms} can \textit{fool} humans as they
 are trained on ever larger amounts of parameters and data, appearing to be in possession of an
@@ -426,7 +426,7 @@ intelligence~\cite[610-611]{parrot}.
 
 This anticipates the phenomenon of hallucination (\Cref{sec:llmHallucination}).
 
-\subsubsection*{Sapir-Whorf hypothesis}
+\subsubsection{Sapir-Whorf hypothesis}
 
 The Sapir-Whorf hypothesis posits that  \textit{The structure of anyone’s native
     language strongly influences or fully determines the world-view he will acquire
@@ -438,7 +438,7 @@ be able to `know' the data on which they have come into contact with.
 Or: \textbf{Language} defines the possible room for \textbf{thought}.
 
 
-\subsubsection*{Conceptual blending}
+\subsubsection{Conceptual blending}
 %Relevant?
 
 Conceptual blending is a theory on intelligence. It refers to the basic mental
@@ -463,7 +463,7 @@ linguistic data.
 % Conceptual blending is a theory on both machine and human intelligence. 
 
 
-\subsubsection{Utilising \acrshort{llms} - Prompt engineering}\label{sec:llmUtilization}
+\subsection{Utilising \acrshort{llms} - Prompt engineering}\label{sec:llmUtilization}
 
 
 A typical way of interacting with \acrshort{llms} is \textit{prompting}~\cite[44]{llmSurvey}. You
@@ -497,18 +497,18 @@ prompting it, and there is a distinction between text-based and code-based appro
 approaches utilise natural language, whereas code-based approaches utilise executable computer code~\cite[54-55]{llmSurvey}.
 
 
-\subsubsection{General challenges with \acrshort{llms}}\label{sec:llmProblems}
+\subsection{General challenges with \acrshort{llms}}\label{sec:llmProblems}
 
 We have seen that \acrshort{llms} demonstrate promising abilities (\Nref{sec:emergentAbilities}) But they have nevertheless certain issues attached to them that we need to be aware of.
 
-\subsubsection*{Hallucination}\label{sec:llmHallucination}
+\subsubsection{Hallucination}\label{sec:llmHallucination}
 
 As we saw in \Cref{sec:llmParrot}, \acrshort{llms} are prone to
 \textit{bullshitting}. They have no intuition of, or concern with \textit{the
     truth}. They only ever yield whatever response is the most probable under their
 \textsc{beam search} algorithm being applied on their training data.
 
-\subsubsection*{Environmental concerns}
+\subsubsection{Environmental concerns}
 
 \acrshort{llms} are awful for the environment. They consume wast amounts of \begin{inparaenum}
     \item power,
@@ -531,7 +531,7 @@ as water consumption.
 % https://machinelearning.apple.com/research/illusion-of-thinking 
 
 
-\subsubsection{The different kinds of \acrshort{llms}}\label{sec:llmJungle}
+\subsection{The different kinds of \acrshort{llms}}\label{sec:llmJungle}
 
 There are several available \acrshort{llms}, some of which are open source, and some proprietary.
 Open source \acrshort{llms} afford greater insight into their composition and underlying training
