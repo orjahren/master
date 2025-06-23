@@ -313,49 +313,6 @@ ChatGPT~\cite[9]{llmSurvey}
 % \todo{Should elaborate further?}
 \citeauthor{jm} describe how \acrshort{llms} rely on \textit{pretraining}.
 
-\subsubsection{Transformers}
-
-At the heart of every \acrshort{llm} lies a transformer based neural
-network~\cite[4]{llmSurvey}.
-
-We saw in \Cref{sec:llmArch} that the \citeauthor{attentionIsAllYouNeed} concept
-of \textit{attention} was pivotal for scaling up our language models into our
-better \acrlong{llms}.
-
-\subsubsection{Attention mechanism}
-
-Relying on the attention mechanism is circumventing the
-prior models sequential nature, which is what allows for training \acrlong{llms}
-in parallel~\cite[2]{attentionIsAllYouNeed}.
-
-\citeauthor{jm} describe the intuition behind the attention mechanism with
-regard to it modelling the semantic \textit{meaning} of our
-tokens~\cite[185]{jm}. They underline how a traditional vectorized token will
-represent the same meaning regardless of \textit{context}, whereas the attention
-mechanism allows a given homograph token to take on several different
-contextualized vector representations given its context and thus its
-meaning~\cite[185-186]{jm}.
-
-% \tanke{How in-depth do we wish to go here?}
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figures/attentionArches.png}
-    \caption[Parallel attention mechanism]{Parallel attention mechanism.\footnotemark}\label{fig:paraAttention}
-\end{figure}
-
-\footnotetext{Diagram borrowed from
-    \citeauthor{attentionIsAllYouNeed},~\cite[4]{attentionIsAllYouNeed}.}
-
-\Cref{fig:paraAttention} demonstrates how a multi head transformer based architecture
-allows from greater concurrency than traditional approaches.
-
-% \subsubsection*{Pre-training}
-%
-% \acrshort{llms} rely on \textit{pretraining}.
-% Lorem ipsum dolor sit amet.
-
 \subsubsection{The importance of training data}
 
 As a consequence of \acrshort{llms} being statistical models of a certain input
