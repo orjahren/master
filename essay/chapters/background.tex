@@ -289,6 +289,23 @@ simulated as the \textit{ego vehicle}~\cite{egoDefinition}.
 % The DeepScenario dataset~\cite{DeepScenario} utilises this simulator framework.
 % \tanke{The LGSVL part can be removed - not relevant?}
 
+\subsubsection{\acrshort{ad} scenario formats}\label{sec:adsScenarioFormats}
+
+\textbf{OpenSCENARIO} is a standard developed by the Association for Automation and
+Measurement Systems (ASAM), which is dedicated to the description of dynamic
+scenarios~\cite[651]{generatingOpenScenario}. Under this format, only the
+\textit{dynamic} content of the scenario is recorded in the file. The static
+content is kept in other formats such as OpenDRIVER and
+OpenCRG~\cite[652]{generatingOpenScenario}. The simulator Carla (outlined in
+\Cref{sec:simulatorOverview}) supports this
+standard~\cite[652]{generatingOpenScenario}.
+
+Another widely popular scenario format is
+\textbf{CommonRoad}~\cite[4941]{convOpenScenarioToCR}, first proposed in
+\citedate{commonRoadOG}~\cite{commonRoadOG}. There are tools such as those
+proposed by \citeauthor{convOpenScenarioToCR} that allows for converting
+OpenSCENARIO scenarios to the CommonRoad
+format~\cite[4941]{convOpenScenarioToCR}.
 
 \section{\acrfull{llms}}
 
@@ -312,49 +329,6 @@ ChatGPT~\cite[9]{llmSurvey}
 
 % \todo{Should elaborate further?}
 \citeauthor{jm} describe how \acrshort{llms} rely on \textit{pretraining}.
-
-\subsubsection{Transformers}
-
-At the heart of every \acrshort{llm} lies a transformer based neural
-network~\cite[4]{llmSurvey}.
-
-We saw in \Cref{sec:llmArch} that the \citeauthor{attentionIsAllYouNeed} concept
-of \textit{attention} was pivotal for scaling up our language models into our
-better \acrlong{llms}.
-
-\subsubsection{Attention mechanism}
-
-Relying on the attention mechanism is circumventing the
-prior models sequential nature, which is what allows for training \acrlong{llms}
-in parallel~\cite[2]{attentionIsAllYouNeed}.
-
-\citeauthor{jm} describe the intuition behind the attention mechanism with
-regard to it modelling the semantic \textit{meaning} of our
-tokens~\cite[185]{jm}. They underline how a traditional vectorized token will
-represent the same meaning regardless of \textit{context}, whereas the attention
-mechanism allows a given homograph token to take on several different
-contextualized vector representations given its context and thus its
-meaning~\cite[185-186]{jm}.
-
-% \tanke{How in-depth do we wish to go here?}
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figures/attentionArches.png}
-    \caption[Parallel attention mechanism]{Parallel attention mechanism.\footnotemark}\label{fig:paraAttention}
-\end{figure}
-
-\footnotetext{Diagram borrowed from
-    \citeauthor{attentionIsAllYouNeed},~\cite[4]{attentionIsAllYouNeed}.}
-
-\Cref{fig:paraAttention} demonstrates how a multi head transformer based architecture
-allows from greater concurrency than traditional approaches.
-
-% \subsubsection*{Pre-training}
-%
-% \acrshort{llms} rely on \textit{pretraining}.
-% Lorem ipsum dolor sit amet.
 
 \subsubsection{The importance of training data}
 
@@ -412,7 +386,7 @@ all serve as possible ways of increasing \acrshort{llm} performance~\cite[5]{eme
 
 There are three theories on machine intelligence, each serving to
 explain how they `\textit{think}': \begin{inparaenum}
-    \item stochasitc parrot
+    \item stochastic parrot
     \item Sapir-Whorf hypothesis,
     and
     \item conceptual blending.
@@ -510,17 +484,27 @@ As we saw in \Cref{sec:llmParrot}, \acrshort{llms} are prone to
 
 \subsubsection{Environmental concerns}
 
-\acrshort{llms} are awful for the environment. They consume wast amounts of \begin{inparaenum}
-    \item power,
-    and
-    \item water,
-\end{inparaenum}
-eating up the resources for human communities.
+A University of Rhode Island study on the environmental impact of \acrshort{llms} have shown that
+they require wast amount of energy and water~\cite{hungryLlm}. They also found that the different
+\acrshort{llms} may differ greatly in their energy consumption, highlighting that that certain
+\acrshort{llms} may consume more than \num{70} times more energy than others~\cite{hungryLlm}.
 
-\citeauthor{llmCarbon} did however find that specifically Co2-emissions can be
-significantly lower for \acrshort{llms} than humans for specific
-tasks~\cite{llmCarbon}. They did however fail to consider other relevant factors such
-as water consumption.
+Another study by \citeauthor{llmCarbon} focusing specifically on \textit{carbon emissions} did
+however find that these emissions significantly lower for \acrshort{llms} than humans for specific
+tasks such as text and image generation, ranging from \num{130} to \num{2900} times less Co2 emitted
+depending on the task~\cite[1]{llmCarbon}.
+
+\citeauthor{thirstyLlm} surveyed the water consumption of \acrshort{llms}, finding that training the
+\acrshort{llm} \textsc{GPT-3} could evaporate as much as \num{700000} litres of clean
+freshwater~\cite[1]{thirstyLlm}. Furthermore they review the trends of current AI adoption and
+project that the water consumption of AI could reach levels as high as \num{4.2} - \num{6.6} billion
+cubic metres by \num{2027}, which is comparable to \num{4} - \num{6} Denmarks, or half of the United
+Kingdom~\cite[1]{thirstyLlm}. Recent research indicates that \textit{serving} \acrshort{llms}
+currently account for more emissions than training them~\cite[37]{sustainableLlmServing}.
+
+Efforts to achieve greener \acrshort{llms} have been proposed by \citeauthor{sproutGreenLlm}, while
+recognizing the trade-off between ecological sustainability and high-quality
+outputs~\cite[21799]{sproutGreenLlm}.
 
 % TODO: Include or not?
 % \subsubsection{Cognitive atrophy}

@@ -14,11 +14,10 @@ test coverage (\Cref{sec:adsTestingComplexity}). Furthermore, we have seen that 
 This will allow us to learn the extent to which \acrshort{llms} can be applied for enhancing
 \acrlong{ad} test cases. We will survey several \acrshort{llms} and evaluate their applicability for
 the problem at hand, in light of what we know about \acrshort{llms} (\Nref{sec:llmJungle}).
-
 We want to have a pipeline that is able to process several test cases in succession, in order to get
 a substantial dataset.
 
-Let the pipeline tool be known as \hefe%\info{This name is naturally just a placeholder.}.
+Let the pipeline tool be known as \hefe.~%\info{This name is naturally just a placeholder.}.
 The tool follows a natural pipeline structure. We have some base test cases that
 need to be ran in order to get a baseline for the results, we then have to
 improve these, and run the improved versions and compare them to their original
@@ -26,9 +25,7 @@ versions. The architecture of the tool is visualised in \Cref{fig:hefeArch}.
 
 \begin{figure}[h]
     \centering
-    %\includesvg[width=0.7\textwidth]{}
-    \includegraphics[width=0.7\textwidth]{master-essay-solution-proposal.drawio.pdf}
-    % \includesvg[width=0.7\textwidth]{../media/solution-proposal.drawio.pdf}
+    \includegraphics[width=\textwidth]{master-essay-solution-proposal.drawio.pdf}
     \caption{\hefe~pipeline architecture}\label{fig:hefeArch}
 \end{figure}
 
@@ -147,22 +144,32 @@ might be useful if we run into issues with excessive hallucination.
 We must expect the \acrshort{llm} to hallucinate to some extent (\Cref{sec:llmHallucination}). We
 therefore propose to verify the format of the enhanced file before running it.
 
-OpenSCENARIO is a format for \acrshort{ad} test scenarios, and there exist free
-online cloud services for verifying them such as
+As we saw in the section for \Nref{sec:adsScenarioFormats}, there exists several formats for
+\acrshort{ad} scenarios. In order to verify that the syntax of our enhanced test
+case is valid, we simply need to apply the syntax rules of our format. 
+
+The CommonRoad format is XML-based~\cite[720]{commonRoadOG} and as such we can
+to some extent assess the degree of hallucination by parsing the XML structure.
+Furthermore, it has an exhaustive Python library with several utilities\footnote{\url{https://pypi.org/user/commonroad/}}.
+
+OpenSCENARIO exists both as XML and a domain-specific language (DSL). If we
+utilise the XML version, we can apply the same methodology as for the CommonRoad
+format. If using the DSL version, one way
+the OpenSCENARIO format can be verified is by using free
+online cloud services such as this offering from AVL
 \footnote{\url{https://smc.app.avl.com/validation}}. We should however strive for
 running a local verification service to \begin{inparaenum}
     \item save time and compute,
     and
     \item preserve data privacy.
 \end{inparaenum}
-
 Besides, it is generally a good idea to limit the number of external dependencies\footnote{Note for
     example how LGSVL\cite{lgsvl} was shut down, preventing projects such as DeepScenario of
     \citeauthor{DeepScenario} to be further developed on the original platform.}.
 
 \subsection{Test case running and evaluation}
 
-\subsubsection{Test case runner.}
+\subsubsection{Test case runner}
 
 The system will automatically run all
 our base test cases using an \acrshort{ad} simulator, and collect data points to get a baseline. It
