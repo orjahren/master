@@ -48,25 +48,34 @@
 
 \tableofcontents{}                          %%
 \listoffigures{}                            %% (omit if none)
-\listoftables{}                             %% (omit if none)
+% \listoftables{}                             %% (omit if none)
 
 \begin{preface}
   Here comes your preface, including acknowledgments and thanks.
 \end{preface}
 
 \mainmatter{}
-\part{Introduction}                   %% ... Innledning or Innleiing
+\part{Introduction}
 \input{chapters/introduction}
 \input{chapters/background}
+\input{chapters/problem-description}
+\input{chapters/literature-review}
 
-\part{The project}                    %% ... or ??
-% \chapter{Planning the project}        %% ... or ??
+\part{The project}
+% \chapter{Planning the project} 
 
 \input{chapters/related-work}
 \input{chapters/proposal}
+\chapter{Implementation architecture}
+\chapter{Implementation details 1}
+\chapter{Implementation details 2}
+\chapter{Implementation details 3}
 
-\part{Conclusion}                     %% ... or ??
-\chapter{Results}                     %% ... or ??
+\part{Conclusion}
+\chapter{Experiment methodology}
+\chapter{Results}
+\chapter{Discussion}
+\chapter{Further work}
 
 \backmatter{}
 \printbibliography{}
