@@ -38,8 +38,8 @@ jobs:
           PAGE_COUNT=$(pdfinfo ${{ env.THESIS_FOLDER }}/thesis.pdf | grep Pages | awk '{print $2}')
           PERCENTAGE=$(echo "scale=2; $PAGE_COUNT / 100 * 100" | bc)
           # Add the page count to the README.md
-          echo "\nThe thesis currently has $PAGE_COUNT / 100 pages, which is
-          $PERCENTATE percent." >> README.md
+          echo "<br/><br/>The thesis currently has $PAGE_COUNT / 100 pages, which is
+          $PERCENTAGE percent." >> README.md
       - name: Upload the artifact
         uses: actions/upload-artifact@v4
         with:
