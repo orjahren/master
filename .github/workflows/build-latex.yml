@@ -29,8 +29,9 @@ jobs:
           root_file: thesis.tex
           latexmk_shell_escape: true
           texlive_version: latest # must be `2024` or later (`latest` chosen by default)
-          extra_system_packages: coreutils icu inkscape poppler-utils # `coreutils` for `mktemp`, `icu` for `uconv`
-          # NOTE: ^Det man legger til her vil også være tilgjengelig i de andre stegene
+          extra_system_packages: coreutils icu inkscape # `coreutils` for `mktemp`, `icu` for `uconv`
+      - name: Install poppler-utils for pdfinfo
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
       - name: Get the page count of the thesis and add it to the README.md
         run: |
           # Get the page count of the thesis
