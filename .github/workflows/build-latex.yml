@@ -30,6 +30,12 @@ jobs:
           latexmk_shell_escape: true
           texlive_version: latest # must be `2024` or later (`latest` chosen by default)
           extra_system_packages: coreutils icu inkscape # `coreutils` for `mktemp`, `icu` for `uconv`
+      - name: Get the page count of the thesis and add it to the README.md
+        run: |
+          # Get the page count of the thesis
+          PAGE_COUNT=$(pdfinfo ${{ env.THESIS_FOLDER }}/thesis.pdf | grep Pages | awk '{print $2}')
+          # Add the page count to the README.md
+          echo "\nThe thesis currently has $PAGE_COUNT / 100 pages." >> ${{ env.THESIS_FOLDER }}/README.md
       - name: Upload the artifact
         uses: actions/upload-artifact@v4
         with:
