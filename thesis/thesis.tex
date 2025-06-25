@@ -1,3 +1,4 @@
+\DocumentMetadata{lang=en, pdfversion=1.7, pdfstandard=A-2u}
 \documentclass[UKenglish]{uiomasterthesis}  %% ... or norsk or nynorsk or USenglish
 \usepackage[utf8]{inputenc}                 %% ... or latin1
 \usepackage[T1]{url}\urlstyle{sf}
@@ -28,11 +29,14 @@
 \author{Oliver Ruste Jahren}                      %% ... or whoever
 
 \begin{document}
-\uiomasterfp[dept={Department of Informatics},  %% ... or your department
-  program={Informatics: Programming and Systems architecture},                        %% ... or your study program
-  supervisor={Shaukat Ali \and Karoline Nylænder},                    %% ... or blank
-  % or supervisors={A Name\and B Name},     %% if more than one
-  long]                                     %% ... or short
+% NOTE: Forsiden brekker a11y validation
+% TODO: Deal med at forsiden brekker a11y validation
+% Se https://github.com/orjahren/master/issues/1 for hvordan jeg fixet samme case i essayet
+%\uiomasterfp[dept={Department of Informatics},  %% ... or your department
+%program={Informatics: Programming and Systems architecture},                        %% ... or your study program
+%supervisor={Shaukat Ali \and Karoline Nylænder},                    %% ... or blank
+% or supervisors={A Name\and B Name},     %% if more than one
+%long]                                     %% ... or short
 
 \frontmatter{}
 \begin{abstract}
