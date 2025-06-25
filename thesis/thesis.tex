@@ -1,30 +1,47 @@
 \documentclass[UKenglish]{uiomasterthesis}  %% ... or norsk or nynorsk or USenglish
 \usepackage[utf8]{inputenc}                 %% ... or latin1
 \usepackage[T1]{url}\urlstyle{sf}
-\usepackage{babel, csquotes, graphicx, textcomp, frontmatter/uiomasterfp, varioref}
+\usepackage{babel, csquotes, graphicx, textcomp, frontpage/uiomasterfp, varioref}
 \usepackage[backend=biber,style=numeric-comp]{biblatex}
 \usepackage[hidelinks, hypertexnames=false]{hyperref}
+
+% Custom packages
+\usepackage{tcolorbox} % drawing boxes
+\usepackage{glossaries} % acronyms
+\usepackage{cleveref} % in-document references
+\usepackage{siunitx} % \num
+\usepackage{paralist} % inparenum
+
+% Latex-related imports
+\input{preamble/commands}
+\input{preamble/acronyms}
+\addbibresource{refs.bib}
+
+% Set globals
+\setglossarystyle{altlist}
+\setdefaultenum{(1)}{(a)}{i.}{A.}
+\interfootnotelinepenalty=10000 
 
 \title{The title of my thesis}        %% ... or whatever
 \subtitle{Any short subtitle}         %% ... if any
 \author{My Name}                      %% ... or whoever 
 
-\addbibresource{mybib.bib}            %% ... or whatever
+\addbibresource{refs.bib}            %% ... or whatever
 
 \begin{document}
 \uiomasterfp[dept={Department of Physics},  %% ... or your department
-  program={Physics},                        %% ... or your study program
-  supervisor={The Name},                    %% ... or blank
-  % or supervisors={A Name\and B Name},     %% if more than one
-  long]                                     %% ... or short
+    program={Physics},                        %% ... or your study program
+    supervisor={The Name},                    %% ... or blank
+    % or supervisors={A Name\and B Name},     %% if more than one
+    long]                                     %% ... or short
 
 \frontmatter{}
 \begin{abstract}
-  Here come 3--6 sentences describing your thesis.
+    Here come 3--6 sentences describing your thesis.
 \end{abstract}
 
 \begin{xabstract}[Sammendrag]               %% ... or Abstract or ...
-  Here comes the abstract in a different language.
+    Here comes the abstract in a different language.
 \end{xabstract}
 
 \tableofcontents{}                          %%
@@ -32,16 +49,19 @@
 \listoftables{}                             %% (omit if none)
 
 \begin{preface}
-  Here comes your preface, including acknowledgments and thanks.
+    Here comes your preface, including acknowledgments and thanks.
 \end{preface}
 
 \mainmatter{}
 \part{Introduction}                   %% ... Innledning or Innleiing
-\chapter{Background}                  %% ... or Bakgrunn
-\section{Xxx's work}                  %% ... or whatever
+\input{chapters/introduction}
+\input{chapters/background}
 
 \part{The project}                    %% ... or ??
-\chapter{Planning the project}        %% ... or ??
+% \chapter{Planning the project}        %% ... or ??
+
+\input{chapters/related-work}
+\input{chapters/proposal}
 
 \part{Conclusion}                     %% ... or ??
 \chapter{Results}                     %% ... or ??
