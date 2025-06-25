@@ -178,13 +178,13 @@
         \put(0,581){\includegraphics[width=21cm,height=9.27cm]{\uiomfp@image}}}}
     % Add logo:
     \AddToShipoutPictureFG*{%
-      \put(\value{uiomfp@bind@w},784){\includegraphics[height=12.8mm]%
-        {frontpage/uio-fp-navn-\uiomfp@lang}}%
+      \put(\value{uiomfp@bind@w},784){\includesvg[height=12.8mm]%
+        {frontpage/uio-name.svg}}%
       \setlength{\fboxsep}{3mm}%
       \put(\value{uiomfp@bind@w},615){\raisebox{\fboxsep}{%
           \colorbox{black}{\color{white}%
           {\fontseries{b}\selectfont ~~\uiomfp@kind~~\strut}}}}%
-      \put(500,28){\includegraphics[width=23.7mm]{frontpage/uio-fp-segl}}
+      \put(500,28){\includesvg[width=23.7mm]{frontpage/uio-seal.svg}}
     % Add text
       \put(\value{uiomfp@bind@w},28){\uiomfp@text}}
     % Add date
