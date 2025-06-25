@@ -2,7 +2,7 @@
 name: CI
 
 env:
-  THESIS_FOLDER: essay
+  THESIS_FOLDER: thesis
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           working_directory: ${{ env.THESIS_FOLDER }}
-          root_file: main.tex
+          root_file: thesis.tex
           latexmk_shell_escape: true
           texlive_version: latest # must be `2024` or later (`latest` chosen by default)
           extra_system_packages: coreutils icu inkscape # `coreutils` for `mktemp`, `icu` for `uconv`
@@ -36,7 +36,7 @@ jobs:
           name: ${{ env.THESIS_FOLDER }}
           path: |
             README.md
-            ${{ env.THESIS_FOLDER }}/main.pdf
+            ${{ env.THESIS_FOLDER }}/thesis.pdf
   verify:
     name: Verify PDF/A
     runs-on: ubuntu-latest
@@ -47,7 +47,7 @@ jobs:
         uses: actions/download-artifact@v4
       - name: Verify the PDF file with VeraPDF
         # TODO: Deal med dobbel `$FOLDER` i pathen lol
-        run: verify ${{ env.THESIS_FOLDER }}/${{ env.THESIS_FOLDER }}/main.pdf | tee /dev/stderr | grep -qE 'nonCompliant="0" failedJobs="0"'
+        run: verify ${{ env.THESIS_FOLDER }}/${{ env.THESIS_FOLDER }}/thesis.pdf | tee /dev/stderr | grep -qE 'nonCompliant="0" failedJobs="0"'
 
   ## inspired by https://github.com/Pseudomanifold/latex-mimosis
   deploy:
