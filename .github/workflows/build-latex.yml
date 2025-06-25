@@ -35,7 +35,7 @@ jobs:
           # Get the page count of the thesis
           PAGE_COUNT=$(pdfinfo ${{ env.THESIS_FOLDER }}/thesis.pdf | grep Pages | awk '{print $2}')
           # Add the page count to the README.md
-          echo "\nThe thesis currently has $PAGE_COUNT / 100 pages." >> ${{ env.THESIS_FOLDER }}/README.md
+          echo "\nThe thesis currently has $PAGE_COUNT / 100 pages." >> README.md
       - name: Upload the artifact
         uses: actions/upload-artifact@v4
         with:
