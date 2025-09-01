@@ -99,3 +99,19 @@ split the requirements into \num{3} categories: \begin{inparaenum}
     \item weather conditions amongst others\end{inparaenum}, whereas their postconditions reflected
 the desired outcomes of the tests, primarily related to the vehicle's
 telemetry~\cite{requirementsAllYouNeed}.
+
+\section{Language Conditioned Traffic Generation}
+
+\citeauthor{languageconditionedtrafficgeneration} look into using \acrshort{llms} to generate
+specific traffic scenarios. They identify the importance of being able to use simulators to test
+\acrshort{ads}, and highlight how test scenarios are expensieve to
+obtain~\cite[1]{languageconditionedtrafficgeneration}. To this end, they propose a a tool \em
+\textsc{LTCGen} which employs the strengths of \acrshort{llms} to match a natural language query
+with a fitting underlying map\footnote{Map as in a \textit{world} in which a scenario can take
+    place}, and populates this with a \begin{inparaenum}
+    \item initial traffic distribiution, and
+    \item the dynamics of all the vehicles involved in the scene.
+\end{inparaenum}
+Something to note is that they generate their scenarios, without initially taking the \textit{ego
+    vehicle} into account. The ego vehicle of the scene is simply determined as the vehicle that is in
+the \textit{center} of the first \textit{frame}~\cite[3]{languageconditionedtrafficgeneration}.
