@@ -1,0 +1,26 @@
+direction: right 
+
+
+hefe: Hefe tool architecture
+
+hefe.odin: Odin - ADS scenario enhancement
+hefe.odin.llm: LLM APIs
+hefe.odin.prompts: Prompt templates
+
+
+hefe.loki: Loki - ADS scenario orchestration
+hefe.thor: Thor - ADS scenario execution
+hefe.thor.carla: Carla - ADS simulator
+hefe.loki.testCaseRepos: ADS scenario repositories
+
+userInteraction: Human {
+  shape: person
+}
+userInteraction -> hefe.loki: User interaction with Hefe
+
+
+hefe.loki -> hefe.odin: Enhance raw scenario
+hefe.odin -> hefe.thor: Enhanced scenario
+hefe.thor -> hefe.loki: Execution results
+hefe.loki -> hefe.thor: Execute raw scenario
+hefe.loki -> userInteraction: Result evaluation
