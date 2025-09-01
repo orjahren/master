@@ -2,13 +2,13 @@
 name: CI
 
 env:
-  THESIS_FOLDER: thesis
+  THESIS_FOLDER: .
 
 on:
   push:
     branches: [main]
     paths:
-      - "thesis/**"
+      - "./**"
   workflow_dispatch:
 
 jobs:
