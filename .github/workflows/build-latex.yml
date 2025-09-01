@@ -56,7 +56,6 @@ jobs:
       - name: Get the PDF file from the artifact
         uses: actions/download-artifact@v4
       - name: Verify the PDF file with VeraPDF
-        # TODO: Deal med dobbel `$FOLDER` i pathen lol
         run: verify thesis.pdf | tee /dev/stderr | grep -qE 'nonCompliant="0" failedJobs="0"'
 
   ## inspired by https://github.com/Pseudomanifold/latex-mimosis
