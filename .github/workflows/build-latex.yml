@@ -43,7 +43,7 @@ jobs:
       - name: Upload the artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PDF and README
+          name: thesis
           path: |
             README.md
             thesis.pdf
@@ -56,7 +56,7 @@ jobs:
       - name: Get the PDF file from the artifact
         uses: actions/download-artifact@v4
       - name: Verify the PDF file with VeraPDF
-        run: verify thesis.pdf | tee /dev/stderr | grep -qE 'nonCompliant="0" failedJobs="0"'
+        run: verify thesis/thesis.pdf | tee /dev/stderr | grep -qE 'nonCompliant="0" failedJobs="0"'
 
   ## inspired by https://github.com/Pseudomanifold/latex-mimosis
   deploy:
