@@ -5,13 +5,17 @@ hefe: Hefe tool architecture
 
 hefe.odin: Odin - ADS scenario enhancement
 hefe.odin.llm: LLM APIs
-hefe.odin.prompts: Prompt templates
+hefe.odin.prompts: Prompt templates {
+  shape: cylinder
+}
 
 
 hefe.loki: Loki - ADS scenario orchestration
 hefe.thor: Thor - ADS scenario execution
 hefe.thor.carla: Carla - ADS simulator
-hefe.loki.testCaseRepos: ADS scenario repositories
+hefe.loki.testCaseRepos: ADS scenario repositories {
+  shape: cylinder
+}
 
 userInteraction: Human {
   shape: person
