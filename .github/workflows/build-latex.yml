@@ -17,6 +17,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           lfs: true
+      - name: Install D2
+        run: |
+          curl -fsSL https://d2lang.com/install.sh | sh -s --
+          echo "$HOME/.d2/bin" >> $GITHUB_PATH
+      - name: Compile D2 diagrams
+        run: make d2
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
