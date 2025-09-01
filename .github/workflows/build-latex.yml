@@ -1,14 +1,9 @@
 # Lånt fra https://github.com/jdujava/TeXtured/blob/master/.github/workflows/main.yml
 name: CI
 
-env:
-  THESIS_FOLDER: .
-
 on:
   push:
     branches: [main]
-    paths:
-      - "./**"
   workflow_dispatch:
 
 jobs:
@@ -25,7 +20,6 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          working_directory: ${{ env.THESIS_FOLDER }}
           root_file: thesis.tex
           latexmk_shell_escape: true
           texlive_version: latest # must be `2024` or later (`latest` chosen by default)
@@ -35,7 +29,7 @@ jobs:
       - name: Get the page count of the thesis and add it to the README.md
         run: |
           # Get the page count of the thesis
-          PAGE_COUNT=$(pdfinfo ${{ env.THESIS_FOLDER }}/thesis.pdf | grep Pages | awk '{print $2}')
+          PAGE_COUNT=$(pdfinfo thesis.pdf | grep Pages | awk '{print $2}')
           PERCENTAGE=$(echo "scale=2; $PAGE_COUNT / 100 * 100" | bc)
           # Add the page count to the README.md
           echo "<br/><br/>The thesis currently has $PAGE_COUNT / 100 pages, which is
@@ -43,10 +37,10 @@ jobs:
       - name: Upload the artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.THESIS_FOLDER }}
+          name: PDF and README
           path: |
             README.md
-            ${{ env.THESIS_FOLDER }}/thesis.pdf
+            thesis.pdf
   verify:
     name: Verify PDF/A
     runs-on: ubuntu-latest
@@ -57,7 +51,7 @@ jobs:
         uses: actions/download-artifact@v4
       - name: Verify the PDF file with VeraPDF
         # TODO: Deal med dobbel `$FOLDER` i pathen lol
-        run: verify ${{ env.THESIS_FOLDER }}/${{ env.THESIS_FOLDER }}/thesis.pdf | tee /dev/stderr | grep -qE 'nonCompliant="0" failedJobs="0"'
+        run: verify thesis.pdf | tee /dev/stderr | grep -qE 'nonCompliant="0" failedJobs="0"'
 
   ## inspired by https://github.com/Pseudomanifold/latex-mimosis
   deploy:
@@ -72,7 +66,6 @@ jobs:
         uses: actions/download-artifact@v4
       - name: Commit and push the PDF and README.md to `gh-pages` branch
         run: |
-          cd ${{ env.THESIS_FOLDER }}
           git init -b temp
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
