@@ -1,7 +1,11 @@
 direction: right 
 
+vars: {
+  toolName: "Hefe"
+}
 
-hefe: Hefe tool architecture
+
+hefe: ${toolName} tool architecture
 
 hefe.odin: Odin - ADS scenario enhancement
 hefe.odin.llm: LLM interface
@@ -23,7 +27,7 @@ hefe.loki: Loki - ADS scenario orchestration
 userInteraction: Human {
   shape: person
 }
-userInteraction -> hefe.loki: User interaction with Hefe
+userInteraction -> hefe.loki: User interaction with ${toolName}
 
 
 hefe.loki -> hefe.odin: Enhance raw scenario
