@@ -1,6 +1,6 @@
 compile: d2
 	@echo "Compiling the project..."
-	latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode -shell-escape -recorder "thesis.tex"
+	latexmk "thesis.tex"
 
 d2: 
 	@echo "Compiling D2 figures..."
