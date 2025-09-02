@@ -17,6 +17,7 @@
 
 % Latex-related imports
 \input{preamble/commands}
+\makeglossaries{}
 \input{preamble/acronyms}
 \addbibresource{refs.bib}
 
@@ -25,7 +26,7 @@
 \setdefaultenum{(1)}{(a)}{i.}{A.}
 \interfootnotelinepenalty=10000 
 
-\title{Can \acrshort{llms} make our roads safer?}
+\title{Can \acrshortpl{llm} make our roads safer?}
 \subtitle{Utilising Large language models to enhance Autonomous driving system test cases}
 \author{Oliver Ruste Jahren}               
 
@@ -73,10 +74,11 @@
 \chapter{Results}
 \chapter{Discussion}
 \section{Environmental concerns}
-Cost/benefit with using \acrshort{llms}. Refer back to \Nref{sec:llmProblems}.
+Cost/benefit with using \acrshortpl{llm}. Refer back to \Nref{sec:llmProblems}.
 
 \input{chapters/further-work}
 
 \backmatter{}
 \printbibliography{}
+\printglossaries{}
 \end{document}

@@ -1,6 +1,8 @@
 compile: d2
 	@echo "Compiling the project..."
 	pdflatex  -file-line-error -halt-on-error -interaction=nonstopmode -shell-escape -recorder  "thesis.tex"
+	makeglossaries thesis
+	pdflatex  -file-line-error -halt-on-error -interaction=nonstopmode -shell-escape -recorder  "thesis.tex"
 
 
 d2: 

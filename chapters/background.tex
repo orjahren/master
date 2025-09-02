@@ -8,7 +8,7 @@ First, we need to establish some basic testing concepts.
 
 When running test cases, the concept of \textit{Pre-conditions}
 refers to certain properties that
-obtain \textit{before} running a given test case. E.g that the \acrshort{ad} ego vehicle is
+obtain \textit{before} running a given test case. E.g that the \acrshort{ads} ego vehicle is
 stationary.
 
 In many ways mirroring pre-conditions, \textit{post-conditions} refers to the properties that obtain
@@ -37,28 +37,28 @@ system would by definition have perfect test coverage.
 % environments. Some systems operate in the maritime domain, some in the air, and
 % others on the ground in the terrestrial operating domain~\cite[369-370]{watson2005autonomous}.
 
-\section{\acrfull{ads}}
+\section{\acrfullpl{ads}}
 
-\acrfull{ads} are systems that enable automotive vehicles to drive autonomously. Due to the
-typical operating scenarios of a car it is pivotal that the \acrlong{ads} maintain a high safety standard. A common way to assert safety
-is to use simulator based testing~\cite[1]{DeepScenario}.
+\acrfull{ads} are systems that enable automotive vehicles to drive autonomously. Due to the typical
+operating scenarios of a car it is pivotal that the \acrlong{ads} maintain a high safety standard. A
+common way to assert safety is to use simulator based testing~\cite[1]{DeepScenario}.
 
-\subsection{\acrlong{ad} testing}
+\subsection{\acrlong{ads} testing}
 
-Testing is essential for assuring \acrlong{ad} operative safety~\cite[163]{ADTestingReview16}.
-Several methods for testing exist, testing various aspects of the \acrlong{ad}. An \acrshort{ad}
+Testing is essential for assuring \acrlong{ads} operative safety~\cite[163]{ADTestingReview16}.
+Several methods for testing exist, testing various aspects of the \acrlong{ads}. An \acrshort{ads}
 typically exists of several modules, all working together and handling different aspect of the
-\acrlong{ad}.
+\acrlong{ads}.
 
-\citeauthor{ADTestingReview16} outline several typical architectures for \acrshort{ad} testing,
+\citeauthor{ADTestingReview16} outline several typical architectures for \acrshort{ads} testing,
 drawing on traditional software testing traditions outlining how \textit{software testing} can be
-used alongside more specialized \acrshort{ad} testing techniques such as \textit{simulation testing}
-and \textit{X-in-the-loop testing}~\cite[163-164]{ADTestingReview16}.
+used alongside more specialized \acrshort{ads} testing techniques such as \textit{simulation
+    testing} and \textit{X-in-the-loop testing}~\cite[163-164]{ADTestingReview16}.
 
-\subsection{\acrlong{ad} driveability}\label{sec:adsDrivability}
+\subsection{\acrlong{ads} driveability}\label{sec:adsDrivability}
 
 \textbf{Driveability} is a high-level estimator of the overall driving
-condition of an \acrshort{ad}, derived from several lower-level sources~\cite[3140]{safeToDrive}.
+condition of an \acrshort{ads}, derived from several lower-level sources~\cite[3140]{safeToDrive}.
 It can be used to refer to various aspects of a scene.
 \citeauthor{safeToDrive} discuss the concept further, using the  scene definition
 of~\citeauthor{scenes} as outlined in  \Cref{sec:adsSimConcepts}, they describe
@@ -69,45 +69,40 @@ how driveability can refer both to \begin{inparaenum}
 \citeauthor{safeToDrive} go on to give an overview of how driveability
 can be used to refer to a \begin{inparaenum}\setcounter{enumi}{2}
     \item \textit{driveability map} which divides a map into
-    cells indicating where the \acrshort{ad} expects that it will be able to go, and
-    \item \textit{object driveability}, which refers to the classification of physical
-    objects in the environment that the \acrshort{ad} expects that it can run over
-    without causing damage to the ego vehicle~\cite[3135-3136]{safeToDrive}.
+    cells indicating where the \acrshort{ads} expects that it will be able to go, and
+    \item \textit{object driveability}, which refers to the classification of physical objects in
+    the environment that the \acrshort{ads} expects that it can run over without causing damage to
+    the ego vehicle~\cite[3135-3136]{safeToDrive}.
 \end{inparaenum}
 
-The main method for the assessing driveability of a scene comes form assessing the environment
-of the scene. Factors such as \begin{inparaenum}
+The main method for the assessing driveability of a scene comes form assessing the environment of
+the scene. Factors such as \begin{inparaenum}
     \item weather,
     \item traffic flow,
     \item road condition,
-    \item obstacles
-\end{inparaenum} all play into this. The \acrshort{ad} infers information from
+    \item obstacles \end{inparaenum} all play into this. The \acrshort{ads} infers information from
 observation~\cite[3136]{safeToDrive}.
 
-They continue to give an overview of various \textit{driveability factors} and
-their associated difficulties, using a a split between \textit{explicit} and
-\textit{implicit} factors.
+They continue to give an overview of various \textit{driveability factors} and their associated
+difficulties, using a a split between \textit{explicit} and \textit{implicit} factors.
 
-\textbf{Explicit driveability factors} will typically include factors such as
-\textbf{Extreme weather} such as \begin{inparaenum}
+\textbf{Explicit driveability factors} will typically include factors such as \textbf{Extreme
+    weather} such as \begin{inparaenum}
     \item fog,
     \item heavy rain,
     \item snow,
 \end{inparaenum}
-all serving to impair road visibility and causing increased difficulties for
-vision-based tasks such as road detection and object
-tracking~\cite[3136-3137]{safeToDrive}. \textbf{Illumination} also poses
-various challenges for typical \acrshort{ad} tasks as a typical \acrshort{ad}
-will be required to operate in a plethora of scenes with varying degrees of
-illumination depending on factors such as time of day and location (e.g. if the
-\acrshort{ad} is operation in a dimly lit tunnel)~\cite[3137]{safeToDrive}. The
-authors highlight how low illumination may serve as an advantage for the
-\acrshort{ad} as this allows for using the head lights of other vehicles as a
-feature for detecting them, whereas it make pedestrian detection significantly
-more challenging~\cite[3137]{safeToDrive}. \textbf{Road geometry} is another
-external factor, satisfying our natural intuition that \textit{intersections}
-and \textit{roundabouts} are more difficult to drive through than straight
-highways~\cite[3137]{safeToDrive}.
+all serving to impair road visibility and causing increased difficulties for vision-based tasks such
+as road detection and object tracking~\cite[3136-3137]{safeToDrive}. \textbf{Illumination} also
+poses various challenges for typical \acrshort{ads} tasks as a typical \acrshort{ads} will be
+required to operate in a plethora of scenes with varying degrees of illumination depending on
+factors such as time of day and location (e.g. if the \acrshort{ads} is operation in a dimly lit
+tunnel)~\cite[3137]{safeToDrive}. The authors highlight how low illumination may serve as an
+advantage for the \acrshort{ads} as this allows for using the head lights of other vehicles as a
+feature for detecting them, whereas it make pedestrian detection significantly more
+challenging~\cite[3137]{safeToDrive}. \textbf{Road geometry} is another external factor, satisfying
+our natural intuition that \textit{intersections} and \textit{roundabouts} are more difficult to
+drive through than straight highways~\cite[3137]{safeToDrive}.
 
 \textbf{Implicit driveability factors} consist of behaviours and intent of other road users
 interacting with the autonomous car~\cite[3138]{safeToDrive}. This includes the actions of other
@@ -127,18 +122,18 @@ to describe the \textbf{driver behaviour} of other drivers pointing out how
 \begin{inparaenum}\setcounter{enumi}{8}
     \item distraction, and
     \item drowsiness \end{inparaenum} can be factors that cause accidents even for
-\acrshort{ad}-enhanced vehicles due to the other, manual, cars
+\acrshort{ads}-enhanced vehicles due to the other, manual, cars
 interfering with their operation~\cite[3138-3139]{safeToDrive}. Lastly
 \textbf{motorcyclist/bicyclist behaviours} cause their own source of implicit driveability factors:
 The models and methods developed for analysing the group's behaviour are far more limited than other
 groups of road users~\cite[3139]{safeToDrive}.~\citeauthor{safeToDrive} theorise that this comes
 down to the lack of available datasets that capture and label the trajectories and behaviours
 of motorcyclists and bicyclists~\cite[3139]{safeToDrive}, causing potential issues for any
-\acrshort{ad} that wishes to operate in a shared traffic environment with this group.
+\acrshort{ads} that wishes to operate in a shared traffic environment with this group.
 
-\subsection{\acrlong{ad} testing metrics}\label{sec:adsMetrics}
+\subsection{\acrlong{ads} testing metrics}\label{sec:adsMetrics}
 
-When evaluating \acrshort{ad} testing, several metrics can be used. What metric to use will depend
+When evaluating \acrshort{ads} testing, several metrics can be used. What metric to use will depend
 on what the relevant test is measuring.
 
 Building on what we have learnt about driveability (\Cref{sec:adsDrivability}),
@@ -150,11 +145,11 @@ quantifying driveability: \begin{inparaenum}
 \end{inparaenum}
 
 \textbf{Scene driveability} refers to how easy a scene is for an
-\acrshort{ad} to navigate, and the \textit{scene driveability score} refers to
-how likely the \acrlong{ad} is to fail at traversing the
+\acrshort{ads} to navigate, and the \textit{scene driveability score} refers to
+how likely the \acrlong{ads} is to fail at traversing the
 scene~\cite[3140]{safeToDrive}. It is typically found through and end-to-end
 approach. Note how this is a metric for \textit{scenes}, without taking into
-account the performance of any specific \acrshort{ad}.
+account the performance of any specific \acrshort{ads}.
 
 \textbf{Collision-based risk} comes in two kinds - \begin{inparaenum}
     \item binary risk indicator, and
@@ -174,14 +169,14 @@ conflicting'~\cite[3140]{safeToDrive}, representing a ruling on their compatibil
 note how behaviour-based risk assessment typically focuses on driver behaviours, not taking into
 account other actors in the scene such as pedestrians or cyclists.
 
-\subsection{The complexities of \acrshort{ad} testing}\label{sec:adsTestingComplexity}
+\subsection{The complexities of \acrshort{ads} testing}\label{sec:adsTestingComplexity}
 
-As we have seen, \acrshort{ads} can perform several tasks, in several environments. As such, there
+As we have seen, \acrshortpl{ads} can perform several tasks, in several environments. As such, there
 are several relevant factors for testing them. It is not feasible to test all potential variations
 of all potential environments in the real world, meaning that the \textit{test
     coverage}\footnote{See \Nref{sec:testCoverage}} typically will be low.
 
-Some of the factors that complicate \acrshort{ad} operations are \begin{inparaenum}
+Some of the factors that complicate \acrshort{ads} operations are \begin{inparaenum}
     \item timing,
     \item sequence of events, and
     \item parameter settings such as the different speeds of various vehicles and other actors.
@@ -198,13 +193,13 @@ behaviour~\cite[1182]{adsComplexityIndex18}. Their formula also takes into accou
 connected and capable of communicating~\cite[1]{v2xTestingSurvey2019}.
 
 % It is common to modularize the testing of \acrshort{ads} so that the individual modules can be
-% tested in isolation. The modules of an \acrshort{ad} typically include a motion planner, a
+% tested in isolation. The modules of an \acrshort{ads} typically include a motion planner, a
 % \acrfull{cv} system, and % LIDAR. This allows for testing the individual modules in a way that
 % makes sense for their specific domains.
 
-\subsection{\acrlong{ad} simulation}
+\subsection{\acrlong{ads} simulation}
 
-Due to the complexity involved in testing \acrlong{ads} (\Cref{sec:adsTestingComplexity}),
+Due to the complexity involved in testing \acrlongpl{ads} (\Cref{sec:adsTestingComplexity}),
 simulators are typically used for this purpose~\cite{DeepScenario}. While the same points about not
 being able to test \textit{all} possible scenarios do remain true for simulator based testing due to
 the sheer number of factors, using a simulator allows for far greater testing at far lower cost due
@@ -218,15 +213,15 @@ test cases.
 
 Furthermore, simulators allow for greater flexibility in determining the test scenarios due to not
 being confined by the  physical world that is available to the scientist that wishes to perform the
-testing. Using a simulator, a Europe-based scientist can test their \acrshort{ad} for North American
-conditions, or vice-versa.
+testing. Using a simulator, a Europe-based scientist can test their \acrshort{ads} for North
+American conditions, or vice-versa.
 
-\subsection{The \acrshort{ad} simulator jungle}\label{sec:simulatorOverview}
+\subsection{The \acrshort{ads} simulator jungle}\label{sec:simulatorOverview}
 
-Due to the appeal of running \acrshort{ad} simulation, several contenders exist
+Due to the appeal of running \acrshort{ads} simulation, several contenders exist
 on the market.
 
-\textbf{Carla} is a widely used \acrshort{ad} simulator~\cite{Carla}. It is implemented
+\textbf{Carla} is a widely used \acrshort{ads} simulator~\cite{Carla}. It is implemented
 using the game engine UnrealEngine~\cite{unrealengine} and allows for running
 test cases under various scenarios and collecting their results. Carla is fully
 open source and is under active development. It has been applied in projects such as KITTI-Carla,
@@ -236,7 +231,7 @@ which generated a KITTI dataset using Carla~\cite{kittiCarla}.
 as DeepScenario~\cite{DeepScenario}. It allowed for running various maps with various vehicles and
 tracking their data. It was also capable of generating HD
 maps \footnote{\url{https://github.com/lgsvl/simulator?tab=readme-ov-file\#introduction}}.
-DeepScenario is a project similar to this, concerned with testing \acrlong{ads}. Further details
+DeepScenario is a project similar to this, concerned with testing \acrlongpl{ads}. Further details
 about it in are located in \Nref{sec:relatedWork}.
 
 \textbf{AirSim} is Microsoft's offering~\cite{airsim}. It has, like LGSVL,
@@ -245,10 +240,10 @@ simulators we have seen, this also focused on autonomous vehicles outside of
 only cars, such as drones.
 
 
-\subsection{Concepts of \acrshort{ad} simulation}\label{sec:adsSimConcepts}
+\subsection{Concepts of \acrshort{ads} simulation}\label{sec:adsSimConcepts}
 
 \citeauthor{scenes} draw up an outline for the terms \textit{scene}, \textit{situation}, and
-\textit{scenario}, that are all concepts widely used in \acrshort{ad} simulation testing.
+\textit{scenario}, that are all concepts widely used in \acrshort{ads} simulation testing.
 
 \textbf{scene} is a term that is used in different manners in various
 articles~\cite[982]{scenes}, but \citeauthor{scenes} propose standardising the definition on
@@ -289,7 +284,7 @@ simulated as the \textit{ego vehicle}~\cite{egoDefinition}.
 % The DeepScenario dataset~\cite{DeepScenario} utilises this simulator framework.
 % \tanke{The LGSVL part can be removed - not relevant?}
 
-\subsubsection{\acrshort{ad} scenario formats}\label{sec:adsScenarioFormats}
+\subsubsection{\acrshort{ads} scenario formats}\label{sec:adsScenarioFormats}
 
 \textbf{OpenSCENARIO} is a standard developed by the Association for Automation and
 Measurement Systems (ASAM), which is dedicated to the description of dynamic
@@ -307,9 +302,11 @@ proposed by \citeauthor{convOpenScenarioToCR} that allows for converting
 OpenSCENARIO scenarios to the CommonRoad
 format~\cite[4941]{convOpenScenarioToCR}.
 
-\section{\acrfull{llms}}
+% TODO: Skrive om Carlas støtte for Python-scenarioer
 
-\acrfull{llms} are transformer-based language models that typically contain several hundred billion
+\section{\acrfullpl{llm}}
+
+\acrfullpl{llm} are transformer-based language models that typically contain several hundred billion
 parameters and are trained on massive text data~\cite[4]{llmSurvey}.
 Base language models, as the name implies, \textit{model language}. They are typically statistical
 models and an example of \acrfull{ml}.
@@ -328,14 +325,14 @@ opening the door for later advancements such as
 ChatGPT~\cite[9]{llmSurvey}
 
 % \todo{Should elaborate further?}
-\citeauthor{jm} describe how \acrshort{llms} rely on \textit{pretraining}.
+\citeauthor{jm} describe how \acrshortpl{llm} rely on \textit{pretraining}.
 
 \subsubsection{The importance of training data}
 
-As a consequence of \acrshort{llms} being statistical models of a certain input
+As a consequence of \acrshortpl{llm} being statistical models of a certain input
 data~\cite[1]{llmSurvey}, what data the model is trained on is of great
 importance for the capabilities of the model~\cite[6]{llmSurvey}.
-\citeauthor{llmSurvey} give an overview of various \acrshort{llms} and what
+\citeauthor{llmSurvey} give an overview of various \acrshortpl{llm} and what
 kinds of corpora\footnote{A corpus (pl. corpora) refers to a document
     collection.} they have been trained on~\cite[11-14]{llmSurvey}.
 
@@ -382,7 +379,7 @@ all serve as possible ways of increasing \acrshort{llm} performance~\cite[5]{eme
 
 % \tanke{Burde bygge på forrige seksjon om "små" language models}
 
-\subsection{Intelligence in \acrshort{llms}}\label{sec:llmIntelligence}
+\subsection{Intelligence in \acrshortpl{llm}}\label{sec:llmIntelligence}
 
 There are three theories on machine intelligence, each serving to
 explain how they `\textit{think}': \begin{inparaenum}
@@ -394,7 +391,7 @@ explain how they `\textit{think}': \begin{inparaenum}
 
 \subsubsection{Stochastic parrot}\label{sec:llmParrot}
 
-\citeauthor{parrot} outline how \acrshort{llms} can \textit{fool} humans as they
+\citeauthor{parrot} outline how \acrshortpl{llm} can \textit{fool} humans as they
 are trained on ever larger amounts of parameters and data, appearing to be in possession of an
 intelligence~\cite[610-611]{parrot}.
 
@@ -406,7 +403,7 @@ The Sapir-Whorf hypothesis posits that  \textit{The structure of anyone’s nati
     language strongly influences or fully determines the world-view he will acquire
     as he learns the language.}~\cite[128]{sapirWhorf}.
 
-We note how this maps to our \acrshort{llms}, indicating that they will only ever
+We note how this maps to our \acrshortpl{llm}, indicating that they will only ever
 be able to `know' the data on which they have come into contact with.
 
 Or: \textbf{Language} defines the possible room for \textbf{thought}.
@@ -432,15 +429,15 @@ should not exist such as \textit{land yacht} (\Nref{fig:landYacht})
 
 \footnotetext{Diagram borrowed from \citeauthor{conceptBlending},~\cite[67]{conceptBlending}.}
 
-We note how this is how \acrshort{llms} operate when processing vectorized
+We note how this is how \acrshortpl{llm} operate when processing vectorized
 linguistic data.
 % Conceptual blending is a theory on both machine and human intelligence. 
 
 
-\subsection{Utilising \acrshort{llms} - Prompt engineering}\label{sec:llmUtilization}
+\subsection{Utilising \acrshortpl{llm} - Prompt engineering}\label{sec:llmUtilization}
 
 
-A typical way of interacting with \acrshort{llms} is \textit{prompting}~\cite[44]{llmSurvey}. You
+A typical way of interacting with \acrshortpl{llm} is \textit{prompting}~\cite[44]{llmSurvey}. You
 prompt the model to solve various tasks. As we saw in \Nref{sec:emergentAbilities}, the level of
 performance you are able to extract from your \acrlong{llm} can depend a great deal on how you
 interact with it. The process of manually creating a suitable prompt is called \textbf{prompt
@@ -471,38 +468,38 @@ prompting it, and there is a distinction between text-based and code-based appro
 approaches utilise natural language, whereas code-based approaches utilise executable computer code~\cite[54-55]{llmSurvey}.
 
 
-\subsection{General challenges with \acrshort{llms}}\label{sec:llmProblems}
+\subsection{General challenges with \acrshortpl{llm}}\label{sec:llmProblems}
 
-We have seen that \acrshort{llms} demonstrate promising abilities (\Nref{sec:emergentAbilities}) But they have nevertheless certain issues attached to them that we need to be aware of.
+We have seen that \acrshortpl{llm} demonstrate promising abilities (\Nref{sec:emergentAbilities}) But they have nevertheless certain issues attached to them that we need to be aware of.
 
 \subsubsection{Hallucination}\label{sec:llmHallucination}
 
-As we saw in \Cref{sec:llmParrot}, \acrshort{llms} are prone to
+As we saw in \Cref{sec:llmParrot}, \acrshortpl{llm} are prone to
 \textit{bullshitting}. They have no intuition of, or concern with \textit{the
     truth}. They only ever yield whatever response is the most probable under their
 \textsc{beam search} algorithm being applied on their training data.
 
 \subsubsection{Environmental concerns}
 
-A University of Rhode Island study on the environmental impact of \acrshort{llms} have shown that
+A University of Rhode Island study on the environmental impact of \acrshortpl{llm} have shown that
 they require wast amount of energy and water~\cite{hungryLlm}. They also found that the different
-\acrshort{llms} may differ greatly in their energy consumption, highlighting that that certain
-\acrshort{llms} may consume more than \num{70} times more energy than others~\cite{hungryLlm}.
+\acrshortpl{llm} may differ greatly in their energy consumption, highlighting that that certain
+\acrshortpl{llm} may consume more than \num{70} times more energy than others~\cite{hungryLlm}.
 
 Another study by \citeauthor{llmCarbon} focusing specifically on \textit{carbon emissions} did
-however find that these emissions significantly lower for \acrshort{llms} than humans for specific
+however find that these emissions significantly lower for \acrshortpl{llm} than humans for specific
 tasks such as text and image generation, ranging from \num{130} to \num{2900} times less Co2 emitted
 depending on the task~\cite[1]{llmCarbon}.
 
-\citeauthor{thirstyLlm} surveyed the water consumption of \acrshort{llms}, finding that training the
+\citeauthor{thirstyLlm} surveyed the water consumption of \acrshortpl{llm}, finding that training the
 \acrshort{llm} \textsc{GPT-3} could evaporate as much as \num{700000} litres of clean
 freshwater~\cite[1]{thirstyLlm}. Furthermore they review the trends of current AI adoption and
 project that the water consumption of AI could reach levels as high as \num{4.2} - \num{6.6} billion
 cubic metres by \num{2027}, which is comparable to \num{4} - \num{6} Denmarks, or half of the United
-Kingdom~\cite[1]{thirstyLlm}. Recent research indicates that \textit{serving} \acrshort{llms}
+Kingdom~\cite[1]{thirstyLlm}. Recent research indicates that \textit{serving} \acrshortpl{llm}
 currently account for more emissions than training them~\cite[37]{sustainableLlmServing}.
 
-Efforts to achieve greener \acrshort{llms} have been proposed by \citeauthor{sproutGreenLlm}, while
+Efforts to achieve greener \acrshortpl{llm} have been proposed by \citeauthor{sproutGreenLlm}, while
 recognizing the trade-off between ecological sustainability and high-quality
 outputs~\cite[21799]{sproutGreenLlm}.
 
@@ -515,30 +512,30 @@ outputs~\cite[21799]{sproutGreenLlm}.
 % https://machinelearning.apple.com/research/illusion-of-thinking 
 
 
-\subsection{The different kinds of \acrshort{llms}}\label{sec:llmJungle}
+\subsection{The different kinds of \acrshortpl{llm}}\label{sec:llmJungle}
 
-There are several available \acrshort{llms}, some of which are open source, and some proprietary.
-Open source \acrshort{llms} afford greater insight into their composition and underlying training
+There are several available \acrshortpl{llm}, some of which are open source, and some proprietary.
+Open source \acrshortpl{llm} afford greater insight into their composition and underlying training
 data, whereas proprietary models appear more like black boxes. Some popular model families include
 the GPTs, Gemini, Llama, Claude, Mistral, and DeepSeek.
 
-The \acrshort{llms} differ primarily in their \begin{inparaenum}
+The \acrshortpl{llm} differ primarily in their \begin{inparaenum}
     \item parameters, and
     \item training data.
 \end{inparaenum}
-As we saw in \Cref{sec:llmArch}, all typical \acrshort{llms} utilise a transformer-based neural
+As we saw in \Cref{sec:llmArch}, all typical \acrshortpl{llm} utilise a transformer-based neural
 network. But due to their various different properties, different models can behave differently for
 different tasks regardless of their similar architecture.
 
 What they all share is their ability to perform \textit{inference}, meaning that they predict output
 tokens given some input tokens (see \Cref{sec:llmParrot}).
 
-\subsection{Existing \acrshort{llm} applications for \acrshort{ads}}\label{sec:llmsForAds}
+\subsection{Existing \acrshort{llm} applications for \acrshortpl{ads}}\label{sec:llmsForAds}
 
 
-\citeauthor{LLM4AD} give a broad overview of some of the ways \acrshort{llms} have been applied for
-\acrshort{ads}, highlighting some of the opportunities and potential weaknesses of \acrshort{llm}
-applications for \acrshort{ad} purposes. One of the ways \acrshort{llms} can be applied, is for
+\citeauthor{LLM4AD} give a broad overview of some of the ways \acrshortpl{llm} have been applied for
+\acrshortpl{ads}, highlighting some of the opportunities and potential weaknesses of \acrshort{llm}
+applications for \acrshort{ads} purposes. One of the ways \acrshortpl{llm} can be applied, is for
 adjusting the driving mode, or aiding in the decision-making
 process~\cite[1]{LLM4AD}.~\citeauthor{driveAsYouSpeak} delve further into these aspects in their
 other work \citetitle{driveAsYouSpeak}, providing a framework for integrating \acrlong{llm}'s

@@ -2,20 +2,20 @@
 
 \section{DeepScenario}\label{sec:deepScenario}
 
-DeepScenario is both a dataset and a toolset aimed at \acrlong{ad} testing~\cite{DeepScenario}. The
+DeepScenario is both a dataset and a toolset aimed at \acrlong{ads} testing~\cite{DeepScenario}. The
 principal value proposition of this work lies in recognizing the fact that \begin{inparaenum}
     \item there are an infinite number of possible driving scenarios, and
     \item generating critical driving scenarios is very costly with regard to time costs and
     computational resources\end{inparaenum}~\cite[52]{DeepScenario}. The authors therefore propose
-an open driving scenario of more than \num{30000} driving scenarios focusing on \acrshort{ad}
+an open driving scenario of more than \num{30000} driving scenarios focusing on \acrshort{ads}
 testing~\cite[52]{DeepScenario}. The project utilises traditional machine learning
-methodologies, having been performed prior to the broad adaptation of \acrshort{llms}.
+methodologies, having been performed prior to the broad adaptation of \acrshortpl{llm}.
 
 Its scenarios are intended for the simulator SVL by LG (\Cref{sec:simulatorOverview}).
 
 \section{RTCM}
 
-RTCM is a \acrshort{ad} testing framework that allows the user to utilise natural language for
+RTCM is a \acrshort{ads} testing framework that allows the user to utilise natural language for
 synthesizing test cases. The authors propose a domain-specific language --- called RTCM, after
 \textsc{Restricted Test Case Modelling} --- for specifying test cases. It is based on natural language
 and composed of \begin{inparaenum}
@@ -30,8 +30,8 @@ cases~\cite[397]{RTCM}.
 
 \section{DeepCollision}
 
-\citeauthor{deepCollision} utilise \acrfull{rl} for \acrshort{ad} testing, with the goal of getting
-the \acrshort{ad} to \textit{collide}. They used \textit{collision probability} for the loss
+\citeauthor{deepCollision} utilise \acrfull{rl} for \acrshort{ads} testing, with the goal of getting
+the \acrshort{ads} to \textit{collide}. They used \textit{collision probability} for the loss
 function of the \acrlong{rl} algorithm~\cite[384]{deepCollision}. Their experiments included
 training 4 DeepCollision models, then using \begin{inparaenum}
     \item random, and
@@ -43,9 +43,9 @@ similar to our envisioned project.
 
 \section{AutoSceneGen}
 
-AutoSceneGen is a framework for \acrshort{ad} testing using \acrshort{llms},
+AutoSceneGen is a framework for \acrshort{ads} testing using \acrshortpl{llm},
 focusing on the motion planning of \acrlong{ads}~\cite[14539]{autoSceneGen}.
-\citeauthor{autoSceneGen} highlights how \acrshort{llms} provide opportunities
+\citeauthor{autoSceneGen} highlights how \acrshortpl{llm} provide opportunities
 for efficiently evaluating \acrshort{ads} in a cost-effective
 manner~\cite[14539-14540]{autoSceneGen}. They generate a substantial set of synthetic scenarios and
 experiment with using \begin{inparaenum}
@@ -57,24 +57,24 @@ real-world data~\cite[14539]{autoSceneGen}.
 
 \section{LLM4AD}
 
-LLM4AD is a paper that gives a broad overview of \acrshort{llms} for \acrlong{ads}. It touches on
-several of the various \acrshort{ad} applications where \acrshort{llms} are relevant such as
+LLM4AD is a paper that gives a broad overview of \acrshortpl{llm} for \acrlong{ads}. It touches on
+several of the various \acrshort{ads} applications where \acrshortpl{llm} are relevant such as
 \begin{inparaenum}
     \item language interaction,
     \item contextual understanding,
-    \item zero-shot and few shot planning allowing \acrshort{llms} to perform tasks they weren't trained
+    \item zero-shot and few shot planning allowing \acrshortpl{llm} to perform tasks they weren't trained
     on, helping with handling edge cases
     \item continuous learning and personalization, and finally
     \item interpretability and trust \end{inparaenum}~\cite[2]{LLM4AD}. Furthermore, the authors
 also propose a comprehensive benchmark for evaluating the instruction-following abilities of an
-\acrshort{llm} based system in \acrshort{ad} simulation~\cite[1]{LLM4AD}.
+\acrshort{llm} based system in \acrshort{ads} simulation~\cite[1]{LLM4AD}.
 
-\section{LLM-Driven testing of \acrshort{ad}}
+\section{LLM-Driven testing of \acrshort{ads}}
 
-\citeauthor{LLMDrivenTestingADS24} worked on using \acrshort{llms} to for automated test generation
+\citeauthor{LLMDrivenTestingADS24} worked on using \acrshortpl{llm} to for automated test generation
 based on free-form textual descriptions in the area of automotive~\cite[173]{LLMDrivenTestingADS24}.
-They propose a prototype for this purpose and evaluate their proposal for \acrshort{ad} driving
-feature scenarios in Carla. They used the \acrshort{llms} GPT-4 and Llama3, finding GPT-4 to
+They propose a prototype for this purpose and evaluate their proposal for \acrshort{ads} driving
+feature scenarios in Carla. They used the \acrshortpl{llm} GPT-4 and Llama3, finding GPT-4 to
 outperform Llama3 for the stated purpose. Their findings include this \acrshort{llm}-powered test
 methodology to be more than \num{10} times faster than traditional methodologies while reducing
 cognitive load~\cite[173]{LLMDrivenTestingADS24}.
@@ -82,12 +82,12 @@ cognitive load~\cite[173]{LLMDrivenTestingADS24}.
 
 \section{Requirements All You Need?}
 
-\citeauthor{requirementsAllYouNeed} provide an overview of \acrshort{llms} for \acrshort{ads} in
+\citeauthor{requirementsAllYouNeed} provide an overview of \acrshortpl{llm} for \acrshort{ads} in
 their recent preprint~\citetitle{requirementsAllYouNeed}\footnote{This was submitted to Arxiv on
     2025-05-19.}, focusing on \acrshort{llm}'s abilities for translating abstract requirements extracted
 from automotive standards and documents into configuration for Carla (\Cref{sec:simulatorOverview})
 simulations~\cite{requirementsAllYouNeed}. Their experiments include employing the
-\textit{autonomous emergency braking} system and the sensors of the \acrshort{ad}. Furthermore, they
+\textit{autonomous emergency braking} system and the sensors of the \acrshort{ads}. Furthermore, they
 split the requirements into \num{3} categories: \begin{inparaenum}
     \item vehicle descriptions,
     \item test case pre-conditions, and
@@ -102,11 +102,11 @@ telemetry~\cite{requirementsAllYouNeed}.
 
 \section{Language Conditioned Traffic Generation}
 
-\citeauthor{languageconditionedtrafficgeneration} look into using \acrshort{llms} to generate
+\citeauthor{languageconditionedtrafficgeneration} look into using \acrshortpl{llm} to generate
 specific traffic scenarios. They identify the importance of being able to use simulators to test
 \acrshort{ads}, and highlight how test scenarios are expensieve to
 obtain~\cite[1]{languageconditionedtrafficgeneration}. To this end, they propose a a tool --
-\textsc{LTCGen} which employs the strengths of \acrshort{llms} to match a natural language query
+\textsc{LTCGen} which employs the strengths of \acrshortpl{llm} to match a natural language query
 with a fitting underlying map\footnote{Map as in a \textit{world} in which a scenario can take
     place.}, and populates this with a \begin{inparaenum}
     \item initial traffic distribiution, and

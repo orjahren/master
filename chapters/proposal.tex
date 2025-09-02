@@ -1,21 +1,20 @@
 \chapter{Proposed solution}\label{sec:solutionProposal}
 
-We have seen that \acrshort{ad} testing is \textit{complex} and that it is difficult to get a good
-test coverage (\Cref{sec:adsTestingComplexity}). Furthermore, we have seen that \acrshort{llms} have
-\textit{emergent abilities} (\Cref{sec:emergentAbilities}). We therefore propose a tool for
+We have seen that \acrshort{ads} testing is \textit{complex} and that it is difficult to get a good
+test coverage (\Cref{sec:adsTestingComplexity}). Furthermore, we have seen that \acrshortpl{llm}
+have \textit{emergent abilities} (\Cref{sec:emergentAbilities}). We therefore propose a tool for
 \begin{inparaenum}
-    \item running a base \acrshort{ad} test case,
-    \item enhancing the test case using \acrshort{llms},
-    \item running the enhanced test case,
-    and
+    \item running a base \acrshort{ads} test case,
+    \item enhancing the test case using \acrshortpl{llm},
+    \item running the enhanced test case, and
     \item comparing the results of the two runs.
 \end{inparaenum}
 
-This will allow us to learn the extent to which \acrshort{llms} can be applied for enhancing
-\acrlong{ad} test cases. We will survey several \acrshort{llms} and evaluate their applicability for
-the problem at hand, in light of what we know about \acrshort{llms} (\Nref{sec:llmJungle}).
-We want to have a pipeline that is able to process several test cases in succession, in order to get
-a substantial dataset.
+This will allow us to learn the extent to which \acrshortpl{llm} can be applied for enhancing
+\acrlong{ads} test cases. We will survey several \acrshortpl{llm} and evaluate their applicability
+for the problem at hand, in light of what we know about \acrshortpl{llm} (\Nref{sec:llmJungle}). We
+want to have a pipeline that is able to process several test cases in succession, in order to get a
+substantial dataset.
 
 Let the pipeline tool be known as \hefe.~%\info{This name is naturally just a placeholder.}.
 The tool follows a natural pipeline structure. We have some base test cases that
@@ -32,36 +31,36 @@ versions. The architecture of the tool is visualised in \Cref{fig:hefeArch}.
 We need to define what requirement we will use for determining the \textit{result} of a test case
 run. Without this, we cannot compare it to other test cases.
 
-Furthermore, as outlined in \citeauthor{LLM4AD}, \acrlong{llms} can be applied to several aspects
+Furthermore, as outlined in \citeauthor{LLM4AD}, \acrlongpl{llm} can be applied to several aspects
 of \acrlong{ads}. It is not feasible that we focus on \textit{all} these aspects, and as such we
 should narrow down our scope. Let us review some of the relevant aspects.
 
-\section*{The applicability of \acrshort{llms} in \acrshort{ad} testing}
+\section*{The applicability of \acrshortpl{llm} in \acrshort{ads} testing}
 
 \acrlong{ads} are typically modular, as we have seen in \Cref{sec:adsTestingComplexity}.
-\acrshort{llms} are applicable to the different modules in different ways as we saw in
+\acrshortpl{llm} are applicable to the different modules in different ways as we saw in
 \Nref{sec:relatedWork}.
 % TODO: Make more specific reference to what part of Related Work
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=User history
         of using \hefe]\label{user-history}
-    I have a set of \acrfull{ad} test cases. I provide this set to \hefe. It will run the entire
-    set, and generate a baseline of my \acrshort{ad} performance.
+    I have a set of \acrfull{ads} test cases. I provide this set to \hefe. It will run the entire
+    set, and generate a baseline of my \acrshort{ads} performance.
 
-    \hefe~will then improve my test cases using \acrlong{llms} and run them again.
+    \hefe~will then improve my test cases using \acrlongpl{llm} and run them again.
 
     Lastly \hefe~will report how the results differ from running the base and enhanced version of a
     test case.
 
-    This will give me insight into what caused my \acrshort{ad} to fail so that I can look into the
-    cause of the error state and uncover underlying faults in the \acrlong{ad}.
+    This will give me insight into what caused my \acrshort{ads} to fail so that I can look into the
+    cause of the error state and uncover underlying faults in the \acrlong{ads}.
 
 \end{tcolorbox}
 
 
 \section{Implementation language}
 
-The programming language \textsc{Python} is widely used for \acrfull{ad} simulation. It is a high
+The programming language \textsc{Python} is widely used for \acrfull{ads} simulation. It is a high
 level language, allowing the user great flexibility and developer experience. For this reason, I will
 implement \hefe~using Python.
 
@@ -72,7 +71,7 @@ computed, saving time and energy.
 
 \subsection{The room for concurrency}
 
-When evaluating \acrshort{ad} test cases, the test cases are independent of each
+When evaluating \acrshort{ads} test cases, the test cases are independent of each
 other. This means that our problem is \textit{embarrassingly parallelizable}
 \footnote{\url{https://en.wikipedia.org/wiki/Embarrassingly_parallel}} and we can
 trivially process several test cases in parallel. Due to practical limitations
@@ -98,7 +97,7 @@ present the major components and their responsibilities
 
 We have seen in \Nref{sec:relatedWork} that there are existing repositories of
 % TODO: Make more specific reference to what part of Related Work
-\acrshort{ad} test cases. These will provide us with \begin{inparaenum}
+\acrshort{ads} test cases. These will provide us with \begin{inparaenum}
     \item a baseline,
     and
     \item data onto which we can apply our \acrshort{llm} enhancements.
@@ -107,7 +106,7 @@ We have seen in \Nref{sec:relatedWork} that there are existing repositories of
 \subsubsection{\acrshort{llm} enhancement}\label{sec:llmEnhancement}
 
 The base test cases will individually be enhanced by prompting the
-\acrshort{llm}. We will experiment with several \acrshort{llms}.
+\acrshort{llm}. We will experiment with several \acrshortpl{llm}.
 
 For performing the actual improvement, it is essential that we \begin{inparaenum}
     \item test several \acrshort{llm},
@@ -116,15 +115,15 @@ For performing the actual improvement, it is essential that we \begin{inparaenum
     and
     \item verify that the returned test case adheres to the strictly necessary
     syntax rules. This last point is important due to our knowledge of
-    \acrshort{llms} hallucinating (see \Nref{sec:llmProblems}).
+    \acrshortpl{llm} hallucinating (see \Nref{sec:llmProblems}).
     % TODO: More specific reference to Halucination intead of all LLm problems?
 \end{inparaenum}
 
-In order to facilitate testing various \acrlong{llms}, we should employ
+In order to facilitate testing various \acrlongpl{llm}, we should employ
 \acrshort{llm} agnostic software as a translation layer. This will allow us to
-write code for a common interface and test several \acrshort{llms} that may all
-have different internal \acrfull{apis} without having to modify our test code
-for specific \acrshort{apis}. This \begin{inparaenum}
+write code for a common interface and test several \acrshortpl{llm} that may all
+have different internal \acrfullpl{api} without having to modify our test code
+for specific \acrshortpl{api}. This \begin{inparaenum}
     \item saves time
     and
     \item makes for more even test conditions \end{inparaenum}. Some pieces of software providing
@@ -132,10 +131,10 @@ this type of functionality include
 \textsc{aisuite}\footnote{\url{https://github.com/andrewyng/aisuite}}, RamaLama from
 RedHat\footnote{\url{https://github.com/containers/ramalama}}, and the MIT licensed
 Ollama\footnote{\url{https://github.com/ollama/ollama}}, both supporting a plethora of
-\acrlong{llms}.
+\acrlongpl{llm}.
 
 \textsc{guidance}\footnote{\url{https://github.com/guidance-ai/guidance}} is a
-framework for limiting the room in which \acrshort{llms} may operate, which
+framework for limiting the room in which \acrshortpl{llm} may operate, which
 might be useful if we run into issues with excessive hallucination.
 
 
@@ -145,7 +144,7 @@ We must expect the \acrshort{llm} to hallucinate to some extent (\Cref{sec:llmHa
 therefore propose to verify the format of the enhanced file before running it.
 
 As we saw in the section for \Nref{sec:adsScenarioFormats}, there exists several formats for
-\acrshort{ad} scenarios. In order to verify that the syntax of our enhanced test
+\acrshort{ads} scenarios. In order to verify that the syntax of our enhanced test
 case is valid, we simply need to apply the syntax rules of our format.
 
 The CommonRoad format is XML-based~\cite[720]{commonRoadOG} and as such we can
@@ -172,7 +171,7 @@ Besides, it is generally a good idea to limit the number of external dependencie
 \subsubsection{Test case runner}
 
 The system will automatically run all
-our base test cases using an \acrshort{ad} simulator, and collect data points to get a baseline. It
+our base test cases using an \acrshort{ads} simulator, and collect data points to get a baseline. It
 will later also run the mutated \acrshort{llm}-enhanced versions of the base cases.
 
 We have already ran the test cases in their base form. We will now run their
