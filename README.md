@@ -11,6 +11,4 @@ and is scheduled for final submission 17 November 2025.
 Code for the thesis experiments is located in
 [this standalone repo](https://github.com/orjahren/master-hefe). Currently very WIP.
 
-PDFs are available for the
-[essay here](https://github.com/orjahren/master/blob/main/essay/final.pdf) and the
-[thesis here](https://orjahren.github.io/master/thesis/thesis.pdf).
+PDF of the thesis [is available here](https://orjahren.github.io/master/thesis.pdf).
