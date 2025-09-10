@@ -116,3 +116,18 @@ Something to note is that they generate their scenarios, without initially takin
     vehicle} into account. The ego vehicle of the scene is simply determined as the vehicle that is
 in the \textit{center} of the first
 \textit{frame}~\cite[3]{languageconditionedtrafficgeneration}.
+
+\section{Chat2Scenario}
+
+\citeauthor{chat2Scenario} propose a method for utilising \acrshortpl{llm} to retrieve
+\acrshort{ads} scenarios given a natural language query. Their framework synthesizes scenarios from
+naturalistic\footnote{Their term. The intended meaning of \textit{naturalistic} is not all clar to
+    me.} driving datasets, based on observation real world human driving~\cite[55]{chat2Scenario}, that
+it then uses as a database for retrieveing the scenario that best matches the user's natural
+language query. Furthermore, they employ traditional techniques for asserting the relevance of the
+retrieved scenarios, allowing the user to specify a set of \textit{criticality metrics}, of which a
+certain threshold must be reached amongst the scenarios that are initalliy retried by the
+\acrshort{llm}, pruning false positives. As a measure to increase the usability of their framework,
+they also provide a webapp with an intuitive \acrshort{gui} for both \begin{inparaenum}
+    \item operating the tool, and
+    \item visualizing the scenarios \end{inparaenum}~\cite[560]{chat2Scenario}.
