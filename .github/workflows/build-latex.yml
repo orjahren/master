@@ -89,7 +89,7 @@ jobs:
           mv thesis/* . && rmdir thesis
           git init -b temp
           git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git config user.email $GITHUB_ACTOR@users.noreply.github.com
           git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git add .
           git commit -m "[CI] Update to latest PDF and README.md"
