@@ -4,9 +4,9 @@
 
 DeepScenario is both a dataset and a toolset aimed at \acrlong{ads} testing~\cite{DeepScenario}. The
 principal value proposition of this work lies in recognizing the fact that \begin{inparaenum}
-    \item there are an infinite number of possible driving scenarios, and
-    \item generating critical driving scenarios is very costly with regard to time costs and
-    computational resources\end{inparaenum}~\cite[52]{DeepScenario}. The authors therefore propose
+  \item there are an infinite number of possible driving scenarios, and
+  \item generating critical driving scenarios is very costly with regard to time costs and
+  computational resources\end{inparaenum}~\cite[52]{DeepScenario}. The authors therefore propose
 an open driving scenario of more than \num{30000} driving scenarios focusing on \acrshort{ads}
 testing~\cite[52]{DeepScenario}. The project utilises traditional machine learning
 methodologies, having been performed prior to the broad adaptation of \acrshortpl{llm}.
@@ -19,12 +19,12 @@ RTCM is a \acrshort{ads} testing framework that allows the user to utilise natur
 synthesizing test cases. The authors propose a domain-specific language --- called RTCM, after
 \textsc{Restricted Test Case Modelling} --- for specifying test cases. It is based on natural language
 and composed of \begin{inparaenum}
-    \item an easy-to-use template,
-    \item a set of restriction rules, and
-    \item keywords \end{inparaenum}~\cite[397]{RTCM}.  Furthermore, they also propose a tool to
+  \item an easy-to-use template,
+  \item a set of restriction rules, and
+  \item keywords \end{inparaenum}~\cite[397]{RTCM}.  Furthermore, they also propose a tool to
 take this RTCM source code as input and generating either \begin{inparaenum}
-    \item manual, or
-    \item automatically \end{inparaenum} executable test cases~\cite[397]{RTCM}. The proposed tools
+  \item manual, or
+  \item automatically \end{inparaenum} executable test cases~\cite[397]{RTCM}. The proposed tools
 were evaluated in experiments with industry partners, successfully generating executable test
 cases~\cite[397]{RTCM}.
 
@@ -34,8 +34,8 @@ cases~\cite[397]{RTCM}.
 the \acrshort{ads} to \textit{collide}. They used \textit{collision probability} for the loss
 function of the \acrlong{rl} algorithm~\cite[384]{deepCollision}. Their experiments included
 training 4 DeepCollision models, then using \begin{inparaenum}
-    \item random, and
-    \item greedy
+  \item random, and
+  \item greedy
 \end{inparaenum} models for generating a baseline to compare their models with. The results showed
 that DeepCollision demonstrated significantly better effectiveness in obtaining collisions than the
 baselines. While not specifically focused on \textit{testing}, we recognize that their work is thematically
@@ -49,9 +49,9 @@ focusing on the motion planning of \acrlong{ads}~\cite[14539]{autoSceneGen}.
 for efficiently evaluating \acrshort{ads} in a cost-effective
 manner~\cite[14539-14540]{autoSceneGen}. They generate a substantial set of synthetic scenarios and
 experiment with using \begin{inparaenum}
-    \item only synthetic data,
-    \item only real-world data, and
-    \item a combination of the \num{2} \end{inparaenum} as training data. They find that motion
+  \item only synthetic data,
+  \item only real-world data, and
+  \item a combination of the \num{2} \end{inparaenum} as training data. They find that motion
 planners trained with their synthetic data significantly outperforms those trained solely on
 real-world data~\cite[14539]{autoSceneGen}.
 
@@ -60,12 +60,12 @@ real-world data~\cite[14539]{autoSceneGen}.
 LLM4AD is a paper that gives a broad overview of \acrshortpl{llm} for \acrlong{ads}. It touches on
 several of the various \acrshort{ads} applications where \acrshortpl{llm} are relevant such as
 \begin{inparaenum}
-    \item language interaction,
-    \item contextual understanding,
-    \item zero-shot and few shot planning allowing \acrshortpl{llm} to perform tasks they weren't trained
-    on, helping with handling edge cases
-    \item continuous learning and personalization, and finally
-    \item interpretability and trust \end{inparaenum}~\cite[2]{LLM4AD}. Furthermore, the authors
+  \item language interaction,
+  \item contextual understanding,
+  \item zero-shot and few shot planning allowing \acrshortpl{llm} to perform tasks they weren't trained
+  on, helping with handling edge cases
+  \item continuous learning and personalization, and finally
+  \item interpretability and trust \end{inparaenum}~\cite[2]{LLM4AD}. Furthermore, the authors
 also propose a comprehensive benchmark for evaluating the instruction-following abilities of an
 \acrshort{llm} based system in \acrshort{ads} simulation~\cite[1]{LLM4AD}.
 
@@ -84,19 +84,19 @@ cognitive load~\cite[173]{LLMDrivenTestingADS24}.
 
 \citeauthor{requirementsAllYouNeed} provide an overview of \acrshortpl{llm} for \acrshort{ads} in
 their recent preprint~\citetitle{requirementsAllYouNeed}\footnote{This was submitted to Arxiv on
-    2025-05-19.}, focusing on \acrshort{llm}'s abilities for translating abstract requirements extracted
+  2025-05-19.}, focusing on \acrshort{llm}'s abilities for translating abstract requirements extracted
 from automotive standards and documents into configuration for Carla (\Cref{sec:simulatorOverview})
 simulations~\cite{requirementsAllYouNeed}. Their experiments include employing the
 \textit{autonomous emergency braking} system and the sensors of the \acrshort{ads}. Furthermore, they
 split the requirements into \num{3} categories: \begin{inparaenum}
-    \item vehicle descriptions,
-    \item test case pre-conditions, and
-    \item test case post-conditions (\Nref{sec:testingConditions})
+  \item vehicle descriptions,
+  \item test case pre-conditions, and
+  \item test case post-conditions (\Nref{sec:testingConditions})
 \end{inparaenum}~\cite{requirementsAllYouNeed}. The preconditions they used included
 \begin{inparaenum}
-    \item agent placement,
-    \item desired agent behaviour, and
-    \item weather conditions amongst others\end{inparaenum}, whereas their postconditions reflected
+  \item agent placement,
+  \item desired agent behaviour, and
+  \item weather conditions amongst others\end{inparaenum}, whereas their postconditions reflected
 the desired outcomes of the tests, primarily related to the vehicle's
 telemetry~\cite{requirementsAllYouNeed}.
 
@@ -108,12 +108,12 @@ specific traffic scenarios. They identify the importance of being able to use si
 obtain~\cite[1]{languageconditionedtrafficgeneration}. To this end, they propose a tool --
 \textsc{LTCGen} which employs the strengths of \acrshortpl{llm} to match a natural language query
 with a fitting underlying map\footnote{Map as in a \textit{world} in which a scenario can take
-    place.}, and populates this with a \begin{inparaenum}
-    \item initial traffic distribiution, and
-    \item the dynamics of all the vehicles involved in the scene.
+  place.}, and populates this with a \begin{inparaenum}
+  \item initial traffic distribiution, and
+  \item the dynamics of all the vehicles involved in the scene.
 \end{inparaenum}
 Something to note is that they generate their scenarios, without initially taking the \textit{ego
-    vehicle} into account. The ego vehicle of the scene is simply determined as the vehicle that is
+  vehicle} into account. The ego vehicle of the scene is simply determined as the vehicle that is
 in the \textit{center} of the first
 \textit{frame}~\cite[3]{languageconditionedtrafficgeneration}.
 
@@ -122,16 +122,35 @@ in the \textit{center} of the first
 \citeauthor{chat2Scenario} propose a method for utilising \acrshortpl{llm} to retrieve
 \acrshort{ads} scenarios given a natural language query. Their framework synthesizes scenarios from
 naturalistic\footnote{Their term. The intended meaning of \textit{naturalistic} is not all clar to
-    me.} driving datasets, based on observation real world human driving~\cite[55]{chat2Scenario}, that
+  me.} driving datasets, based on observation real world human driving~\cite[55]{chat2Scenario}, that
 it then uses as a database for retrieveing the scenario that best matches the user's natural
 language query. Furthermore, they employ traditional techniques for asserting the relevance of the
 retrieved scenarios, allowing the user to specify a set of \textit{criticality metrics}, of which a
 certain threshold must be reached amongst the scenarios that are initalliy retried by the
 \acrshort{llm}, pruning false positives. As a measure to increase the usability of their framework,
 they also provide a webapp with an intuitive \acrshort{gui} for both \begin{inparaenum}
-    \item operating the tool, and
-    \item visualizing the scenarios \end{inparaenum}~\cite[560]{chat2Scenario}.
+  \item operating the tool, and
+  \item visualizing the scenarios \end{inparaenum}~\cite[560]{chat2Scenario}.
 
 In order to allow the \acrshort{llm} to determine whether a scenario is relevant under the
 provided query, they put forward a method for classifying the various scenarios using traditional
-\acrshort{ml} techniques~\cite[561-562]{chat2Scenario}.
+\acrshort{ml} techniques. This classification focuses primarily on highway scenarios and the
+activities of other actors in relation to the ego vehicle~\cite[561-562]{chat2Scenario}.
+
+\subsubsection*{Prompt engineering}
+
+% TODO: Legge inn kryssreferanse til background om prompt engineering? 
+
+The project's prompts are `informed' by the \num{6} \acrlong{oai} guidelines from their prompt
+engineering guide\footnote{\url{https://platform.openai.com/docs/guides/prompt-engineering} (URL
+  from the paper.)}, ending up with a structured prompt of \num{5} segments. These segments serve to
+guide the \acrshort{llm}, delineating its role as an `advanced \acrshort{ai} tool for scenario
+analysis, specifically tasked with interpreting driving scenario following a pre-established
+classification model'~\cite[562]{chat2Scenario}. They then input the user-provided description of
+the scenario they wish to retrieve. Following this, a third segment declares the format for the
+\acrshort{llm} response, followed by a prime example of \acrlong{icl}, demonstrating what a
+satisfactory fulfillment of the desired format could look like. Lastly they instruct the
+\acrshort{llm} to \textit{Remember to analyze carefully and provide the classification as per the
+  structure given above}~\cite[563]{chat2Scenario}.
+% TODO: Ref siste punkt om "husk å gjøre det riktig" -> kan skrive om dette fenomenet i background
+% og så referere tilbake til det.
