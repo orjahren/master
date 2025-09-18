@@ -2,6 +2,34 @@
 
 \section{Cost}
 
-\section{Edge cases}
+Traditional techniques for obtaining \acrshort{ads} scenarios rely on high skilled manual labour.
+This incurs a significant cost, and is a major limitation in obtaining a large number of good
+scenarios, free from the bias of the author
+% TODO: Bias er ikke relevnt her??
+
 
 \section{Impossible to test all scenarios}
+Furthermore, even if we were to imagine a world in which we had infinite \begin{inparaenum}
+    \item time and
+    \item money
+\end{inparaenum}, we would not be able to successfully account for every possible scenario. This is
+a reality we need to deal with. One possible measure of remedying with this, could be to
+\textit{decrease} the driveability of our existing scenarios. Decreasing the driveability is not the
+same as suddenly having access to the infinite set of possible scenarios, but it is reasonable to
+infer that begin able to \textit{test} the \acrshort{ads} (in a simulator) on these enhanced
+low-driveability scenarios will leave it better fit for encountering other low-driveability
+scenarios in the wild during operation.
+
+\section{Edge cases}
+
+Edge cases can be a major issue for \acrshort{ads} adoptation. The \textit{tail problem} as it is
+known in the \acrshort{ml} field posits that \acrshort{ml} tasks are faced with a long tail of
+unseen cases. We can map these unseen cases, to our unseen \acrshort{ads} scenarios. Because of
+this, an \acrshort{ads} can be at risk of encountering an unseen edge case scenario during
+operation -- something for which it might never have been tested.
+% TODO: Burde referere ting om tail problem? 
+Arguing that the \acrshort{ads} would probably crash simply due to it finding itself in an unseen
+scenario is not logical. But it is important to keep in mind that the end we are pursing in the
+broader adaption of \acrfullpl{ads}, is increased saftey and efficiency on our roads. Not
+sufficiently testing the \acrshort{ads} before deploying it would not serve our goal of increasing
+road safety -- it would be a gamble with human lives.
