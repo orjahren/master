@@ -14,10 +14,12 @@
 \usepackage{paralist} % inparenum
 \usepackage{svg} % for SVG content on the front page
 
+% Skrur av links i glossary-entries, se #5.
+\glsdisablehyper{}
+% \makeglossaries{}
 
 % Latex-related imports
 \input{preamble/commands}
-\makeglossaries{}
 \input{preamble/acronyms}
 \addbibresource{refs.bib}
 
@@ -108,5 +110,7 @@ value/practical applicability in these scenarios?
 
 \backmatter{}
 \printbibliography{}
-\printglossaries{}
+
+% Lar være å vise glossaries siden sidetallene er feil, se #5.
+% \printglossaries{}
 \end{document}
