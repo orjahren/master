@@ -1,1 +1,28 @@
-\chapter{Experiment methodology}
+\chapter{Experiment methodology}\label{sec:experiments}
+
+\section{Prompts}
+
+Prompting is our principal way of interfacing with the \acrshort{llm}. For this reason, our results
+rely on \begin{inparaenum}
+    \item good, and
+    \item fitting prompts
+\end{inparaenum}. Without this all is lost.
+
+We therefore propose several prompting strategies, taking after related research (\Nref{sec:relatedWork}).
+
+\section{Trying different \acrshortpl{llm}}
+
+As we learnt in \Cref{sec:llmJungle}, there are several \acrshortpl{llm} extant. We should
+experiment with various different \acrshortpl{llm} to maximize our chance of testing with a `good'
+\acrshort{llm} that goes well with our stated purpose.
+
+\section{Metrics}
+
+The way the Carla simulator works, one simulator run can be analyzed post factum. The entire
+scenario execution is stored in a Carla-specific binary format. This binary file can then later be
+analyzed, extracting various metrics from one run. This saves time not having to run the simulator
+more than necessary, and allows for reproducing the metric calculations from the original underlying
+binary log file.
+
+Due to the immense file size of these logs\footnote{Keep in mind that they track all actors in the
+    scene over time.}, publishing all our raw files is not feasible.
