@@ -117,6 +117,24 @@ Something to note is that they generate their scenarios, without initially takin
 in the \textit{center} of the first
 \textit{frame}~\cite[3]{languageconditionedtrafficgeneration}.
 
+\section{Scenario engineer GPT}
+
+\citeauthor{seGpt} outline a framework for utilising the \acrshort{llm}-backed ChatGPT in order to
+generate scenarios. They propose SeGPT -- a scenario generation framework that they found to yield
+\textit{significant progress in the domain of scenario generation}~\cite[4422]{seGpt}. They posit
+that their prompt engineering ensures that the generated scenarios are authentically diverse and
+challenging~\cite[4423]{seGpt}. The focus is primarily on \textit{trajectory
+  scenarios}~\cite[4422-4423]{seGpt}.
+
+% TODO: Dette avsittet virker litt malplassert - det virker mer som discussion enn RW
+Note how they explicitly mention scenario \textit{generation}. Our approach for this project has a
+different angle, with the focus being on modifying \textit{existing} scenarios. More on this in
+\Nref{sec:solutionProposal}. The difference between generating a `brand new' scenario with a model
+trained on exisiting scenarios, and modifying an existing scenario seems like a matter of
+granularity. These are very similar concepts, only that the enhanced scenario will have more common
+DNA whereas the other `new' scenario will consist of a broader range of DNA from its various
+underlying scenario corpora.
+
 \section{Chat2Scenario}
 
 \citeauthor{chat2Scenario} propose a method for utilising \acrshortpl{llm} to retrieve
