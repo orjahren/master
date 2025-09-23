@@ -135,6 +135,26 @@ granularity. These are very similar concepts, only that the enhanced scenario wi
 DNA whereas the other `new' scenario will consist of a broader range of DNA from its various
 underlying scenario corpora.
 
+\section{LLM driven scenario generation}
+
+\citeauthor{LLMScenarioChang24} also look into using \acrlongpl{llm} to generate \acrshort{ads}
+scenarios. They recognize several of the challenges we outline in \Cref{sec:problemDescription}. In
+their \citeyear{LLMScenarioChang24} paper, they propose \textsc{LLMScenario}, which is an
+\acrshort{llm}-backed framework for both \begin{inparaenum}
+  \item scenario generation, and
+  \item  evaluation feedback tuning
+\end{inparaenum}~\cite[6581]{LLMScenarioChang24}.
+
+They analyze scenarios in order to provide the \acrshort{llm} with a minimum baseline scenario
+description, and propose score functions based on both \begin{inparaenum}
+  \item reality and
+  \item rarity.
+\end{inparaenum} Their prompting is based on \acrfull{cot} and a posteriori emperical experience.
+Lastly, they tested several \acrlongpl{llm} for their experiments. Their results were positive,
+indicating effectiveness for scenaro engineering in Industry 5.0~\cite[6581]{LLMScenarioChang24}.
+% TODO: Burde finne ut av hva in nomine christi "industry 5.0" er så jeg ikke risikerer å skrive noe
+% som ikke gir mening.
+
 \section{Chat2Scenario}
 
 \citeauthor{chat2Scenario} propose a method for utilising \acrshortpl{llm} to retrieve
