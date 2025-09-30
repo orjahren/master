@@ -17,7 +17,7 @@ detail is their bent to mark the code as specific syntax, applying a
 Markdown-formatted code block indicating both that the output \emph{is} code,
 and what language it is in.,to the first and last line of the output (Listing \ref{lst:llmOutputMarkdown}). 
 % \begin{lstlisting}[language=Markdown]
-\begin{lstlisting}[caption={\acrshort{llm}-generated Python code with Markdown syntax. The bracketed part on line 3 has been added for demonstration purposes.}, label={lst:llmOutputMarkdown}]
+\begin{lstlisting}[caption={\acrshort{llm}-generated Python code with Markdown syntax. The bracketed part on line 3 has been added for demonstration purposes, removing the actual code for brevity.}, label={lst:llmOutputMarkdown}]
 ```python
 
 [ scenario code ]
@@ -25,14 +25,46 @@ and what language it is in.,to the first and last line of the output (Listing \r
 ```
 \end{lstlisting}
 
-
-
 Upon manually removing these syntactic artefacts, we can go ahead with executing
 the scenario. But as previously mentioned, we are unable get any meaningful
 results. This comes down to \begin{inparaenum}
     \item halluciantion of Python code, and 
-    \item Carla problems.
-\end{inparaenum}
+    \item Carla problems
+\end{inparaenum}. 
+Writing code to programatically these lines is naturally trivial, but we have
+not gone ahead with implementing this due to having the focus being on resolving
+the other issues that prevented the scenarios from being executed properly.
+
+Something worth noting is that the \acrshort{llm} demonstrates a promising
+ability to explain back to the user \emph{how} it ehnahced the scenario, e.g. in
+the fom of bullets in a docstring of the output code (see listing \ref{lst:llmOutputExplenation}).
+
+% NOTE: Dette eksempelet er hentet fra CiE-6.
+\begin{lstlisting}[caption={Head of an \acrshort{llm}-enhanced scenario, highlighting how the \acrshort{llm} can add an explenation of how it enhanced the scenario.}, label={lst:llmOutputExplenation}, language={Python}]
+#!/usr/bin/env python
+
+# Copyright (c) 2019-2020 Intel Corporation
+#
+# This work is licensed under the terms of the MIT license.
+# For a copy, see <https://opensource.org/licenses/MIT>.
+
+"""
+Cut in scenario:
+
+The scenario realizes a driving behavior on the highway.
+The user-controlled ego vehicle is driving straight and keeping its velocity at a constant level.
+Another car is cutting just in front, coming from left or right lane.
+
+The ego vehicle may need to brake to avoid a collision.
+
+Enhanced scenario:
+- Increased background traffic with varying speeds to create a more crowded environment.
+- Challenging weather conditions (heavy rain, fog, strong winds) to reduce visibility and grip.
+- Nighttime setting to further decrease visibility.
+- Randomization of speeds and trigger distances for increased unpredictability.
+"""
+[...]
+\end{lstlisting}
 
 \subsection{Hallucinations in the enhanced scenarios}
 
@@ -65,7 +97,7 @@ but that were not a part of the function definition. This also causes runtime
 exceptions in the scenario runner.
 
 % TODO: Burde refereree / kildeføre / vise til noe forankring for disse keyword-eksemplene.
-\subsubsection{Illeal property keywords}
+\subsubsection{Illegal property keywords}
 
 Another trend we observed was the usage of various keywords that simply don't
 exist in the Carla repetoire. Where Carla would recognize the word `snowstorm',
