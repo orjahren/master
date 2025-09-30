@@ -13,6 +13,35 @@
 \usepackage{siunitx} % \num
 \usepackage{paralist} % inparenum
 \usepackage{svg} % for SVG content on the front page
+\usepackage{epigraph} % for quotes
+\usepackage{listings} % for code blocks
+
+% Farger/stil fra https://www.overleaf.com/learn/latex/Code_listing 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
 
 % Skrur av links i glossary-entries, se #5.
 \glsdisablehyper{}
@@ -73,6 +102,7 @@
 \tableofcontents{}
 \listoffigures{}                            %% (omit if none)
 % \listoftables{}                             %% (omit if none)
+\lstlistoflistings{}
 
 \begin{preface}
   Here comes your preface, including acknowledgments and thanks.

@@ -1,12 +1,95 @@
 \chapter{Results}\label{sec:results}
 
+\epigraph{I have not failed. I've just found 10,000 ways that won't work.}{\textit{Thomas A. Edison}}
+
+Our results show that the initially proposed solution of feeding bare
+\acrshort{ads} scenarios represented by Python code into \acrshortpl{llm}, does
+not yield any meaningful results. This is caused by various reaons. The
+following discusses \begin{inparaenum}
+    \item why this is, and 
+    \item ways by which it can be remedied in future work \end{inparaenum}.
+
 \section{Output of the \acrshort{llm}}
 
-Får man saklig format ut?
+Depending on the prompt, our results show that it \emph{is} possible to get
+reasonable-looking Python out of the \acrshort{llm}. One somewhat annoying
+detail is their bent to mark the code as specific syntax, applying a
+Markdown-formatted code block indicating both that the output \emph{is} code,
+and what language it is in.,to the first and last line of the output (Listing \ref{lst:llmOutputMarkdown}). 
+% \begin{lstlisting}[language=Markdown]
+\begin{lstlisting}[caption={\acrshort{llm}-generated Python code with Markdown syntax. The bracketed part on line 3 has been added for demonstration purposes.}, label={lst:llmOutputMarkdown}]
+```python
+
+[ scenario code ]
+
+```
+\end{lstlisting}
+
+
+
+Upon manually removing these syntactic artefacts, we can go ahead with executing
+the scenario. But as previously mentioned, we are unable get any meaningful
+results. This comes down to \begin{inparaenum}
+    \item halluciantion of Python code, and 
+    \item Carla problems.
+\end{inparaenum}
+
+\subsection{Hallucinations in the enhanced scenarios}
+
+The \acrshort{llm} typically seems to be on the right track, outlining something
+that \emph{sounds} like a good approach to satisfying our prompt of decreasing
+the driveability of the scenario. But in practice, it will often hallucinate
+methods that don't exist, or use terms and phrasing that are not valid keywords
+in the Carla specificication. This is in line with what was found by e.g.
+\citeauthor{autoSceneGen}~\cite[14542]{autoSceneGen} (See \Nref{sec:autoSceneGen} in
+\Nref*{sec:relatedWork}).
+
+% TODO: Legge til ekesempler her
+% TODO: Er vi sikre på at dette handler om spesifikt hallusinering og ikke noe annet?
+\subsubsection{Non-existing methods}
+
+As mentioned, the \acrshort{llm} seems to have the right idea of what it can do
+to achieve the stated goal. But the way that it goes about obtaining it, does
+not always work. The enhanced scenario code will often call methods that don't
+exist. This leads to a runtime exception in the scenario runner when executing
+the enhanced scenario. 
+
+% TODO: Legge til ekesempler her
+% TODO: Er vi sikre på at dette handler om spesifikt hallusinering og ikke noe annet?
+\subsubsection{Non-existing arguments}
+
+In a similar vein to the non-existing methods, non-exisiting \emph{arguments}
+were also shown to appear. The \acrshort{llm} could simply call methods that
+were already being used, with additional arguments that made semeantic sense,
+but that were not a part of the function definition. This also causes runtime
+exceptions in the scenario runner.
+
+% TODO: Burde refereree / kildeføre / vise til noe forankring for disse keyword-eksemplene.
+\subsubsection{Illeal property keywords}
+
+Another trend we observed was the usage of various keywords that simply don't
+exist in the Carla repetoire. Where Carla would recognize the word `snowstorm',
+the \acrfull{llm} proposed using the word `blizzard'.
+
+
+\subsection{Carla crashes with certain scenarios}
+
+There appears to be a bug in Carla version 0.9.15\footnote{Which is the version
+employed for this project.} which causes the program to \emph{hard crash} when
+executing certain scenarios with metric recording enabled. This has been
+reported to the project Github\footnote{By several members of the scientific community, see e.g.
+\begin{itemize}\item  \url{https://github.com/carla-simulator/carla/issues/9170} and \item \url{https://github.com/carla-simulator/carla/issues/9152}\end{itemize}}, but as of 2025-09-30 it has not been resolved.
+Testing shows that the same scenarios may be ran without crashing when
+\textbf{not recording}, but this naturally has severe implications for our
+opportunities of obtaining data from the simulation run. The `record' function
+of the scenario runner is the crux of measuring the driveability of the
+scenario. 
+
 
 \section{Metrics used for evaluation}
 
-% TODO: Dette er bare yap
-Our experiments (\Nref{sec:experiments}) show that we were able to decrease the driveability of the
-scenarios with regard to TODO. We observed a \num{-42} percentage increase in accidents in scenario
-A, highlighting the value of our tool.
+We measure several metrics for evaluating the driveability of the scenario. The
+principal is \emph{jerk}.
+
+Due to the above resons with getting the enhanced scenarios to run, there is
+however minimal data to bases any qualitative analysis on.
