@@ -1,5 +1,7 @@
 \chapter{Experiment methodology}\label{sec:experiments}
 
+\epigraph{The torment of precautions often exceeds the dangers to be avoided. It is sometimes better to abandon one's self to destiny.}{Napoléon}
+
 \section{Prompts}
 
 Prompting is our principal way of interfacing with the \acrshort{llm}. For this reason, our results
@@ -8,7 +10,28 @@ rely on \begin{inparaenum}
     \item fitting prompts
 \end{inparaenum}. Without this all is lost.
 
-We therefore propose several prompting strategies, taking after related research (\Nref{sec:relatedWork}).
+We therefore propose several prompting strategies, taking after related research
+(\Nref{sec:relatedWork}).
+
+Prompts were determined by trial and error in an iterative manner, in
+conjunction with Github Copoilot. They are all descendant of listing
+\ref{lst:firstPrompt}, each subsequent iteration improving on the last based on
+what worked or did not worked when assessing the output.
+Due to a techical detail of the
+\hefe~implementation (\Nref{sec:odinImplementation}), the datype of the prompt is
+a lambda function that takes the raw scenario represented as a string and then
+inserts it into the prompt in runtime. This is represented by the curly braces
+on line \num{3} in listing~\ref{lst:firstPrompt}.
+
+\begin{lstlisting}[caption={The first prompt.}, label={lst:firstPrompt}, language={Python}]
+lambda python_carla_scenario_raw: f"""
+1 - Context: We are working with a driving simulation environment for the Carla simulator.
+2 - Task: Decrease the driveability of the scenario by enhancing it with more details and complexity.
+3 - Input: {python_carla_scenario_raw}
+4 - Output: An enhanced version of the scenario description with additional
+details and complexity, still in Python carla scenario format.
+""",
+\end{lstlisting}
 
 \section{Trying different \acrshortpl{llm}}
 
