@@ -43,9 +43,9 @@
 
 \lstset{style=mystyle}
 
-% Skrur av links i glossary-entries, se #5.
+% Skrur av links i glossary-entries fordi det blir rart når man trykker på f.x. LLM i ToC. Se #5. 
 \glsdisablehyper{}
-% \makeglossaries{}
+\makeglossaries{}
 
 % Latex-related imports
 \input{preamble/commands}
@@ -103,6 +103,8 @@
 \listoffigures{}                            %% (omit if none)
 % \listoftables{}                             %% (omit if none)
 \lstlistoflistings{}
+% Lar være å vise glossaries siden sidetallene er feil, se #5.
+\printglossary[title={Abbreviations},nonumberlist]
 
 \begin{preface}
   Here comes your preface, including acknowledgments and thanks.
@@ -133,6 +135,4 @@
 \backmatter{}
 \printbibliography{}
 
-% Lar være å vise glossaries siden sidetallene er feil, se #5.
-% \printglossaries{}
 \end{document}
