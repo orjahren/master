@@ -28,7 +28,11 @@
 \ProcessOptions \relax
 
 %% Load base class:
-\LoadClass[a4paper,11pt,twoside,openright]{report}
+% \LoadClass[a4paper,11pt,twoside,openright]{report}
+% NOTE: Endret openright til openany for å slippe å ha så mange tomme sider.
+% 2025-10-01, ref #13.
+% TODO: Husk å endre tilbake når den skal trykkes??
+\LoadClass[a4paper,11pt,twoside,openany]{report}
 
 %% Language adaptions:
 \newcommand{\papername}{Paper}
