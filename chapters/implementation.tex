@@ -1,32 +1,547 @@
+\chapter{Implementation details}
 
-\chapter{Implementation architecture}
-\chapter{Implementation details 1 - Thor}
+The implementation is what facilitates doing the actual experiments. For the
+most part, it follows what is outlined in the \Nref{sec:solutionProposal}, with
+some minor practical differences. 
+What follows will analyze the impelementation of the components of the \hefe{}
+pipeline and explain more closely in detail not only \emph{what} they do, as
+that is already covered in the solution proposal, but \emph{how} they do it, with
+hands-on code examples.
 
-Rest API - running test cases - Thor
-“Fast API”, Python
-POST a test case to the API. It will be ran on the ‘server’
-RabbitMQ for listening for finished test cases? So that the client knows it can fetch the results?
-Will need UUID for test cases so the correct result can be fetched after it has been ran
-Need to store these somewhere. NoSQL database?
-This component should also accumulate results.
-Huge TODO: What metric are these results?
-Should be containerised (Docker/Podman)
+% TODO: Burde avklare om den skal leve her "for alltid". Syns det kan gi emning
+% å samle alle master ting i ett repo. Fortrinnsvis _dette_ (veldig meta å linke
+% til seg selv i så fall hehe). Kan også være gunstig mtp å inkludere kode som appendix?
+All code is available on the Github repo \href{https://github.com/orjahren/master-hefe}{\texttt{master-hefe}}.
 
-\chapter{Implementation details 2 - Odin}\label{sec:odinImplementation}
+\section{Carla interface and scenario utilities -- Thor}
 
-Rest API - performing LLM enhancement - Odin
-“Fast API”, Python
-Take a base test case as body
-Have some prompt repository
-Apply prompts with LLMs
-Must integrate with LLM. Either locally (Ollama) or remote (some API)
-Look into good LLM agnostic transition layer. E.g. Aisuite
-https://github.com/andrewyng/aisuite
-Should use same UUIDs as outlined above, but suffixed with e.g. “pure” and “tainted”
-Containerized. Docker compose?
+The Thor module is responsible for all thigs related to the Carla \acrshort{ads}
+simulator. It provides the client with several scenario-related utilities, and
+is capable of executing the desired scenarios. 
 
-\chapter{Implementation details 3 - Loki}
 
-Client - orchestrating the process - Loki
-Fetch available test cases from Thor? Select what/which are to be used
-Store results clientside? Separate database for this?
+Certain of its utilities are simple tools for asserting the liveness of Carla,
+such as the \texttt{get\_carla\_is\_up} function, shown in
+listing~\ref{lst:odinCarlaHealthCheck}. This function will use the Caral
+standard Python library and attempt to connect to the server on its default
+port\footnote{I.e. \num{2000}, line \#4 in listing
+\ref{lst:odinCarlaHealthCheck}.}. Note that we refer to the host as simpyly
+\texttt{carla} -- this is possible due to the entire project running
+containerised with Docker Compose. Instead of refering to the speicifc IP
+address of the Carla server (typically localhost, if not running it externally),
+the Docker system will facilitate this name translation for us.
+
+\begin{lstlisting}[caption={Exerpt from carla\_interface.py, demonstrating the implementation of a Carla health check.}, label={lst:odinCarlaHealthCheck}, language={Python}]
+import carla
+
+CARLA_HOST = "carla"
+CARLA_PORT = 2000
+
+
+def get_carla_is_up() -> bool:
+    """
+    Check if the CARLA simulator is up and running.
+    This function attempts to connect to the CARLA server and returns True if successful, otherwise False.
+    """
+    print("Running carla integration check to see if it is up...")
+    try:
+        client = carla.Client(CARLA_HOST, CARLA_PORT)
+        client.get_world()
+        return True
+    except Exception as e:
+        print(f"CARLA connection failed: {e}")
+        return False
+\end{lstlisting}
+
+This is used both to assert the general liveness of the \hefe pipeline, and to
+verify that the simulator is available before performing experiments. It is
+better to detect this illegal state \emph{before} running experiments rather
+than during their execution.
+
+Furthermore, it shall also be equipped with funcitonality for \emph{executing} \acrshort{ads}
+scenarios on Carla. This is trivial when using Carla's existing Scenario Runner
+module's funcitonality. As of now, this has not yet been implemented due to
+greater challenges in the \acrshort{llm} module -- Odin.
+
+
+% Rest API - running test cases - Thor
+% “Fast API”, Python
+% POST a test case to the API. It will be ran on the ‘server’
+% RabbitMQ for listening for finished test cases? So that the client knows it can fetch the results?
+% Will need UUID for test cases so the correct result can be fetched after it has been ran
+% Need to store these somewhere. NoSQL database?
+% This component should also accumulate results.
+% Huge TODO: What metric are these results?
+% Should be containerised (Docker/Podman)
+
+\section{LLM interface and prompt applications -- Odin}\label{sec:odinImplementation}
+
+% Rest API - performing LLM enhancement - Odin
+% “Fast API”, Python
+% Take a base test case as body
+% Have some prompt repository
+% Apply prompts with LLMs
+% Must integrate with LLM. Either locally (Ollama) or remote (some API)
+% Look into good LLM agnostic transition layer. E.g. Aisuite
+% https://github.com/andrewyng/aisuite
+% Should use same UUIDs as outlined above, but suffixed with e.g. “pure” and “tainted”
+% Containerized. Docker compose?
+
+The Odin module handles all things \acrshort{llm}. It provides a unified
+\acrshort{api} for applying various prompts to scenarios and returning the
+enhanced output resulting from having applied the prompt. We hve implemented
+support for the \acrshortpl{llm} that are available on \begin{inparaenum}
+    \item Ollama, and 
+    \item Gemini
+\end{inparaenum}. This allows for testing with \acrshortpl{llm} such as
+\begin{inparaenum}\setcounter{enumi}{2}
+    \item Mistral \num{7.2}B, and 
+    \item gemini-2.5-flash
+\end{inparaenum}.
+
+\subsection{LLM interface implementations}
+\subsubsection{Gemini integration}
+
+The Gemini integration is quite straightforward, relying on Google's own
+\texttt{genai} Python module. Listing~\ref{lst:thorGeminiInterface} renders the
+\emph{entire} interface, again highlighting how straightforward this really is.
+The one piece of complexity to not is that it requires that the user provides
+their own Gemini \acrshort{api} key and has this set as an environment variable
+with the proper name. Without this being as it should, the script will crash, as
+it would not possible for it to complete the desired \acrshort{llm} enhancement
+regardless as long as the \acrshort{api} key is not present.
+
+\begin{lstlisting}[caption={llm\_api\_interfaces/gemini\_interface.py, The implementation of a Gemini interface for executing prompts.}, label={lst:thorGeminiInterface}, language={Python}]
+import os
+
+
+from google import genai
+
+
+def get_api_key() -> str:
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        raise EnvironmentError("GEMINI_API_KEY environment variable not set.")
+    return api_key
+
+
+client = genai.Client(api_key=get_api_key())
+
+
+def api_is_up():
+    return True  # Assume Google never dies...
+
+
+# TODO: Use decorator for asserting API liveness? Or standard assertion??
+def execute_gemini_model(model_name: str, prompt: str) -> str:
+
+    response = client.models.generate_content(
+        model=model_name or "gemini-2.5-flash",
+        contents=prompt
+    )
+
+    return response.text
+\end{lstlisting}
+
+\subsubsection{Ollama integration}
+
+The Ollama integration is a bit more cumbersome. This motly comes down to it not
+using any exisitng library modules for this specific purpose, instead relying on
+using the \texttt{json} and \texttt{requests} modules to implement the desired
+funcitonality from scratch, making it so that we need to handle network IO and
+marshalling the \acrfull{llm} response into a fitting return buffer.
+
+ Listing~\ref{lst:thorOllamaInterface} renders the
+\emph{entire} interface. As we can see, it is not too bad allthough nowhere near
+as clean as the Gemini implementation (\ref{lst:thorGeminiInterface}).
+
+Its complexity arises principally from \num{2} major factors --
+\begin{inparaenum}
+    \item the already mentioned manual networking, and 
+    \item having to parse the streamed response
+\end{inparaenum}
+Furthermore, this code expects that the user already \emph{has} an Ollama
+installation running on their host machine. The code provides no means of setup
+for this -- that is an entirely external endeavour that is left up to the end user.
+
+Similarly to how the Gemini implementation does it, this will crash if Ollama is
+not funcitoning properly as it would not possible for it to complete the desired
+\acrshort{llm} enhancement regardless if Ollama is unreachable.
+
+\begin{lstlisting}[caption={llm\_api\_interfaces/ollama.py, The implementation of an Ollama interface for executing prompts.}, label={lst:thorOllamaInterface}, language={Python}]
+import json
+import requests
+
+
+OLLAMA_API_URL = "http://localhost:11434"
+
+
+def api_is_up():
+    try:
+        response = requests.get(OLLAMA_API_URL)
+        return response.status_code == 200
+    except requests.ConnectionError:
+        return False
+
+
+# ollama models
+def get_ollama_models():
+    try:
+        response = requests.get(f"{OLLAMA_API_URL}/api/tags")
+        if response.status_code == 200:
+            return response.json()["models"]
+        else:
+            print(f"Failed to get models: {response.status_code}")
+            return []
+    except requests.ConnectionError:
+        print("Failed to connect to the API.")
+        return []
+
+
+# TODO: Use decorator for asserting API liveness? Or standard assertion??
+def execute_ollama_model(model_name: str, prompt: str):
+    try:
+        payload = {
+            "model": model_name,
+            "prompt": prompt
+        }
+        print(f"Executing model {model_name} with prompt: {prompt}")
+        response = requests.post(
+            f"{OLLAMA_API_URL}/api/generate", json=payload)
+        if response.status_code == 200:
+            result = ""
+            for line in response.iter_lines():
+                if line:
+                    data = line.decode('utf-8')
+                    try:
+                        json_obj = json.loads(data)
+                        result += json_obj.get("response", "")
+                    except Exception as e:
+                        print(f"Failed to parse line: {e}")
+            return {"text": result}
+        else:
+            print(f"Failed to execute model: {response.status_code}")
+            return None
+    except requests.ConnectionError:
+        print("Failed to connect to the API.")
+        return None
+\end{lstlisting}
+
+\subsection{Prompts and their associated code}
+
+In this project, the prompts are the instruction to the \acrfull{llm} for
+applying the enhancement to the scenario. Quite possibly the most critical piece
+of code related to the experiments. They need to take the base scenario as an
+input and integrate it into the \acrshort{llm} context, such that it knows what
+it shall use as its base to apply enhancements that will decrease the
+driveability. For this reason, it also provides certain scenario
+utilities\footnote{That architectually might as well have been integrated in the
+Thor module\ldots}.
+
+\subsubsection{Scenario utilities}
+
+These are essentially quite trivial helpers. Lisitng \ref{lst:odinScenarioUtils}
+render the core functionality -- hopefully this is quite self-explaining. 
+
+\begin{lstlisting}[caption={scenario\_utils.py, The implementation of an various scenaro helper functions for executing prompts.}, label={lst:odinScenarioUtils}, language={Python}]
+import os
+
+
+# TODO: Implementer denne
+# TODO: Fastslaa hvilket format vi bruker (OpenSCENARIO/CommonRoad/andre)
+def file_format_is_valid(file_format: str) -> bool:
+    """
+    Check if the file format is valid.
+
+    Args:
+        file_format (str): The file format to check.
+
+    Returns:
+        bool: True if the file format is valid, False otherwise.
+    """
+    return file_format in ["json", "yaml", "yml", "csv", "txt"]
+
+
+def enumerate_enhanced_scenarios(scenario_repository_path: str, scenario_name: str) -> int:
+    """
+    Enumerate enhanced scenarios in a given scenario path.
+
+    Args:
+        scenario_repository_path (str): The path to the scenario directory.
+        scenario_name (str): The name of the scenario.
+
+    Returns:
+        int: The number of enhanced scenarios found.
+    """
+    # TODO: Can probably refactor this
+    acc = 0
+    for scenario in os.listdir(scenario_repository_path):
+        print(f"Checking scenario: {scenario}")
+        if scenario_name in scenario and "enhanced" in scenario:
+            acc += 1
+    return acc
+
+
+# TODO: Should use better names. Need a way of tracking enhanced scenario
+# metadata
+# - Timestamp
+# - What prompt was used
+# - What model was used
+# - What the original scenario was
+# - What changes were made?
+def get_enhanced_scenario_name(scenario_repository_path: str, scenario_name: str) -> str:
+    """
+    Get the enhanced scenario name.
+
+    Args:
+        scenario_repository_path (str): The path to the scenario directory.
+        scenario_name (str): The base name of the scenario.
+
+    Returns:
+        str: The enhanced scenario name.
+    """
+    num_enhanced_scenarios = enumerate_enhanced_scenarios(
+        scenario_repository_path, scenario_name)
+    if num_enhanced_scenarios == 0:
+        return f"{scenario_name}-enhanced"
+    else:
+        # Big brain time...who needs UUIDs when you can just count files?
+        return f"{scenario_name}-enhanced-{num_enhanced_scenarios + 1}"
+
+
+def get_available_scenarios(scenario_repository_path: str) -> list:
+    def extension_is_ok(filename: str) -> bool:
+        # TODO: Verify which formats we want to support
+        return filename in ["xosc", "py"]
+
+    return [filename for filename in os.listdir(scenario_repository_path) if extension_is_ok(filename)]
+
+
+# TODO: Should strip newlines??
+def scenario_path_to_string(scenario_path: str) -> str:
+    with open(scenario_path, 'r') as file:
+        return file.read()
+
+
+# TODO: Let this function determine output file name?
+def save_enhanced_scenario(scenario_str: str, output_path: str):
+    with open(output_path, 'w') as file:
+        file.write(scenario_str)
+\end{lstlisting}
+
+\subsubsection{Prompts -- templating and usage}
+
+% TODO: Finnes det noe bigbrain måte å slippe å manuelt måtte referere ti llinjenummer?
+As mentioned, the prompts need to include the scenarios \emph{in} them, so that
+they are accessible to the \acrshort{llm}. How this is done, is rendered in
+listing~\ref{lst:odinPromptTestbed}. The most interesting aspect is how the
+prompts are stored in the system as lambda functions. This makes it so that they
+can take an argument that represents the scenario --
+\texttt{python\_carla\_scenario\_raw}(line \#16) -- and simply \emph{execute} the
+function to insert the scenario into the prompt (line \#42). This is then
+inserted into the output prompt at the location located at line \#21 in the listing.
+
+\begin{lstlisting}[caption={experiments/testbed/prompts.py, The implementation of a prompt testbed for executing prompts.}, label={lst:odinPromptTestbed}, language={Python}]
+# We wish to decrease the driveability of the scenario by enhancing it with more
+# details, increasing its complexity
+
+# Prompt structure:
+"""
+1 - Context: We are working with a driving simulation environment for the Carla simulator.
+2 - Task: Decrease the driveability of the scenario by enhancing it with more details and complexity.
+3 - Input: <scenario_description, in python carla scenario format>
+4 - Output: An enhanced version of the scenario description with additional
+details and complexity, still in Python carla scenario format. ONLY output the
+code, without any additional text or explanation.
+"""
+
+PROMPTS = [
+    [...] # NOTE: Removed most prompts from this listing for brevity.
+    lambda python_carla_scenario_raw: f"""
+    1 - Context: You are a tool for decreasing the driveability of scenarios in the driving simulator Carla.
+    2 - Task: Decrease the driveability of the scenario by enhancing it with
+    more details and complexity, using only methods that are part of the
+    official Carla API, version 0.9.15.
+    3 - Input, the Python specification for the scenario: {python_carla_scenario_raw}
+    4 - Reasoning: Think step by step about how to make the scenario more complex and less driveable, considering possible obstacles, traffic, weather, and other factors using only the official Carla API.
+    5 - Output: Only output the enhanced scenario code in Python Carla scenario format, with no additional text or explanation.
+    """,
+]
+
+
+def name_to_prompt_idx(name: str) -> int:
+    mapping = {
+        "basic": 0,
+        "no_explanation": 1,
+        "no_explanation_strict": 2,
+        "cot": 3,
+        "cot_strict_methods_in_file": 4,
+        "cot_strict_carla_api": 5,
+    }
+    return mapping.get(name, 0)
+
+
+def get_prompt_for_python_scenario_enhancement(python_carla_scenario_raw: str, prompt_name: str) -> str:
+    prompt_idx = name_to_prompt_idx(prompt_name)
+    return PROMPTS[prompt_idx](python_carla_scenario_raw)
+
+\end{lstlisting}
+
+Lastly, note the comments in the top of the file, intended to give Github
+Copilot increased understanding of the context, so that it can provide better
+aid during programming.
+
+
+\section{Execution tool / user oriented frontend -- Loki}
+
+% Client - orchestrating the process - Loki
+% Fetch available test cases from Thor? Select what/which are to be used
+% Store results clientside? Separate database for this?
+
+The final module of the \hefe pipeline is Loki -- it is simply a tool intended
+to be used by the user for operating the process. It \begin{inparaenum}
+\item  says what scenarios are available to it (i.e. those that are eligble for
+being enhanced), and 
+\item allows the user to select a prompt and 
+\item execute that prompt to the scenario of their choosing.
+\end{inparaenum}
+
+
+\begin{lstlisting}[caption={loki/main.py, The implementation of the Loki script.}, label={lst:lokiMainImplementation}, language={Python}]
+import pika
+import requests
+
+# from odin.server import ODIN_PORT
+# from thor.server import THOR_PORT
+
+ODIN_PORT = 4000
+THOR_PORT = 6000
+
+
+# TODO: Merge health checks into a single function?
+def do_thor_health_check():
+    try:
+        res = requests.get(f"http://localhost:{THOR_PORT}/health")
+    except requests.ConnectionError:
+        print("Thor server is not running or unreachable.")
+        exit(1)
+    if res.status_code == 200:
+        # parse json
+        health_status = res.json().get("status", "unknown")
+        if health_status == "healthy":
+            print("Thor is healthy.")
+        else:
+            print(f"Thor health check failed.: {health_status}")
+            exit(1)
+    else:
+        print("Thor health check failed.")
+        exit(1)
+
+
+def do_odin_health_check():
+    try:
+        res = requests.get(f"http://localhost:{ODIN_PORT}/health")
+    except requests.ConnectionError:
+        print("Odin server is not running or unreachable.")
+        exit(1)
+    if res.status_code == 200:
+        health_status = res.json().get("status", "unknown")
+        if health_status == "healthy":
+            print("Odin is healthy.")
+        else:
+            print(f"Odin health check failed.: {health_status}")
+            exit(1)
+    else:
+        print("Odin health check failed.")
+        exit(1)
+
+
+def run_test_case(test_case_id):
+    print(f"Running test case: {test_case_id}")
+
+    # Run test case on Loki
+    result = requests.post(
+        f"http://localhost:{THOR_PORT}/run_test_case",
+        json={"test_case_id": test_case_id})
+    if result.status_code != 200:
+        print(f"Failed to run test case: {test_case_id}")
+        return None
+    print(f"Test case {test_case_id} executed successfully.")
+    value = result.json().get("result", "No result found")
+    return value
+
+
+def get_enhanced_test_case(test_case_id):
+    print(f"Enhancing test case: {test_case_id}")
+
+    # Enhance test case on Odin
+    result = requests.post(
+        f"http://localhost:{ODIN_PORT}/enhance_test_case",
+        json={"test_case_id": test_case_id})
+    if result.status_code != 200:
+        print(f"Failed to enhance test case: {test_case_id}")
+        return None
+    print(f"Test case {test_case_id} enhanced successfully.")
+    value = result.json().get("result", "No result found")
+    return value
+
+
+def get_improvement(base_test_case, enhanced_test_case):
+    # Simulate getting an improvement between two test cases
+    # TODO: Implement actual logic to compare test cases
+    return f"Improvement from {base_test_case} to {enhanced_test_case}"
+
+
+def send_test_message(message):
+    # TODO: Implement proper credentail handling.
+    credentials = pika.PlainCredentials('user', 'pass')
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters('localhost', credentials=credentials))
+    channel = connection.channel()
+    channel.queue_declare(queue='test_queue')
+    channel.basic_publish(exchange='', routing_key='test_queue', body=message)
+    print(f"Sent message to RabbitMQ: {message}")
+    connection.close()
+
+
+if __name__ == "__main__":
+    print("Loki is running...")
+
+    do_thor_health_check()
+    do_odin_health_check()
+
+    send_test_message("Hello from Loki!")
+
+    exit(0)
+    test_case_id = "test_case_123"
+
+    print("Starting test case execution...")
+    base_result = run_test_case(test_case_id)
+    print(f"Base result: {base_result}")
+
+    enhanced_test_case = get_enhanced_test_case(test_case_id)
+
+    enhanced_test_case_result = run_test_case(enhanced_test_case)
+    print(
+        f"Enhanced test case execution completed with result: {enhanced_test_case_result}")
+
+    improvement = get_improvement(base_result, enhanced_test_case_result)
+    print(f"Improvement: {improvement}")
+
+    print("Loki execution finished.")
+
+\end{lstlisting}
+
+
+Listing~\ref{lst:lokiMainImplementation} renders the implementation of the
+script. It relies on the Odin and Thor modules for all essential functionality,
+which is in line with what is to be expected as this is simply a frontend client
+to \emph{reach} them.
+
+It is relies on the \texttt{requests} module for doing \acrfull{rpc} to the
+other modules. There is also the outlines of a RabbitMQ implementation, which is
+why \texttt{pika} is being imported. As of now, this is in non-functioning
+alpha. Implementation of RabbitMQ message passing has not been prioritized as
+there were, as mentioned, more important issues to focus on that would yield
+better and more important results when resolved. This would maintain feature
+parity with the \texttt{requests}-based approach.
