@@ -31,8 +31,9 @@
 % \LoadClass[a4paper,11pt,twoside,openright]{report}
 % NOTE: Endret openright til openany for å slippe å ha så mange tomme sider.
 % 2025-10-01, ref #13.
+% NOTE: Endret font size 11pt -> 12pt 2025-10-02.
 % TODO: Husk å endre tilbake når den skal trykkes??
-\LoadClass[a4paper,11pt,twoside,openany]{report}
+\LoadClass[a4paper,12pt,twoside,openany]{report}
 
 %% Language adaptions:
 \newcommand{\papername}{Paper}
