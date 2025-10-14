@@ -38,3 +38,21 @@ Compiler-stuff. Syntax. Parsing.
 \section{Other datasets}
 
 We used dataset x for our experiments. Scenario datasets y and z can also be used
+
+\section{Impelementation oriented}
+
+\subsection{The room for concurrency}
+
+When evaluating \acrshort{ads} test cases, the test cases are independent of each
+other. This means that our problem is \textit{embarrassingly parallelizable}
+\footnote{\url{https://en.wikipedia.org/wiki/Embarrassingly_parallel}} and we can
+trivially process several test cases in parallel. Due to practical limitations
+in Carla, \textit{running} the test cases should however probably be done
+sequentially. But \begin{inparaenum}
+    \item prompting,
+    \item enhancing, and
+    \item validating,
+\end{inparaenum}
+can all be done concurrently. While Python lacks support of traditional threads,
+it has some support for multiprocessing
+\footnote{\url{https://docs.python.org/3/library/multiprocessing.html}}.
