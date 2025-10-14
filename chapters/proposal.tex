@@ -34,10 +34,9 @@ versions. The architecture of the tool is visualised in \Cref{fig:hefeArch}.
 
 
 Furthermore, as outlined in \citeauthor{LLM4AD}, \acrlongpl{llm} can be applied to several aspects
-of \acrlong{ads}. It is not feasible that we focus on \textit{all} these aspects, and as such we
-should narrow down our scope. Let us review some of the relevant aspects.
+of \acrlong{ads}. We will however focus on the driveability of the scenarios, in line with the
+\Nref{sec:problemDescription}.
 
-% Vi vil fokusere på driveability
 
 % \section*{The applicability of \acrshortpl{llm} in \acrshort{ads} testing}
 \section{Broad architectual overview}
@@ -45,8 +44,9 @@ should narrow down our scope. Let us review some of the relevant aspects.
 
 \acrlong{ads} are typically modular, as we have seen in \Cref{sec:adsTestingComplexity}.
 \acrshortpl{llm} are applicable to the different modules in different ways as we saw in
-\Nref{sec:relatedWork}.
-% TODO: Make more specific reference to what part of Related Work
+\Nref{sec:relatedWork}. In order to further our goal of decreasing the driveability of the
+\acrshort{ads}, the module of our interest is the \emph{motion planner} -- the part of the
+\acrshort{ads} responsible for determining where to go and what to do.
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=User history
         of using \hefe]\label{user-history}
@@ -67,8 +67,8 @@ should narrow down our scope. Let us review some of the relevant aspects.
 \subsection{Implementation language}
 
 The programming language \textsc{Python} is widely used for \acrfull{ads} simulation. It is a high
-level language, allowing the user great flexibility and developer experience. For this reason, I will
-implement \hefe~using Python.
+level language, allowing the user great flexibility and developer experience. For this reason, I
+will implement \hefe~using Python.
 
 Python can be optimized using \acrfull{jit} compilers such as Numba~\cite{numba}, which can speed up
 our execution times. Libraries such as Joblib provide Python with plug-and-play
@@ -79,10 +79,10 @@ computed, saving time and energy.
 \subsection{Overview of the components of the \hefe~pipeline}
 
 The pipeline architecture is visualised in \Nref{fig:hefeArch}. Here we
-present the major components and their responsibilities
+present the major components and their responsibilities.
 
 
-\subsubsection{Test case enhancement}
+\subsection*{Test case enhancement}
 
 \subsubsection{Test case repositories}
 
@@ -93,6 +93,13 @@ We have seen in \Nref{sec:relatedWork} that there are existing repositories of
     and
     \item data onto which we can apply our \acrshort{llm} enhancements.
 \end{inparaenum}
+
+We do naturally have to walk before we can run. For this reason, the project will initially be
+tested on simple test scenarios provided by people behind the Carla simulator. When we have verified
+that the project is sufficiently working for its stated purpose, we can scale up the activities to
+other datasets. Several are presented in \Nref{sec:relatedWork}. The concept of applying
+\acrshortpl{llm} to \acrshort{ads} scenarios is quite universal in nature and is eligble for
+application for virutally \emph{all} datasets.
 
 \subsubsection{\acrshort{llm} enhancement}\label{sec:llmEnhancement}
 % TODO: Dette må spisses mot driveability
@@ -211,7 +218,7 @@ run. Without this, we cannot compare it to other test cases.
 
 \section{Component details}
 
-Having begotten a broad overview of the details of the \hefe pipeline, let us now narrow our scope
+Having begotten a broad overview of the details of the \hefe~pipeline, let us now narrow our scope
 and focus on the individual components.
 
 % Alt under her er kopiert over fra det gamle "implementation details"-chpt.
@@ -271,7 +278,7 @@ def get_carla_is_up() -> bool:
         return False
 \end{lstlisting}
 
-This is used both to assert the general liveness of the \hefe pipeline, and to
+This is used both to assert the general liveness of the \hefe~pipeline, and to
 verify that the simulator is available before performing experiments. It is
 better to detect this illegal state \emph{before} running experiments rather
 than during their execution.
@@ -616,7 +623,7 @@ aid during programming.
 % Fetch available test cases from Thor? Select what/which are to be used
 % Store results clientside? Separate database for this?
 
-The final module of the \hefe pipeline is Loki -- it is simply a tool intended
+The final module of the \hefe~pipeline is Loki -- it is simply a tool intended
 to be used by the user for operating the process. It \begin{inparaenum}
     \item  says what scenarios are available to it (i.e. those that are eligble for
     being enhanced), and
