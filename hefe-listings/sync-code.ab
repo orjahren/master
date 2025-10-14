@@ -1,0 +1,56 @@
+// Script that will sync relevant Hefe code to this folder so that they can be listed in the thesis.
+
+// Used to update all listings in one go instead of copy-pasting manually.
+
+import { env_var_get } from "std/env"
+import { file_read, file_write } from "std/fs"
+
+const hefe_root = env_var_get("HEFE_ROOT") failed {
+    echo ("Failed to get HEFE_ROOT environment variable.")
+}
+
+if hefe_root == "" {
+    echo ("Please set the HEFE_ROOT environment variable to the root of the Hefe repository.")
+    exit 1
+}
+
+// This relies on having the indeces be the same as the target files. Make sure to keep them in sync.
+
+const file_origin = [
+    "odin/scenario_utils.py",
+    "loki/main.py", 
+    "odin/experiments/testbed/prompts.py",
+    "odin/llm_api_interfaces/ollama.py",
+    "odin/llm_api_interfaces/gemini.py",
+    "thor/carla_interface.py",
+]
+
+const file_target = [
+    "scenario_utils.py",
+    "loki_main.py",
+    "testbed_prompts.py",
+    "ollama.py",
+    "gemini.py",
+    "carla_interface.py",
+]
+
+if len(file_origin) != len(file_target) {
+    echo("Error: file_origin and file_target must have the same length.")
+    exit 1
+}
+
+
+for i in 0..len(file_origin) {
+    const origin = hefe_root + "/" + file_origin[i]
+    const target = file_target[i]
+
+    echo("Syncing " + origin + " to " + target)
+    const content = file_read(origin) failed {
+        echo "Failed to read " + origin
+        exit 1
+    }
+    file_write(target, content) failed {
+        echo "Failed to write to " + target
+        exit 1
+    }
+}

@@ -1,0 +1,7 @@
+This folder contains duplicates of Hefe code.
+
+Should ideally have been symlinks, but that would break the CI compliation
+
+TODO: Should probably fix this so that it works with symlinks. Pull Hefe on CI runner while compiling.
+
+In order to sync, do: `$ amber run sync-code.ab`, from this folder.
