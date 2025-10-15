@@ -35,7 +35,7 @@ Depending on the prompt, our results show that it is very possible to get
 reasonable-looking Python out of the \acrshort{llm}. One somewhat annoying
 detail is their bent to mark the code as specific syntax, applying a Markdown-formatted code block
 indicating both that the output \emph{is} code, and what language it is in,to the first and last
-line of the output (Listing \ref{lst:llmOutputMarkdown}).
+line of the output (Listing~\ref{lst:llmOutputMarkdown}).
 % \begin{lstlisting}[language=Markdown]
 \begin{lstlisting}[caption={\acrshort{llm}-generated Python code with Markdown syntax. The bracketed part on line 3 has been added for demonstration purposes, removing the actual code for brevity.}, label={lst:llmOutputMarkdown}]
 ```python
@@ -51,7 +51,7 @@ simulator. This primarily comes down to \begin{inparaenum}
     \item halluciantion of Python code, and
     \item Carla problems, along with the afformentioned
     \item markdown-formatted output.
-\end{inparaenum}.
+\end{inparaenum}
 
 Writing code to programatically remove these lines is naturally trivial, but we have
 not gone ahead with implementing this due to a wish of maintaining a certain overview of the
