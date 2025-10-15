@@ -107,6 +107,9 @@ application for virutally \emph{all} datasets.
 The base test cases will individually be enhanced by prompting the
 \acrshort{llm}. We will experiment with several \acrshortpl{llm}.
 
+Note that we will not employ any traditional \acrfull{nlp} techniques related to e.g. tokenization
+or input processing -- we will leave this up to the internal mechanisms of the \acrshortpl{llm}.
+
 For performing the actual improvement, it is essential that we \begin{inparaenum}
     \item test several \acrshort{llm},
     \item give clear prompts
@@ -132,6 +135,7 @@ RedHat\footnote{\url{https://github.com/containers/ramalama}}, and the MIT licen
 Ollama\footnote{\url{https://github.com/ollama/ollama}}, both supporting a plethora of
 \acrlongpl{llm}.
 
+% TODO: Burde fjerne disse random Github-prosjektene som ikke blir brukt i den faktiske implementasjonen?
 \textsc{guidance}\footnote{\url{https://github.com/guidance-ai/guidance}} is a
 framework for limiting the room in which \acrshortpl{llm} may operate, which
 might be useful if we run into issues with excessive hallucination.
