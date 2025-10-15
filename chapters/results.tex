@@ -1,24 +1,41 @@
 \chapter{Results}\label{sec:results}
 
-\epigraph{I have not failed. I've just found 10,000 ways that won't work.}{\textit{Thomas A. Edison}}
+\epigraph{I have not failed. I've just found 10,000 ways that won't work.}{\textit{Thomas A.
+        Edison}}
+
+% TODO: Denne seksjonen gir ikke mening å ha med, men det ser bedre ut mtp epigrafen
+\section*{Summary}
 
 Our results show that the initially proposed solution of feeding bare
-\acrshort{ads} scenarios represented by Python code into \acrshortpl{llm}, does
-not yield any meaningful results. This is caused by various reaons. The
-following discusses \begin{inparaenum}
-    \item why this is, and 
-    \item ways by which it can be remedied in future work \end{inparaenum}.
+\acrshort{ads} scenarios represented by Python code into \acrshortpl{llm}, has promising prospects.
+While the \acrshort{llm} can propose excessive changes that causes issues when performing the
+simulation when left to its own initiative, the output scenarios are \emph{good} and provide
+increased insight into the \acrshort{ads} when the \acrshort{llm} is restricted to propose minimal
+changes to the scenario. Keeping the major components as they were appears to increase the
+likelyhood of the scenario still beging able to be be ran without excessive problems.
 
 See listing \ref{lst:llmOutputDiff} in the \Nref{sec:fileDiffs} appendix for a complete
-demonstration of what the \acrlong{llm} is capable of doing. 
+demonstration of what the \acrlong{llm} is capable of doing to an entire scenario in full.
 
-\section{Output of the \acrshort{llm}}
+The following reviews \begin{inparaenum}
+    \item what works well,
+    \item why it works, and
+    \item what does \emph{not} work and
+    \item why this is.
+\end{inparaenum} We first look at some general aspects that are shared between all our experiments, before narrowing
+the scope and reviewing a selection of individual scenarios, highlighting the value added by the
+\hefe~tool.
 
-Depending on the prompt, our results show that it \emph{is} possible to get
+% TODO: Gir dette mening å nevne her? Burde det ikke las ligge frem til kapittelet om future work?
+% Finally, we proopose novel techniques by which some of these issues may be remedied in future work
+
+\section{Output of the \acrshort{llm} -- general overview}
+
+Depending on the prompt, our results show that it is very possible to get
 reasonable-looking Python out of the \acrshort{llm}. One somewhat annoying
-detail is their bent to mark the code as specific syntax, applying a
-Markdown-formatted code block indicating both that the output \emph{is} code,
-and what language it is in.,to the first and last line of the output (Listing \ref{lst:llmOutputMarkdown}). 
+detail is their bent to mark the code as specific syntax, applying a Markdown-formatted code block
+indicating both that the output \emph{is} code, and what language it is in,to the first and last
+line of the output (Listing \ref{lst:llmOutputMarkdown}).
 % \begin{lstlisting}[language=Markdown]
 \begin{lstlisting}[caption={\acrshort{llm}-generated Python code with Markdown syntax. The bracketed part on line 3 has been added for demonstration purposes, removing the actual code for brevity.}, label={lst:llmOutputMarkdown}]
 ```python
@@ -29,14 +46,19 @@ and what language it is in.,to the first and last line of the output (Listing \r
 \end{lstlisting}
 
 Upon manually removing these syntactic artefacts, we can go ahead with executing
-the scenario. But as previously mentioned, we are unable get any meaningful
-results. This comes down to \begin{inparaenum}
-    \item halluciantion of Python code, and 
-    \item Carla problems
-\end{inparaenum}. 
-Writing code to programatically these lines is naturally trivial, but we have
-not gone ahead with implementing this due to having the focus being on resolving
-the other issues that prevented the scenarios from being executed properly.
+the scenario. As previously mentioned, not all enhanced scenarios immedeatly work with the Carla
+simulator. This primarily comes down to \begin{inparaenum}
+    \item halluciantion of Python code, and
+    \item Carla problems, along with the afformentioned
+    \item markdown-formatted output.
+\end{inparaenum}.
+
+Writing code to programatically remove these lines is naturally trivial, but we have
+not gone ahead with implementing this due to a wish of maintaining a certain overview of the
+contents of the file before running it, to get a quick overview of what the \acrshort{llm} did
+change. In that situation, removing \num{2} lines is no issue. If we were to eliminate all
+halluciantion-related challenges so that we would be certain that the enhanced scenario could run
+without manual intervention, we would remove these lines as a part of the \hefe~pipeline software.
 
 Something worth noting is that the \acrshort{llm} demonstrates a promising
 ability to explain back to the user \emph{how} it ehnahced the scenario, e.g. in
@@ -69,6 +91,8 @@ Enhanced scenario:
 [...]
 \end{lstlisting}
 
+Let us now review in further detail how the \acrshort{llm} has modified the scenarios.
+
 \subsection{Hallucinations in the enhanced scenarios}
 
 The \acrshort{llm} typically seems to be on the right track, outlining something
@@ -87,7 +111,7 @@ As mentioned, the \acrshort{llm} seems to have the right idea of what it can do
 to achieve the stated goal. But the way that it goes about obtaining it, does
 not always work. The enhanced scenario code will often call methods that don't
 exist. This leads to a runtime exception in the scenario runner when executing
-the enhanced scenario. 
+the enhanced scenario.
 
 % TODO: Legge til ekesempler her
 % TODO: Er vi sikre på at dette handler om spesifikt hallusinering og ikke noe annet?
@@ -111,15 +135,17 @@ the \acrfull{llm} proposed using the word `blizzard'.
 \subsection{Carla crashes with certain scenarios}
 
 There appears to be a bug in Carla version 0.9.15\footnote{Which is the version
-employed for this project.} which causes the program to \emph{hard crash} when
+    employed for this project.} which causes the program to \emph{hard crash} when
 executing certain scenarios with metric recording enabled. This has been
 reported to the project Github\footnote{By several members of the scientific community, see e.g.
-\begin{itemize}\item  \url{https://github.com/carla-simulator/carla/issues/9170} and \item \url{https://github.com/carla-simulator/carla/issues/9152}\end{itemize}}, but as of 2025-09-30 it has not been resolved.
-Testing shows that the same scenarios may be ran without crashing when
+    \begin{itemize}\item  \url{https://github.com/carla-simulator/carla/issues/9170}, \item
+              \url{https://github.com/carla-simulator/carla/issues/9152} and \item
+              \url{https://github.com/carla-simulator/carla/issues/9349}\end{itemize}}, but as of 2025-10-15
+it has not been resolved. Testing shows that the same scenarios may be ran without crashing when
 \textbf{not recording}, but this naturally has severe implications for our
 opportunities of obtaining data from the simulation run. The `record' function
 of the scenario runner is the crux of measuring the driveability of the
-scenario. 
+scenario.
 
 
 \section{Metrics used for evaluation}
@@ -129,3 +155,162 @@ principal is \emph{jerk}.
 
 Due to the above resons with getting the enhanced scenarios to run, there is
 however minimal data to bases any qualitative analysis on.
+
+\section{Examples of enhanced scenarios}
+
+Let us now review some tangible scenarios. We will contrast the baseline, original, scenarios, with
+some that have been enhanced by a \acrshort{llm}.
+
+The base scenarios used for these experiments come from the official Carla scenario runner software
+library\footnote{\url{https://github.com/carla-simulator/scenario_runner}}.
+
+\subsection{Base scenario: Follow vehicle}\label{sec:followVehicleResults}
+
+The `follow vehicle' is the most basic kind of scenario out there. It simply consists of one ego
+vehicle, and one external vehicle. Our ego is to follow the other vehicle along a straight road in a
+residential area.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{experiment-material/follow-base-startpoint.png}
+    \caption{A screenshot of the base `follow' scenario where our ego chases an external actor.}\label{fig:followBaseStartpoint}
+\end{figure}
+
+\Cref{fig:followBaseStartpoint} gives a visual representation of the initial state of the scenario.
+Due to the low complexity of this scenario, we won't gain any substantial insight into how well our
+\acrshort{ads} works, if it is to execute the scenario properly. We want to make it more complex in
+order to provide our \acrshort{ads} with a more challenging environment in which it is more likely
+to fail.
+
+To this end, we employ an \acrshort{llm} to decrease the driveability.
+
+If we prompt the \acrshort{llm} with a broad allowance of ways of decreasing the driveability such
+as the prompt demonstrated in \Cref{lst:basicPrompt}, we run into issues with excessive
+halluciantion. The \acrshort{llm} wants to import a class that simply does not exist in the Carla
+\acrshort{api}. See listing \ref{lst:hallucinatedFollowError} in the \Nref{sec:errorMessages} appendix for the complete error message.
+
+
+\begin{lstlisting}[language=python, label={lst:basicPrompt}, caption={The most basic prompt first used in the experiments. This leads to excessive halluciantion.}]
+            "no_explanation": lambda python_carla_scenario_raw: f"""
+    1 - Context: You are a tool for decreasing the driveability of scenarios in the driving simulator Carla.
+    2 - Task: Decrease the driveability of the scenario by enhancing it with more details and complexity.
+    3 - Input, the Python specification for the scenario: {python_carla_scenario_raw}
+    4 - Output: An enhanced version of the scenario with additional details and
+    complexity, still in Python carla scenario format. Only ever output the code,
+    without any additional text or explanation.
+    """,
+\end{lstlisting}
+
+
+Due to not being able to run, there is not much to show for here. We need to revise the prompt and
+discourage such hallucinations in order to obtain meaningful results. In line with the
+\Nref{sec:experiments}, we iterate on the propmpt. We first tell the \acrshort{llm} to
+\emph{strictly adhere to the carla \acrshort{api}}.
+
+The complete ouptut resulting from this prompt is shown in listing \ref{lst:hallucinatedFollowDiff}
+in the appendix.
+Keep in mind that \acrshortpl{llm} by nature are not deterministic, and as such it is probable
+that trying to reproduce this output might not be straight-forward.
+
+\begin{lstlisting}[language=python, label={lst:strictPrompt}, caption={A slightly more advanced prompt instructing the \acrshort{llm} to strictly adhere to the Carla \acrshort{api}.}]
+        "no_explanation_strict": lambda python_carla_scenario_raw: f"""
+    1 - Context: You are a tool for decreasing the driveability of scenarios in the driving simulator Carla.
+    2 - Task: Decrease the driveability of the scenario by enhancing it with more details and complexity.
+    3 - Input, the Python specification for the scenario: {python_carla_scenario_raw}
+    4 - Output: An enhanced version of the scenario with additional details and
+    complexity, still in Python carla scenario format. Only ever output the code,
+    without any additional text or explanation. It is important that you only
+    use methods and classes that are part of the official Carla API, and do not
+    invent new ones or use non-existent ones.
+    """,
+\end{lstlisting}
+
+As shown in listing \ref{lst:strictPrompt}, we iterate by instructing the \acrshort{llm} to make
+sure to strictly adhere to the Carla \acrshort{api}. This yields a similar problem where the
+\acrshort{llm} attempts to make an import that does not exist. This diff is presented in listing
+\ref{lst:hallucinatedFollowDiffStrict}.
+
+Iterating further, we realize that we must walk before we can run. We therefore instruct the
+\acrshort{llm} to make as few changes as possible. The inuition being that if it does this and
+relies on the options that are already present in the file, it is more plausible that we will get a
+runnable ouptut. This prompt is presented in listing \ref{lst:minimalChangesPrompt}.
+
+\begin{lstlisting}[language=python, label={lst:minimalChangesPrompt}, caption={A prompt instructing the \acrshort{llm} to make as few changes as possible to increase the likelyhood of it working without issues.}]
+        "minimal_changes": lambda python_carla_scenario_raw: f"""
+    1 - Context: You are a tool for decreasing the driveability of scenarios in the driving simulator Carla.
+    2 - Task: Decrease the driveability of the scenario by enhancing it with
+    more details and complexity, using only methods that are part of the
+    official Carla API, version 0.9.15.
+    3 - Input, the Python specification for the scenario: {python_carla_scenario_raw}
+    4 - Reasoning: Think step by step about how to make the scenario more complex and less driveable, considering possible obstacles, traffic, weather, and other factors using only the official Carla API.
+    5 - Output: Only output the enhanced scenario code in Python Carla scenario
+    format, with no additional text or explanation. Make sure to only use
+    methods and concepts that are already present in the input scenario, and
+    do not introduce any new methods or concepts. The changes should be as
+    minimal as possible while still achieving the goal of decreasing driveability.
+    """,
+\end{lstlisting}
+
+This approach works well. We have been able to obtain several working scenarios with decreased
+driveability with this prompting strategy.
+
+Let us now review some of these enhanced versions of the scenario.
+
+\subsubsection{Enhanced scenarios}
+
+One result entails having there be a truck in the middle of the road. This significantly decreases
+the driveability of the scenario -- it is no longer possible to simple drive straight, the
+\acrshort{ads} \emph{must} handle the problem of a static vehicle in its path.
+
+% Disse 2 er hhv mod-1 og mod-2 fra Hefe
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{experiment-material/follow-minimally-enhanced-1-startpoint.png}
+    \caption{A screenshot of a minimally enhanced `follow' scenario with a truck in the road.}\label{fig:followMinimallyEnhanced1StartPoint}
+\end{figure}
+
+\Cref{fig:followMinimallyEnhanced1StartPoint} gives a visual representation of the initial state of
+the enhanced scenario, clearly highlighting how the \acrshort{ads} has decreased the driveability of
+the scenario by presenting additional motion planning challenges.
+
+Another result \Cref{fig:followMinimallyEnhanced2StartPoint} places a vehicle parked on the edge of
+the road. This is inline with our prompt, representing a change that is both \begin{inparaenum}
+    \item minimal, and still
+    \item decreasing driveability.
+\end{inparaenum}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{experiment-material/follow-minimally-enhanced-2-startpoint.png}
+    \caption{A screenshot of another minimally enhanced `follow' scenario with a truck in the road.}\label{fig:followMinimallyEnhanced2StartPoint}
+\end{figure}
+
+% TODO: Også legge inn den tredje?
+
+Let us now review the jerk metric for these variations of the scenario. First out is the initial
+scenario.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{experiment-material/follow-base-jerk.png}
+    \caption{A calculation of the jerk of the ego vehicle in the base `follow' scenario.}\label{fig:followBaseJerk}
+\end{figure}
+
+In the case of the base scenario (\Cref{fig:followBaseJerk}), we see that the jerk is mostly stable
+after the initial acceleration. This is in line with what we expect form the vehicle simply being
+able to continually drive straight at constant speed. The dip at the end represents the vehicle coming to a halt at a traffic light. This is the end of the
+scenario.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{experiment-material/follow-minimally-enhanced-1-jerk.png}
+    \caption{A calculation of the jerk of the ego vehicle in the first minimally `follow' scenario,
+        the one from fig \ref{fig:followMinimallyEnhanced1StartPoint}.}\label{fig:followMinimallyEnhanced1Jerk}
+\end{figure}
+
+In the case of the first minimally enhanced scenario (\Cref{fig:followMinimallyEnhanced1Jerk}), we
+see that the jerk is substantive at first, while convering at \num{0} after a short while. This is
+due to the \acrshort{ads} simply not being able to pass the truck in the middle of the road. This
+demonstrates a significant value in our proposed tool -- here lies a scenario that can be manually
+reviewd and used

@@ -8,3 +8,82 @@ the \acrshort{llm}. The lines in black are unchanged.
 \section{Cut\_in-enhanced-5.py }
 
 \lstinputlisting[caption={The diff of an \acrshort{llm}-enhanced Cut\_in scenario, highlighting \emph{how} the \acrshort{llm} enhanced the scenario.}, label={lst:llmOutputDiff}, language={diff}]{experiment-material/experiment-5.diff}
+
+
+\section{Follow vehicle}
+
+See \Cref{sec:followVehicleResults} for analysis of this output.
+
+\subsection{Initial enhancement}
+
+% NOTE: Denne kommer fra `folllow-enhanced-6.py' fra Hefe. Diff mot follow-base.
+\lstinputlisting[caption={The diff of the initial \acrshort{llm}-enhanced Follow vehicle scenario, highlighting \emph{how} the \acrshort{llm} enhanced the scenario.}, label={lst:hallucinatedFollowDiff}, language={diff}]{experiment-material/follow-initial-hallucination.diff}
+
+
+\subsection{Strictly adhering to the Carla API}
+
+\lstinputlisting[caption={The diff of the iterated, more strict \acrshort{llm}-enhanced Follow vehicle scenario.}, label={lst:hallucinatedFollowDiffStrict}, language={diff}]{experiment-material/follow-strict-hallucination.diff}
+
+\chapter{Scenario error messages}\label{sec:errorMessages}
+
+This appendix contains a collection of error messages from running scenarios on the Carla simulator.
+For brevity they are not included in the running text of the thesis.
+
+\section{Follow vehicle}
+
+\subsection{Initalliy enhanced scenario }
+
+\begin{lstlisting}[caption={Error message when running the the initially enhanced  FollowLeadingVehicle scenario with halluciantion. }, label={lst:hallucinatedFollowError}]
+    oliverrj@pensie7:~/Documents/master-extern/scenario_runner-0.9.15|hakcs   python3.7 scenario_runner.py --scenario FollowLeadingVehicle_1 --reloadWorld --record logs
+Preparing scenario: FollowLeadingVehicle_1
+The scenario cannot be loaded
+Traceback (most recent call last):
+  File "scenario_runner.py", line 406, in _load_and_run_scenario
+    scenario_class = self._get_scenario_class_or_fail(config.type)
+  File "scenario_runner.py", line 157, in _get_scenario_class_or_fail
+    scenario_module = importlib.import_module(module_name)
+  File "/usr/local/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/oliverrj/Documents/master-extern/scenario_runner-0.9.15/srunner/scenarios/follow_leading_vehicle.py", line 26, in <module>
+    from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
+ImportError: cannot import name 'PedestrianWalk' from 'srunner.scenariomanager.scenarioatomics.atomic_behaviors' (/home/oliverrj/Documents/master-extern/scenario_runner-0.9.15/srunner/scenariomanager/scenarioatomics/atomic_behaviors.py)
+cannot import name 'PedestrianWalk' from 'srunner.scenariomanager.scenarioatomics.atomic_behaviors' (/home/oliverrj/Documents/master-extern/scenario_runner-0.9.15/srunner/scenariomanager/scenarioatomics/atomic_behaviors.py)
+No more scenarios .... Exiting
+
+\end{lstlisting}
+
+The scenario that triggered this error is analyzed in \Cref{sec:followVehicleResults} and the
+contents of the \acrshort{llm} enhancement are presented in listing
+\ref{lst:hallucinatedFollowDiff}.
+
+
+\begin{lstlisting}[caption={Error message when running the the strictly enhanced  FollowLeadingVehicle scenario with halluciantion. }, label={lst:hallucinatedFollowErrorStrict}]
+oliverrj@pensie7:~/Documents/master-extern/scenario_runner-0.9.15|hakcs   python3.7 scenario_runner.py --scenario FollowLeadingVehicle_1 --reloadWorld --record logs
+Preparing scenario: FollowLeadingVehicle_1
+The scenario cannot be loaded
+Traceback (most recent call last):
+  File "scenario_runner.py", line 406, in _load_and_run_scenario
+    scenario_class = self._get_scenario_class_or_fail(config.type)
+  File "scenario_runner.py", line 157, in _get_scenario_class_or_fail
+    scenario_module = importlib.import_module(module_name)
+  File "/usr/local/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/oliverrj/Documents/master-extern/scenario_runner-0.9.15/srunner/scenarios/follow_leading_vehicle.py", line 31, in <module>
+    from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
+ImportError: cannot import name 'WalkToLocation' from 'srunner.scenariomanager.scenarioatomics.atomic_behaviors' (/home/oliverrj/Documents/master-extern/scenario_runner-0.9.15/srunner/scenariomanager/scenarioatomics/atomic_behaviors.py)
+cannot import name 'WalkToLocation' from 'srunner.scenariomanager.scenarioatomics.atomic_behaviors' (/home/oliverrj/Documents/master-extern/scenario_runner-0.9.15/srunner/scenariomanager/scenarioatomics/atomic_behaviors.py)
+No more scenarios .... Exiting
+
+\end{lstlisting}
