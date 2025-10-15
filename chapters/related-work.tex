@@ -194,3 +194,24 @@ satisfactory fulfillment of the desired format could look like. Lastly they inst
   structure given above}~\cite[563]{chat2Scenario}.
 % TODO: Ref siste punkt om "husk å gjøre det riktig" -> kan skrive om dette fenomenet i background
 % og så referere tilbake til det.
+
+\section{Predicting driving comfort in autonomous vehicles using road information and multi- head
+  attention models}
+
+The \citeyear{Chen2025} article of \citeauthor{Chen2025}~\cite{Chen2025}, delves into the various
+aspects related to predicting driving comfort in autonomous vehicles based on \begin{inparaenum}
+  \item available road information, and
+  \item multi-head attention models.
+\end{inparaenum}
+Their principal focus is on driving \emph{comfort}. To this end, they evaluate \acrshortpl{ads} in
+light of the \textbf{jerk} metric in various situations. Furthermore, they highlight how a high
+complexity in the scenarios can increase the probability of emergency breaking occurring, which is
+naturally antithetical to comfort for the \acrshort{ads} operator and their passengers.
+
+In order to measure this comfort, they rely metrics calculated from datapoints from the
+\acrshort{ads} system -- jerk and acceleration. This, they use in conjunction with manual human
+driving evaluation scores, to compose a new metric, the `driving comfort evaluation score'
+(DCES)~\cite[10]{Chen2025}.
+
+Moreover, they use this information to propose a model -- the \acrfull{adcp} model -- for
+\emph{predicting} driving comfort from road information~\cite[2]{Chen2025}.
