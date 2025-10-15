@@ -283,7 +283,8 @@ the road. This is inline with our prompt, representing a change that is both \be
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{experiment-material/follow-minimally-enhanced-2-startpoint.png}
-    \caption{A screenshot of another minimally enhanced `follow' scenario with a truck in the road.}\label{fig:followMinimallyEnhanced2StartPoint}
+    \caption{A screenshot of another minimally enhanced `follow' scenario with a van parked on the
+        side of the road.}\label{fig:followMinimallyEnhanced2StartPoint}
 \end{figure}
 
 % TODO: Også legge inn den tredje?
@@ -305,12 +306,23 @@ scenario.
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{experiment-material/follow-minimally-enhanced-1-jerk.png}
-    \caption{A calculation of the jerk of the ego vehicle in the first minimally `follow' scenario,
-        the one from fig \ref{fig:followMinimallyEnhanced1StartPoint}.}\label{fig:followMinimallyEnhanced1Jerk}
+    \caption{A calculation of the jerk of the ego vehicle in the first minimally enhanced `follow'
+        scenario, the one from fig
+        \ref{fig:followMinimallyEnhanced1StartPoint}.}\label{fig:followMinimallyEnhanced1Jerk}
 \end{figure}
 
 In the case of the first minimally enhanced scenario (\Cref{fig:followMinimallyEnhanced1Jerk}), we
 see that the jerk is substantive at first, while convering at \num{0} after a short while. This is
 due to the \acrshort{ads} simply not being able to pass the truck in the middle of the road. This
 demonstrates a significant value in our proposed tool -- here lies a scenario that can be manually
-reviewd and used
+reviewd and used for evaluating \emph{why} the \acrshort{ads} failed to drive past the parked truck.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{experiment-material/follow-minimally-enhanced-2-jerk.png}
+    \caption{A calculation of the jerk of the ego vehicle in the 2nd minimally enhanced `follow' scenario,
+        the one from fig \ref{fig:followMinimallyEnhanced2StartPoint}.}\label{fig:followMinimallyEnhanced2Jerk}
+\end{figure}
+
+The jerk in 2nd enhanced follow scenario (\Cref{fig:followMinimallyEnhanced2Jerk}) is stable. This
+tells us that our ego vehicle was able to pass the parked van without additional issues.
