@@ -148,13 +148,14 @@ of the scenario runner is the crux of measuring the driveability of the
 scenario.
 
 
-\section{Metrics used for evaluation}
+\section{Methodology for evaluating scenario execution}
 
-We measure several metrics for evaluating the driveability of the scenario. The
-principal is \emph{jerk}.
+We record a plethora of datapoints when executing scenarios on the simulator\footnote{This is again
+    provided by the Carla software suite. A complete overview of data points is provided in the
+    documentation, see e.g.~\url{https://carla.readthedocs.io/en/0.9.15/adv_recorder/}}.
 
-Due to the above resons with getting the enhanced scenarios to run, there is
-however minimal data to bases any qualitative analysis on.
+For evaluating the driveability of the scenario, we rely on combination of the \textbf{jerk} metric
+and qualitative analysis by intuition from visually inspecting the scenarios.
 
 \section{Examples of enhanced scenarios}
 
@@ -274,8 +275,8 @@ the driveability of the scenario -- it is no longer possible to simple drive str
 the enhanced scenario, clearly highlighting how the \acrshort{ads} has decreased the driveability of
 the scenario by presenting additional motion planning challenges.
 
-Another result \Cref{fig:followMinimallyEnhanced2StartPoint} places a vehicle parked on the edge of
-the road. This is inline with our prompt, representing a change that is both \begin{inparaenum}
+Another result (\Cref{fig:followMinimallyEnhanced2StartPoint}) places a vehicle parked on the edge
+of the road. This is inline with our prompt, representing a change that is both \begin{inparaenum}
     \item minimal, and still
     \item decreasing driveability.
 \end{inparaenum}
@@ -294,8 +295,21 @@ scenario.
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{experiment-material/follow-base-jerk.png}
-    \caption{A calculation of the jerk of the ego vehicle in the base `follow' scenario.}\label{fig:followBaseJerk}
+    \subfloat[Jerk in the base scenario, rendered in fig~\ref{fig:followBaseStartpoint}\label{fig:followBaseJerk}]{
+        \includegraphics[width=0.45\textwidth]{experiment-material/follow-base-jerk.png}
+    }
+    \hfill
+    \subfloat[Jerk of the ego vehicle in the first minimally enhanced `follow'
+        scenario, the one from fig~\ref{fig:followMinimallyEnhanced1StartPoint}\label{fig:followMinimallyEnhanced1Jerk}]{
+        \includegraphics[width=0.45\textwidth]{experiment-material/follow-minimally-enhanced-1-jerk.png}
+    }
+    \hfill
+    \subfloat[Jerk of the ego vehicle in the 2nd minimally enhanced `follow' scenario, the one from
+        fig~\ref{fig:followMinimallyEnhanced2StartPoint}\label{fig:followMinimallyEnhanced2Jerk}]{
+        \includegraphics[width=0.45\textwidth]{experiment-material/follow-minimally-enhanced-2-jerk.png}
+    }
+    \caption{Jerk of the ego vehicle in the base and enhanced `follow' scenarios.}
+    \label{fig:jerkComparison}
 \end{figure}
 
 In the case of the base scenario (\Cref{fig:followBaseJerk}), we see that the jerk is mostly stable
@@ -303,26 +317,21 @@ after the initial acceleration. This is in line with what we expect form the veh
 able to continually drive straight at constant speed. The dip at the end represents the vehicle coming to a halt at a traffic light. This is the end of the
 scenario.
 
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\textwidth]{experiment-material/follow-minimally-enhanced-1-jerk.png}
-    \caption{A calculation of the jerk of the ego vehicle in the first minimally enhanced `follow'
-        scenario, the one from fig
-        \ref{fig:followMinimallyEnhanced1StartPoint}.}\label{fig:followMinimallyEnhanced1Jerk}
-\end{figure}
-
 In the case of the first minimally enhanced scenario (\Cref{fig:followMinimallyEnhanced1Jerk}), we
 see that the jerk is substantive at first, while convering at \num{0} after a short while. This is
 due to the \acrshort{ads} simply not being able to pass the truck in the middle of the road. This
 demonstrates a significant value in our proposed tool -- here lies a scenario that can be manually
 reviewd and used for evaluating \emph{why} the \acrshort{ads} failed to drive past the parked truck.
 
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\textwidth]{experiment-material/follow-minimally-enhanced-2-jerk.png}
-    \caption{A calculation of the jerk of the ego vehicle in the 2nd minimally enhanced `follow' scenario,
-        the one from fig \ref{fig:followMinimallyEnhanced2StartPoint}.}\label{fig:followMinimallyEnhanced2Jerk}
-\end{figure}
-
 The jerk in 2nd enhanced follow scenario (\Cref{fig:followMinimallyEnhanced2Jerk}) is stable. This
-tells us that our ego vehicle was able to pass the parked van without additional issues.
+tells us that our ego vehicle was able to pass the parked van without additional issues\footnote{In
+    the provided simulation execution, the other vehicle spent a substantial amount of time at the
+    intersection, which is why the jerk appears as \num{0} for some time before the simulation
+    terminates.}.
+
+\subsection{Base scenario: Accident}
+
+The accident scenario represents a scene on a highway where several cars have piled up in front, and
+our ego vehicle comes around a corner.
+
+TODO: Skriv om denne tilsvarende follow vehicle\ldots
