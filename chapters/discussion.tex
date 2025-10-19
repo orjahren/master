@@ -1,4 +1,3 @@
-
 \chapter{Discussion}\label{sec:discussion}
 
 \epigraph{Your scientists were so preoccupied with whether they could, they didn't stop to think if they should}{Dr.~Ian Malcolm}
@@ -9,6 +8,8 @@ fesability of the \hefe~approach in comparison to other methods.
 % Fokus her: Hefes value add
 % \section{Dette kontra tradisjonell generering}
 \section{Scenario modification versus scenario generation}
+% TODO: Vil legge inn noe om concept blending her for å forsvare å ha det med i background
+% En LLM genererer et scenario ved å concept blende
 
 This project concerns itself with taking existing scenarios and \emph{modifying} them. This is in
 many ways similar to scenario \emph{generation}, but there are also certain key differences. Let us
@@ -24,14 +25,15 @@ data will be used for the generation of your specific scenario.
 
 With the \hefe~approach wherein the user provides a base scenario themself, there is \num{100}\%
 certainty of what the base scenario will be. Thus, we obtain significant inherent knowledge of the
-scenario substrate. Naturally, you may object, the same problem of the `unknown substrate' will
-present itself in form of our \acrshort{llm} executing the prompt and inferring what the new --
-enhanced -- scenario will look like. But then, I maintain that we still propose a significant value
-in the increased awareness \emph{of} the base scenario and its substrate. As we have seen in the
+scenario substrate\footnote{Assuming of course that the user \emph{has} this knowledge of their base
+    secnario.}. Naturally, you may object, the same problem of the `unknown substrate' will present
+itself in form of our \acrshort{llm} executing the prompt and inferring what the new -- enhanced --
+scenario will look like. But then, I maintain that we still propose a significant value in the
+increased awareness \emph{of} the base scenario and its substrate. As we have seen in the
 \Nref{sec:results}, the changes made by the \acrshort{llm} typically don't alter the underlying
 ontology of the scene.
 
-This touches on a broader aspect concerning the \emph{value} of having this knowledge of the
+This touches on a broader topic concerning the \emph{value} of having this knowledge of the
 scenario substrate. While this is not the focus of this work, one potential aspect could be a sort
 of grounding related to the `sim2real' gap, and the realism of the scene. Let us now delve further
 into this.
@@ -44,20 +46,33 @@ of wishing to highlight practical faults in the \acrshort{ads}, we must add anot
 realism.
 
 If your scene is bonkers, it will be very easy to get bad driveability. But there is little value
-and/or practical applicability in these scenarios. Realism in \acrshort{ads} siumulator scenarios is
+and/or practical applicability in these scenarios. Realism in \acrshort{ads} siimulator scenarios is
 a research field in itself with major implications for how scenario-based testing ought to be done.
 
 \citeauthor{RealityBites} have looked into evaluating \acrshort{ads} simulator scenario using
-\acrshortpl{llm}~\cite[40]{RealityBites}. Note the distinction between this sort of `realism' in
-this ` aligns with our understanding of reality'-approach, and the more technical understanding of
-realism that posits that the scenario must adhere to the laws of physics, and make sure to not spawn
-objects in such a way that they intersect (which would also violate the laws of physics).
-\citeauthor{LLMScenarioChang24} also underly the importance of realism, proposing a scoring function
-that takes realism into account for evaluating their \acrshort{llm}-generated \acrshort{ads}
-simulator scenarios~\cite[6581-6582]{LLMScenarioChang24}.
+\acrshortpl{llm}~\cite[40]{RealityBites}. Note the distinction between this sort of realism in the
+`aligns with our understanding of reality'-approach, and the more technical understanding of realism
+that posits that the scenario must adhere to the laws of physics, and make sure to not spawn objects
+in such a way that they intersect (which would also violate the laws of physics) etc.
+\citeauthor{LLMScenarioChang24} also underline the importance of realism, proposing a scoring
+function that takes realism into account for evaluating their \acrshort{llm}-generated
+\acrshort{ads} simulator scenarios~\cite[6581-6582]{LLMScenarioChang24}.
+
+When modifying an exisiting scenario, the output scenario will in my ways resemble the initial
+version. This asserts a certain realism grounded in the initial scenario, assuming that it was
+itself generally relalistic. When generating a brand new scenario, it is plausible that we may lose
+this connection to reality.
+
+\subsection{Sim 2 real gap}
+
+The so called `sim2real'-gap refers to the distance between a simulation and the real world. We
+typically wish to minimize this gap in order to increase the applicability of our simulations to
+real world aspects. If there were a \emph{significant} gap between our simulated \acrshortpl{ads}
+and the real world, there would be minimal value in performing the simulations and the motivation
+for \emph{using} simulator would falter.
 
 
-Kan se dette både opp mot sim2real-gap -- \emph{og} ikke
+% Kan se dette både opp mot sim2real-gap -- \emph{og} ikke
 
 % Ontologi, substrat, arv 
 
@@ -74,30 +89,142 @@ Kan se dette både opp mot sim2real-gap -- \emph{og} ikke
 % tilsvarende kontroll på hvilken base man bruker og at denne tilfredsstiller
 % relevante krav.
 
+\section{\acrshort{llm} aspects}
 
-\section{Environmental concerns}
-Cost/benefit with using \acrshortpl{llm}. Refer back to \Nref{sec:llmProblems}.
+\subsection{Cost/benefits of using \acrshortpl{llm}}
+% \section{Environmental concerns}
 
-While we demonstrated promising results in \Cref{sec:results}, it is important to keep in mind the
-environmental cost of using the \acrshortpl{llm} for this purpose. How good should the results need
-to be in order to justify using \acrshortpl{llm}?
+\acrshortpl{llm} consume significant resources (\Cref{sec:llmProblems}). In order to justify their
+adoptation for \acrshort{ads} scenario enhancement, we should evaluate wheter the pros outweigh the
+cons. While this remain out of scope for the current thesis and while we demonstrated promising
+results in \Cref{sec:results}, it is important to keep in mind the environmental cost of using the
+\acrshortpl{llm} for this purpose. How good should the results need to be in order to justify using
+\acrshortpl{llm}?
 
+% TODO: Dette virker ganske malplassert. Hvorfor skal det ligge her og ikke **I** Future work?
 Perhaps future work can look into obtaining similar results using greener strategies.
 
 
+\subsection{\acrshort{llm} context size}
 
-\section{LLM context size}
+By their nature, \acrshortpl{llm} have a set context size. If your prompt exceeds the context size
+of the \acrshort{llm}, it will appear to `forget' parts of the input. This poses a potential problem
+for our scenarios. As the scenario complexity increases, so will the length of the prompt. There
+will ineveatibly come a point where the \acrshort{llm} can no longer take the entire scenario into
+account. One potential way of remedying this could perhaps be to only include a subset of the
+scenario definition file into the prompt, so that it will consume fewer tokens.
 
-Hvis man har lange scenarios kan de overgå LLMens kontekst size og så mister man ting?
+Futhermore, certain scenarios sometimes exist in one file. I.e., we use a single file to represent
+several scenarios. This can potentially cause issues for the \acrshort{llm} in that it will need to
+know which scenario it is to focus on. This has, however, not caused significant issues for this project.
 
-Noen scenarios deler samme fil (Accident\_1 m/venner i srunner/scenarios/route\_obstacles.py )
+\subsection{Alignment}
 
-\section{Python / OpenScenario / DSI}
+AI alignment is a topic in of itself. How can we know that goals of the AI are the same goals as we
+have?
 
-Con med Python: LLMen kan bruke utdatert syntax / bruke ting som ikke stemmer overens med den
-versjonen du vil bruke. De andre er mer "konstante" og mindre sårbare for dete
+\subsection{Bias}
 
-\section{Alignment}
+One of the motivations for performing this project, was to cirucmvent potential bias with the
+scientists that manually create scenarios. But it's worth noting that this \hefe~scenario
+modification approach is still vulnerable to bias based on the \acrshort{llm} training data.
 
-Hvordan kan vi være sikre på at LLMen ikke nekter å generere visse typer scenarioer? Kan det være
-bias i hva den tillater? Og ihva den gjør??
+Furthermore, how can we be sure that the enhanced scenarios will reflect the diverse set of possible
+driving situations? While we indeed know that we \emph{will} get scenarios with decreased
+driveability, we have no measure of these scenario's relevance for global communities where traffic
+standards vary.
+
+Perhaps the \acrfull{llm} has some hidden bias preventing it from allowing us to exploit certain
+aspects of the scenes?
+
+\section{Scenario formats}
+% \section{Python / OpenScenario / DSI}
+
+This project utilises scenario in the Python format. Scenarios can also be represented by other
+formats as we saw in \Cref{sec:adsScenarioFormats}, the principal option being OpenSCENARIO.
+OpenSCENARIO exists both as an XML-based format, and as a \acrfull{dsl}. These \num{3} options all
+have their pros and cons. Let us discuss some of these.
+
+It's worth noting that the proposed solution can trivially be adapted to work with other formats.
+
+\subsection{Python}
+
+One major advantage with using Python formats is that most \acrshortpl{llm} have significant
+familiariy with it due to the significant extant Python training data. But this is a double-edged
+sword -- Python has been around for a significant amount of time, and has undergone significant
+changes. Thus, when prompting the \acrshort{llm} to enhance a Python scenario, there arises several
+potential issues: \begin{itemize}
+    \item language syntax
+    \item depenency versions.
+\end{itemize}
+
+As outlined in the \Nref{sec:results}, the \acrshortpl{llm} are prone to hallucinating in a way tha
+causes issues for executing the enhanced scenarios. But what \emph{is} our evidence that these
+execution problems stem from `true' hallucination and not one of these other sources of potential
+error? Perhaps the \acrshort{llm} did the right thing, only to assume some antiguated generation
+target (e.g. older version of the Carla simulator with its dependencies, or and older version of the
+Python programming language).
+
+In an ideal world, we would want an \acrshort{llm} that was fine tuned for this specific purpose to
+optimize its knowledge of the relevant software versions and decrease the likelyhood of it for
+whatever reason attempting to use bad versions that cause issues.
+
+\subsection{XML-based OpenSCENARIO}
+
+The XML-based format is probably the most traditional. Due to its significantly less widespread
+usage, \acrshortpl{llm} are less likely to have widespread domain knowledge of it. A major advantage
+with this approach is that the OpenSCENARIO specification is \emph{made} and is less prone to being
+change.d
+
+Something to note is that the Carla simulator only has limited support for the
+features of OpenSCENARIO.
+
+\subsection{\acrlong{dsl}-based OpenSCENARIO}
+
+Similar to the XML-based format, the scenario \acrshort{dsl} is less widely available in training corpora. However, it also maintains the advantage of being more static and less prone to change.
+
+
+\begin{lstlisting}[label={lst:OSDSL}, caption={An example of an OpenSCENARIO \acrshort{dsl} scenario.}]
+import basic.osc
+
+type acceleration is SI(m: 1, s: -2)
+unit kphps               of acceleration is SI(m: 1, s: -1, factor: 0.277777778)
+
+scenario top:
+    path: Path                      # A path in the map
+    path.set_map("Town04")    # specify map to use in this test
+    path.path_min_driving_lanes(2)         # Path should have at least two lanes
+
+    ego_vehicle: Model3                # ego car
+    npc: Rubicon               # The other car
+
+    event start
+    event end
+    do serial:
+        get_ahead: parallel(duration: 15s):
+            ego_vehicle.drive(path) with:
+                speed(30kph)
+                lane(1, at: start) # left to right: [1..n]
+            npc.drive(path) with:
+                lane(right_of: ego_vehicle, at: start)
+                position(15m, behind: ego_vehicle, at: start)
+                position(20m, ahead_of: ego_vehicle, at: end)       
+
+        slow: parallel(duration: 10s):
+            ego_vehicle.drive(path)
+            npc.drive(path) with:
+                speed(10kph)
+
+        accelerate: parallel(duration: 13s):
+            ego_vehicle.drive(path)
+            npc.drive(path) with:
+                acceleration(15kphps)
+\end{lstlisting}
+
+Listing~\ref{lst:OSDSL} presents an example of an OpenSCENARIO \acrshort{dsl} scenario, providing
+additional context for understanding the concept of the format. The example is copied
+from the \href{https://github.com/carla-simulator/scenario_runner/blob/master/srunner/examples/acceleration.osc}{Carla scenario runner examples}.
+
+\section{When is enough?}
+
+Hvor mye skal vi teste for å vite at "nå er den trygg"?
