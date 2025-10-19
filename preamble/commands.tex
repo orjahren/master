@@ -1,21 +1,21 @@
 \newcommand{\hefe}{\textsc{Hefe}}
 
 \NewDocumentCommand{\Nref}{s m}{%
-    \hyperref[#2]{%
-        \nameref*{#2}%
-        \IfBooleanF{#1}{%
-            \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\labelcpageref*{#2}}%
-        }%
+  \hyperref[#2]{%
+    \nameref*{#2}%
+    \IfBooleanF{#1}{%
+      \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\labelcpageref*{#2}}%
     }%
+  }%
 }
 
 \RenewDocumentCommand{\Cref}{s m}{%
-    \hyperref[#2]{%
-        \nameCref{#2}~\labelcref*{#2}%
-        \IfBooleanF{#1}{%
-            \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\labelcpageref*{#2}}%
-        }%
+  \hyperref[#2]{%
+    \nameCref{#2}~\labelcref*{#2}%
+    \IfBooleanF{#1}{%
+      \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\labelcpageref*{#2}}%
     }%
+  }%
 }
 
 %% Save the original link commands
@@ -27,3 +27,12 @@
 \RenewDocumentCommand{\href}{O{} m m}{\hrefold{#2}{#3}}
 \RenewDocumentCommand{\url}{O{} m}{\urlold{#2}}
 \RenewDocumentCommand{\hyperlink}{O{} m m}{\hyperlinkold{#2}{#3}}
+
+% Fra UiO-malen 
+\providecommand{\frontmatter}{\cleardoublepage \pagenumbering{roman}}
+\providecommand{\mainmatter}{\cleardoublepage \pagenumbering{arabic}}
+\providecommand{\backmatter}{\cleardoublepage}
+
+% For å kunne ha 2 abstracts uten at de lager ny side
+\patchcmd{\abstract}{\titlepage}{\thispagestyle{empty}}{}{}
+\patchcmd{\endabstract}{\endtitlepage}{\clearpage}{}{}

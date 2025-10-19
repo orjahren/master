@@ -1,5 +1,7 @@
 \DocumentMetadata{lang=en, pdfversion=1.7, pdfstandard=A-2u}
-\documentclass[UKenglish]{uiomasterthesis}  %% ... or norsk or nynorsk or USenglish
+% \documentclass[UKenglish]{uiomasterthesis}  %% ... or norsk or nynorsk or USenglish
+% NOTE: Husk å endre til openright før trykk. TODO: TODO: TODO: 
+\documentclass[UKenglish, a4paper,12pt,twoside,openany, notitlepage]{report}
 \usepackage[utf8]{inputenc}                 %% ... or latin1
 \usepackage[T1]{url}\urlstyle{sf}
 \usepackage{subfig} % for figurer som tar mindre plass
@@ -39,47 +41,32 @@
 
 \begin{document}
 \uiomasterfp[dept={Department of Informatics},
-    program={Informatics: Programming and Systems architecture},
-    supervisors={Shaukat Ali \and Karoline Nylænder},
-    info={Simula Research Laboratory},
-    date={Fall 2025},
-    image={frontpage/header.jpg},
-    color={orange},
-    long]
+  program={Informatics: Programming and Systems architecture},
+  supervisors={Shaukat Ali \and Karoline Nylænder},
+  info={Simula Research Laboratory},
+  date={Fall 2025},
+  image={frontpage/header.jpg},
+  color={orange},
+  long]
 
 \frontmatter{}
-\begin{abstract}
-    % Here come 3--6 sentences describing your thesis.
-    \acrfullpl{ads} rely on extensive testing in order to verify their operational safety. But due to
-    their nature of being able to operate in any unseen environment with arbitrary external actors,
-    the number of potential scenarios is infinite. It is therefore important to obtain the least
-    driveable scenarios for simulator testing ahead of real world deployment. We therefore propose
-    applying \acrlongpl{llm} to \acrlong{ads} scenario files to decrease their driveability, exposing
-    potential underlying issues in the \acrshort{ads} being tested in advance of it happening during
-    real world operation, avoiding causing severe damage to its operator and/or other external actors.
-\end{abstract}
-
-% TODO: Disse 2 sammendragene er veldig forskjellige. Er det OK?
-
-\begin{xabstract}[Sammendrag]
-    %Here comes the abstract in a different language.
-    For å kunne få selvkjørende biler ut på veiene, må vi være sikre på at de er trygge. Trygge både
-    for seg selv, sjåføren, og andre traffikanter. Men det ligger i en bils natur at den skal kunne
-    brukes overalt, med alle mulige folk inne i bildet. Derfor er det teoretisk umulig å forutse alle
-    mulige situasjoner og teste disse i forkant. På bakgrunn av dette fremmer vi i dette arbeidet en
-    metode for å ta ibruk KI til å gjøre dagens testscenarioer \textit{mer utrygge} enn hva de
-    allerede er. Å teste med disse forespeiles å ville kunne avdekke potensielle underliggende feil i
-    bilens systemer, slik at de kan rettes før den volder skade ute i verden.
-\end{xabstract}
+\chapter*{Abstract}
+% \noindent
+\acrfullpl{ads} rely on extensive testing in order to verify their operational safety. But due to
+their nature of being able to operate in any unseen environment with arbitrary external actors,
+the number of potential scenarios is infinite. It is therefore important to obtain the least
+driveable scenarios for simulator testing ahead of real world deployment. We therefore propose
+applying \acrlongpl{llm} to \acrlong{ads} scenario files to decrease their driveability, exposing
+potential underlying issues in the \acrshort{ads} being tested in advance of it happening during
+real world operation, avoiding causing severe damage to its operator and/or other external actors.
 
 \tableofcontents{}
 \listoffigures{}                            %% (omit if none)
 % \listoftables{}                             %% (omit if none)
 \lstlistoflistings{}
 
-\begin{preface}
-    Here comes your preface, including acknowledgments and thanks.
-\end{preface}
+\chapter*{Preface}
+Here comes your preface, including acknowledgments and thanks.
 
 \mainmatter{}
 \input{chapters/introduction}
