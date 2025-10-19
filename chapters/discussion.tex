@@ -134,8 +134,17 @@ driving situations? While we indeed know that we \emph{will} get scenarios with 
 driveability, we have no measure of these scenario's relevance for global communities where traffic
 standards vary.
 
-Perhaps the \acrfull{llm} has some hidden bias preventing it from allowing us to exploit certain
+Perhaps the \acrshort{llm} has some hidden bias preventing it from allowing us to exploit certain
 aspects of the scenes?
+
+% Når LLMen endrer ting på andre siden av mapet osv som bare ikke påvirker ego vehicle overhode
+\subsection{What is being changed in the scenario?}
+
+Scenarios center on the ego vehicle. But what if the \acrshort{llm} changes parts of the scene that
+don't affect the ego? In these cases, all metrics should be more or less the same\footnote{Keep in
+    mind that the \acrshort{ads} motion planners are not deterministic, and as such they will typically
+    not be identical.}. But then ther is no point in having done the modification. This has also not
+been a problem for these experiments.
 
 \section{Scenario formats}
 % \section{Python / OpenScenario / DSI}
@@ -225,6 +234,6 @@ Listing~\ref{lst:OSDSL} presents an example of an OpenSCENARIO \acrshort{dsl} sc
 additional context for understanding the concept of the format. The example is copied
 from the \href{https://github.com/carla-simulator/scenario_runner/blob/master/srunner/examples/acceleration.osc}{Carla scenario runner examples}.
 
-\section{When is enough?}
+\section{When is enough -- when is the \acrshort{ads} \emph{safe}?}
 
 Hvor mye skal vi teste for å vite at "nå er den trygg"?
