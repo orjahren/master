@@ -1,7 +1,78 @@
 
-\chapter{Discussion}
+\chapter{Discussion}\label{sec:discussion}
 
 \epigraph{Your scientists were so preoccupied with whether they could, they didn't stop to think if they should}{Dr.~Ian Malcolm}
+
+The following wil analyze the \Nref{sec:results} in light of what they achieve and evaluate the
+fesability of the \hefe~approach in comparison to other methods.
+
+% Fokus her: Hefes value add
+% \section{Dette kontra tradisjonell generering}
+\section{Scenario modification versus scenario generation}
+
+This project concerns itself with taking existing scenarios and \emph{modifying} them. This is in
+many ways similar to scenario \emph{generation}, but there are also certain key differences. Let us
+review some of these.
+
+% TODO: Gir det mening å ha dette som en subsection når det bare er én i seksjonen?
+\subsection{Unknown substrate}
+
+When generating a new scenario, the principal factor in determining what it will contain, is a
+combination of your generation technique, and what sort of training data you will have used for
+obtaining this technique. As such, you might not always have complete control of what underlying
+data will be used for the generation of your specific scenario.
+
+With the \hefe~approach wherein the user provides a base scenario themself, there is \num{100}\%
+certainty of what the base scenario will be. Thus, we obtain significant inherent knowledge of the
+scenario substrate. Naturally, you may object, the same problem of the `unknown substrate' will
+present itself in form of our \acrshort{llm} executing the prompt and inferring what the new --
+enhanced -- scenario will look like. But then, I maintain that we still propose a significant value
+in the increased awareness \emph{of} the base scenario and its substrate. As we have seen in the
+\Nref{sec:results}, the changes made by the \acrshort{llm} typically don't alter the underlying
+ontology of the scene.
+
+This touches on a broader aspect concerning the \emph{value} of having this knowledge of the
+scenario substrate. While this is not the focus of this work, one potential aspect could be a sort
+of grounding related to the `sim2real' gap, and the realism of the scene. Let us now delve further
+into this.
+
+\section{Realism in the enhanced scenario}
+
+If your task is to `obtain bad driveability in a scenario using \acrlongpl{llm}' in a very general
+sense, one can imagine all sorts of creative ways this can be achieved. But in our more narrow scope
+of wishing to highlight practical faults in the \acrshort{ads}, we must add another criterium --
+realism.
+
+If your scene is bonkers, it will be very easy to get bad driveability. But there is little value
+and/or practical applicability in these scenarios. Realism in \acrshort{ads} siumulator scenarios is
+a research field in itself with major implications for how scenario-based testing ought to be done.
+
+\citeauthor{RealityBites} have looked into evaluating \acrshort{ads} simulator scenario using
+\acrshortpl{llm}~\cite[40]{RealityBites}. Note the distinction between this sort of `realism' in
+this ` aligns with our understanding of reality'-approach, and the more technical understanding of
+realism that posits that the scenario must adhere to the laws of physics, and make sure to not spawn
+objects in such a way that they intersect (which would also violate the laws of physics).
+\citeauthor{LLMScenarioChang24} also underly the importance of realism, proposing a scoring function
+that takes realism into account for evaluating their \acrshort{llm}-generated \acrshort{ads}
+simulator scenarios~\cite[6581-6582]{LLMScenarioChang24}.
+
+
+Kan se dette både opp mot sim2real-gap -- \emph{og} ikke
+
+% Ontologi, substrat, arv 
+
+% Modellen kan være trent på lignende scenarios så selv om man genererer vil det
+% til dels ha samme substrat 
+
+% Ontologisk summering -> ett scenario som tilføyes informasjon fra flere andre
+% scenarios? 
+
+% Perks: Man har mer kontroll over utgangspunktet, så man er viss på at det man
+% får ut vil være forankret til den virkeligheten man får presentert i det
+% opprinnelige scenarioet. Kontraster til paperet som bruker LLM for å \emph{søke} i
+% eksisterende scenario og så bare bruke det som matcher mest, der vil man ikke nødvenidgivs ha
+% tilsvarende kontroll på hvilken base man bruker og at denne tilfredsstiller
+% relevante krav.
 
 
 \section{Environmental concerns}
@@ -13,16 +84,6 @@ to be in order to justify using \acrshortpl{llm}?
 
 Perhaps future work can look into obtaining similar results using greener strategies.
 
-\section{Realism in the enhanced scenario}
-
-It is very easy to get bad driveability if your scene is bonkers. But there is no real world
-value/practical applicability in these scenarios?
-
-\url{https://www.simula.no/research/reality-bites-assessing-realism-driving-scenarios-large-language-models}
-
-Virker som at \cite{LLMScenarioChang24} har gjort et arbeid med å definere metrics for dette.
-
-Kan se dette både opp mot sim2real-gap -- \emph{og} ikke
 
 
 \section{LLM context size}
@@ -36,20 +97,7 @@ Noen scenarios deler samme fil (Accident\_1 m/venner i srunner/scenarios/route\_
 Con med Python: LLMen kan bruke utdatert syntax / bruke ting som ikke stemmer overens med den
 versjonen du vil bruke. De andre er mer "konstante" og mindre sårbare for dete
 
-% Fokus her: Hefes value add
-\section{Dette kontra tradisjonell generering}
+\section{Alignment}
 
-Ontologi, substrat, arv 
-
-Modellen kan være trent på lignende scenarios så selv om man genererer vil det
-til dels ha samme substrat 
-
-Ontologisk summering -> ett scenario som tilføyes informasjon fra flere andre
-scenarios? 
-
-Perks: Man har mer kontroll over utgangspunktet, så man er viss på at det man
-får ut vil være forankret til den virkeligheten man får presentert i det
-opprinnelige scenarioet. Kontraster til paperet som bruker LLM for å \emph{søke} i
-eksisterende scenario og så bare bruke det som matcher mest, der vil man ikke nødvenidgivs ha
-tilsvarende kontroll på hvilken base man bruker og at denne tilfredsstiller
-relevante krav.
+Hvordan kan vi være sikre på at LLMen ikke nekter å generere visse typer scenarioer? Kan det være
+bias i hva den tillater? Og ihva den gjør??
