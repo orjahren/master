@@ -42,7 +42,7 @@
 
 % Skrur av links i glossary-entries, se #5.
 \glsdisablehyper{}
-% \makeglossaries{}
+\makeglossaries{}
 
 % Set globals
 \setglossarystyle{altlist}
@@ -54,3 +54,21 @@
 \epigraphnoindent{}
 
 \microtypecontext{spacing=nonfrench}
+
+% Header styles
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+
+% Header: Chapter name on even pages, Section name on odd pages
+\fancyhead[LE]{\small\textsf{\leftmark}}  % Left header even pages
+\fancyhead[RO]{\small\textsf{\rightmark}} % Right header odd pages
+
+% Page number: right on even, left on odd
+\fancyhead[RE]{\small\textsf{\thepage}}   % Right header even pages
+\fancyhead[LO]{\small\textsf{\thepage}}   % Left header odd pages
+
+% Optional: thin line under header
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Footer: nothing (can add if you want)
+\renewcommand{\footrulewidth}{0pt}

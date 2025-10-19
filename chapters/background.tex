@@ -39,13 +39,13 @@ system would by definition have perfect test coverage.
 % environments. Some systems operate in the maritime domain, some in the air, and
 % others on the ground in the terrestrial operating domain~\cite[369-370]{watson2005autonomous}.
 
-\section{\acrfullpl{ads}}
+\section{Autonomous driving systems (ADSs)}
 
 \acrfull{ads} are systems that enable automotive vehicles to drive autonomously. Due to the typical
 operating scenarios of a car it is pivotal that the \acrlong{ads} maintain a high safety standard. A
 common way to assert safety is to use simulator based testing~\cite[1]{DeepScenario}.
 
-\subsection{\acrlong{ads} testing}
+\subsection{Autonomous driving system testing}
 
 Testing is essential for assuring \acrlong{ads} operative safety~\cite[163]{ADTestingReview16}.
 Several methods for testing exist, testing various aspects of the \acrlong{ads}. An \acrshort{ads}
@@ -57,7 +57,7 @@ drawing on traditional software testing traditions outlining how \textit{softwar
 used alongside more specialized \acrshort{ads} testing techniques such as \textit{simulation
     testing} and \textit{X-in-the-loop testing}~\cite[163-164]{ADTestingReview16}.
 
-\subsection{\acrlong{ads} driveability}\label{sec:adsDrivability}
+\subsection{Autonomous driving system driveability}\label{sec:adsDrivability}
 
 \textbf{Driveability} is a high-level estimator of the overall driving
 condition of an \acrshort{ads}, derived from several lower-level sources~\cite[3140]{safeToDrive}.
@@ -133,7 +133,7 @@ down to the lack of available datasets that capture and label the trajectories a
 of motorcyclists and bicyclists~\cite[3139]{safeToDrive}, causing potential issues for any
 \acrshort{ads} that wishes to operate in a shared traffic environment with this group.
 
-\subsection{\acrlong{ads} testing metrics}\label{sec:adsMetrics}
+\subsection{Autonomous driving system testing metrics}\label{sec:adsMetrics}
 
 When evaluating \acrshort{ads} testing, several metrics can be used. What metric to use will depend
 on what the relevant test is measuring.
@@ -171,7 +171,7 @@ conflicting'~\cite[3140]{safeToDrive}, representing a ruling on their compatibil
 note how behaviour-based risk assessment typically focuses on driver behaviours, not taking into
 account other actors in the scene such as pedestrians or cyclists.
 
-\subsection{The complexities of \acrshort{ads} testing}\label{sec:adsTestingComplexity}
+\subsection{The complexities of ADS testing}\label{sec:adsTestingComplexity}
 
 As we have seen, \acrshortpl{ads} can perform several tasks, in several environments. As such, there
 are several relevant factors for testing them. It is not feasible to test all potential variations
@@ -199,7 +199,7 @@ connected and capable of communicating~\cite[1]{v2xTestingSurvey2019}.
 % \acrfull{cv} system, and % LIDAR. This allows for testing the individual modules in a way that
 % makes sense for their specific domains.
 
-\subsection{\acrlong{ads} simulation}
+\subsection{ADS simulation}
 
 Due to the complexity involved in testing \acrlongpl{ads} (\Cref{sec:adsTestingComplexity}),
 simulators are typically used for this purpose~\cite{DeepScenario}. While the same points about not
@@ -218,7 +218,7 @@ being confined by the  physical world that is available to the scientist that wi
 testing. Using a simulator, a Europe-based scientist can test their \acrshort{ads} for North
 American conditions, or vice-versa.
 
-\subsection{The \acrshort{ads} simulator jungle}\label{sec:simulatorOverview}
+\subsection{The ADS simulator jungle}\label{sec:simulatorOverview}
 
 Due to the appeal of running \acrshort{ads} simulation, several contenders exist
 on the market.
@@ -242,7 +242,7 @@ simulators we have seen, this also focused on autonomous vehicles outside of
 only cars, such as drones.
 
 
-\subsection{Concepts of \acrshort{ads} simulation}\label{sec:adsSimConcepts}
+\subsection{Concepts of ADS simulation}\label{sec:adsSimConcepts}
 
 \citeauthor{scenes} draw up an outline for the terms \textit{scene}, \textit{situation}, and
 \textit{scenario}, that are all concepts widely used in \acrshort{ads} simulation testing.
@@ -286,7 +286,7 @@ simulated as the \textit{ego vehicle}~\cite{egoDefinition}.
 % The DeepScenario dataset~\cite{DeepScenario} utilises this simulator framework.
 % \tanke{The LGSVL part can be removed - not relevant?}
 
-\subsubsection{\acrshort{ads} scenario formats}\label{sec:adsScenarioFormats}
+\subsubsection{ADS scenario formats}\label{sec:adsScenarioFormats}
 
 \textbf{OpenSCENARIO} is a standard developed by the Association for Automation and
 Measurement Systems (ASAM), which is dedicated to the description of dynamic
@@ -307,14 +307,14 @@ format~\cite[4941]{convOpenScenarioToCR}.
 % TODO: Skrive om Carlas støtte for Python-scenarioer
 % TODO: Skrive om Carla scenario runner her?
 
-\section{\acrfullpl{llm}}
+\section{Large language models (LLMs)}
 
 \acrfullpl{llm} are transformer-based language models that typically contain several hundred billion
 parameters and are trained on massive text data~\cite[4]{llmSurvey}.
 Base language models, as the name implies, \textit{model language}. They are typically statistical
 models and an example of \acrfull{ml}.
 
-\subsection{\acrfull{llm} architecture}\label{sec:llmArch}
+\subsection{Architecture}\label{sec:llmArch}
 
 A \acrlong{llm} is a neural network trained on big data~\cite[3]{llmSurvey}. They expand on the
 older statistical language models by training on more data. This gives rise to \textit{emerging
@@ -382,7 +382,7 @@ all serve as possible ways of increasing \acrshort{llm} performance~\cite[5]{eme
 
 % \tanke{Burde bygge på forrige seksjon om "små" language models}
 
-\subsection{Intelligence in \acrshortpl{llm}}\label{sec:llmIntelligence}
+\subsection{Intelligence in LLMs}\label{sec:llmIntelligence}
 
 There are three theories on machine intelligence, each serving to
 explain how they `\textit{think}': \begin{inparaenum}
@@ -437,7 +437,7 @@ linguistic data.
 % Conceptual blending is a theory on both machine and human intelligence. 
 
 
-\subsection{Utilising \acrshortpl{llm} - Prompt engineering}\label{sec:llmUtilization}
+\subsection{Utilising LLMs - Prompt engineering}\label{sec:llmUtilization}
 
 
 A typical way of interacting with \acrshortpl{llm} is \textit{prompting}~\cite[44]{llmSurvey}. You
@@ -471,7 +471,7 @@ prompting it, and there is a distinction between text-based and code-based appro
 approaches utilise natural language, whereas code-based approaches utilise executable computer code~\cite[54-55]{llmSurvey}.
 
 
-\subsection{General challenges with \acrshortpl{llm}}\label{sec:llmProblems}
+\subsection{General challenges with LLMs}\label{sec:llmProblems}
 
 We have seen that \acrshortpl{llm} demonstrate promising abilities (\Nref{sec:emergentAbilities}) But they have nevertheless certain issues attached to them that we need to be aware of.
 
@@ -515,7 +515,7 @@ outputs~\cite[21799]{sproutGreenLlm}.
 % https://machinelearning.apple.com/research/illusion-of-thinking 
 
 
-\subsection{The different kinds of \acrshortpl{llm}}\label{sec:llmJungle}
+\subsection{The different kinds of LLMs}\label{sec:llmJungle}
 
 There are several available \acrshortpl{llm}, some of which are open source, and some proprietary.
 Open source \acrshortpl{llm} afford greater insight into their composition and underlying training
@@ -533,7 +533,7 @@ different tasks regardless of their similar architecture.
 What they all share is their ability to perform \textit{inference}, meaning that they predict output
 tokens given some input tokens (see \Cref{sec:llmParrot}).
 
-\subsection{Existing \acrshort{llm} applications for \acrshortpl{ads}}\label{sec:llmsForAds}
+\subsection{Existing LLM applications for ADS}\label{sec:llmsForAds}
 
 
 \citeauthor{LLM4AD} give a broad overview of some of the ways \acrshortpl{llm} have been applied for

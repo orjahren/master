@@ -89,7 +89,7 @@ for \emph{using} simulator would falter.
 % tilsvarende kontroll på hvilken base man bruker og at denne tilfredsstiller
 % relevante krav.
 
-\section{\acrshort{llm} aspects}
+\section{LLM aspects}
 
 \subsection{Cost/benefits of using \acrshortpl{llm}}
 % \section{Environmental concerns}
@@ -105,7 +105,7 @@ results in \Cref{sec:results}, it is important to keep in mind the environmental
 Perhaps future work can look into obtaining similar results using greener strategies.
 
 
-\subsection{\acrshort{llm} context size}
+\subsection{Context size}
 
 By their nature, \acrshortpl{llm} have a set context size. If your prompt exceeds the context size
 of the \acrshort{llm}, it will appear to `forget' parts of the input. This poses a potential problem
@@ -188,12 +188,12 @@ change.d
 Something to note is that the Carla simulator only has limited support for the
 features of OpenSCENARIO.
 
-\subsection{\acrlong{dsl}-based OpenSCENARIO}
+\subsection{DSL-based OpenSCENARIO}
 
 Similar to the XML-based format, the scenario \acrshort{dsl} is less widely available in training corpora. However, it also maintains the advantage of being more static and less prone to change.
 
 
-\begin{lstlisting}[label={lst:OSDSL}, caption={An example of an OpenSCENARIO \acrshort{dsl} scenario.}]
+\begin{lstlisting}[label={lst:OSDSL}, caption={An example of an OpenSCENARIO DSL scenario.}]
 import basic.osc
 
 type acceleration is SI(m: 1, s: -2)
@@ -234,6 +234,6 @@ Listing~\ref{lst:OSDSL} presents an example of an OpenSCENARIO \acrshort{dsl} sc
 additional context for understanding the concept of the format. The example is copied
 from the \href{https://github.com/carla-simulator/scenario_runner/blob/master/srunner/examples/acceleration.osc}{Carla scenario runner examples}.
 
-\section{When is enough -- when is the \acrshort{ads} \emph{safe}?}
+\section{When is enough -- when is the ADS \emph{safe}?}
 
 Hvor mye skal vi teste for å vite at "nå er den trygg"?
