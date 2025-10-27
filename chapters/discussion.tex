@@ -90,7 +90,20 @@ for \emph{using} simulator would falter.
 % tilsvarende kontroll på hvilken base man bruker og at denne tilfredsstiller
 % relevante krav.
 
-TODO: NEVNE \Cref{sec:resultsAccidentScenario} med kjeglene
+One quite clear example of this, we can find in
+\Cref{sec:resultsAccidentScenario} -- the \acrshort{llm} proposes making changes
+in such a way that several vehicles are situated on top of bollards. This is
+quite questionable. Not only becayse it makes no sense that cars could ever
+balance in such a way on the bollards, but also because -- why would the
+bollards be \emph{under} vehicles in the first place? It would be far more
+realistic to have the bollards be placed \emph{around} the piled-up vehicles
+such that the \acrshort{ads} would need to go around them. This would be a more
+realistc enhancement, and provide a more valuable insight into the performance
+of the \acrshort{ads}. That said, it would probably require more logic in order
+to calculate the positions dynamically based on what bollards are located where,
+in such a way that base \acrshortpl{llm} typically don't have the possibility of
+doing without additional tooling that allows for executing Python code and
+determining what these positon should have been.
 
 \section{LLM aspects}
 
@@ -239,4 +252,16 @@ from the \href{https://github.com/carla-simulator/scenario_runner/blob/master/sr
 
 \section{When is enough -- when is the ADS \emph{safe}?}
 
-Hvor mye skal vi teste for å vite at "nå er den trygg"?
+An interesting perspective regarding this scenario based testing of
+\acrshortpl{ads} is this: How can we ever know that it has been sufficiently
+tested and is ready for being deployed on public roads? When investigation this
+question, several subproblems arise.
+
+As mentioned in the \Cref{sec:problemDescription}, there are infinetely many
+edge cases that are possible for \acrshort{ads} execution. Even if we propose
+one billion test cases, and our \acrshort{ads} passes these, how can we know
+that it will also pass the hypothetical `one billion and one-th'?
+
+Furthermore, even if it does pass all these tests, how can we be sure that it
+acts in an ethical manner? There are several possible courses of action that it
+can take in various situations.
