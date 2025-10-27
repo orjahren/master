@@ -1,0 +1,80 @@
+diff --git a/srunner/scenarios/route_obstacles.py b/srunner/scenarios/route_obstacles.py
+index 8a0a3dc..c37c080 100644
+--- a/srunner/scenarios/route_obstacles.py
++++ b/srunner/scenarios/route_obstacles.py
+@@ -84,6 +84,11 @@ class Accident(BasicScenario):
+         self._max_speed = get_value_parameter(config, 'speed', float, 60)
+         self._scenario_timeout = 240
+ 
++        # Additional parameters for enhancing complexity and jerk
++        self._creep_distance = get_value_parameter(config, 'creep_distance', float, 2.0)
++        self._creep_speed = get_value_parameter(config, 'creep_speed', float, 1.0) # m/s (3.6 km/h)
++        self._lateral_creep_offset = get_value_parameter(config, 'lateral_creep_offset', float, 0.5) # meters
++
+         super().__init__(
+             "Accident", ego_vehicles, config, world, randomize, debug_mode, criteria_enable=criteria_enable)
+ 
+@@ -199,15 +204,57 @@ class Accident(BasicScenario):
+         end_condition.add_child(ScenarioTimeout(self._scenario_timeout, self.config.name))
+         end_condition.add_child(WaitUntilInFrontPosition(self.ego_vehicles[0], self._end_wp.transform, False))
+ 
+-        behavior = py_trees.composites.Sequence()
+-        behavior.add_child(InTriggerDistanceToLocation(
++        # Ego's main behavior sequence: approach, idle, then wait
++        ego_behavior = py_trees.composites.Sequence()
++        ego_behavior.add_child(InTriggerDistanceToLocation(
+             self.ego_vehicles[0], self._first_vehicle_wp.transform.location, self._trigger_distance))
+-        behavior.add_child(Idle(self._wait_duration))
++        ego_behavior.add_child(Idle(self._wait_duration))
+         if self.route_mode:
+-            behavior.add_child(SetMaxSpeed(self._max_speed))
+-        behavior.add_child(WaitForever())
++            ego_behavior.add_child(SetMaxSpeed(self._max_speed))
++        ego_behavior.add_child(WaitForever())
++
++        end_condition.add_child(ego_behavior)
++
++        # NEW: Behavior for the first accident vehicle to creep forward and laterally
++        # This will introduce sudden changes in the environment, leading to increased jerk for the ego.
++        first_actor = self.other_actors[2] # Based on the order of actor initialization
++
++        # Calculate target waypoint for longitudinal creep
++        first_actor_start_wp = self._map.get_waypoint(first_actor.get_location())
++        creep_target_wp_forward = self._move_waypoint_forward(first_actor_start_wp, self._creep_distance)
++
++        # Calculate the lateral offset for the BasicAgentBehavior.
++        # This offset is relative to the center of the target waypoint's lane.
++        # Initial lateral position of the obstacle (from lane center, positive to right).
++        initial_lateral_offset_from_center = self._offset * first_actor_start_wp.lane_width / 2
++        if self._direction == 'left': # If original placement was on the left, make this negative
++            initial_lateral_offset_from_center *= -1 
++        
++        # Desired change to increase blockage and induce jerk.
++        # If ego passes left (direction 'right'), obstacle is on right. To block more, move further right (increase offset).
++        # If ego passes right (direction 'left'), obstacle is on left. To block more, move further left (decrease offset).
++        target_lateral_offset = initial_lateral_offset_from_center
++        if self._direction == 'right': 
++            target_lateral_offset += self._lateral_creep_offset
++        else: # self._direction == 'left'
++            target_lateral_offset -= self._lateral_creep_offset
++            
++        opt_dict_creep = {'offset': target_lateral_offset}
++
++        creep_behavior = py_trees.composites.Sequence(name="First Accident Car Creep")
++        # Trigger the creep behavior when ego is closer, after initial detection
++        creep_behavior.add_child(InTriggerDistanceToLocation(
++            self.ego_vehicles[0], self._first_vehicle_wp.transform.location, self._trigger_distance / 2))
++        creep_behavior.add_child(Idle(self._wait_duration / 2)) # Short idle to ensure ego is committed
++        creep_behavior.add_child(HandBrakeVehicle(first_actor, False)) # Release handbrake
++        # Make the actor creep forward and laterally with BasicAgentBehavior
++        creep_behavior.add_child(BasicAgentBehavior(
++            first_actor, creep_target_wp_forward.transform.location, target_speed=self._creep_speed, opt_dict=opt_dict_creep))
++        creep_behavior.add_child(HandBrakeVehicle(first_actor, True)) # Re-apply handbrake after moving
++        creep_behavior.add_child(WaitForever()) # Keep this behavior alive until scenario ends
++
++        end_condition.add_child(creep_behavior) # Add this parallel behavior to the scenario
+ 
+-        end_condition.add_child(behavior)
+         root.add_child(end_condition)
+ 
+         if self.route_mode:

@@ -1,0 +1,71 @@
+diff --git a/srunner/scenarios/route_obstacles.py b/srunner/scenarios/route_obstacles.py
+index 8a0a3dc..fe46632 100644
+--- a/srunner/scenarios/route_obstacles.py
++++ b/srunner/scenarios/route_obstacles.py
+@@ -69,9 +69,9 @@ class Accident(BasicScenario):
+         self._first_distance = 10
+         self._second_distance = 6
+ 
+-        self._trigger_distance = 50
++        self._trigger_distance = 20  # Decreased to force sharper reactions
+         self._end_distance = 50
+-        self._wait_duration = 5
++        self._wait_duration = 1  # Decreased to allow less reaction time
+         self._offset = 0.6
+ 
+         self._lights = carla.VehicleLightState.Special1 | carla.VehicleLightState.Special2 | carla.VehicleLightState.Position
+@@ -297,9 +297,9 @@ class ParkedObstacle(BasicScenario):
+         self._map = CarlaDataProvider.get_map()
+         self.timeout = timeout
+ 
+-        self._trigger_distance = 50
++        self._trigger_distance = 20  # Decreased to force sharper reactions
+         self._end_distance = 50
+-        self._wait_duration = 5
++        self._wait_duration = 1  # Decreased to allow less reaction time
+         self._offset = 0.7
+ 
+         self._lights = carla.VehicleLightState.RightBlinker | carla.VehicleLightState.LeftBlinker | carla.VehicleLightState.Position
+@@ -503,13 +503,13 @@ class HazardAtSideLane(BasicScenario):
+         self._map = CarlaDataProvider.get_map()
+         self.timeout = timeout
+ 
+-        self._obstacle_distance = 9
+-        self._trigger_distance = 50
++        self._obstacle_distance = 5  # Reduced distance between bicycles for tighter space
++        self._trigger_distance = 20  # Decreased to force sharper reactions
+         self._end_distance = 50
+         self._extra_space = 30
+ 
+-        self._offset = 0.55
+-        self._wait_duration = 5
++        self._offset = 0.8  # Increased to make bicycles encroach more into the lane
++        self._wait_duration = 1  # Decreased to allow less reaction time
+ 
+         self._target_locs = []
+ 
+@@ -517,7 +517,7 @@ class HazardAtSideLane(BasicScenario):
+ 
+         self._distance = get_value_parameter(config, 'distance', float, 100)
+         self._max_speed = get_value_parameter(config, 'speed', float, 60)
+-        self._bicycle_speed = get_value_parameter(config, 'bicycle_speed', float, 10)
++        self._bicycle_speed = get_value_parameter(config, 'bicycle_speed', float, 20)  # Increased bicycle speed
+         self._bicycle_drive_distance = get_value_parameter(config, 'bicycle_drive_distance', float, 50)
+         self._scenario_timeout = 240
+ 
+@@ -661,7 +661,7 @@ class HazardAtSideLaneTwoWays(HazardAtSideLane):
+     """
+     def __init__(self, world, ego_vehicles, config, randomize=False, debug_mode=False, criteria_enable=True, timeout=180):
+ 
+-        self._opposite_frequency = get_value_parameter(config, 'frequency', float, 100)
++        self._opposite_frequency = get_value_parameter(config, 'frequency', float, 20) # Increased opposite traffic frequency (lower spawn_dist)
+ 
+         super().__init__(world, ego_vehicles, config, randomize, debug_mode, criteria_enable, timeout)
+ 
+@@ -716,4 +716,4 @@ class HazardAtSideLaneTwoWays(HazardAtSideLane):
+         for actor in self.other_actors:
+             root.add_child(ActorDestroy(actor))
+ 
+-        return root
++        return root
+\ No newline at end of file

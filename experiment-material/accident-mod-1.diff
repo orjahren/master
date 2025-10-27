@@ -1,0 +1,237 @@
+diff --git a/srunner/scenarios/route_obstacles.py b/srunner/scenarios/route_obstacles.py
+index 8a0a3dc..86892b7 100644
+--- a/srunner/scenarios/route_obstacles.py
++++ b/srunner/scenarios/route_obstacles.py
+@@ -66,13 +66,17 @@ class Accident(BasicScenario):
+         self._map = CarlaDataProvider.get_map()
+         self.timeout = timeout
+         
++        # Original distances
+         self._first_distance = 10
+         self._second_distance = 6
++        
++        # NEW: Third accident vehicle distance, increasing complexity
++        self._third_distance = 6 
+ 
+         self._trigger_distance = 50
+         self._end_distance = 50
+         self._wait_duration = 5
+-        self._offset = 0.6
++        self._offset = 0.6 # Original offset for accident vehicles
+ 
+         self._lights = carla.VehicleLightState.Special1 | carla.VehicleLightState.Special2 | carla.VehicleLightState.Position
+ 
+@@ -84,6 +88,70 @@ class Accident(BasicScenario):
+         self._max_speed = get_value_parameter(config, 'speed', float, 60)
+         self._scenario_timeout = 240
+ 
++        # NEW: Pedestrian parameters, enhancing dynamic complexity
++        self._pedestrian_bps = [
++            "walker.pedestrian.0013",
++            "walker.pedestrian.0027",
++            "walker.pedestrian.0008",
++            "walker.pedestrian.0006",
++            "walker.pedestrian.0035",
++            "walker.pedestrian.0001",
++            "walker.pedestrian.0002",
++            "walker.pedestrian.0004",
++            "walker.pedestrian.0011",
++            "walker.pedestrian.0037",
++            "walker.pedestrian.0005",
++            "walker.pedestrian.0009",
++            "walker.pedestrian.0010",
++            "walker.pedestrian.0026",
++            "walker.pedestrian.0014",
++            "walker.pedestrian.0045",
++            "walker.pedestrian.0015",
++            "walker.pedestrian.0016",
++            "walker.pedestrian.0038",
++            "walker.pedestrian.0041",
++            "walker.pedestrian.0043",
++            "walker.pedestrian.0042",
++            "walker.pedestrian.0044",
++            "walker.pedestrian.0020",
++            "walker.pedestrian.0039",
++            "walker.pedestrian.0022",
++            "walker.pedestrian.0046",
++            "walker.pedestrian.0017",
++            "walker.pedestrian.0034",
++            "walker.pedestrian.0040",
++            "walker.pedestrian.0003",
++            "walker.pedestrian.0051",
++            "walker.pedestrian.0047",
++            "walker.pedestrian.0048",
++            "walker.pedestrian.0049",
++            "walker.pedestrian.0050",
++            "walker.pedestrian.0031",
++            "walker.pedestrian.0028",
++            "walker.pedestrian.0033",
++            "walker.pedestrian.0030",
++            "walker.pedestrian.0007",
++            "walker.pedestrian.0036",
++            "walker.pedestrian.0029",
++            "walker.pedestrian.0012",
++            "walker.pedestrian.0025",
++            "walker.pedestrian.0024",
++            "walker.pedestrian.0021",
++            "walker.pedestrian.0019",
++            "walker.pedestrian.0023",
++            "walker.pedestrian.0032",
++            "walker.pedestrian.0018"
++        ]
++
++        
++        self._pedestrian_speed = get_value_parameter(config, 'pedestrian_speed', float, 1.5) # ~5.4 km/h
++        self._pedestrian_drive_distance = get_value_parameter(config, 'pedestrian_drive_distance', float, 10)
++        self._pedestrian_offset = 0.9 # Further to the side, potentially on sidewalk, for spawning
++        self._pedestrian_trigger_distance = 20 # Smaller trigger for pedestrian start
++
++        # NEW: Traffic cone parameters, enhancing static obstruction
++        self._cone_offset = 0.8 # Slightly more off the lane than accident cars, but less than pedestrian
++
+         super().__init__(
+             "Accident", ego_vehicles, config, world, randomize, debug_mode, criteria_enable=criteria_enable)
+ 
+@@ -178,37 +246,125 @@ class Accident(BasicScenario):
+         second_vehicle_wp = self._move_waypoint_forward(self._first_vehicle_wp, self._second_distance)
+         second_actor = self._spawn_obstacle(second_vehicle_wp, 'vehicle.*', True)
+ 
+-        self._accident_wp = second_vehicle_wp
+-        self._end_wp = self._move_waypoint_forward(second_vehicle_wp, self._end_distance)
+-
+         # Set its initial conditions
+         second_actor.apply_control(carla.VehicleControl(hand_brake=True))
+         self.other_actors.append(second_actor)
+ 
++        # NEW: Create a third vehicle that has been in the accident, increasing obstruction
++        third_vehicle_wp = self._move_waypoint_forward(second_vehicle_wp, self._third_distance)
++        third_actor = self._spawn_obstacle(third_vehicle_wp, 'vehicle.*', True)
++
++        # Set its initial conditions
++        third_actor.apply_control(carla.VehicleControl(hand_brake=True))
++        self.other_actors.append(third_actor)
++
++        self._accident_wp = third_vehicle_wp # Update the main accident waypoint to the last car
++        self._end_wp = self._move_waypoint_forward(third_vehicle_wp, self._end_distance)
++
++        # NEW: Spawn traffic cones around the accident, further narrowing the path
++        cone_ref_wps = [
++            self._move_waypoint_forward(self._accident_wp, -self._first_distance - self._second_distance - 2), # Before first car
++            self._first_vehicle_wp,
++            self._move_waypoint_forward(self._first_vehicle_wp, self._second_distance / 2), # In between first and second
++            second_vehicle_wp,
++            self._move_waypoint_forward(second_vehicle_wp, self._third_distance / 2), # In between second and third
++            third_vehicle_wp,
++            self._move_waypoint_forward(third_vehicle_wp, 2) # After third car
++        ]
++
++        for i, wp in enumerate(cone_ref_wps):
++            displacement = self._cone_offset * wp.lane_width / 2
++            r_vec = wp.transform.get_right_vector()
++            if self._direction == 'left':
++                r_vec *= -1
++            # Make a copy of the transform!
++            cone_transform = carla.Transform(wp.transform.location, wp.transform.rotation)
++            cone_transform.location += carla.Location(x=displacement * r_vec.x, y=displacement * r_vec.y, z=0.1)
++            # cone_blueprint = 'static.prop.construction.trafficcone01'
++            cone_blueprint = 'static.prop.trafficcone01'  # Or any available propcone_blueprint = 'static.prop.construction.trafficcone01'
++            cone_actor = CarlaDataProvider.request_new_actor(cone_blueprint, cone_transform)
++            if not cone_actor:
++                raise ValueError(f"Couldn't spawn cone {i}")
++            cone_actor.set_simulate_physics(False)
++            self.other_actors.append(cone_actor)
++
++        # NEW: Spawn a pedestrian near the accident, adding dynamic interaction
++        pedestrian_spawn_wp = self._move_waypoint_forward(self._first_vehicle_wp, self._second_distance / 2) # In between first and second accident cars
++        displacement = self._pedestrian_offset * pedestrian_spawn_wp.lane_width / 2 # Further to the side, simulate sidewalk
++        r_vec = pedestrian_spawn_wp.transform.get_right_vector()
++        if self._direction == 'left':
++            r_vec *= -1
++        pedestrian_transform = pedestrian_spawn_wp.transform
++        pedestrian_transform.location += carla.Location(x=displacement * r_vec.x, y=displacement * r_vec.y, z=0.1) # Pedestrian on ground
++        # pedestrian_transform.location.z = 0.5
++
++        rng = CarlaDataProvider.get_random_seed()
++        ped_blueprint = rng.choice(self._pedestrian_bps)
++        pedestrian_actor = CarlaDataProvider.request_new_actor(ped_blueprint, pedestrian_transform)
++        if not pedestrian_actor:
++            #raise ValueError("Couldn't spawn pedestrian actor")
++            print("Couldn't spawn pedestrian actor")
++            return
++        pedestrian_actor.set_simulate_physics(True) # Pedestrians are typically simulated
++        self.other_actors.append(pedestrian_actor)
++
++        # Define pedestrian target location (slightly moving towards the road to be more intrusive)
++        ped_target_wp = self._move_waypoint_forward(pedestrian_spawn_wp, self._pedestrian_drive_distance)
++        self._pedestrian_target_loc = ped_target_wp.transform.location
++        # Shift target location slightly into the lane for more challenge
++        if self._direction == 'right':
++            self._pedestrian_target_loc.y -= 0.5 # Shift left (towards road center) for right-hand traffic
++        else: # 'left'
++            self._pedestrian_target_loc.y += 0.5 # Shift right (towards road center) for left-hand traffic
++
+     def _create_behavior(self):
+         """
+-        The vehicle has to drive the reach a specific point but an accident is in the middle of the road,
+-        blocking its route and forcing it to lane change.
++        The vehicle has to drive to reach a specific point but an accident is in the middle of the road,
++        blocking its route and forcing it to lane change. Enhanced with more complexity.
+         """
+         root = py_trees.composites.Sequence(name="Accident")
+         if self.route_mode:
+-            total_dist = self._distance + self._first_distance + self._second_distance + 20
++            # Update total_dist for LeaveSpaceInFront to include the new third vehicle
++            total_dist = self._distance + self._first_distance + self._second_distance + self._third_distance + 20
+             root.add_child(LeaveSpaceInFront(total_dist))
+ 
+-        end_condition = py_trees.composites.Parallel(policy=py_trees.common.ParallelPolicy.SUCCESS_ON_ONE)
+-        end_condition.add_child(ScenarioTimeout(self._scenario_timeout, self.config.name))
+-        end_condition.add_child(WaitUntilInFrontPosition(self.ego_vehicles[0], self._end_wp.transform, False))
++        # Main parallel behavior for the active part of the scenario
++        main_behavior_parallel = py_trees.composites.Parallel(
++            policy=py_trees.common.ParallelPolicy.SUCCESS_ON_ONE, name="Main Behavior Parallel")
++        
++        main_behavior_parallel.add_child(ScenarioTimeout(self._scenario_timeout, self.config.name))
+ 
+-        behavior = py_trees.composites.Sequence()
+-        behavior.add_child(InTriggerDistanceToLocation(
++        # 1. Ego-centric behavior (triggers speed/waiting)
++        ego_trigger_behavior = py_trees.composites.Sequence(name="Ego Trigger Behavior")
++        ego_trigger_behavior.add_child(InTriggerDistanceToLocation(
+             self.ego_vehicles[0], self._first_vehicle_wp.transform.location, self._trigger_distance))
+-        behavior.add_child(Idle(self._wait_duration))
++        ego_trigger_behavior.add_child(Idle(self._wait_duration))
+         if self.route_mode:
+-            behavior.add_child(SetMaxSpeed(self._max_speed))
+-        behavior.add_child(WaitForever())
+-
+-        end_condition.add_child(behavior)
+-        root.add_child(end_condition)
++            ego_trigger_behavior.add_child(SetMaxSpeed(self._max_speed))
++        ego_trigger_behavior.add_child(WaitForever()) # This ensures ego behavior lasts until something else finishes the parallel
++
++        main_behavior_parallel.add_child(ego_trigger_behavior)
++
++        # 2. Pedestrian movement behavior (last actor added is the pedestrian)
++        pedestrian_actor = self.other_actors[-1] 
++        if pedestrian_actor.type_id.startswith('walker'): # Ensure it's actually a walker type
++            pedestrian_behavior = py_trees.composites.Sequence(name="Pedestrian Movement")
++            # Pedestrian starts moving when ego is closer to its location
++            pedestrian_behavior.add_child(InTriggerDistanceToLocation(
++                self.ego_vehicles[0], pedestrian_actor.get_location(), self._pedestrian_trigger_distance))
++            # BasicAgentBehavior for the pedestrian
++            pedestrian_behavior.add_child(BasicAgentBehavior(
++                pedestrian_actor, self._pedestrian_target_loc, target_speed=self._pedestrian_speed))
++            pedestrian_behavior.add_child(HandBrakeVehicle(pedestrian_actor, 1)) # Stop movement after reaching target (or collision)
++            pedestrian_behavior.add_child(WaitForever()) # Keep it active, don't let it stop the parallel
++            main_behavior_parallel.add_child(pedestrian_behavior)
++
++        # 3. Scenario End Condition (ego reaches a point past the accident)
++        scenario_end_condition = py_trees.composites.Sequence(name="Scenario End Condition")
++        scenario_end_condition.add_child(WaitUntilInFrontPosition(self.ego_vehicles[0], self._end_wp.transform, False))
++        main_behavior_parallel.add_child(scenario_end_condition)
++
++        root.add_child(main_behavior_parallel)
+ 
+         if self.route_mode:
+             root.add_child(SetMaxSpeed(0))

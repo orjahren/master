@@ -23,6 +23,8 @@ The following reviews \begin{inparaenum}
 the scope and reviewing a selection of individual scenarios, highlighting the value added by the
 \hefe~tool.
 
+% TODO: Må si noe om hvilke faktiske LLMer som har blitt brukt
+
 % TODO: Gir dette mening å nevne her? Burde det ikke las ligge frem til kapittelet om future work?
 % Finally, we proopose novel techniques by which some of these issues may be remedied in future work
 
@@ -160,7 +162,12 @@ Let us now review some tangible scenarios. We will contrast the baseline, origin
 some that have been enhanced by a \acrshort{llm}.
 
 The base scenarios used for these experiments come from the official Carla scenario runner software
-library\footnote{\url{https://github.com/carla-simulator/scenario_runner}}.
+library\footnote{\url{https://github.com/carla-simulator/scenario_runner}}, but the concept is
+applicable to scenarios of other repositories as well. Several alternative options are presented in
+\Nref{sec:relatedWork}. Due to the afformentioned challenges with getting scenarios to run on the
+Carla simulator, these basic scenarios are used for the purposes of the thesis experiments, serving
+as a validation of the concept and laying the groundwork for adapting the method to other scenario
+sources in the future.
 
 \subsection{Base scenario: Follow vehicle}\label{sec:followVehicleResults}
 
@@ -326,9 +333,216 @@ tells us that our ego vehicle was able to pass the parked van without additional
     intersection, which is why the jerk appears as \num{0} for some time before the simulation
     terminates.}.
 
-\subsection{Base scenario: Accident}
+\subsection{Base scenario: Accident}\label{sec:resultsAccidentScenario}
 
-The accident scenario represents a scene on a highway where several cars have piled up in front, and
-our ego vehicle comes around a corner.
+The accident scenario is a bit more complex than the `follow' scenario, representing a scene on a
+highway where several cars have piled up in front, and the ego vehicle comes around a corner.
+\Cref{fig:accidentBaseStartPoint} visually renders the starting point of the scenario. Note the
+`accident ahead' sign on the right-hand side of the road.
 
-TODO: Skriv om denne tilsvarende follow vehicle\ldots
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/base/startpoint.png}
+    \caption{A screenshot of the starting point of the `accident'
+        scenario.}\label{fig:accidentBaseStartPoint}
+\end{figure}
+
+
+Continuing further, a pileup of several vehicles appear in the distance.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/base/underway.png}
+    \caption{A screenshot from the `accident' scenario with the ego underway.}\label{fig:accidentBaseUnderway}
+\end{figure}
+
+\Cref{fig:accidentBaseUnderway} shows the progression of the ego continuing around the corner.
+
+The base scenario ends with our ego coming to a halt behind the piled up vehicles.
+
+\begin{figure}[htb]
+    \centering
+    \subfloat[The ego stopped behind the pileup.\label{fig:accidentBasePileupBack}]{
+        \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/base/stopped.png}
+    }
+    \hfill
+    \subfloat[The same situation from a different angle.\label{fig:accidentBasePileupFreecam}]{
+        \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/base/side-view.png}
+    }
+    \caption{The final ego vehicle state in the base `accident' scenario.}
+    \label{fig:accidentBaseStoppedVisual}
+\end{figure}
+
+\Cref{fig:accidentBaseStoppedVisual} show how the situation ends -- with the \acrshort{ads} ego
+stopping behind the pileup of other vehicles.
+
+As for the `follow' scenario, we will enhance the scneario using \acrshort{llm} and measure the
+jerk of the ego vehicle between the executions of the scenarios.
+
+\subsubsection{Enhanced scenarios}
+
+The first enhancement is done using the `minimal changes'-prompt (listing
+\ref{lst:minimalChangesPrompt}), and similarly to the `follow' scenario, it also works well for the
+`accident' scenario, resulting in an output scenario that is able to run on the Carla simulator
+without significant issues.
+
+However, due to the nature of the enhancement the \acrshort{llm} has opted for, no changes are being
+reflected in the jerk metrics. The \acrfull{llm} tries to make 2 modifications: \begin{inparaenum}
+    \item situating the piled-up vehicles on bollards,  and
+    \item spawning pedestrian actors.
+\end{inparaenum}
+The spawning of the pedestrian actors fails, but situating some of the vehicles on cones works. This
+has, however, minimal effect on the ego vehicle. It completes the same action as it did when the
+other vehicles were situated on the ground. Furthermore, the concept of having vehicles balancing on
+bollards in the middle of the road has some seriously dubious realism.
+
+\begin{figure}[htb]
+    \centering
+    \subfloat[The ego stopped behind the pileup, with the vehicles on bollards.\label{fig:accidentMod1PileupBack}]{
+        \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/mod-1/back.png}
+    }
+    \hfill
+    \subfloat[The same situation from a different perspective.\label{fig:accidentMod1PileupFreecam}]{
+        \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/mod-1/freecam.png}
+    }
+    \caption{The final ego vehicle state in the minimally enhanced `accident' scenario.}
+    \label{fig:accidentMod1StoppedVisual}
+\end{figure}
+
+The complete diff of this enhancement is rendered in listing \ref{lst:appendixDiffAccidentMod1} in
+\Cref{sec:appendixAccidentDiffs}.
+
+\begin{lstlisting}[language=python, label={lst:jerkPrompt}, caption={A prompt instructing the \acrshort{llm} to make as few changes as possible, while maximizing a specific metric.}]
+  "minimal_changes_specific_metric": lambda python_carla_scenario_raw, specific_metric: f"""
+    1 - Context: You are a tool for decreasing the driveability of scenarios in the driving simulator Carla.
+    2 - Task: Decrease the driveability of the scenario by enhancing it with
+    more details and complexity, using only methods that are part of the
+    official Carla API, version 0.9.15.
+    3 - Input, the Python specification for the scenario: {python_carla_scenario_raw}
+    4 - Reasoning: Think step by step about how to make the scenario more complex and less driveable, considering possible obstacles, traffic, weather, and other factors using only the official Carla API.
+    5 - Output: Only output the enhanced scenario code in Python Carla scenario
+    format, with no additional text or explanation. Make sure to only use
+    methods and concepts that are already present in the input scenario, and
+    do not introduce any new methods or concepts. The changes should be as
+    minimal as possible while still achieving the goal of decreasing
+    driveability.
+    Focus on making the scenario more difficult with respect to the
+    following specific metric: {specific_metric}
+    """,
+\end{lstlisting}
+
+In order to obtain more interesting results, we again iterate on the prompt and add the requirement
+of the \acrshort{llm} optimizing for the \emph{jerk} metric. The iterated prompt is rendered in
+listing \ref{lst:jerkPrompt}. Note how the prompt is generic and takes the metric as an argument,
+allowing for other metrics to be used in a similar fashion.
+
+Utilising the jerk prompt yields similar results to the base prompt that doesn't mention any
+metrics.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/mod-2/freecam.png}
+    \caption{A screenshot from the jerk optimized `accident' scenario with the ego
+        stopped.}\label{fig:accidentMod2FinalFreecam}
+\end{figure}
+
+So, what \emph{did} the \acrshort{llm} do? For brevity, the diff is rendered in the appendix
+\Cref{sec:appendixAccidentDiffs} (listing \ref{lst:jerkOptimizedAccidentMod2}). From inspecting the
+diff, it is clear that the \acrshort{llm} has focused on \emph{tweaking} the already existing
+properties of the scenario, opting to not add additional ontological entities. Not only that, but it
+has also carried out the modifications for \emph{other} scenarios that are also represented in the
+same file. Thus, for our `accident` scenario, it has only really done the following enhancement, as
+seen in listing \ref{lst:jerkDiff}.
+
+\begin{lstlisting}[language=diff, label={lst:jerkDiff}, caption={The relevant subset of the diff from instructing the \acrshort{llm} to make as few changes as possible, while maximizing a specific metric.}]
+    @@ -69,9 +69,9 @@ class Accident(BasicScenario):
+         self._first_distance = 10
+         self._second_distance = 6
+ 
+-        self._trigger_distance = 50
++        self._trigger_distance = 20  # Decreased to force sharper reactions
+         self._end_distance = 50
+-        self._wait_duration = 5
++        self._wait_duration = 1  # Decreased to allow less reaction time
+         self._offset = 0.6
+\end{lstlisting}
+
+While one could argue that this \emph{is} \textbf{an} enhancement, it is not that interesting. It is
+too minimal to be of any real value. Note that the prompt does instruct the \acrshort{llm} to indeed
+do be minimal, so this might be a matter of bad prompting.
+% TODO: Det er wack å si "det er en dårlig prompt" og så fortsette å bruke den dårlige delen lol
+Therefore, we do yet another iteration of the prompt, underlining what scenario the \acrshort{llm}
+should focus on:
+
+\begin{lstlisting}[language=python, label={lst:jerkPromptSpecificScenario}, caption={A prompt instructing the \acrshort{llm} to make as few changes as possible, while maximizing a specific metric only in a specified scenario.}]
+    "minimal_changes_shared_file_specific_metric": lambda python_carla_scenario_raw, scenario_name, specific_metric: f"""
+    1 - Context: You are a tool for decreasing the driveability of scenarios in the driving simulator Carla.
+    2 - Task: Decrease the driveability of the scenario by enhancing it with
+    more details and complexity, using only methods that are part of the
+    official Carla API, version 0.9.15.
+    3 - Input, the Python specification for the scenario:
+    {python_carla_scenario_raw}. Note that there are several scenarios in the file,
+    but you should only modify the one called {scenario_name}. Don't change any of the
+    other scenarios.
+    4 - Reasoning: Think step by step about how to make the scenario more complex and less driveable, considering possible obstacles, traffic, weather, and other factors using only the official Carla API.
+    5 - Output: Only output the enhanced scenario code in Python Carla scenario
+    format, with no additional text or explanation. Make sure to only use
+    methods and concepts that are already present in the input scenario, and
+    do not introduce any new methods or concepts. The changes should be as
+    minimal as possible while still achieving the goal of decreasing
+    driveability.
+    Focus on making the scenario more difficult with respect to the
+    following specific metric: {specific_metric}
+    """,
+\end{lstlisting}
+
+Upon executing this final prompt, we get a better result, with a set of changes that only affect the
+relevant `accident' scenario. But even then, the execution of the scenario is in many ways the same.
+The most striking difference is that another vehicle is now moving. But this has no effect on the
+ego vehicle, as it stops before interacting with the now moving vehicle. The diff is rendered in
+listing \ref{lst:jerkOptimizedAccidentMod3}, and the visual state is shown in \Cref{fig:accidentMod3FinalFreecam}.
+
+\lstinputlisting[caption={The diff of the jerk-optimized Accident scenario with stricter specification.}, label={lst:jerkOptimizedAccidentMod3}, language={diff}]{experiment-material/accident-mod-3.diff}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/mod-3/freecam.png}
+    \caption{A screenshot from the jerk optimized `accident' scenario with the \acrshort{llm}
+        strictly focusing on modifying the correct scenario. See listing
+        \ref{lst:jerkOptimizedAccidentMod3}}\label{fig:accidentMod3FinalFreecam}
+\end{figure}
+
+Note how the vehicle behind the taxicab is moving in \Cref{fig:accidentMod3FinalFreecam}.
+
+Finally, let us review the calculated jerk metrics from these runs of the `accident' scenario,
+similarly to the inital `follow' scenario. As shown in \Cref{fig:jerkComparisonAccident}, there are
+no significant gains. They all follow the same pattern, which is in line with what we expect from
+having seen their execution.There is however some jitter at the start of executing the enhanced
+scenarios, before the ego comes to a halt and the jerk flats out until the scenario execution
+terminates. This is probably a consequence of the base scenario being what it is -- there is only so
+much interesting changes that can be made to a scenario that is supposed to terminate with the ego
+coming to a halt behind stationary vehicles.
+
+\begin{figure}[htb]
+    \centering
+    \subfloat[Jerk in the base scenario, rendered in
+        fig~\ref{fig:accidentBaseStartPoint}\label{fig:accidentBaseJerk}]{
+        \includegraphics[width=0.45\textwidth]{experiment-material/accident-pics/base/jerk.png}
+    }
+    \hfill
+    \subfloat[Jerk of the ego vehicle in the first minimally enhanced `accident' scenario, the one
+        from fig~\ref{fig:accidentMod1PileupBack}\label{fig:accidentMod1Jerk}]{
+        \includegraphics[width=0.45\textwidth]{experiment-material/accident-pics/mod-1/jerk.png}
+    }
+    \hfill
+    \subfloat[Jerk of the ego vehicle in the 3rd minimally enhanced `accident' scenario, the one
+        from fig~\ref{fig:accidentMod3FinalFreecam}\label{fig:accidentMod3Jerk}]{
+        \includegraphics[width=0.45\textwidth]{experiment-material/accident-pics/mod-3/jerk.png}
+    }
+    \caption{Jerk of the ego vehicle in the base and enhanced `accident' scenarios.}
+    \label{fig:jerkComparisonAccident}
+\end{figure}
+
+Overall, this indicates this being a feasible way of obtaining \acrshort{ads} scenarios with minimal
+costs, in many ways helping with solving our stated problems (\Cref{sec:problemDescription}). Let us
+now further analyse the results and discuss what they mean in a broader sense.

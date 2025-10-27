@@ -49,14 +49,15 @@ If your scene is bonkers, it will be very easy to get bad driveability. But ther
 and/or practical applicability in these scenarios. Realism in \acrshort{ads} siimulator scenarios is
 a research field in itself with major implications for how scenario-based testing ought to be done.
 
-\citeauthor{RealityBites} have looked into evaluating \acrshort{ads} simulator scenario using
-\acrshortpl{llm}~\cite[40]{RealityBites}. Note the distinction between this sort of realism in the
-`aligns with our understanding of reality'-approach, and the more technical understanding of realism
-that posits that the scenario must adhere to the laws of physics, and make sure to not spawn objects
-in such a way that they intersect (which would also violate the laws of physics) etc.
+\citeauthor{RealityBites} have looked into evaluating \acrshort{ads} simulator scenario realism
+using \acrshortpl{llm}~\cite[40]{RealityBites}. Note the distinction between this sort of realism in
+the `aligns with our understanding of reality'-approach, and the more technical understanding of
+realism that posits that the scenario must adhere to the laws of physics, and make sure to not spawn
+objects in such a way that they intersect (which would also violate the laws of physics) etc.
 \citeauthor{LLMScenarioChang24} also underline the importance of realism, proposing a scoring
 function that takes realism into account for evaluating their \acrshort{llm}-generated
-\acrshort{ads} simulator scenarios~\cite[6581-6582]{LLMScenarioChang24}.
+\acrshort{ads} simulator scenarios~\cite[6581-6582]{LLMScenarioChang24}\footnote{See also
+    \Nref{sec:rwChang24} in \Nref{sec:relatedWork} for more on this work.}.
 
 When modifying an exisiting scenario, the output scenario will in my ways resemble the initial
 version. This asserts a certain realism grounded in the initial scenario, assuming that it was
@@ -88,6 +89,8 @@ for \emph{using} simulator would falter.
 % eksisterende scenario og så bare bruke det som matcher mest, der vil man ikke nødvenidgivs ha
 % tilsvarende kontroll på hvilken base man bruker og at denne tilfredsstiller
 % relevante krav.
+
+TODO: NEVNE \Cref{sec:resultsAccidentScenario} med kjeglene
 
 \section{LLM aspects}
 
