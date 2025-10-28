@@ -143,17 +143,18 @@ we take after \citeauthor{safeToDrive} and review three metrics for
 quantifying driveability: \begin{inparaenum}
     \item scene driveability,
     \item collision-based risk, and
-    \item behaviour-based risk.
+    \item behaviour-based risk. Finally, we also investigate the mertric
+    \item jerk.
 \end{inparaenum}
 
-\textbf{Scene driveability} refers to how easy a scene is for an
+\emph{Scene driveability} refers to how easy a scene is for an
 \acrshort{ads} to navigate, and the \textit{scene driveability score} refers to
 how likely the \acrlong{ads} is to fail at traversing the
 scene~\cite[3140]{safeToDrive}. It is typically found through and end-to-end
 approach. Note how this is a metric for \textit{scenes}, without taking into
 account the performance of any specific \acrshort{ads}.
 
-\textbf{Collision-based risk} comes in two kinds - \begin{inparaenum}
+\emph{Collision-based risk} comes in two kinds - \begin{inparaenum}
     \item binary risk indicator, and
     \item probabilistic risk indicator.
 \end{inparaenum} \citeauthor{safeToDrive} posit that the prior, binary metric, indicates whether a
@@ -161,7 +162,7 @@ collision will happen in the near future in a binary `either-or' sense, whereas 
 probability calculated based on current states, event, choice of hypothesis, future states and
 damage~\cite[3140]{safeToDrive}.
 
-\textbf{Behaviour-based risk} estimation also represents a binary classification problem wherein
+\emph{Behaviour-based risk} estimation also represents a binary classification problem wherein
 nominal behaviours are learnt from data, and then dangerous behaviours are detected on that. This
 requires a definition of `nominal behaviour', which is typically defined on on acceptable speeds,
 traffic roles, location semantics, weather conditions and/or the level of fatigue of the
@@ -170,6 +171,17 @@ allows more than one \acrshort{ads} to be labelled as `conflicting' or `not
 conflicting'~\cite[3140]{safeToDrive}, representing a ruling on their compatibility. Finally, they
 note how behaviour-based risk assessment typically focuses on driver behaviours, not taking into
 account other actors in the scene such as pedestrians or cyclists.
+
+Furthermore, \emph{jerk} is a metric that renders the change of vehicle acceleration with respect to
+time. It has been used been used as a measure of the smoothness or abruptness of a movement in many
+domains such as the trajectory planning of the human arm and industrial
+robots~\cite[126]{fengJerk17}. Jerk has also been shown to relate to a driver’s
+physiological feelings of ride comfort~\cite[126]{fengJerk17}, giving it a clear relation to our
+previously stated definition of driveability.~\citeauthor{fengJerk17} go on to posit that a goal of
+driving should be to minimize the jerk, as it both is both \begin{inparaenum}
+    \item linked to comfort, and
+    \item detection of safety-critical events
+\end{inparaenum}\cite[126]{fengJerk17}.
 
 \subsection{The complexities of ADS testing}\label{sec:adsTestingComplexity}
 
