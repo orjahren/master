@@ -1,4 +1,4 @@
-\chapter{Solution proposal \& implementation details}\label{sec:solutionProposal}
+\chapter{Solution proposal \& implementation details}\label{chp:solutionProposal}
 
 \epigraph{Do or do not, there is no try.}{Master Yoda}
 
@@ -42,7 +42,7 @@ of \acrlong{ads}. We will however focus on the driveability of the scenarios, in
 
 \acrlong{ads} are typically modular, as we have seen in \Cref{sec:adsTestingComplexity}.
 \acrshortpl{llm} are applicable to the different modules in different ways as we saw in
-\Nref{sec:relatedWork}. In order to further our goal of decreasing the driveability of the
+\Nref{chp:relatedWork}. In order to further our goal of decreasing the driveability of the
 \acrshort{ads}, the module of our interest is the \emph{motion planner} -- the part of the
 \acrshort{ads} responsible for determining where to go and what to do.
 
@@ -84,7 +84,7 @@ present the major components and their responsibilities.
 
 \subsubsection{Test case repositories}
 
-We have seen in \Nref{sec:relatedWork} that there are existing repositories of
+We have seen in \Nref{chp:relatedWork} that there are existing repositories of
 % TODO: Make more specific reference to what part of Related Work
 \acrshort{ads} test cases. These will provide us with \begin{inparaenum}
     \item a baseline,
@@ -95,7 +95,7 @@ We have seen in \Nref{sec:relatedWork} that there are existing repositories of
 We do naturally have to walk before we can run. For this reason, the project will initially be
 tested on simple test scenarios provided by people behind the Carla simulator. When we have verified
 that the project is sufficiently working for its stated purpose, we can scale up the activities to
-other datasets. Several are presented in \Nref{sec:relatedWork}. The concept of applying
+other datasets. Several are presented in \Nref{chp:relatedWork}. The concept of applying
 \acrshortpl{llm} to \acrshort{ads} scenarios is quite universal in nature and is eligble for
 application for virutally \emph{all} datasets.
 
@@ -228,7 +228,7 @@ and focus on the individual components.
 
 
 The implementation is what facilitates doing the actual experiments. For the
-most part, it follows what is outlined in the \Nref{sec:solutionProposal}, with
+most part, it follows what is outlined in the \Nref{chp:solutionProposal}, with
 some minor practical differences.
 What follows will analyze the impelementation of the components of the \hefe{}
 pipeline and explain more closely in detail not only \emph{what} they do, as

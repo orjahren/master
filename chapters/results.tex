@@ -1,4 +1,4 @@
-\chapter{Results}\label{sec:results}
+\chapter{Results}\label{chp:results}
 
 \epigraph{I have not failed. I've just found 10,000 ways that won't work.}{\textit{Thomas A.
         Edison}}
@@ -100,7 +100,7 @@ the driveability of the scenario. But in practice, it will often hallucinate
 methods that don't exist, or use terms and phrasing that are not valid keywords
 in the Carla specificication. This is in line with what was found by e.g.
 \citeauthor{autoSceneGen}~\cite[14542]{autoSceneGen} (See \Nref{sec:autoSceneGen} in
-\Nref*{sec:relatedWork}).
+\Nref*{chp:relatedWork}).
 
 % TODO: Legge til ekesempler her
 % TODO: Er vi sikre på at dette handler om spesifikt hallusinering og ikke noe annet?
@@ -164,7 +164,7 @@ some that have been enhanced by a \acrshort{llm}.
 The base scenarios used for these experiments come from the official Carla scenario runner software
 library\footnote{\url{https://github.com/carla-simulator/scenario_runner}}, but the concept is
 applicable to scenarios of other repositories as well. Several alternative options are presented in
-\Nref{sec:relatedWork}. Due to the afformentioned challenges with getting scenarios to run on the
+\Nref{chp:relatedWork}. Due to the afformentioned challenges with getting scenarios to run on the
 Carla simulator, these basic scenarios are used for the purposes of the thesis experiments, serving
 as a validation of the concept and laying the groundwork for adapting the method to other scenario
 sources in the future.
@@ -209,7 +209,7 @@ halluciantion. The \acrshort{llm} wants to import a class that simply does not e
 
 Due to not being able to run, there is not much to show for here. We need to revise the prompt and
 discourage such hallucinations in order to obtain meaningful results. In line with the
-\Nref{sec:experiments}, we iterate on the propmpt. We first tell the \acrshort{llm} to
+\Nref{chp:experiments}, we iterate on the propmpt. We first tell the \acrshort{llm} to
 \emph{strictly adhere to the carla \acrshort{api}}.
 
 The complete ouptut resulting from this prompt is shown in listing \ref{lst:hallucinatedFollowDiff}
@@ -333,7 +333,7 @@ tells us that our ego vehicle was able to pass the parked van without additional
     intersection, which is why the jerk appears as \num{0} for some time before the simulation
     terminates.}.
 
-\subsection{Base scenario: Accident}\label{sec:resultsAccidentScenario}
+\subsection{Base scenario: Accident}\label{chp:resultsAccidentScenario}
 
 The accident scenario is a bit more complex than the `follow' scenario, representing a scene on a
 highway where several cars have piled up in front, and the ego vehicle comes around a corner.

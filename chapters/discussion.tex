@@ -1,8 +1,8 @@
-\chapter{Discussion}\label{sec:discussion}
+\chapter{Discussion}\label{chp:discussion}
 
 \epigraph{Your scientists were so preoccupied with whether they could, they didn't stop to think if they should.}{Dr.~Ian Malcolm}
 
-The following wil analyze the \Nref{sec:results} in light of what they achieve and evaluate the
+The following wil analyze the \Nref{chp:results} in light of what they achieve and evaluate the
 fesability of the \hefe~approach in comparison to other methods.
 
 % Fokus her: Hefes value add
@@ -30,7 +30,7 @@ scenario substrate\footnote{Assuming of course that the user \emph{has} this kno
 itself in form of our \acrshort{llm} executing the prompt and inferring what the new -- enhanced --
 scenario will look like. But then, I maintain that we still propose a significant value in the
 increased awareness \emph{of} the base scenario and its substrate. As we have seen in the
-\Nref{sec:results}, the changes made by the \acrshort{llm} typically don't alter the underlying
+\Nref{chp:results}, the changes made by the \acrshort{llm} typically don't alter the underlying
 ontology of the scene.
 
 This touches on a broader topic concerning the \emph{value} of having this knowledge of the
@@ -57,7 +57,7 @@ objects in such a way that they intersect (which would also violate the laws of 
 \citeauthor{LLMScenarioChang24} also underline the importance of realism, proposing a scoring
 function that takes realism into account for evaluating their \acrshort{llm}-generated
 \acrshort{ads} simulator scenarios~\cite[6581-6582]{LLMScenarioChang24}\footnote{See also
-    \Nref{sec:rwChang24} in \Nref{sec:relatedWork} for more on this work.}.
+    \Nref{sec:rwChang24} in \Nref{chp:relatedWork} for more on this work.}.
 
 When modifying an exisiting scenario, the output scenario will in my ways resemble the initial
 version. This asserts a certain realism grounded in the initial scenario, assuming that it was
@@ -91,7 +91,7 @@ for \emph{using} simulator would falter.
 % relevante krav.
 
 One quite clear example of this, we can find in
-\Cref{sec:resultsAccidentScenario} -- the \acrshort{llm} proposes making changes
+\Cref{chp:resultsAccidentScenario} -- the \acrshort{llm} proposes making changes
 in such a way that several vehicles are situated on top of bollards. This is
 quite questionable. Not only becayse it makes no sense that cars could ever
 balance in such a way on the bollards, but also because -- why would the
@@ -113,7 +113,7 @@ determining what these positon should have been.
 \acrshortpl{llm} consume significant resources (\Cref{sec:llmProblems}). In order to justify their
 adoptation for \acrshort{ads} scenario enhancement, we should evaluate wheter the pros outweigh the
 cons. While this remain out of scope for the current thesis and while we demonstrated promising
-results in \Cref{sec:results}, it is important to keep in mind the environmental cost of using the
+results in \Cref{chp:results}, it is important to keep in mind the environmental cost of using the
 \acrshortpl{llm} for this purpose. How good should the results need to be in order to justify using
 \acrshortpl{llm}?
 
@@ -183,7 +183,7 @@ potential issues: \begin{itemize}
     \item depenency versions.
 \end{itemize}
 
-As outlined in the \Nref{sec:results}, the \acrshortpl{llm} are prone to hallucinating in a way tha
+As outlined in the \Nref{chp:results}, the \acrshortpl{llm} are prone to hallucinating in a way tha
 causes issues for executing the enhanced scenarios. But what \emph{is} our evidence that these
 execution problems stem from `true' hallucination and not one of these other sources of potential
 error? Perhaps the \acrshort{llm} did the right thing, only to assume some antiguated generation
