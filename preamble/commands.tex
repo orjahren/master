@@ -36,3 +36,18 @@
 % For å kunne ha 2 abstracts uten at de lager ny side
 \patchcmd{\abstract}{\titlepage}{\thispagestyle{empty}}{}{}
 \patchcmd{\endabstract}{\endtitlepage}{\clearpage}{}{}
+
+
+% Macro to store RQ content
+\NewDocumentCommand{\defrq}{mm}{%
+  \expandafter\gdef\csname rqcontent@#1\endcsname{#2}%
+}
+
+% Macro to retrieve RQ content by label
+\NewDocumentCommand{\rqcontent}{m}{%
+  \csname rqcontent@#1\endcsname
+}
+
+\newlist{questions}{enumerate}{2}
+\setlist[questions,1]{label=RQ\arabic*.,ref=RQ\arabic*}
+\setlist[questions,2]{label=(\alph*),ref=\thequestionsi(\alph*)}

@@ -69,15 +69,22 @@ broader adaption of \acrfullpl{ads}, is increased saftey and efficiency on our r
 sufficiently testing the \acrshort{ads} before deploying it would not serve our goal of increasing
 road safety -- it would be a gamble with human lives.
 
-\section{Research questions}
+\section{Research questions}\label{sec:RQs}
 
-Based on the \Nref{sec:problemDescription}, these are the formal research questions:
+Based on the \Nref{sec:problemDescription}, these are the formal research
+questions:
 
-\paragraph{RQ 1:} Can \acrlongpl{llm} be used to decrease the driveability of
-\acrlongpl{ads} simulator scenarios?
+% Define each RQ as a macro
+\newcommand{\rqdecreasedriveability}{Can \acrlongpl{llm} be used to decrease the driveability of \acrlong{ads} simulator scenarios?}
+\newcommand{\rqnohuman}{Is it feasible to employ \acrshortpl{llm} for obtaining unseen scenarios for \acrshort{ads} testing without human intervention?}
 
-\paragraph{RQ 2:} Is it feasible to employ \acrshortpl{llm} for obtaining unseen
-scenarios for \acrshort{ads} testing without human intervention?
+\begin{questions}
+    \item \rqdecreasedriveability
+    \defrq{decrease-driveability}{\rqdecreasedriveability}\label{rq:decrease-driveability}
+    \item \rqnohuman
+    \defrq{no-human}{\rqnohuman}\label{rq:no-human}
+\end{questions}
+
 
 \section{Thesis overview}
 
