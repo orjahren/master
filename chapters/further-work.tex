@@ -2,68 +2,142 @@
 
 \epigraph{Whenever a theory appears to you as the only possible one, take this as a sign that you have neither understood the theory nor the problem which it was intended to solve.}{Popper}
 
-\section{LLM aspects}
+This chapter proposes directions for further research aimed at solving the same problem in a similar
+manner, based on \begin{inparaenum}
+    \item the experiences gained during this work, and
+    \item approaches that there was not time to go through with.
+\end{inparaenum}
 
-\subsection{Different promtping strategies}
+\section{LLM oriented aspects}
 
-Overdrivelser? Typ "Det er veldig viktig for meg at du gjør dette fordi da blir
-jeg glad"? Vise til litteratur som underbygger sånt.
+\subsection{Promtping strategies}
 
-\subsection{Temperature}
-Hallucination.
+For a work like this, the importance of the \emph{prompts} cannot be understated. Further work may
+stand to benifit from exploring different prompting strategies. See for
+example~\cite{girayPromptEngineering23}. Prompting techniques for persuading \acrshortpl{llm} to
+perform actions they may find objectionable are presented by \citeauthor{meincke2025overtale} and
+shown to bear fruitful results~\cite[1]{meincke2025overtale}. This might stand to remedy potential
+alignment and bias issues (see \cref{sec:discussionLlmAspects}).
 
-\subsection{Pretraining?}
+\subsection{Models}
+
+\acrshortpl{llm} typically have different properties. Further work could evaluate different models
+on the same experiments. Both for models that already exist today, and models that will exist in the future.
+
+\subsection{Fine-tuned model}
+
+This work has exlusively used generalist \acrshortpl{llm}. Given the necessary resources, one could
+fine-tune a model specifically for this purpose, using scenario definitions as training data.
+
+\subsection{Temperature configurations}
+As a consequence of how \acrshortpl{llm} work internally, they have a \emph{temperature} that
+affecst their output. For the same reasons that further work can explore the applicability of other
+\acrshortpl{llm}, testing the same \acrshortpl{llm} with different temperature configurations may
+also yield an interesing insight into their applicability for decreasing driveability in
+\acrshort{ads} simulator scenarios.
+
+Keep in mind how halluciantion was a significant factor when undertaking the experimentation (see
+\cref{sec:resultsHallucinations}). In order to decrease the halluciantions, one would assume a lower
+temperature \acrshort{llm} to be more relevant.
 
 \subsection{Retrieval-augmented generation (RAG)}
-Context, affordances.
+
+\acrfull{rag} is a novel technique that inserts pieces of relevant external knowledge into an
+\acrshort{llm}'s context~\cite[88-89]{llmSurvey}. It would be interesting to employ such a strategy
+for this work. By adding exisiting scenarios to the \acrfull{llm}'s context, it would be able to
+leverage these as a source of legal ways of modifying scenarios in a way that we would know to be
+both \begin{inparaenum}
+    \item legal, and
+    \item supported by the simulator.
+\end{inparaenum}
 
 \subsection{Model context protocol (MCP)}
 
-Som RAG bare nyere. Bruke MCP som affordances for codegen.
+Recently, a technique called \acrfull{mcp} has been proposed\footnote{See e.g.
+    \url{https://www.anthropic.com/news/model-context-protocol}}, that allows for defining a specific
+interface for \acrshortpl{llm} to interact with. Further work could construct such an interface for
+modifying scenes, clearly demarkating what the \acrshort{llm} can and cannot do.
 
-\subsection{More models}
+In a somewhat similar fashion to \acrshort{rag}, albeit with more strict limitations imposed on the
+\acrshort{llm}, which would allow us to be more confident in knowing that it would perform legal actions.
 
-More models more good?
+\subsection{Tool manipulation}
 
-\subsection{Tool calling}
+Tool manipulation is a technique for granting \acrshortpl{llm} access to
+\emph{tools}~\cite[62]{llmSurvey}, e.g. the ability to call certain functions. Somewhat similar to
+\acrshort{mcp}, but less general -- not standardized. For the same reasons that \acrshort{mcp} can
+be used, tool manipulation can be used. Define functions to add objects at locations that the script
+determines to be legal with regard to the laws of physics and the placement of other objects, and
+the \acrshort{llm} will then be able to utilise this function as a black-box utility, without
+having to concern itself with the ontological issues of object spawning.
 
-Can give the LLM access to tools, e.g. methods for adding objects etc.
+\section{Implementation oriented aspects}
 
-\section{GUI visualisations}
 
-Maybe: Frontend client - web GUI - Ivar
-If Loki does its job effectively, we can create a web based frontend for doing the process. It could do the same as Loki, but with greater ease of use.
-Having a GUI allows for making neat visualisations.
-Motivate why our enhanced test cases are better by showing it.
+\subsection{Static analysis of the enhanced scenario}
 
-\section{Instant validation of test case syntax}
-Compiler-stuff. Syntax. Parsing.
+As of now, the principal way of determining whether a modified scenario is good and runnable, is by
+simply attempting to run it and see if it works. This is not ideal as it wastes lot of time. Even
+more time is wasted if the scenario casuses the Carla simulator to crash\footnote{Getting it back
+    online is a quite involved and slow-to-complete process.}.
 
-% Og: Verifisere at spawn locations ikke overlapper/kolliderer
+By employing techniques from the realm of programming language compilers, we could perform a static
+analysis of the output scenario and evaluate whether it adheres to the specification. This would
+allow us to filter out bad apples before attempting to run them, cirucmventing the need for wasting
+time.
+For example, we \emph{know} that we should be able to \emph{parse} the scenario. If parsing
+fails, there is no need of sending the scenario to the simulation running pipeline.
 
-\section{Other datasets}
+An advanced version of this could also look into the proposed spawn locations of items in the
+scenario\footnote{That may overlap\ldots}, making sure that they don't intersect and adhere to the
+relevant laws of physics. Perhaps this could also serve to yield some insight into the realism of
+the scenario.
 
-We used dataset x for our experiments. Scenario datasets y and z can also be used
+\subsection{GUI visualisation}
 
-\section{Impelementation oriented}
+Scenarios in \acrshort{ads} simulators are inherently \emph{visual}. This can be leveraged to create
+a tool for rendering visual representations of the scenarios in a \acrfull{gui}. The \acrshort{gui}
+tool could show side-by-side the base scenario and its enhanced counterpart, highlighting what has
+been modified.
+This will be more user friendly, and it will more clearly underline the motivation behind \emph{why}
+the enhanced scenario will have worsened driveability compared to the base scenario.
+Perhaps one could even \emph{execute} the secnarios side-by-side, showing live metrics to the user.
 
-\subsection{The room for concurrency}
+\subsection{Other datasets}
 
-When evaluating \acrshort{ads} test cases, the test cases are independent of each
-other. This means that our problem is \textit{embarrassingly parallelizable}
-\footnote{\url{https://en.wikipedia.org/wiki/Embarrassingly_parallel}} and we can
-trivially process several test cases in parallel. Due to practical limitations
-in Carla, \textit{running} the test cases should however probably be done
-sequentially. But \begin{inparaenum}
-    \item prompting,
-    \item enhancing, and
-    \item validating,
-\end{inparaenum}
-can all be done concurrently. While Python lacks support of traditional threads,
-it has some support for multiprocessing
-\footnote{\url{https://docs.python.org/3/library/multiprocessing.html}}.
+For this thesis, a selection of quite basic scenarios from the Carla scenario runner example
+scenario collection was used. However, the concept should work for \emph{any} Carla-compatible
+\acrshort{ads} scenarios. Several such options are presented in \Nref{chp:relatedWork}.
+
+\subsection{Concurrency of scenario processing}
+
+\acrshort{ads} scenarios are independent of each other. This means that our problem is
+\textit{embarrassingly parallelizable}
+\footnote{\url{https://en.wikipedia.org/wiki/Embarrassingly_parallel}} and we can trivially process
+several test cases in parallel. Both performing the \acrshort{llm} enhancement, and executing them
+on Carla, can be done regardless of all the other scenarios.
+
 
 \subsection{Domain specific file format}
 
-Ett felles filformat som holder all metadata om scenario og scenario prime, og
-hvilken prompt som ble brukt osv
+These experiments have been performed using only default file-formats, relying on manual labour to
+track \begin{inparaenum}
+    \item what scenario x' is the modified version of what scenario x,
+    \item what prompt was used,.
+    \item what\footnote{If any \ldots} manual changes was needed for executing,
+\end{inparaenum} etc.
+
+This could stand to benifit from developing a domain-specific file format for this specific purpose.
+E.g. a JSON-based file format that contained a copy of the \begin{inparaenum}
+    \item base scenario, the
+    \item enhanced scenario,
+    \item what prompt was used,
+    \item the diff,
+    \item timestamp,
+\end{inparaenum} etc. Perhaps even what metrics were achieved whil executing the 2 forms of the
+scenario. It would however not be optimal to track several copies of the same base scenario -- there
+would be a lot of duplicates, and they would all have virtually the same metrics.
+
+This could all be achieved by wrapping a JSON file. Perhaps we could zip or encode it to make it
+less prone to manual modification\footnote{Which would invalidate its content and potentially serve
+    to spoof the results.}.
