@@ -130,6 +130,44 @@ exist in the Carla repetoire. Where Carla would recognize the word `snowstorm',
 the \acrfull{llm} proposed using the word `blizzard'.
 
 
+\subsubsection{Statistics of failure variants}
+
+Table \ref{tab:scenarioFailures} gives a quantification of the various statuses met while performing
+\acrshort{llm} experiments for this thesis, outlining \begin{inparaenum}
+    \item to what extent scnearios just worked, and
+    \item giving statistics of the various kinds of faliures.
+\end{inparaenum} Note that each modified scneario can only ever be
+counted as \num{1} sort of failure. So if a scenario crashes due du a hallucinated function, it
+will not also count as a scenario that failed due to having illegally placed objects regardless of
+however many this might be. In a similar fashion, we are only able to track the first instance of
+the error within a given scenario. So if a modified scenario contains \num{2} hallucinated methods,
+it will only be counted as \num{1} in table \ref{tab:scenarioFailures}.
+
+\begin{tcolorbox}[colback=red!5!white, colframe=red!80!black, title=WIP warning]
+    NOTE: As of \today, table \ref{tab:scenarioFailures} contains placeholder data.
+\end{tcolorbox}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Statistics of simulator execution in LLM-enhanced scenarios}
+    \begin{tabular}{l c}
+        \toprule
+        Execution status                  & Number of Scenarios \\
+        \midrule
+        Hallucinated functions            & 0                   \\
+        Illegal object placement          & 1                   \\
+        Non-existing arguments            & 2                   \\
+        No significant issues             & 3                   \\
+        \midrule
+        Number of modified test scenarios & X                   \\
+        Number of base scenarios          & Y                   \\
+        Num of failed scenarios           & Z                   \\ % Z = 0 + 1 + 2 = 3 (example)
+        Failure ratio                     & R                   \\ % R = Z / X (example)
+        \bottomrule
+    \end{tabular}
+    \label{tab:scenarioFailures}
+\end{table}
+
 
 \subsection{Carla crashes with certain scenarios}
 
@@ -517,10 +555,7 @@ Note how the vehicle behind the taxicab is moving in \Cref{fig:accidentMod3Final
 Finally, let us review the calculated jerk metrics from these runs of the `accident' scenario,
 similarly to the inital `follow' scenario. As shown in \Cref{fig:jerkComparisonAccident}, there are
 no significant gains. They all follow the same pattern, which is in line with what we expect from
-having seen their execution.There is however some jitter at the start of executing the enhanced
-scenarios, before the ego comes to a halt and the jerk flats out until the scenario execution
-terminates. This is probably a consequence of the base scenario being what it is -- there is only so
-much interesting changes that can be made to a scenario that is supposed to terminate with the ego
+having
 coming to a halt behind stationary vehicles.
 
 \begin{figure}[htb]
