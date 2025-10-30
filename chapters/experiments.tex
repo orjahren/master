@@ -36,14 +36,22 @@ details and complexity, still in Python carla scenario format.
 """,
 \end{lstlisting}
 
-\section{Trying different LLMs}
+\section{Finding a suitable LLM}
 
 As we learnt in \Cref{sec:llmJungle}, there are several \acrshortpl{llm} extant. We should
 experiment with various different \acrshortpl{llm} to maximize our chance of testing with a `good'
 \acrshort{llm} that goes well with our stated purpose.
 
-The results were first carried out using a locally hosted \num{7.2}B parameter
-Mistral model. Later, a Gemini model running on Google's infrastrucutre was used.
+The experiments were first carried out using a locally hosted \num{7.2}B parameter Mistral model.
+This model is interesting in that it has been shown to outperform significantly larger models
+accross various benchmarks\footnote{\url{https://ollama.com/library/mistral}}. Due to its small
+nature, however, these initial results were not that promising. Later, in order to obtain better
+results, the Gemini model \texttt{Gemini 2.5 flash} running on Google's infrastrucutre was used.
+This is a mid-size multimodal model that supports up to 1 million tokens, released in June of 2025,
+with support for thinking and long
+contexts\footnote{\url{https://deepmind.google/models/gemini/flash/}}.
+
+All data in the \Nref{chp:results} chapter, are obtained using the Gemini model.
 
 \section{Metrics}
 
