@@ -3,7 +3,7 @@
 \epigraph{The torment of precautions often exceeds the dangers to be avoided. It is sometimes better to abandon one's self to destiny.}{Napoléon}
 
 This chapter will describe the experimentation that has been done with the implemented solution
-proposal (\Cref{chp:solutionProposal}), in anticipation of analzying the \Nref{chp:results}.
+proposal (\Cref{chp:solutionProposal}), in anticipation of analysing the \Nref{chp:results}.
 
 \section{Prompts}
 
@@ -17,11 +17,11 @@ We therefore propose several prompting strategies, taking after related research
 (\Nref{chp:relatedWork}).
 
 Prompts were determined by trial and error in an iterative manner, in
-conjunction with Github Copoilot. They are all descendant of listing
+conjunction with GitHub Copilot. They are all descendant of listing
 \ref{lst:firstPrompt}, each subsequent iteration improving on the last based on
 what worked or did not worked when assessing the output.
-Due to a techical detail of the
-\hefe~implementation (\Nref{sec:odinImplementation}), the datype of the prompt is
+Due to a technical detail of the
+\hefe~implementation (\Nref{sec:odinImplementation}), the datatype of the prompt is
 a lambda function that takes the raw scenario represented as a string and then
 inserts it into the prompt in runtime. This is represented by the curly braces
 on line \num{3} in listing~\ref{lst:firstPrompt}.
@@ -44,9 +44,9 @@ experiment with various different \acrshortpl{llm} to maximize our chance of tes
 
 The experiments were first carried out using a locally hosted \num{7.2}B parameter Mistral model.
 This model is interesting in that it has been shown to outperform significantly larger models
-accross various benchmarks\footnote{\url{https://ollama.com/library/mistral}}. Due to its small
+across various benchmarks\footnote{\url{https://ollama.com/library/mistral}}. Due to its small
 nature, however, these initial results were not that promising. Later, in order to obtain better
-results, the Gemini model \texttt{Gemini 2.5 flash} running on Google's infrastrucutre was used.
+results, the Gemini model \texttt{Gemini 2.5 flash} running on Google's infrastructure was used.
 This is a mid-size multimodal model that supports up to 1 million tokens, released in June of 2025,
 with support for thinking and long
 contexts\footnote{\url{https://deepmind.google/models/gemini/flash/}}.
@@ -55,9 +55,9 @@ All data in the \Nref{chp:results} chapter, are obtained using the Gemini model.
 
 \section{Metrics}
 
-The way the Carla simulator works, one simulator run can be analyzed post factum. The entire
+The way the Carla simulator works, one simulator run can be analysed post factum. The entire
 scenario execution is stored in a Carla-specific binary format. This binary file can then later be
-analyzed, extracting various metrics from one run. This saves time not having to run the simulator
+analysed, extracting various metrics from one run. This saves time not having to run the simulator
 more than necessary, and allows for reproducing the metric calculations from the original underlying
 binary log file.
 

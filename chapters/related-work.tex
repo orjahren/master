@@ -97,17 +97,17 @@ telemetry~\cite{requirementsAllYouNeed}.
 
 \citeauthor{languageconditionedtrafficgeneration} look into using \acrshortpl{llm} to generate
 specific traffic scenarios. They identify the importance of being able to use simulators to test
-\acrshortpl{ads}, and highlight how test scenarios are expensieve to
+\acrshortpl{ads}, and highlight how test scenarios are expensive to
 obtain~\cite[1]{languageconditionedtrafficgeneration}. To this end, they propose a tool --
 \textsc{LTCGen} which employs the strengths of \acrshortpl{llm} to match a natural language query
 with a fitting underlying map\footnote{Map as in a \textit{world} in which a scenario can take
     place.}, and populates this with a \begin{inparaenum}
-    \item initial traffic distribiution, and
+    \item initial traffic distribution, and
     \item the dynamics of all the vehicles involved in the scene.
 \end{inparaenum}
 Something to note is that they generate their scenarios, without initially taking the \textit{ego
     vehicle} into account. The ego vehicle of the scene is simply determined as the vehicle that is
-in the \textit{center} of the first
+in the \textit{centre} of the first
 \textit{frame}~\cite[3]{languageconditionedtrafficgeneration}.
 
 \section{Scenario engineer GPT}
@@ -123,7 +123,7 @@ challenging~\cite[4423]{seGpt}. The focus is primarily on \textit{trajectory
 Note how they explicitly mention scenario \textit{generation}. Our approach for this project has a
 different angle, with the focus being on modifying \textit{existing} scenarios. More on this in
 \Nref{chp:solutionProposal}. The difference between generating a `brand new' scenario with a model
-trained on exisiting scenarios, and modifying an existing scenario seems like a matter of
+trained on existing scenarios, and modifying an existing scenario seems like a matter of
 granularity. These are very similar concepts, only that the enhanced scenario will have more common
 DNA whereas the other `new' scenario will consist of a broader range of DNA from its various
 underlying scenario corpora.
@@ -138,13 +138,13 @@ their \citeyear{LLMScenarioChang24} paper, they propose \textsc{LLMScenario}, wh
     \item  evaluation feedback tuning
 \end{inparaenum}~\cite[6581]{LLMScenarioChang24}.
 
-They analyze scenarios in order to provide the \acrshort{llm} with a minimum baseline scenario
+They analyse scenarios in order to provide the \acrshort{llm} with a minimum baseline scenario
 description, and propose score functions based on both \begin{inparaenum}
     \item reality and
     \item rarity.
-\end{inparaenum} Their prompting is based on \acrfull{cot} and a posteriori emperical experience.
+\end{inparaenum} Their prompting is based on \acrfull{cot} and a posteriori empirical experience.
 Lastly, they tested several \acrlongpl{llm} for their experiments. Their results were positive,
-indicating effectiveness for scenaro engineering in Industry 5.0~\cite[6581]{LLMScenarioChang24}.
+indicating effectiveness for scenario engineering in Industry 5.0~\cite[6581]{LLMScenarioChang24}.
 % TODO: Burde finne ut av hva in nomine christi "industry 5.0" er så jeg ikke risikerer å skrive noe
 % som ikke gir mening.
 
@@ -152,14 +152,14 @@ indicating effectiveness for scenaro engineering in Industry 5.0~\cite[6581]{LLM
 
 \citeauthor{chat2Scenario} propose a method for utilising \acrshortpl{llm} to retrieve
 \acrshort{ads} scenarios given a natural language query. Their framework synthesizes scenarios from
-naturalistic\footnote{Their term. The intended meaning of \textit{naturalistic} is not all clar to
+naturalistic\footnote{Their term. The intended meaning of \textit{naturalistic} is not all clear to
     me.} driving datasets, based on observation real world human driving~\cite[55]{chat2Scenario}, that
-it then uses as a database for retrieveing the scenario that best matches the user's natural
+it then uses as a database for retrieving the scenario that best matches the user's natural
 language query. Furthermore, they employ traditional techniques for asserting the relevance of the
 retrieved scenarios, allowing the user to specify a set of \textit{criticality metrics}, of which a
-certain threshold must be reached amongst the scenarios that are initalliy retried by the
+certain threshold must be reached amongst the scenarios that are initially retried by the
 \acrshort{llm}, pruning false positives. As a measure to increase the usability of their framework,
-they also provide a webapp with an intuitive \acrshort{gui} for both \begin{inparaenum}
+they also provide a web-app with an intuitive \acrshort{gui} for both \begin{inparaenum}
     \item operating the tool, and
     \item visualizing the scenarios \end{inparaenum}~\cite[560]{chat2Scenario}.
 
@@ -180,8 +180,8 @@ analysis, specifically tasked with interpreting driving scenario following a pre
 classification model'~\cite[562]{chat2Scenario}. They then input the user-provided description of
 the scenario they wish to retrieve. Following this, a third segment declares the format for the
 \acrshort{llm} response, followed by a prime example of \acrlong{icl}, demonstrating what a
-satisfactory fulfillment of the desired format could look like. Lastly they instruct the
-\acrshort{llm} to \textit{Remember to analyze carefully and provide the classification as per the
+satisfactory fulfilment of the desired format could look like. Lastly they instruct the
+\acrshort{llm} to \textit{Remember to analyse carefully and provide the classification as per the
     structure given above}~\cite[563]{chat2Scenario}.
 % TODO: Ref siste punkt om "husk å gjøre det riktig" -> kan skrive om dette fenomenet i background
 % og så referere tilbake til det.
@@ -199,7 +199,7 @@ light of the \textbf{jerk} metric in various situations. Furthermore, they highl
 complexity in the scenarios can increase the probability of emergency breaking occurring, which is
 naturally antithetical to comfort for the \acrshort{ads} operator and their passengers.
 
-In order to measure this comfort, they rely metrics calculated from datapoints from the
+In order to measure this comfort, they rely metrics calculated from data-points from the
 \acrshort{ads} system -- jerk and acceleration. This, they use in conjunction with manual human
 driving evaluation scores, to compose a new metric, the `driving comfort evaluation score'
 (DCES)~\cite[10]{Chen2025}.

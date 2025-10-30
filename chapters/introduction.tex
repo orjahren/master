@@ -57,7 +57,7 @@ scenarios in the wild during operation.
 
 \subsection{Edge cases}
 
-Edge cases can be a major issue for \acrshort{ads} adoptation. The \textit{tail problem} as it is
+Edge cases can be a major issue for \acrshort{ads} adaptation. The \textit{tail problem} as it is
 known in the \acrshort{ml} field posits that \acrshort{ml} tasks are faced with a long tail of
 unseen cases. We can map these unseen cases, to our unseen \acrshort{ads} scenarios. Because of
 this, an \acrshort{ads} can be at risk of encountering an unseen edge case scenario during
@@ -65,7 +65,7 @@ operation -- something for which it might never have been tested.
 % TODO: Burde referere ting om tail problem? 
 Arguing that the \acrshort{ads} would probably crash simply due to it finding itself in an unseen
 scenario is not logical. But it is important to keep in mind that the end we are pursing in the
-broader adaption of \acrfullpl{ads}, is increased saftey and efficiency on our roads. Not
+broader adaption of \acrfullpl{ads}, is increased safety and efficiency on our roads. Not
 sufficiently testing the \acrshort{ads} before deploying it would not serve our goal of increasing
 road safety -- it would be a gamble with human lives.
 
@@ -74,7 +74,7 @@ road safety -- it would be a gamble with human lives.
 Based on the \Nref{sec:problemDescription}, these are the formal research
 questions:
 
-% Define each RQ as a macro
+% Define each RQ as a macro so we can re-use them in the conclusion. DRY.
 \newcommand{\rqdecreasedriveability}{Can \acrlongpl{llm} be used to decrease the driveability of \acrlong{ads} simulator scenarios?}
 \newcommand{\rqnohuman}{Is it feasible to employ \acrshortpl{llm} for obtaining unseen scenarios for \acrshort{ads} testing without human intervention?}
 
@@ -98,7 +98,7 @@ The thesis is structured as follows:
     \item \Cref{chp:solutionProposal} details our proposed solution and its technical aspects.
     \item \Cref{chp:experiments} describes the experimental setup used to evaluate the solution.
     \item \Cref{chp:results} presents the findings from the experiments.
-    \item \Cref{chp:discussion} analyzes and compares the results to existing work.
+    \item \Cref{chp:discussion} analyses and compares the results to existing work.
     \item \Cref{chp:furtherWork} suggests directions for future research.
     \item \Cref{chp:conclusion} summarizes the main contributions and findings.
 \end{itemize}

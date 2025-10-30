@@ -37,7 +37,7 @@ of \acrlong{ads}. We will however focus on the driveability of the scenarios, in
 
 
 % \section*{The applicability of \acrshortpl{llm} in \acrshort{ads} testing}
-\section{Broad architectual overview}
+\section{Broad architectural overview}
 
 
 \acrlong{ads} are typically modular, as we have seen in \Cref{sec:adsTestingComplexity}.
@@ -96,8 +96,8 @@ We do naturally have to walk before we can run. For this reason, the project wil
 tested on simple test scenarios provided by people behind the Carla simulator. When we have verified
 that the project is sufficiently working for its stated purpose, we can scale up the activities to
 other datasets. Several are presented in \Nref{chp:relatedWork}. The concept of applying
-\acrshortpl{llm} to \acrshort{ads} scenarios is quite universal in nature and is eligble for
-application for virutally \emph{all} datasets.
+\acrshortpl{llm} to \acrshort{ads} scenarios is quite universal in nature and is eligible for
+application for virtually \emph{all} datasets.
 
 \subsubsection{LLM enhancement}\label{sec:llmEnhancement}
 % TODO: Dette må spisses mot driveability
@@ -228,43 +228,43 @@ and focus on the individual components.
 
 The implementation is what facilitates doing the actual experiments. For the most part, it follows
 what is outlined in the \Nref{sec:hefeComponentOverview}, with some minor practical differences.
-What follows will analyze the impelementation of the components of the \hefe{} pipeline and explain
+What follows will analyse the implementation of the components of the \hefe{} pipeline and explain
 more closely in detail not only \emph{what} they do, as that is already covered in the solution
 proposal, but \emph{how} they do it, with hands-on code examples.
 
 % TODO: Burde avklare om den skal leve her "for alltid". Syns det kan gi emning
 % å samle alle master ting i ett repo. Fortrinnsvis _dette_ (veldig meta å linke
 % til seg selv i så fall hehe). Kan også være gunstig mtp å inkludere kode som appendix?
-All code is available on the Github repo \href{https://github.com/orjahren/master-hefe}{\texttt{master-hefe}}.
+All code is available on the GitHub repo \href{https://github.com/orjahren/master-hefe}{\texttt{master-hefe}}.
 
 \subsection{Carla interface and scenario utilities -- Thor}
 
-The Thor module is responsible for all thigs related to the Carla \acrshort{ads}
+The Thor module is responsible for all things related to the Carla \acrshort{ads}
 simulator. It provides the client with several scenario-related utilities, and
 is capable of executing the desired scenarios.
 
 
 Certain of its utilities are simple tools for asserting the liveness of Carla,
 such as the \texttt{get\_carla\_is\_up} function, shown in
-listing~\ref{lst:odinCarlaHealthCheck}. This function will use the Caral
+listing~\ref{lst:odinCarlaHealthCheck}. This function will use the Carla
 standard Python library and attempt to connect to the server on its default
 port\footnote{I.e. \num{2000}, line \#4 in listing
-    \ref{lst:odinCarlaHealthCheck}.}. Note that we refer to the host as simpyly
+    \ref{lst:odinCarlaHealthCheck}.}. Note that we refer to the host as simply
 \texttt{carla} -- this is possible due to the entire project running
-containerised with Docker Compose. Instead of refering to the speicifc IP
+containerised with Docker Compose. Instead of referring to the specific IP
 address of the Carla server (typically localhost, if not running it externally),
 the Docker system will facilitate this name translation for us.
 
-\lstinputlisting[caption={Exerpt from carla\_interface.py, demonstrating the implementation of a Carla health check.}, label={lst:odinCarlaHealthCheck}, language={Python}]{hefe-listings/carla_interface.py}
+\lstinputlisting[caption={Excerpt from carla\_interface.py, demonstrating the implementation of a Carla health check.}, label={lst:odinCarlaHealthCheck}, language={Python}]{hefe-listings/carla_interface.py}
 
 This is used both to assert the general liveness of the \hefe~pipeline, and to
 verify that the simulator is available before performing experiments. It is
 better to detect this illegal state \emph{before} running experiments rather
 than during their execution.
 
-Furthermore, it shall also be equipped with funcitonality for \emph{executing} \acrshort{ads}
+Furthermore, it shall also be equipped with functionality for \emph{executing} \acrshort{ads}
 scenarios on Carla. This is trivial when using Carla's existing Scenario Runner
-module's funcitonality. As of now, this has not yet been implemented due to
+module's functionality. As of now, this has not yet been implemented due to
 greater challenges in the \acrshort{llm} module -- Odin.
 
 
@@ -293,7 +293,7 @@ greater challenges in the \acrshort{llm} module -- Odin.
 
 The Odin module handles all things \acrshort{llm}. It provides a unified
 \acrshort{api} for applying various prompts to scenarios and returning the
-enhanced output resulting from having applied the prompt. We hve implemented
+enhanced output resulting from having applied the prompt. We have implemented
 support for the \acrshortpl{llm} that are available on \begin{inparaenum}
     \item Ollama, and
     \item Gemini
@@ -319,14 +319,14 @@ regardless as long as the \acrshort{api} key is not present.
 
 \subsubsection{Ollama integration}
 
-The Ollama integration is a bit more cumbersome. This motly comes down to it not
-using any exisitng library modules for this specific purpose, instead relying on
+The Ollama integration is a bit more cumbersome. This mostly comes down to it not
+using any existing library modules for this specific purpose, instead relying on
 using the \texttt{json} and \texttt{requests} modules to implement the desired
-funcitonality from scratch, making it so that we need to handle network IO and
+functionality from scratch, making it so that we need to handle network IO and
 marshalling the \acrfull{llm} response into a fitting return buffer.
 
 Listing~\ref{lst:thorOllamaInterface} renders the
-\emph{entire} interface. As we can see, it is not too bad allthough nowhere near
+\emph{entire} interface. As we can see, it is not too bad although nowhere near
 as clean as the Gemini implementation (\ref{lst:thorGeminiInterface}).
 
 Its complexity arises principally from \num{2} major factors --
@@ -339,7 +339,7 @@ installation running on their host machine. The code provides no means of setup
 for this -- that is an entirely external endeavour that is left up to the end user.
 
 Similarly to how the Gemini implementation does it, this will crash if Ollama is
-not funcitoning properly as it would not possible for it to complete the desired
+not functioning properly as it would not possible for it to complete the desired
 \acrshort{llm} enhancement regardless if Ollama is unreachable.
 
 \lstinputlisting[caption={llm\_api\_interfaces/ollama.py, The implementation of an Ollama interface for executing prompts.}, label={lst:thorOllamaInterface}, language={Python}]{hefe-listings/ollama.py}
@@ -352,15 +352,15 @@ of code related to the experiments. They need to take the base scenario as an
 input and integrate it into the \acrshort{llm} context, such that it knows what
 it shall use as its base to apply enhancements that will decrease the
 driveability. For this reason, it also provides certain scenario
-utilities\footnote{That architectually might as well have been integrated in the
+utilities\footnote{That architecturally might as well have been integrated in the
     Thor module\ldots}.
 
 \subsubsection{Scenario utilities}
 
-These are essentially quite trivial helpers. Lisitng \ref{lst:odinScenarioUtils}
+These are essentially quite trivial helpers. Listing \ref{lst:odinScenarioUtils}
 renders the core functionality -- hopefully this is quite self-explaining.
 
-\lstinputlisting[caption={scenario\_utils.py, The implementation of an various scenaro helper functions for executing prompts.}, label={lst:odinScenarioUtils}, language={Python}]{hefe-listings/scenario_utils.py}
+\lstinputlisting[caption={scenario\_utils.py, The implementation of an various scenario helper functions for executing prompts.}, label={lst:odinScenarioUtils}, language={Python}]{hefe-listings/scenario_utils.py}
 
 \subsubsection{Prompts -- templating and usage}
 
@@ -379,7 +379,7 @@ inserted into the output prompt at the location located at line \#21 in the list
 
 \lstinputlisting[caption={experiments/testbed/prompts.py, The implementation of a prompt testbed for executing prompts.}, label={lst:odinPromptTestbed}, language={Python}]{hefe-listings/testbed_prompts.py}
 
-Lastly, note the comments in the top of the file, intended to give Github
+Lastly, note the comments in the top of the file, intended to give GitHub
 Copilot increased understanding of the context, so that it can provide better
 aid during programming.
 
@@ -392,7 +392,7 @@ aid during programming.
 
 The final module of the \hefe~pipeline is Loki -- it is simply a tool intended
 to be used by the user for operating the process. It \begin{inparaenum}
-    \item  says what scenarios are available to it (i.e. those that are eligble for
+    \item  says what scenarios are available to it (i.e. those that are eligible for
     being enhanced), and
     \item allows the user to select a prompt and
     \item execute that prompt to the scenario of their choosing.

@@ -13,10 +13,10 @@ manner, based on \begin{inparaenum}
 \acrshortpl{llm} are naturally central for a work like this. The following
 section reviews various \acrshort{llm}-related aspects.
 
-\subsection{Promtping strategies}
+\subsection{Prompting strategies}
 
 For a work like this, the importance of the \emph{prompts} cannot be understated. Further work may
-stand to benifit from exploring different prompting strategies. See for
+stand to benefit from exploring different prompting strategies. See for
 example~\cite{girayPromptEngineering23}. Prompting techniques for persuading \acrshortpl{llm} to
 perform actions they may find objectionable are presented by \citeauthor{meincke2025overtale} and
 shown to bear fruitful results~\cite[1]{meincke2025overtale}. This might stand to remedy potential
@@ -29,25 +29,25 @@ on the same experiments. Both for models that already exist today, and models th
 
 \subsection{Fine-tuned model}
 
-This work has exlusively used generalist \acrshortpl{llm}. Given the necessary resources, one could
+This work has elusively used generalist \acrshortpl{llm}. Given the necessary resources, one could
 fine-tune a model specifically for this purpose, using scenario definitions as training data.
 
 \subsection{Temperature configurations}
 As a consequence of how \acrshortpl{llm} work internally, they have a \emph{temperature} that
-affecst their output. For the same reasons that further work can explore the applicability of other
+affects their output. For the same reasons that further work can explore the applicability of other
 \acrshortpl{llm}, testing the same \acrshortpl{llm} with different temperature configurations may
-also yield an interesing insight into their applicability for decreasing driveability in
+also yield an interesting insight into their applicability for decreasing driveability in
 \acrshort{ads} simulator scenarios.
 
-Keep in mind how halluciantion was a significant factor when undertaking the experimentation (see
-\cref{sec:resultsHallucinations}). In order to decrease the halluciantions, one would assume a lower
+Keep in mind how hallucination was a significant factor when undertaking the experimentation (see
+\cref{sec:resultsHallucinations}). In order to decrease the hallucinations, one would assume a lower
 temperature \acrshort{llm} to be more relevant.
 
 \subsection{Retrieval-augmented generation (RAG)}
 
 \acrfull{rag} is a novel technique that inserts pieces of relevant external knowledge into an
 \acrshort{llm}'s context~\cite[88-89]{llmSurvey}. It would be interesting to employ such a strategy
-for this work. By adding exisiting scenarios to the \acrfull{llm}'s context, it would be able to
+for this work. By adding existing scenarios to the \acrfull{llm}'s context, it would be able to
 leverage these as a source of legal ways of modifying scenarios in a way that we would know to be
 both \begin{inparaenum}
     \item legal, and
@@ -59,7 +59,7 @@ both \begin{inparaenum}
 Recently, a technique called \acrfull{mcp} has been proposed\footnote{See e.g.
     \url{https://www.anthropic.com/news/model-context-protocol}}, that allows for defining a specific
 interface for \acrshortpl{llm} to interact with. Further work could construct such an interface for
-modifying scenes, clearly demarkating what the \acrshort{llm} can and cannot do.
+modifying scenes, clearly demarcating what the \acrshort{llm} can and cannot do.
 
 In a somewhat similar fashion to \acrshort{rag}, albeit with more strict limitations imposed on the
 \acrshort{llm}, which would allow us to be more confident in knowing that it would perform legal actions.
@@ -84,12 +84,12 @@ additional features would be useful.
 
 As of now, the principal way of determining whether a modified scenario is good and runnable, is by
 simply attempting to run it and see if it works. This is not ideal as it wastes lot of time. Even
-more time is wasted if the scenario casuses the Carla simulator to crash\footnote{Getting it back
+more time is wasted if the scenario causes the Carla simulator to crash\footnote{Getting it back
     online is a quite involved and slow-to-complete process.}.
 
 By employing techniques from the realm of programming language compilers, we could perform a static
 analysis of the output scenario and evaluate whether it adheres to the specification. This would
-allow us to filter out bad apples before attempting to run them, cirucmventing the need for wasting
+allow us to filter out bad apples before attempting to run them, circumventing the need for wasting
 time.
 For example, we \emph{know} that we should be able to \emph{parse} the scenario. If parsing
 fails, there is no need of sending the scenario to the simulation running pipeline.
@@ -107,7 +107,7 @@ tool could show side-by-side the base scenario and its enhanced counterpart, hig
 been modified.
 This will be more user friendly, and it will more clearly underline the motivation behind \emph{why}
 the enhanced scenario will have worsened driveability compared to the base scenario.
-Perhaps one could even \emph{execute} the secnarios side-by-side, showing live metrics to the user.
+Perhaps one could even \emph{execute} the scenarios side-by-side, showing live metrics to the user.
 
 \subsection{Other datasets}
 
@@ -117,10 +117,10 @@ scenario collection was used. However, the concept should work for \emph{any} Ca
 
 \subsection{More diverse scenes}
 %CULRUTRAL ASPECTS OF THE SCENE
-The base scenes used for this work are generally western in nature. Global \acrshort{ads} adoptation
+The base scenes used for this work are generally western in nature. Global \acrshort{ads} adaptation
 requires universal testing on a broad range of scenes with various traffic conditions and cultural
-aspects. Future work may stand to benifit from employ this \acrshort{llm}-based approach in order
-to obtain a greater number of scenarios freom less widely available scenes from regions where
+aspects. Future work may stand to benefit from employ this \acrshort{llm}-based approach in order
+to obtain a greater number of scenarios from less widely available scenes from regions where
 relevant data is less prolific and existing scenes are scarce.
 % TODO: Dette ble en veldig rar setning^
 
@@ -142,14 +142,14 @@ track \begin{inparaenum}
     \item what\footnote{If any \ldots} manual changes was needed for executing,
 \end{inparaenum} etc.
 
-This could stand to benifit from developing a domain-specific file format for this specific purpose.
+This could stand to benefit from developing a domain-specific file format for this specific purpose.
 E.g. a JSON-based file format that contained a copy of the \begin{inparaenum}
     \item base scenario, the
     \item enhanced scenario,
     \item what prompt was used,
     \item the diff,
     \item timestamp,
-\end{inparaenum} etc. Perhaps even what metrics were achieved whil executing the 2 forms of the
+\end{inparaenum} etc. Perhaps even what metrics were achieved while executing the 2 forms of the
 scenario. It would however not be optimal to track several copies of the same base scenario -- there
 would be a lot of duplicates, and they would all have virtually the same metrics.
 

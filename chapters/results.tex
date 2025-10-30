@@ -9,7 +9,7 @@ While the \acrshort{llm} can propose excessive changes that causes issues when p
 simulation when left to its own initiative, the output scenarios are \emph{good} and provide
 increased insight into the \acrshort{ads} when the \acrshort{llm} is restricted to propose minimal
 changes to the scenario. Keeping the major components as they were appears to increase the
-likelyhood of the scenario still beging able to be be ran without excessive problems.
+likelihood of the scenario still being able to be be ran without excessive problems.
 
 See listing \ref{lst:llmOutputDiff} in the \Nref{sec:fileDiffs} appendix for a complete
 demonstration of what the \acrlong{llm} is capable of doing to an entire scenario in full.
@@ -45,23 +45,23 @@ line of the output (Listing~\ref{lst:llmOutputMarkdown}).
 \end{lstlisting}
 
 Upon manually removing these syntactic artefacts, we can go ahead with executing
-the scenario. As previously mentioned, not all enhanced scenarios immedeatly work with the Carla
+the scenario. As previously mentioned, not all enhanced scenarios immediately work with the Carla
 simulator. This primarily comes down to \begin{inparaenum}
-    \item halluciantion of Python code, and
-    \item Carla problems, along with the afformentioned
+    \item hallucination of Python code, and
+    \item Carla problems, along with the aforementioned
     \item markdown-formatted output.
 \end{inparaenum}
 
-Writing code to programatically remove these lines is naturally trivial, but we have
+Writing code to programmatically remove these lines is naturally trivial, but we have
 not gone ahead with implementing this due to a wish of maintaining a certain overview of the
 contents of the file before running it, to get a quick overview of what the \acrshort{llm} did
 change. In that situation, removing \num{2} lines is no issue. If we were to eliminate all
-halluciantion-related challenges so that we would be certain that the enhanced scenario could run
+hallucination-related challenges so that we would be certain that the enhanced scenario could run
 without manual intervention, we would remove these lines as a part of the \hefe~pipeline software.
 
 Something worth noting is that the \acrshort{llm} demonstrates a promising
-ability to explain back to the user \emph{how} it ehnahced the scenario, e.g. in
-the fom of bullets in a docstring of the output code (see listing \ref{lst:llmOutputExplenation}).
+ability to explain back to the user \emph{how} it enhanced the scenario, e.g. in
+the form of bullets in a docstring of the output code (see listing \ref{lst:llmOutputExplenation}).
 
 % NOTE: Dette eksempelet er hentet fra CiE-6.
 \begin{lstlisting}[caption={Head of an \acrshort{llm}-enhanced scenario, highlighting how the \acrshort{llm} can add an explenation of how it enhanced the scenario.}, label={lst:llmOutputExplenation}, language={Python}]
@@ -98,7 +98,7 @@ The \acrshort{llm} typically seems to be on the right track, outlining something
 that \emph{sounds} like a good approach to satisfying our prompt of decreasing
 the driveability of the scenario. But in practice, it will often hallucinate
 methods that don't exist, or use terms and phrasing that are not valid keywords
-in the Carla specificication. This is in line with what was found by e.g.
+in the Carla specification. This is in line with what was found by e.g.
 \citeauthor{autoSceneGen}~\cite[14542]{autoSceneGen} (See \Nref{sec:autoSceneGen} in
 \Nref*{chp:relatedWork}).
 
@@ -116,9 +116,9 @@ the enhanced scenario.
 % TODO: Er vi sikre på at dette handler om spesifikt hallusinering og ikke noe annet?
 \subsubsection{Non-existing arguments}
 
-In a similar vein to the non-existing methods, non-exisiting \emph{arguments}
+In a similar vein to the non-existing methods, non-existing \emph{arguments}
 were also shown to appear. The \acrshort{llm} could simply call methods that
-were already being used, with additional arguments that made semeantic sense,
+were already being used, with additional arguments that made semantic sense,
 but that were not a part of the function definition. This also causes runtime
 exceptions in the scenario runner.
 
@@ -126,7 +126,7 @@ exceptions in the scenario runner.
 \subsubsection{Illegal property keywords}
 
 Another trend we observed was the usage of various keywords that simply don't
-exist in the Carla repetoire. Where Carla would recognize the word `snowstorm',
+exist in the Carla repertoire. Where Carla would recognize the word `snowstorm',
 the \acrfull{llm} proposed using the word `blizzard'.
 
 
@@ -134,10 +134,10 @@ the \acrfull{llm} proposed using the word `blizzard'.
 
 Table \ref{tab:scenarioFailures} gives a quantification of the various statuses met while performing
 \acrshort{llm} experiments for this thesis, outlining \begin{inparaenum}
-    \item to what extent scnearios just worked, and
-    \item giving statistics of the various kinds of faliures.
-\end{inparaenum} Note that each modified scneario can only ever be
-counted as \num{1} sort of failure. So if a scenario crashes due du a hallucinated function, it
+    \item to what extent scenarios just worked, and
+    \item giving statistics of the various kinds of failures.
+\end{inparaenum} Note that each modified scenario can only ever be
+counted as \num{1} sort of failure. So if a scenario crashes due to a hallucinated function, it
 will not also count as a scenario that failed due to having illegally placed objects regardless of
 however many this might be. In a similar fashion, we are only able to track the first instance of
 the error within a given scenario. So if a modified scenario contains \num{2} hallucinated methods,
@@ -175,7 +175,7 @@ it will only be counted as \num{1} in table \ref{tab:scenarioFailures}.
 There appears to be a bug in Carla version 0.9.15\footnote{Which is the version
     employed for this project.} which causes the program to \emph{hard crash} when
 executing certain scenarios with metric recording enabled. This has been
-reported to the project Github\footnote{By several members of the scientific community, see e.g.
+reported to the project GitHub\footnote{By several members of the scientific community, see e.g.
     \begin{itemize}\item  \url{https://github.com/carla-simulator/carla/issues/9170}, \item
               \url{https://github.com/carla-simulator/carla/issues/9152} and \item
               \url{https://github.com/carla-simulator/carla/issues/9349}\end{itemize}}, but as of 2025-10-15
@@ -203,7 +203,7 @@ some that have been enhanced by a \acrshort{llm}.
 The base scenarios used for these experiments come from the official Carla scenario runner software
 library\footnote{\url{https://github.com/carla-simulator/scenario_runner}}, but the concept is
 applicable to scenarios of other repositories as well. Several alternative options are presented in
-\Nref{chp:relatedWork}. Due to the afformentioned challenges with getting scenarios to run on the
+\Nref{chp:relatedWork}. Due to the aforementioned challenges with getting scenarios to run on the
 Carla simulator, these basic scenarios are used for the purposes of the thesis experiments, serving
 as a validation of the concept and laying the groundwork for adapting the method to other scenario
 sources in the future.
@@ -230,7 +230,7 @@ To this end, we employ an \acrshort{llm} to decrease the driveability.
 
 If we prompt the \acrshort{llm} with a broad allowance of ways of decreasing the driveability such
 as the prompt demonstrated in listing \ref{lst:basicPrompt}, we run into issues with excessive
-halluciantion. The \acrshort{llm} wants to import a class that simply does not exist in the Carla
+hallucination. The \acrshort{llm} wants to import a class that simply does not exist in the Carla
 \acrshort{api}. See listing \ref{lst:hallucinatedFollowError} in the \Nref{sec:errorMessages} appendix for the complete error message.
 
 
@@ -248,10 +248,10 @@ halluciantion. The \acrshort{llm} wants to import a class that simply does not e
 
 Due to not being able to run, there is not much to show for here. We need to revise the prompt and
 discourage such hallucinations in order to obtain meaningful results. In line with the
-\Nref{chp:experiments}, we iterate on the propmpt. We first tell the \acrshort{llm} to
-\emph{strictly adhere to the carla \acrshort{api}}.
+\Nref{chp:experiments}, we iterate on the prompt. We first tell the \acrshort{llm} to
+\emph{strictly adhere to the Carla \acrshort{api}}.
 
-The complete ouptut resulting from this prompt is shown in listing \ref{lst:hallucinatedFollowDiff}
+The complete output resulting from this prompt is shown in listing \ref{lst:hallucinatedFollowDiff}
 in the appendix.
 Keep in mind that \acrshortpl{llm} by nature are not deterministic, and as such it is probable
 that trying to reproduce this output might not be straight-forward.
@@ -275,9 +275,9 @@ sure to strictly adhere to the Carla \acrshort{api}. This yields a similar probl
 \ref{lst:hallucinatedFollowDiffStrict}.
 
 Iterating further, we realize that we must walk before we can run. We therefore instruct the
-\acrshort{llm} to make as few changes as possible. The inuition being that if it does this and
+\acrshort{llm} to make as few changes as possible. The intuition being that if it does this and
 relies on the options that are already present in the file, it is more plausible that we will get a
-runnable ouptut. This prompt is presented in listing \ref{lst:minimalChangesPrompt}.
+runnable output. This prompt is presented in listing \ref{lst:minimalChangesPrompt}.
 
 \begin{lstlisting}[language=python, label={lst:minimalChangesPrompt}, caption={A prompt instructing the \acrshort{llm} to make as few changes as possible to increase the likelyhood of it working without issues.}]
         "minimal_changes": lambda python_carla_scenario_raw: f"""
@@ -361,10 +361,10 @@ able to continually drive straight at constant speed. The dip at the end represe
 scenario.
 
 In the case of the first minimally enhanced scenario (\Cref{fig:followMinimallyEnhanced1Jerk}), we
-see that the jerk is substantive at first, while convering at \num{0} after a short while. This is
+see that the jerk is substantive at first, while converging at \num{0} after a short while. This is
 due to the \acrshort{ads} simply not being able to pass the truck in the middle of the road. This
 demonstrates a significant value in our proposed tool -- here lies a scenario that can be manually
-reviewd and used for evaluating \emph{why} the \acrshort{ads} failed to drive past the parked truck.
+reviewed and used for evaluating \emph{why} the \acrshort{ads} failed to drive past the parked truck.
 
 The jerk in 2nd enhanced follow scenario (\Cref{fig:followMinimallyEnhanced2Jerk}) is stable. This
 tells us that our ego vehicle was able to pass the parked van without additional issues\footnote{In
@@ -415,7 +415,7 @@ The base scenario ends with our ego coming to a halt behind the piled up vehicle
 \Cref{fig:accidentBaseStoppedVisual} show how the situation ends -- with the \acrshort{ads} ego
 stopping behind the pileup of other vehicles.
 
-As for the `follow' scenario, we will enhance the scneario using \acrshort{llm} and measure the
+As for the `follow' scenario, we will enhance the scenario using \acrshort{llm} and measure the
 jerk of the ego vehicle between the executions of the scenarios.
 
 \subsubsection{Enhanced scenarios}
@@ -554,7 +554,7 @@ listing \ref{lst:jerkOptimizedAccidentMod3}, and the visual state is shown in \C
 Note how the vehicle behind the taxicab is moving in \Cref{fig:accidentMod3FinalFreecam}.
 
 Finally, let us review the calculated jerk metrics from these runs of the `accident' scenario,
-similarly to the inital `follow' scenario. As shown in \Cref{fig:jerkComparisonAccident}, there are
+similarly to the initial `follow' scenario. As shown in \Cref{fig:jerkComparisonAccident}, there are
 no significant gains. They all follow the same pattern, which is in line with what we expect from
 having
 coming to a halt behind stationary vehicles.

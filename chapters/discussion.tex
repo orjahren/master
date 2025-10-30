@@ -2,8 +2,8 @@
 
 \epigraph{Your scientists were so preoccupied with whether they could, they didn't stop to think if they should.}{Dr.~Ian Malcolm}
 
-The following wil analyze the \Nref{chp:results} in light of what they achieve and evaluate the
-fesability of the \hefe~approach in comparison to other methods.
+The following will analyse the \Nref{chp:results} in light of what they achieve and evaluate the
+feasibility of the \hefe~approach in comparison to other methods.
 
 % Fokus her: Hefes value add
 % \section{Dette kontra tradisjonell generering}
@@ -26,7 +26,7 @@ data will be used for the generation of your specific scenario.
 With the \hefe~approach wherein the user provides a base scenario themself, there is \num{100}\%
 certainty of what the base scenario will be. Thus, we obtain significant inherent knowledge of the
 scenario substrate\footnote{Assuming of course that the user \emph{has} this knowledge of their base
-    secnario.}. Naturally, you may object, the same problem of the `unknown substrate' will present
+    scenario.}. Naturally, you may object, the same problem of the `unknown substrate' will present
 itself in form of our \acrshort{llm} executing the prompt and inferring what the new -- enhanced --
 scenario will look like. But then, I maintain that we still propose a significant value in the
 increased awareness \emph{of} the base scenario and its substrate. As we have seen in the
@@ -46,7 +46,7 @@ of wishing to highlight practical faults in the \acrshort{ads}, we must add anot
 realism.
 
 If your scene is bonkers, it will be very easy to get bad driveability. But there is little value
-and/or practical applicability in these scenarios. Realism in \acrshort{ads} siimulator scenarios is
+and/or practical applicability in these scenarios. Realism in \acrshort{ads} simulator scenarios is
 a research field in itself with major implications for how scenario-based testing ought to be done.
 
 \citeauthor{RealityBites} have looked into evaluating \acrshort{ads} simulator scenario realism
@@ -59,9 +59,9 @@ function that takes realism into account for evaluating their \acrshort{llm}-gen
 \acrshort{ads} simulator scenarios~\cite[6581-6582]{LLMScenarioChang24}\footnote{See also
     \Nref{sec:rwChang24} in \Nref{chp:relatedWork} for more on this work.}.
 
-When modifying an exisiting scenario, the output scenario will in my ways resemble the initial
+When modifying an existing scenario, the output scenario will in my ways resemble the initial
 version. This asserts a certain realism grounded in the initial scenario, assuming that it was
-itself generally relalistic. When generating a brand new scenario, it is plausible that we may lose
+itself generally realistic. When generating a brand new scenario, it is plausible that we may lose
 this connection to reality.
 
 \subsection{Sim 2 real gap}
@@ -93,17 +93,17 @@ for \emph{using} simulator would falter.
 One quite clear example of this, we can find in
 \Cref{chp:resultsAccidentScenario} -- the \acrshort{llm} proposes making changes
 in such a way that several vehicles are situated on top of bollards. This is
-quite questionable. Not only becayse it makes no sense that cars could ever
+quite questionable. Not only because it makes no sense that cars could ever
 balance in such a way on the bollards, but also because -- why would the
 bollards be \emph{under} vehicles in the first place? It would be far more
 realistic to have the bollards be placed \emph{around} the piled-up vehicles
 such that the \acrshort{ads} would need to go around them. This would be a more
-realistc enhancement, and provide a more valuable insight into the performance
+realistic enhancement, and provide a more valuable insight into the performance
 of the \acrshort{ads}. That said, it would probably require more logic in order
 to calculate the positions dynamically based on what bollards are located where,
 in such a way that base \acrshortpl{llm} typically don't have the possibility of
 doing without additional tooling that allows for executing Python code and
-determining what these positon should have been.
+determining what these position should have been.
 
 \section{LLM aspects}\label{sec:discussionLlmAspects}
 
@@ -111,7 +111,7 @@ determining what these positon should have been.
 % \section{Environmental concerns}
 
 \acrshortpl{llm} consume significant resources (\Cref{sec:llmProblems}). In order to justify their
-adoptation for \acrshort{ads} scenario enhancement, we should evaluate wheter the pros outweigh the
+adaptation for \acrshort{ads} scenario enhancement, we should evaluate whether the pros outweigh the
 cons. While this remain out of scope for the current thesis and while we demonstrated promising
 results in \Cref{chp:results}, it is important to keep in mind the environmental cost of using the
 \acrshortpl{llm} for this purpose. How good should the results need to be in order to justify using
@@ -126,11 +126,11 @@ Perhaps future work can look into obtaining similar results using greener strate
 By their nature, \acrshortpl{llm} have a set context size. If your prompt exceeds the context size
 of the \acrshort{llm}, it will appear to `forget' parts of the input. This poses a potential problem
 for our scenarios. As the scenario complexity increases, so will the length of the prompt. There
-will ineveatibly come a point where the \acrshort{llm} can no longer take the entire scenario into
+will inevitably come a point where the \acrshort{llm} can no longer take the entire scenario into
 account. One potential way of remedying this could perhaps be to only include a subset of the
 scenario definition file into the prompt, so that it will consume fewer tokens.
 
-Futhermore, certain scenarios sometimes exist in one file. I.e., we use a single file to represent
+Furthermore, certain scenarios sometimes exist in one file. I.e., we use a single file to represent
 several scenarios. This can potentially cause issues for the \acrshort{llm} in that it will need to
 know which scenario it is to focus on. This has, however, not caused significant issues for this project.
 
@@ -141,7 +141,7 @@ have?
 
 \subsection{Bias}
 
-One of the motivations for performing this project, was to cirucmvent potential bias with the
+One of the motivations for performing this project, was to circumvent potential bias with the
 scientists that manually create scenarios. But it's worth noting that this \hefe~scenario
 modification approach is still vulnerable to bias based on the \acrshort{llm} training data.
 
@@ -156,7 +156,7 @@ aspects of the scenes?
 % Når LLMen endrer ting på andre siden av mapet osv som bare ikke påvirker ego vehicle overhode
 \subsection{What is being changed in the scenario?}
 
-Scenarios center on the ego vehicle. But what if the \acrshort{llm} changes parts of the scene that
+Scenarios centre on the ego vehicle. But what if the \acrshort{llm} changes parts of the scene that
 don't affect the ego? In these cases, all metrics should be more or less the same\footnote{Keep in
     mind that the \acrshort{ads} motion planners are not deterministic, and as such the metrics will typically
     not be identical.}. But then there is no point in having done the modification. This has also not
@@ -175,23 +175,23 @@ It's worth noting that the proposed solution can trivially be adapted to work wi
 \subsection{Python}
 
 One major advantage with using Python formats is that most \acrshortpl{llm} have significant
-familiariy with it due to the significant extant Python training data. But this is a double-edged
+familiarity with it due to the significant extant Python training data. But this is a double-edged
 sword -- Python has been around for a significant amount of time, and has undergone significant
 changes. Thus, when prompting the \acrshort{llm} to enhance a Python scenario, there arises several
 potential issues: \begin{itemize}
     \item language syntax
-    \item depenency versions.
+    \item dependency versions.
 \end{itemize}
 
-As outlined in the \Nref{chp:results}, the \acrshortpl{llm} are prone to hallucinating in a way tha
+As outlined in the \Nref{chp:results}, the \acrshortpl{llm} are prone to hallucinating in a way that
 causes issues for executing the enhanced scenarios. But what \emph{is} our evidence that these
 execution problems stem from `true' hallucination and not one of these other sources of potential
-error? Perhaps the \acrshort{llm} did the right thing, only to assume some antiguated generation
+error? Perhaps the \acrshort{llm} did the right thing, only to assume some antiquated generation
 target (e.g. older version of the Carla simulator with its dependencies, or and older version of the
 Python programming language).
 
 In an ideal world, we would want an \acrshort{llm} that was fine tuned for this specific purpose to
-optimize its knowledge of the relevant software versions and decrease the likelyhood of it for
+optimize its knowledge of the relevant software versions and decrease the likelihood of it for
 whatever reason attempting to use bad versions that cause issues.
 
 \subsection{XML-based OpenSCENARIO}
@@ -255,9 +255,9 @@ from the \href{https://github.com/carla-simulator/scenario_runner/blob/master/sr
 An interesting perspective regarding this scenario based testing of
 \acrshortpl{ads} is this: How can we ever know that it has been sufficiently
 tested and is ready for being deployed on public roads? When investigation this
-question, several subproblems arise.
+question, several sub-problems arise.
 
-As mentioned in the \Nref{sec:problemDescription}, there are infinetely many
+As mentioned in the \Nref{sec:problemDescription}, there are infinitely many
 edge cases that are possible for \acrshort{ads} execution. Even if we propose
 one billion test cases, and our \acrshort{ads} passes these, how can we know
 that it will also pass the hypothetical `one billion and one-th'?
