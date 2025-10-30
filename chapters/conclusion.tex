@@ -13,16 +13,23 @@ to the scenario, problems related to hallucination and simulator crashes arise u
 \section{Research question analysis}
 
 Let us finish by returning to our initial \Nref{sec:RQs} and review to what
-extent this work has answered them.
+extent this work and its \Nref{chp:results} has answered them.
 
 \subsection{\ref{rq:decrease-driveability}}
 
 Recall that \ref{rq:decrease-driveability} says `\rqcontent{decrease-driveability}'.
 
+The answer to this is clearly \emph{yes}. \Nref{sec:examplesOfEnhancedScenarios} demonstrate
+decreased driveability in several scnearios, accross 2 various scenes. The difference between the
+base and its enhanced counterpart is however typically not that significant, as various problems
+arose when the \acrshort{llm} was allowed to make excessive changes. The \Nref{sec:fwLlm} section of
+\Cref{chp:furtherWork} proposes several strategies for remidying this fact.
+
 \subsection{\ref{rq:no-human}}
 
-Recall that \ref{rq:no-human} says `\rqcontent{no-human}'.
-
+Recall that \ref{rq:no-human} says `\rqcontent{no-human}'. This is less clearly a success. While
+certain scnearios did work without human intervention, a greater number needed minor human
+adjustments (see \Cref{tab:scenarioFailures}). The \Nref{sec:fwLlm} section of \Nref{chp:furtherWork} also proposes several strategies for remidying this aspect.
 
 \section{Can large language models make our roads safer?}
 

@@ -157,7 +157,8 @@ it will only be counted as \num{1} in table \ref{tab:scenarioFailures}.
         Hallucinated functions            & 0                   \\
         Illegal object placement          & 1                   \\
         Non-existing arguments            & 2                   \\
-        No significant issues             & 3                   \\
+        Needed manual modification        & 3                   \\
+        No significant issues             & 4                   \\
         \midrule
         Number of modified test scenarios & X                   \\
         Number of base scenarios          & Y                   \\
@@ -194,7 +195,7 @@ We record a plethora of datapoints when executing scenarios on the simulator\foo
 For evaluating the driveability of the scenario, we rely on combination of the \textbf{jerk} metric
 and qualitative analysis by intuition from visually inspecting the scenarios.
 
-\section{Examples of enhanced scenarios}
+\section{Examples of enhanced scenarios}\label{sec:examplesOfEnhancedScenarios}
 
 Let us now review some tangible scenarios. We will contrast the baseline, original, scenarios, with
 some that have been enhanced by a \acrshort{llm}.
