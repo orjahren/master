@@ -137,37 +137,34 @@ Table \ref{tab:scenarioFailures} gives a quantification of the various statuses 
     \item to what extent scenarios just worked, and
     \item giving statistics of the various kinds of failures.
 \end{inparaenum} Note that each modified scenario can only ever be
-counted as \num{1} sort of failure. So if a scenario crashes due to a hallucinated function, it
+counted as \num{1} sort of failure. So if a scenario fails due to hallucinated imports, it
 will not also count as a scenario that failed due to having illegally placed objects regardless of
-however many this might be. In a similar fashion, we are only able to track the first instance of
-the error within a given scenario. So if a modified scenario contains \num{2} hallucinated methods,
-it will only be counted as \num{1} in table \ref{tab:scenarioFailures}.
-
-\begin{tcolorbox}[colback=red!5!white, colframe=red!80!black, title=WIP warning]
-    NOTE: As of \today, table \ref{tab:scenarioFailures} contains placeholder data.
-\end{tcolorbox}
+however many cases of this it might have attempted. In a similar fashion, we are only able to track
+the first instance of the error within a given scenario. So if a modified scenario contains \num{2}
+hallucinated imports, it will only be counted as \num{1} in table \ref{tab:scenarioFailures}.
 
 \begin{table}[htbp]
     \centering
-    \caption{Statistics of simulator execution in LLM-enhanced scenarios}
+    \caption{Statistics of simulator execution of LLM-enhanced scenarios, accross all prompts}
     \begin{tabular}{l c}
         \toprule
-        Execution status                  & Number of Scenarios \\
+        Execution status             & Number of Scenarios \\
         \midrule
-        Hallucinated functions            & 0                   \\
-        Illegal object placement          & 1                   \\
-        Non-existing arguments            & 2                   \\
-        Needed manual modification        & 3                   \\
-        No significant issues             & 4                   \\
+        Unexpected keyword argument  & 8                   \\
+        Hard simulator crash         & 3                   \\
+        Illegal object placement     & 1                   \\
+        Non-existing import          & 3                   \\
         \midrule
-        Number of modified test scenarios & X                   \\
-        Number of base scenarios          & Y                   \\
-        Num of failed scenarios           & Z                   \\ % Z = 0 + 1 + 2 = 3 (example)
-        Failure ratio                     & R                   \\ % R = Z / X (example)
+        No execution issues          & 9                   \\
+        \midrule
+        Number of enhanced scenarios & 24                  \\
+        Number of crashed scenarios  & 15                  \\
+        Failure ratio                & 63\%                \\
         \bottomrule
     \end{tabular}
     \label{tab:scenarioFailures}
 \end{table}
+
 
 
 \subsection{Carla crashes with certain scenarios}
