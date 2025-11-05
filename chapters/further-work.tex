@@ -171,8 +171,16 @@ for the Carla stability, finding that version \num{470} supposedly is optimal an
     from the repo of their paper \cite{jia2024bench}.}.
 The experiments of this project have been done using version \num{580}.
 
-\subsection{Bedre opplegg for å flagge at noe er spennende}
+\newpage % Legger inn en ny side siden den uansett må konsummeres, og det ser bedre ut
 
-Noe mer akademisk og sciency enn bare visuelt inspisere jerk chart
+\subsection{More scientific way of determining a result}
 
-Kan har flere herurestikker her
+As of now, the process of evaluating an experiment as failed or succeeded (see
+\Nref{sec:experimentsMetrics}), is not that scientific. It works sufficiently for our purposes, but
+there is a lot to be gained by formalizing the process.
+
+Further work could look into defining mathematical properties for what qualifies as a `meaningfully
+decreased driveability'. \citeauthor{adsQualityMetrics21} propose several evaluation
+criteria~\cite[196]{adsQualityMetrics21}. One typical example could be to look at whether the jerk
+exceeded a certain threshold during scenario execution -- but even then, we neeed to define what
+this threshold should be. Several heuristics may be applicable.
