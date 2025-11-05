@@ -46,6 +46,24 @@ details and complexity, still in Python carla scenario format.
 """,
 \end{lstlisting}
 
+\section{Metrics}
+
+The goal of this project is to decrease the driveability of the scenario such that we are able to
+`flag' potential issues in the \acrshort{ads}. As `driveability' is a very broad concept (see
+\Nref{sec:adsDrivability}), there are several relevant metrics and datapoints that can potentially
+be used.
+
+For this project, due to its broad scope, a similarly broad metric will be used for indicating that
+an experiment has yielded a meaningful result -- jerk. As outlined in \Nref{sec:adsMetrics}, jerk
+has been shown to be related to several factors contributing to driveability.
+
+Again owning to the broad scope, exact jerk \emph{numbers} are not relevant -- for our purposes, it
+suffices to have a binary relation to the jerk being either \begin{inparaenum}
+    \item more or less unchanged\footnote{Keep in min that \acrshort{ads} motion planners are
+        undeterministic}, or
+    \item worsened.
+\end{inparaenum} If the driveability has decreased, we will have found a result.
+
 \section{Finding a suitable LLM}
 
 As we learnt in \Cref{sec:llmJungle}, there are several \acrshortpl{llm} extant. We should
@@ -160,7 +178,4 @@ exist in the Carla repertoire. Where Carla would recognize the word `snowstorm',
 the \acrfull{llm} could propose using the word `blizzard'.
 
 
-\section{Metrics}
 
-Due to the immense file size of these logs\footnote{Keep in mind that they track all actors in the
-    scene over time.}, publishing all our raw files is not feasible.

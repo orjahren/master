@@ -94,6 +94,13 @@ Carla simulator, these basic scenarios are used for the purposes of the thesis e
 as a validation of the concept and laying the groundwork for adapting the method to other scenario
 sources in the future.
 
+As mentioned in \Nref{sec:testCaseRunner}, Carla scenario excutions are saved to binary log files.
+But these files are \emph{huge}, typically being several hundred megabytes depending on the duration
+of the scenario execution\footnote{Keep in mind that they record data for all actors in the scenario
+    over time.}. As such, publishing all our raw files is not feasible. A selection is available in the
+\href{https://github.com/orjahren/master-hefe/tree/main/odin/experiments/results}{\hefe~Github
+    repo}.
+
 \subsection{Base scenario: Follow vehicle}\label{sec:followVehicleResults}
 
 The `follow vehicle' is the most basic kind of scenario out there. It simply consists of one ego
