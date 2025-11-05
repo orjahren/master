@@ -2,9 +2,10 @@
 
 \epigraph{It doesn't matter how beautiful your theory is, it doesn't matter how smart you are. If it doesn't agree with experiment, it's wrong.}{Feynman}
 
-
-The results show that the initially proposed solution of feeding bare
-\acrshort{ads} scenarios represented by Python code into \acrshortpl{llm}, has promising prospects.
+This chapter will survey a selection of results from performing various experiments (see
+\Nref{chp:experiments}). The experiments indicate that the initially proposed solution of feeding
+bare \acrshort{ads} scenarios represented by Python code into \acrshortpl{llm}, can yield meaningful
+results.
 While the \acrshort{llm} can propose excessive changes that causes issues when performing the
 simulation when left to its own initiative, the output scenarios are \emph{good} and provide
 increased insight into the \acrshort{ads} when the \acrshort{llm} is restricted to propose minimal
@@ -14,125 +15,22 @@ likelihood of the scenario still being able to be be ran without excessive probl
 See listing \ref{lst:llmOutputDiff} in the \Nref{sec:fileDiffs} appendix for a complete
 demonstration of what the \acrlong{llm} is capable of doing to an entire scenario in full.
 
-The following reviews \begin{inparaenum}
-    \item what works well,
-    \item why it works, and
-    \item what does \emph{not} work and
-    \item why this is.
-\end{inparaenum} We first look at some general aspects that are shared between all our experiments, before narrowing
+We first look at some general aspects that are shared between all our experiments, before narrowing
 the scope and reviewing a selection of individual scenarios, highlighting the value added by the
 \hefe~tool.
 
-% TODO: Må si noe om hvilke faktiske LLMer som har blitt brukt
+\section{General overview}
+\subsection{LLM evaluation}
 
-% TODO: Gir dette mening å nevne her? Burde det ikke las ligge frem til kapittelet om future work?
-% Finally, we proopose novel techniques by which some of these issues may be remedied in future work
+As outlined in \Nref{sec:llmExperimentation}, a locally hosted \num{7.2}B parameter Mistral model,
+and \texttt{Gemini 2.5 flash}. The Gemini model obtained significantly better results than the
+Mistral model, probably due to its size.
 
-\section{Output of the LLM -- general overview}
+\subsection{Statistics of failure variants}\label{sec:resultsFailStats}
 
-Depending on the prompt, our results show that it is very possible to get
-reasonable-looking Python out of the \acrshort{llm}. One somewhat annoying
-detail is their bent to mark the code as specific syntax, applying a Markdown-formatted code block
-indicating both that the output \emph{is} code, and what language it is in,to the first and last
-line of the output (Listing~\ref{lst:llmOutputMarkdown}).
-% \begin{lstlisting}[language=Markdown]
-\begin{lstlisting}[caption={LLM-generated Python code with Markdown syntax. The bracketed part on line 3 has been added for demonstration purposes, removing the actual code for brevity.}, label={lst:llmOutputMarkdown}]
-```python
-
-[ scenario code ]
-
-```
-\end{lstlisting}
-
-Upon manually removing these syntactic artefacts, we can go ahead with executing
-the scenario. As previously mentioned, not all enhanced scenarios immediately work with the Carla
-simulator. This primarily comes down to \begin{inparaenum}
-    \item hallucination of Python code, and
-    \item Carla problems, along with the aforementioned
-    \item markdown-formatted output.
-\end{inparaenum}
-
-Writing code to programmatically remove these lines is naturally trivial, but we have
-not gone ahead with implementing this due to a wish of maintaining a certain overview of the
-contents of the file before running it, to get a quick overview of what the \acrshort{llm} did
-change. In that situation, removing \num{2} lines is no issue. If we were to eliminate all
-hallucination-related challenges so that we would be certain that the enhanced scenario could run
-without manual intervention, we would remove these lines as a part of the \hefe~pipeline software.
-
-Something worth noting is that the \acrshort{llm} demonstrates a promising
-ability to explain back to the user \emph{how} it enhanced the scenario, e.g. in
-the form of bullets in a docstring of the output code (see listing \ref{lst:llmOutputExplenation}).
-
-% NOTE: Dette eksempelet er hentet fra CiE-6.
-\begin{lstlisting}[caption={Head of an \acrshort{llm}-enhanced scenario, highlighting how the \acrshort{llm} can add an explenation of how it enhanced the scenario.}, label={lst:llmOutputExplenation}, language={Python}]
-#!/usr/bin/env python
-
-# Copyright (c) 2019-2020 Intel Corporation
-#
-# This work is licensed under the terms of the MIT license.
-# For a copy, see <https://opensource.org/licenses/MIT>.
-
-"""
-Cut in scenario:
-
-The scenario realizes a driving behavior on the highway.
-The user-controlled ego vehicle is driving straight and keeping its velocity at a constant level.
-Another car is cutting just in front, coming from left or right lane.
-
-The ego vehicle may need to brake to avoid a collision.
-
-Enhanced scenario:
-- Increased background traffic with varying speeds to create a more crowded environment.
-- Challenging weather conditions (heavy rain, fog, strong winds) to reduce visibility and grip.
-- Nighttime setting to further decrease visibility.
-- Randomization of speeds and trigger distances for increased unpredictability.
-"""
-[...]
-\end{lstlisting}
-
-Let us now review in further detail how the \acrshort{llm} has modified the scenarios.
-
-\subsection{Hallucinations in the enhanced scenarios}\label{sec:resultsHallucinations}
-
-The \acrshort{llm} typically seems to be on the right track, outlining something
-that \emph{sounds} like a good approach to satisfying our prompt of decreasing
-the driveability of the scenario. But in practice, it will often hallucinate
-methods that don't exist, or use terms and phrasing that are not valid keywords
-in the Carla specification. This is in line with what was found by e.g.
-\citeauthor{autoSceneGen}~\cite[14542]{autoSceneGen} (See \Nref{sec:autoSceneGen} in
-\Nref*{chp:relatedWork}).
-
-% TODO: Legge til ekesempler her
-% TODO: Er vi sikre på at dette handler om spesifikt hallusinering og ikke noe annet?
-\subsubsection{Non-existing methods}
-
-As mentioned, the \acrshort{llm} seems to have the right idea of what it can do
-to achieve the stated goal. But the way that it goes about obtaining it, does
-not always work. The enhanced scenario code will often call methods that don't
-exist. This leads to a runtime exception in the scenario runner when executing
-the enhanced scenario.
-
-% TODO: Legge til ekesempler her
-% TODO: Er vi sikre på at dette handler om spesifikt hallusinering og ikke noe annet?
-\subsubsection{Non-existing arguments}
-
-In a similar vein to the non-existing methods, non-existing \emph{arguments}
-were also shown to appear. The \acrshort{llm} could simply call methods that
-were already being used, with additional arguments that made semantic sense,
-but that were not a part of the function definition. This also causes runtime
-exceptions in the scenario runner.
-
-% TODO: Burde refereree / kildeføre / vise til noe forankring for disse keyword-eksemplene.
-\subsubsection{Illegal property keywords}
-
-Another trend we observed was the usage of various keywords that simply don't
-exist in the Carla repertoire. Where Carla would recognize the word `snowstorm',
-the \acrfull{llm} proposed using the word `blizzard'.
-
-
-\subsubsection{Statistics of failure variants}
-
-Table \ref{tab:scenarioFailures} gives a quantification of the various statuses met while performing
+As outlined in \Nref{sec:resultsHallucinations}, the \acrshort{llm} was found to be prone to
+hallucinate problematic output in certain scenarios. Table \ref{tab:scenarioFailures} gives a
+quantification of the various statuses encountered while performing
 \acrshort{llm} experiments for this thesis, outlining \begin{inparaenum}
     \item to what extent scenarios just worked, and
     \item giving statistics of the various kinds of failures.
@@ -167,7 +65,7 @@ hallucinated imports, it will only be counted as \num{1} in table \ref{tab:scena
 
 
 
-\subsection{Carla crashes with certain scenarios}
+\subsection{Carla crashes with certain scenarios}\label{sec:resCarlaUnstable}
 
 There appears to be a bug in Carla version 0.9.15\footnote{Which is the version
     employed for this project.} which causes the program to \emph{hard crash} when
@@ -182,20 +80,19 @@ opportunities of obtaining data from the simulation run. The `record' function
 of the scenario runner is the crux of measuring the driveability of the
 scenario.
 
-
-\section{Methodology for evaluating scenario execution}
-
-We record a plethora of datapoints when executing scenarios on the simulator\footnote{This is again
-    provided by the Carla software suite. A complete overview of data points is provided in the
-    documentation, see e.g.~\url{https://carla.readthedocs.io/en/0.9.15/adv_recorder/}}.
-
-For evaluating the driveability of the scenario, we rely on combination of the \textbf{jerk} metric
-and qualitative analysis by intuition from visually inspecting the scenarios.
+Note that this is a different kind of problem from those presented in
+\Nref{sec:resultsHallucinations} -- \emph{this} problem is relevant for \emph{base} scenarios,
+provided first party by the Carla simulator team. A major consequence of this is that it hindered
+what sort of base scenarios we could experiment with. We were naturally unable to experiment with
+enhancing base scenarios that we were unable to run, as we would have no baseline to measure
+against, and it is highly improbable that the scenario would magically start working after having
+gone through an \acrshort{llm} with a prompt aiming at \emph{worsening} its complexity.
 
 \section{Examples of enhanced scenarios}\label{sec:examplesOfEnhancedScenarios}
 
-Let us now review some tangible scenarios. We will contrast the baseline, original, scenarios, with
-some that have been enhanced by a \acrshort{llm}.
+With all these generalities in mind, let us now narrow the scope and evaluate some tangible scenarios. We will contrast the baseline, original, scenarios, with
+some that have been enhanced by a \acrshort{llm}, focusing on what changes the \acrshort{llm}
+proposes and how they affect the driveability of the scenario.
 
 The base scenarios used for these experiments come from the official Carla scenario runner software
 library\footnote{\url{https://github.com/carla-simulator/scenario_runner}}, but the concept is
@@ -204,6 +101,13 @@ applicable to scenarios of other repositories as well. Several alternative optio
 Carla simulator, these basic scenarios are used for the purposes of the thesis experiments, serving
 as a validation of the concept and laying the groundwork for adapting the method to other scenario
 sources in the future.
+
+As mentioned in \Nref{sec:testCaseRunner}, Carla scenario excutions are saved to binary log files.
+But these files are \emph{huge}, typically being several hundred megabytes depending on the duration
+of the scenario execution\footnote{Keep in mind that they record data for all actors in the scenario
+    over time.}. As such, publishing all our raw files is not feasible. A selection is available in the
+\href{https://github.com/orjahren/master-hefe/tree/main/odin/experiments/results}{\hefe~Github
+    repo}.
 
 \subsection{Base scenario: Follow vehicle}\label{sec:followVehicleResults}
 

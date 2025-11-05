@@ -169,7 +169,7 @@ Besides, it is generally a good idea to limit the number of external dependencie
 
 \subsection{Test case running and evaluation}
 
-\subsubsection{Test case runner}
+\subsubsection{Test case runner}\label{sec:testCaseRunner}
 
 The system will automatically run all
 our base test cases using an \acrshort{ads} simulator, and collect data points to get a baseline. It
@@ -182,6 +182,16 @@ enhancement (see \Cref{sec:llmEnhancement}) has had.
 For the reasons we have seen in~\Cref{sec:simulatorOverview}, we want to run our
 test cases on Carla. It is the best offering as it is open source, under active
 development and has a feature rich Python \acrshort{api}.
+
+We record a plethora of datapoints when executing scenarios on the simulator\footnote{This is again
+    provided by the Carla software suite. A complete overview of data points is provided in the
+    documentation, see e.g.~\url{https://carla.readthedocs.io/en/0.9.15/adv_recorder/}}.
+
+The way the Carla simulator works, one simulator run can be analysed post factum. The entire
+scenario execution is stored in a Carla-specific binary format. This binary file can then later be
+analysed, extracting various metrics from one run. This saves time not having to run the simulator
+more than necessary, and allows for reproducing the metric calculations from the original underlying
+binary log file.
 
 \subsubsection{Test case improvement evaluation}\label{sec:testCaseEval}
 
