@@ -30,11 +30,13 @@ the scope and reviewing a selection of individual scenarios, highlighting the va
 
 \section{Output of the LLM -- general overview}
 
-Depending on the prompt, our results show that it is very possible to get
-reasonable-looking Python out of the \acrshort{llm}. One somewhat annoying
-detail is their bent to mark the code as specific syntax, applying a Markdown-formatted code block
-indicating both that the output \emph{is} code, and what language it is in,to the first and last
-line of the output (Listing~\ref{lst:llmOutputMarkdown}).
+Depending on the prompt, our results show that it is very possible to get reasonable-looking Python
+out of the \acrshort{llm}. One somewhat cumbersome detail is their bent to mark the code as specific
+syntax, the entire \acrshort{llm} response being a Markdown-formatted code block indicating both
+that the output \emph{is} code, and what language it is in,to the first and last line of the output
+(Listing~\ref{lst:llmOutputMarkdown}). Several leaked \acrshort{llm} system prompts corroborate this
+behavior\footnote{See e.g.\url{https://github.com/search?q=repo\%3Ajujumilk3\%2Fleaked-system-prompts\%20markdown&type=code}.}.
+
 % \begin{lstlisting}[language=Markdown]
 \begin{lstlisting}[caption={LLM-generated Python code with Markdown syntax. The bracketed part on line 3 has been added for demonstration purposes, removing the actual code for brevity.}, label={lst:llmOutputMarkdown}]
 ```python
