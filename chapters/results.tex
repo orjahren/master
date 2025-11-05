@@ -22,9 +22,12 @@ the scope and reviewing a selection of individual scenarios, highlighting the va
 \section{General overview}
 \subsection{LLM evaluation}
 
-As outlined in \Nref{sec:llmExperimentation}, a locally hosted \num{7.2}B parameter Mistral model,
-and \texttt{Gemini 2.5 flash}. The Gemini model obtained significantly better results than the
-Mistral model, probably due to its size.
+As outlined in \Nref{sec:llmExperimentation}, the experimentation was done using a locally hosted
+\num{7.2}B parameter Mistral model, and a far larger Gemini model -- \texttt{Gemini 2.5 flash}. The
+Gemini model obtained significantly better results than the Mistral model, probably due to its size.
+The mistral model produced incoherent output and was a lot slower\footnote{Argubably probably due to
+    it running on quite weak hardware. Speed is not a fair comparison.} This is way all the following
+results are done with the Gemini model.
 
 \subsection{Statistics of failure variants}\label{sec:resultsFailStats}
 
