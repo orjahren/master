@@ -3,15 +3,25 @@
 \epigraph{The torment of precautions often exceeds the dangers to be avoided. It is sometimes better to abandon one's self to destiny.}{Napoléon}
 
 This chapter will describe the experimentation that has been done with the implemented solution
-proposal (\Cref{chp:solutionProposal}), in anticipation of analysing the \Nref{chp:results}.
+proposal (\Cref{chp:solutionProposal}), descirbing the methodological process that was undertaken in
+order to obtain the \Nref{chp:results}. This chapter lays the groundwork for presenting them
+succinctly with their relevant context in \Cref{chp:results} and then analyzing them in
+\Cref{chp:discussion}.
+
+The following reviews \begin{inparaenum}
+    \item what works well,
+    \item why it works, and
+    \item what does \emph{not} work and
+    \item why this is.
+\end{inparaenum}
 
 \section{Prompts}
 
 Prompting is our principal way of interfacing with the \acrshort{llm}. For this reason, our results
-rely on \begin{inparaenum}
+depend on \begin{inparaenum}
     \item good, and
     \item fitting prompts
-\end{inparaenum}. Without this all is lost.
+\end{inparaenum}. Without this, we won't get far.
 
 We therefore propose several prompting strategies, taking after related research
 (\Nref{chp:relatedWork}).
@@ -52,6 +62,103 @@ with support for thinking and long
 contexts\footnote{\url{https://deepmind.google/models/gemini/flash/}}.
 
 All data in the \Nref{chp:results} chapter, are obtained using the Gemini model.
+
+
+\section{Output of the LLM -- general overview}
+
+Depending on the prompt, our results show that it is very possible to get reasonable-looking Python
+out of the \acrshort{llm}. One somewhat cumbersome detail is their bent to mark the code as specific
+syntax, the entire \acrshort{llm} response being a Markdown-formatted code block indicating both
+that the output \emph{is} code, and what language it is in,to the first and last line of the output
+(Listing~\ref{lst:llmOutputMarkdown}). Several leaked \acrshort{llm} system prompts corroborate this
+behavior\footnote{See e.g.\url{https://github.com/search?q=repo\%3Ajujumilk3\%2Fleaked-system-prompts\%20markdown&type=code}.}.
+
+% \begin{lstlisting}[language=Markdown]
+\begin{lstlisting}[caption={LLM-generated Python code with Markdown syntax. The bracketed part on line 3 has been added for demonstration purposes, removing the actual code for brevity.}, label={lst:llmOutputMarkdown}]
+```python
+
+[ scenario code ]
+
+```
+\end{lstlisting}
+
+Upon removing these syntactic artefacts, we can go ahead with executing
+the scenario. As previously mentioned, not all enhanced scenarios immediately work with the Carla
+simulator. This primarily comes down to \begin{inparaenum}
+    \item hallucination of Python code, and
+    \item Carla problems, along with the aforementioned
+    \item markdown-formatted output.
+\end{inparaenum}
+
+Something worth noting is that the \acrshort{llm} demonstrates a promising
+ability to explain back to the user \emph{how} it enhanced the scenario, e.g. in
+the form of bullets in a docstring of the output code (see listing \ref{lst:llmOutputExplenation}).
+
+% NOTE: Dette eksempelet er hentet fra CiE-6.
+\begin{lstlisting}[caption={Head of an \acrshort{llm}-enhanced scenario, highlighting how the \acrshort{llm} can add an explenation of how it enhanced the scenario.}, label={lst:llmOutputExplenation}, language={Python}]
+#!/usr/bin/env python
+
+# Copyright (c) 2019-2020 Intel Corporation
+#
+# This work is licensed under the terms of the MIT license.
+# For a copy, see <https://opensource.org/licenses/MIT>.
+
+"""
+Cut in scenario:
+
+The scenario realizes a driving behavior on the highway.
+The user-controlled ego vehicle is driving straight and keeping its velocity at a constant level.
+Another car is cutting just in front, coming from left or right lane.
+
+The ego vehicle may need to brake to avoid a collision.
+
+Enhanced scenario:
+- Increased background traffic with varying speeds to create a more crowded environment.
+- Challenging weather conditions (heavy rain, fog, strong winds) to reduce visibility and grip.
+- Nighttime setting to further decrease visibility.
+- Randomization of speeds and trigger distances for increased unpredictability.
+"""
+[...]
+\end{lstlisting}
+
+
+\subsection{Hallucinations in the enhanced scenarios}\label{sec:resultsHallucinations}
+
+The \acrshort{llm} typically seems to be on the right track, outlining something
+that \emph{sounds} like a good approach to satisfying our prompt of decreasing
+the driveability of the scenario. But in practice, it will often hallucinate
+methods that don't exist, or use terms and phrasing that are not valid keywords
+in the Carla specification. This is in line with what was found by e.g.
+\citeauthor{autoSceneGen}~\cite[14542]{autoSceneGen} (See \Nref{sec:autoSceneGen} in
+\Nref*{chp:relatedWork}).
+
+% TODO: Legge til ekesempler her
+% TODO: Er vi sikre på at dette handler om spesifikt hallusinering og ikke noe annet?
+\subsubsection{Non-existing methods}
+
+As mentioned, the \acrshort{llm} seems to have the right idea of what it can do
+to achieve the stated goal. But the way that it goes about obtaining it, does
+not always work. The enhanced scenario code will often call methods that don't
+exist. This leads to a runtime exception in the scenario runner when executing
+the enhanced scenario.
+
+% TODO: Legge til ekesempler her
+% TODO: Er vi sikre på at dette handler om spesifikt hallusinering og ikke noe annet?
+\subsubsection{Non-existing arguments}
+
+In a similar vein to the non-existing methods, non-existing \emph{arguments}
+were also shown to appear. The \acrshort{llm} could simply call methods that
+were already being used, with additional arguments that made semantic sense,
+but that were not a part of the function definition. This also causes runtime
+exceptions in the scenario runner.
+
+% TODO: Burde refereree / kildeføre / vise til noe forankring for disse keyword-eksemplene.
+\subsubsection{Illegal property keywords}
+
+Another trend we observed was the usage of various keywords that simply don't
+exist in the Carla repertoire. Where Carla would recognize the word `snowstorm',
+the \acrfull{llm} could propose using the word `blizzard'.
+
 
 \section{Metrics}
 
