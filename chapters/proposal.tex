@@ -183,6 +183,10 @@ For the reasons we have seen in~\Cref{sec:simulatorOverview}, we want to run our
 test cases on Carla. It is the best offering as it is open source, under active
 development and has a feature rich Python \acrshort{api}.
 
+We record a plethora of datapoints when executing scenarios on the simulator\footnote{This is again
+    provided by the Carla software suite. A complete overview of data points is provided in the
+    documentation, see e.g.~\url{https://carla.readthedocs.io/en/0.9.15/adv_recorder/}}.
+
 The way the Carla simulator works, one simulator run can be analysed post factum. The entire
 scenario execution is stored in a Carla-specific binary format. This binary file can then later be
 analysed, extracting various metrics from one run. This saves time not having to run the simulator
