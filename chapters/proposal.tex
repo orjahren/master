@@ -183,6 +183,12 @@ For the reasons we have seen in~\Cref{sec:simulatorOverview}, we want to run our
 test cases on Carla. It is the best offering as it is open source, under active
 development and has a feature rich Python \acrshort{api}.
 
+The way the Carla simulator works, one simulator run can be analysed post factum. The entire
+scenario execution is stored in a Carla-specific binary format. This binary file can then later be
+analysed, extracting various metrics from one run. This saves time not having to run the simulator
+more than necessary, and allows for reproducing the metric calculations from the original underlying
+binary log file.
+
 \subsubsection{Test case improvement evaluation}\label{sec:testCaseEval}
 
 We saw in \Cref{sec:adsMetrics} that there are several metrics for assessing
