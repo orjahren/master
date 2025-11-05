@@ -25,9 +25,11 @@ As outlined in \Nref{sec:llmExperimentation}, a locally hosted \num{7.2}B parame
 and \texttt{Gemini 2.5 flash}. The Gemini model obtained significantly better results than the
 Mistral model, probably due to its size.
 
-\subsubsection{Statistics of failure variants}
+\subsubsection{Statistics of failure variants}\label{sec:resultsFailStats}
 
-Table \ref{tab:scenarioFailures} gives a quantification of the various statuses met while performing
+As outlined in \Nref{sec:resultsHallucinations}, the \acrshort{llm} was found to be prone to
+hallucinating problematic output in certain scenarios. Table \ref{tab:scenarioFailures} gives a
+quantification of the various statuses encountered while performing
 \acrshort{llm} experiments for this thesis, outlining \begin{inparaenum}
     \item to what extent scenarios just worked, and
     \item giving statistics of the various kinds of failures.
@@ -76,6 +78,15 @@ it has not been resolved. Testing shows that the same scenarios may be ran witho
 opportunities of obtaining data from the simulation run. The `record' function
 of the scenario runner is the crux of measuring the driveability of the
 scenario.
+
+Note that this is a different kind of problem from those presented in
+\Nref{sec:resultsHallucinations} --
+\emph{this} problem is relevant for \emph{base} scenarios, provided first party by the Carla team.
+A major consequence of this is that it hindered what sort of base scenarios we could experiment
+with. We were naturally unable to experiment with enhancing base scenarios that we were unable to
+run, as we would have no baseline to measure against, and it is highly improbable that the
+scenario would magically start working after having gone through an \acrshort{llm} with a prompt
+aiming at \emph{worsening} its complexity.
 
 \section{Examples of enhanced scenarios}\label{sec:examplesOfEnhancedScenarios}
 
