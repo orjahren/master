@@ -4,14 +4,14 @@ CARLA_HOST = "carla"
 CARLA_PORT = 2000
 
 
-def get_carla_is_up() -> bool:
+def get_carla_is_up(carla_host=CARLA_HOST) -> bool:
     """
     Check if the CARLA simulator is up and running.
     This function attempts to connect to the CARLA server and returns True if successful, otherwise False.
     """
     print("Running carla integration check to see if it is up...")
     try:
-        client = carla.Client(CARLA_HOST, CARLA_PORT)
+        client = carla.Client(carla_host, CARLA_PORT)
         client.get_world()
         return True
     except Exception as e:
