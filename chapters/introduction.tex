@@ -32,16 +32,17 @@ various methods of testing  \acrlong{ads}. Can these existing test methods be im
 
 \section{Problem description}\label{sec:problemDescription}
 
+%We identify \num{3} principal areas for how \acrshortpl{llm} can be employed to benefit
+
 % TODO: Denne kan renames til noe a la "human factors"?
-\subsection{Cost and bias}
+%\subsection{Cost and bias}
 
 Traditional techniques for obtaining \acrshort{ads} scenarios rely on high skilled manual labour.
 This incurs a significant cost, and is a major limitation in obtaining a large number of good
 scenarios, free from the bias of the author.
 % TODO: Bias er ikke relevnt her??
 
-
-\subsection{Impossible to test all scenarios}
+%\subsection{Impossible to test all scenarios}
 Furthermore, even if we were to imagine a world in which we had infinite \begin{inparaenum}
     \item time and
     \item money
@@ -51,11 +52,15 @@ a reality we need to deal with. One possible measure of remedying with this, cou
 same as suddenly having access to the infinite set of possible scenarios, but it is reasonable to
 infer that begin able to \textit{test} the \acrshort{ads} (in a simulator) on these enhanced
 low-driveability scenarios will leave it better fit for encountering other low-driveability
-scenarios in the wild during operation.
+scenarios in the wild during operation. Having access to such a set of less driveable scenarios will
+allow \acrshort{ads} operators to test their \acrshort{ads} that they assume to be working, and see
+if it still is able to handle all these more challenging scenarios. If it is not, they will have
+gained a meaningful insight into the workings of their \acrshort{ads} and can take action to remedy
+the fault before it causes harm in the real world.
 
-\subsection{Edge cases}
+%\subsection{Edge cases}
 
-Edge cases can be a major issue for \acrshort{ads} adaptation. The \textit{tail problem} as it is
+Finally, edge cases can be a major issue for \acrshort{ads} adaptation. The \textit{tail problem} as it is
 known in the \acrshort{ml} field posits that \acrfull{ml} tasks are faced with a long tail of
 unseen cases. We can map these unseen cases, to our unseen \acrshort{ads} scenarios. Because of
 this, an \acrshort{ads} can be at risk of encountering an unseen edge case scenario during
@@ -66,6 +71,10 @@ scenario is not logical. But it is important to keep in mind that the end we are
 broader adaption of \acrfullpl{ads}, is increased safety and efficiency on our roads. Not
 sufficiently testing the \acrshort{ads} before deploying it would not serve our goal of increasing
 road safety -- it would be a gamble with human lives.
+Not all edge cases are relevant for all contexts and environments. As such, \acrshort{ads} system
+developers could employ \acrshortpl{llm} to obtain more of a certain scneario that they wish to
+test, if they were to only be in posession of a tangentially related form. Say for example that they
+wished to obtain a set of scenario in which certain properties are met, or certain situations occur.
 
 \section{Research questions}\label{sec:RQs}
 
