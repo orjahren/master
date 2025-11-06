@@ -26,61 +26,8 @@ index 8a0a3dc..86892b7 100644
          self._scenario_timeout = 240
  
 +        # NEW: Pedestrian parameters, enhancing dynamic complexity
-+        self._pedestrian_bps = [
-+            "walker.pedestrian.0013",
-+            "walker.pedestrian.0027",
-+            "walker.pedestrian.0008",
-+            "walker.pedestrian.0006",
-+            "walker.pedestrian.0035",
-+            "walker.pedestrian.0001",
-+            "walker.pedestrian.0002",
-+            "walker.pedestrian.0004",
-+            "walker.pedestrian.0011",
-+            "walker.pedestrian.0037",
-+            "walker.pedestrian.0005",
-+            "walker.pedestrian.0009",
-+            "walker.pedestrian.0010",
-+            "walker.pedestrian.0026",
-+            "walker.pedestrian.0014",
-+            "walker.pedestrian.0045",
-+            "walker.pedestrian.0015",
-+            "walker.pedestrian.0016",
-+            "walker.pedestrian.0038",
-+            "walker.pedestrian.0041",
-+            "walker.pedestrian.0043",
-+            "walker.pedestrian.0042",
-+            "walker.pedestrian.0044",
-+            "walker.pedestrian.0020",
-+            "walker.pedestrian.0039",
-+            "walker.pedestrian.0022",
-+            "walker.pedestrian.0046",
-+            "walker.pedestrian.0017",
-+            "walker.pedestrian.0034",
-+            "walker.pedestrian.0040",
-+            "walker.pedestrian.0003",
-+            "walker.pedestrian.0051",
-+            "walker.pedestrian.0047",
-+            "walker.pedestrian.0048",
-+            "walker.pedestrian.0049",
-+            "walker.pedestrian.0050",
-+            "walker.pedestrian.0031",
-+            "walker.pedestrian.0028",
-+            "walker.pedestrian.0033",
-+            "walker.pedestrian.0030",
-+            "walker.pedestrian.0007",
-+            "walker.pedestrian.0036",
-+            "walker.pedestrian.0029",
-+            "walker.pedestrian.0012",
-+            "walker.pedestrian.0025",
-+            "walker.pedestrian.0024",
-+            "walker.pedestrian.0021",
-+            "walker.pedestrian.0019",
-+            "walker.pedestrian.0023",
-+            "walker.pedestrian.0032",
-+            "walker.pedestrian.0018"
-+        ]
++        self._pedestrian_bps = [ "NOTE: Removed for brevity in the thesis"  ]
 +
-+        
 +        self._pedestrian_speed = get_value_parameter(config, 'pedestrian_speed', float, 1.5) # ~5.4 km/h
 +        self._pedestrian_drive_distance = get_value_parameter(config, 'pedestrian_drive_distance', float, 10)
 +        self._pedestrian_offset = 0.9 # Further to the side, potentially on sidewalk, for spawning
