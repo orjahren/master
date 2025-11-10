@@ -207,7 +207,19 @@ safety-critical adoption.
 
 \section{Related work}\label{sec:relatedWork}
 
-\subsection{DeepScenario}\label{sec:deepScenario}
+Having obtained an overview of the current state of the literature, we proceed to surveying several
+pieces of applied works. Here, they are categorized broadly with regard to what they do and how the
+do it.
+
+There is some overlap between some of the works and several of the categories. A work gets allocated
+to the category in which that fits the best with regard to the \emph{focus} of the contribution of the work.
+
+\subsection{ADS scenario generation}
+
+The following works relate to generating \acrshort{ads} test scenarios using traditional
+\acrshort{ml} techniques.
+
+\subsubsection{DeepScenario}\label{sec:deepScenario}
 
 DeepScenario is both a dataset and a toolset aimed at \acrlong{ads} testing~\cite{DeepScenario}. The
 principal value proposition of this work lies in recognizing the fact that \begin{inparaenum}
@@ -220,7 +232,7 @@ methodologies, having been performed prior to the broad adaptation of \acrshortp
 
 Its scenarios are intended for the simulator SVL by LG (\Cref{sec:simulatorOverview}).
 
-\subsection{RTCM}
+\subsubsection{RTCM}
 
 RTCM is a \acrshort{ads} testing framework that allows the user to utilise natural language for
 synthesizing test cases. The authors propose a domain-specific language --- called RTCM, after
@@ -235,7 +247,7 @@ take this RTCM source code as input and generating either \begin{inparaenum}
 were evaluated in experiments with industry partners, successfully generating executable test
 cases~\cite[397]{RTCM}.
 
-\subsection{DeepCollision}
+\subsubsection{DeepCollision}
 
 \citeauthor{deepCollision} utilise \acrfull{rl} for \acrshort{ads} testing, with the goal of getting
 the \acrshort{ads} to \textit{collide}. They used \textit{collision probability} for the loss
@@ -248,7 +260,12 @@ that DeepCollision demonstrated significantly better effectiveness in obtaining 
 baselines. While not specifically focused on \textit{testing}, we recognize that their work is thematically
 similar to our envisioned project.
 
-\subsection{AutoSceneGen}\label{sec:autoSceneGen}
+\subsection{Utilising LLMs on ADS scenarios}
+
+The remaining works all relate to utilising \acrshortpl{llm} for various purposes related to
+\acrshort{ads} scenarios.
+
+\subsubsection{AutoSceneGen}\label{sec:autoSceneGen}
 
 AutoSceneGen is a framework for \acrshort{ads} testing using \acrshortpl{llm},
 focusing on the motion planning of \acrlong{ads}~\cite[14539]{autoSceneGen}.
@@ -262,7 +279,7 @@ experiment with using \begin{inparaenum}
 planners trained with their synthetic data significantly outperforms those trained solely on
 real-world data~\cite[14539]{autoSceneGen}.
 
-\subsection{LLM-Driven testing of ADS}%\acrshort{ads}}
+\subsubsection{LLM-Driven testing of ADS}%\acrshort{ads}}
 
 \citeauthor{LLMDrivenTestingADS24} worked on using \acrshortpl{llm} to for automated test generation
 based on free-form textual descriptions in the area of automotive~\cite[173]{LLMDrivenTestingADS24}.
@@ -273,7 +290,7 @@ methodology to be more than \num{10} times faster than traditional methodologies
 cognitive load~\cite[173]{LLMDrivenTestingADS24}.
 % TODO: Cognitive load -> brain atrophy (sec:llMproblems)
 
-\subsection{Requirements All You Need?}
+\subsubsection{Requirements All You Need?}
 
 \citeauthor{requirementsAllYouNeed} provide an overview of \acrshortpl{llm} for \acrshort{ads} in
 their recent preprint~\citetitle{requirementsAllYouNeed}\footnote{This was submitted to Arxiv on
@@ -293,7 +310,7 @@ split the requirements into \num{3} categories: \begin{inparaenum}
 the desired outcomes of the tests, primarily related to the vehicle's
 telemetry~\cite{requirementsAllYouNeed}.
 
-\subsection{Language Conditioned Traffic Generation}
+\subsubsection{Language Conditioned Traffic Generation}
 
 \citeauthor{languageconditionedtrafficgeneration} look into using \acrshortpl{llm} to generate
 specific traffic scenarios. They identify the importance of being able to use simulators to test
@@ -310,7 +327,7 @@ Something to note is that they generate their scenarios, without initially takin
 in the \textit{centre} of the first
 \textit{frame}~\cite[3]{languageconditionedtrafficgeneration}.
 
-\subsection{Scenario engineer GPT}
+\subsubsection{Scenario engineer GPT}
 
 \citeauthor{seGpt} outline a framework for utilising the \acrshort{llm}-backed ChatGPT in order to
 generate scenarios. They propose SeGPT -- a scenario generation framework that they found to yield
@@ -328,7 +345,7 @@ granularity. These are very similar concepts, only that the enhanced scenario wi
 DNA whereas the other `new' scenario will consist of a broader range of DNA from its various
 underlying scenario corpora.
 
-\subsection{LLM driven scenario generation}\label{sec:rwChang24}
+\subsubsection{LLM driven scenario generation}\label{sec:rwChang24}
 
 \citeauthor{LLMScenarioChang24} also look into using \acrlongpl{llm} to generate \acrshort{ads}
 scenarios. They recognize several of the challenges we outline in \Cref{sec:problemDescription}. In
@@ -348,7 +365,7 @@ indicating effectiveness for scenario engineering in Industry 5.0~\cite[6581]{LL
 % TODO: Burde finne ut av hva in nomine christi "industry 5.0" er så jeg ikke risikerer å skrive noe
 % som ikke gir mening.
 
-\subsection{Chat2Scenario}
+\subsubsection{Chat2Scenario}
 
 \citeauthor{chat2Scenario} propose a method for utilising \acrshortpl{llm} to retrieve
 \acrshort{ads} scenarios given a natural language query. Their framework synthesizes scenarios from
@@ -368,7 +385,7 @@ provided query, they put forward a method for classifying the various scenarios 
 \acrshort{ml} techniques. This classification focuses primarily on highway scenarios and the
 activities of other actors in relation to the ego vehicle~\cite[561-562]{chat2Scenario}.
 
-\subsubsection*{Prompt engineering}
+% \textbf{Prompt engineering} <- det ser nesten helt likt ut som et nytt work...
 
 % TODO: Legge inn kryssreferanse til background om prompt engineering? 
 
@@ -386,8 +403,8 @@ satisfactory fulfilment of the desired format could look like. Lastly they instr
 % TODO: Ref siste punkt om "husk å gjøre det riktig" -> kan skrive om dette fenomenet i background
 % og så referere tilbake til det.
 
-\subsection{Predicting driving comfort in autonomous vehicles using road information and multi- head
-    attention models}
+\subsubsection{Predicting driving comfort in autonomous vehicles using road information and multi-
+    head attention models}
 
 The \citeyear{Chen2025} article of \citeauthor{Chen2025}~\cite{Chen2025}, delves into the various
 aspects related to predicting driving comfort in autonomous vehicles based on \begin{inparaenum}
