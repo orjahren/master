@@ -12,9 +12,9 @@
 \epigraph{The torment of precautions often exceeds the dangers to be avoided. It is sometimes better to abandon one's self to destiny.}{Napoléon}
 
 This chapter will describe the experimentation that has been done with the implemented solution
-proposal (\Cref{chp:solutionProposal}), descirbing the methodological process that was undertaken in
+proposal (\Cref{chp:solutionProposal}), describing the methodological process that was undertaken in
 order to obtain the \Nref{chp:results}. This chapter lays the groundwork for presenting them
-succinctly with their relevant context in \Cref{chp:results} and then analyzing them in
+succinctly with their relevant context in \Cref{chp:results} and then analysing them in
 \Cref{chp:discussion}.
 
 \section{Prompts}
@@ -62,14 +62,14 @@ has been shown to be related to several factors contributing to driveability.
 Again owning to the broad scope, exact jerk \emph{numbers} are not relevant -- for our purposes, it
 suffices to have a binary relation to the jerk being either \begin{inparaenum}
     \item more or less unchanged\footnote{Keep in min that \acrshort{ads} motion planners are
-        undeterministic}, or
+        indeterministic}, or
     \item worsened.
 \end{inparaenum} If the driveability has decreased, we will have found a result.
 
 Lastly, it's worth noting that qualitative analysis by intuition from visually inspecting the
 scenarios is also useful here. If the \acrshort{llm} has introduced an obstacle in the course of the
-road where the \acrshort{ads} is to drive, we intuitevely know that this enhanced scenario is more
-complex and less driveable -- which also indicates a result.
+road where the \acrshort{ads} is to drive, we intuitively know that this enhanced scenario is more
+complex and less drivable -- which also indicates a result.
 
 \section{Finding a suitable LLM}\label{sec:llmExperimentation}
 
@@ -102,7 +102,7 @@ out of the \acrshort{llm}. One somewhat cumbersome detail is their bent to mark 
 syntax, the entire \acrshort{llm} response being a Markdown-formatted code block indicating both
 that the output \emph{is} code, and what language it is in,to the first and last line of the output
 (Listing~\ref{lst:llmOutputMarkdown}). Several leaked \acrshort{llm} system prompts corroborate this
-behavior\footnote{See e.g.\url{https://github.com/search?q=repo\%3Ajujumilk3\%2Fleaked-system-prompts\%20markdown&type=code}.}.
+behaviour\footnote{See e.g.\url{https://github.com/search?q=repo\%3Ajujumilk3\%2Fleaked-system-prompts\%20markdown&type=code}.}.
 
 % \begin{lstlisting}[language=Markdown]
 \begin{lstlisting}[caption={LLM-generated Python code with Markdown syntax. The bracketed part on line 3 has been added for demonstration purposes, removing the actual code for brevity.}, label={lst:llmOutputMarkdown}]
