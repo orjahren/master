@@ -219,7 +219,7 @@ to the category in which that fits the best with regard to the \emph{focus} of t
 The following works relate to generating \acrshort{ads} test scenarios using traditional
 \acrshort{ml} techniques.
 
-\subsubsection{DeepScenario}\label{sec:deepScenario}
+\subsubsection{Dataset and toolset -- DeepScenario}\label{sec:deepScenario}
 
 DeepScenario is both a dataset and a toolset aimed at \acrlong{ads} testing~\cite{DeepScenario}. The
 principal value proposition of this work lies in recognizing the fact that \begin{inparaenum}
@@ -232,7 +232,7 @@ methodologies, having been performed prior to the broad adaptation of \acrshortp
 
 Its scenarios are intended for the simulator SVL by LG (\Cref{sec:simulatorOverview}).
 
-\subsubsection{RTCM}
+\subsubsection{Test case specification language -- RTCM}
 
 RTCM is a \acrshort{ads} testing framework that allows the user to utilise natural language for
 synthesizing test cases. The authors propose a domain-specific language --- called RTCM, after
@@ -247,7 +247,7 @@ take this RTCM source code as input and generating either \begin{inparaenum}
 were evaluated in experiments with industry partners, successfully generating executable test
 cases~\cite[397]{RTCM}.
 
-\subsubsection{DeepCollision}
+\subsubsection{Generating crash scenarios -- DeepCollision}
 
 \citeauthor{deepCollision} utilise \acrfull{rl} for \acrshort{ads} testing, with the goal of getting
 the \acrshort{ads} to \textit{collide}. They used \textit{collision probability} for the loss
@@ -257,8 +257,8 @@ training 4 DeepCollision models, then using \begin{inparaenum}
     \item greedy
 \end{inparaenum} models for generating a baseline to compare their models with. The results showed
 that DeepCollision demonstrated significantly better effectiveness in obtaining collisions than the
-baselines. While not specifically focused on \textit{testing}, we recognize that their work is thematically
-similar to our envisioned project.
+baselines. While not specifically focused on \textit{testing}, we recognize that their work is
+thematically similar to our project.
 
 \subsection{Utilising LLMs on ADS scenarios}
 
