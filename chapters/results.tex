@@ -12,12 +12,11 @@ increased insight into the \acrshort{ads} when the \acrshort{llm} is restricted 
 changes to the scenario. Keeping the major components as they were appears to increase the
 likelihood of the scenario still being able to be be ran without excessive problems.
 
-See listing \ref{lst:llmOutputDiff} in the \Nref{sec:fileDiffs} appendix for a complete
-demonstration of what the \acrlong{llm} is capable of doing to an entire scenario in full.
-
-We first look at some general aspects that are shared between all our experiments, before narrowing
-the scope and reviewing a selection of individual scenarios, highlighting the value added by the
-\hefe~tool.
+See listingMoving the \Nref{sec:fileDiffs} appendix for some demonstrations of what the
+\acrlong{llm} is capable of doing to an scenarios with regard to the syntax of scnearios. Going
+ahead, we first look at some general aspects that are shared between all our experiments, before
+narrowing the scope and reviewing a selection of individual scenarios, highlighting the value added
+by the \hefe~tool.
 
 \section{General overview}
 \subsection{LLM evaluation}
@@ -282,44 +281,39 @@ The accident scenario is a bit more complex than the `follow' scenario, represen
 highway where several cars have piled up in front, and the ego vehicle comes around a corner.
 \Cref{fig:accidentBaseStartPoint} visually renders the starting point of the scenario. Note the
 `accident ahead' sign on the right-hand side of the road.
-
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/base/startpoint.png}
-    \caption{A screenshot of the starting point of the `accident'
-        scenario.}\label{fig:accidentBaseStartPoint}
-\end{figure}
-
-
-Continuing further, a pileup of several vehicles appear in the distance.
-
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/base/underway.png}
-    \caption{A screenshot from the `accident' scenario with the ego underway.}\label{fig:accidentBaseUnderway}
-\end{figure}
-
-\Cref{fig:accidentBaseUnderway} shows the progression of the ego continuing around the corner.
-
+Upon continuing further, a pileup of several vehicles appear in the distance.
 The base scenario ends with our ego coming to a halt behind the piled up vehicles.
+\Cref{fig:accidentBaseProgression} shows the start point and the progression of the ego continuing
+around the corner.
+\Cref{fig:accidentBaseStoppedVisual} shows how the situation ends -- with the \acrshort{ads} ego
+stopping behind the pileup of other vehicles.
 
-\begin{figure}[htb]
+\begin{figure}[h]
+    \centering
+    \subfloat[Start of the `accident' scenario.\label{fig:accidentBaseStartPoint}]{
+        \includegraphics[width=0.48\textwidth]{experiment-material/accident-pics/base/startpoint.png}
+    }
+    \subfloat[Ego vehicle underway.\label{fig:accidentBaseUnderway}]{
+        \includegraphics[width=0.48\textwidth]{experiment-material/accident-pics/base/underway.png}
+    }
+    \caption{Progression of the base `accident' scenario: start and underway.}
+    \label{fig:accidentBaseProgression}
+\end{figure}
+
+
+\begin{figure}[h]
     \centering
     \subfloat[The ego stopped behind the pileup.\label{fig:accidentBasePileupBack}]{
-        \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/base/stopped.png}
+        \includegraphics[width=0.48\textwidth]{experiment-material/accident-pics/base/stopped.png}
     }
-    \hfill
     \subfloat[The same situation from a different angle.\label{fig:accidentBasePileupFreecam}]{
-        \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/base/side-view.png}
+        \includegraphics[width=0.48\textwidth]{experiment-material/accident-pics/base/side-view.png}
     }
     \caption{The final ego vehicle state in the base `accident' scenario.}
     \label{fig:accidentBaseStoppedVisual}
 \end{figure}
 
-\Cref{fig:accidentBaseStoppedVisual} show how the situation ends -- with the \acrshort{ads} ego
-stopping behind the pileup of other vehicles.
-
-As for the `follow' scenario, we will enhance the scenario using \acrshort{llm} and measure the
+As for the `follow' scenario, we will enhance the scenario using \acrshortpl{llm} and measure the
 jerk of the ego vehicle between the executions of the scenarios.
 
 \subsubsection{Enhanced scenarios}
@@ -339,14 +333,13 @@ has, however, minimal effect on the ego vehicle. It completes the same action as
 other vehicles were situated on the ground. Furthermore, the concept of having vehicles balancing on
 bollards in the middle of the road has some seriously dubious realism.
 
-\begin{figure}[htb]
+\begin{figure}[h]
     \centering
     \subfloat[The ego stopped behind the pileup, with the vehicles on bollards.\label{fig:accidentMod1PileupBack}]{
-        \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/mod-1/back.png}
+        \includegraphics[width=0.48\textwidth]{experiment-material/accident-pics/mod-1/back.png}
     }
-    \hfill
     \subfloat[The same situation from a different perspective.\label{fig:accidentMod1PileupFreecam}]{
-        \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/mod-1/freecam.png}
+        \includegraphics[width=0.48\textwidth]{experiment-material/accident-pics/mod-1/freecam.png}
     }
     \caption{The final ego vehicle state in the minimally enhanced `accident' scenario.}
     \label{fig:accidentMod1StoppedVisual}
@@ -466,12 +459,12 @@ coming to a halt behind stationary vehicles.
 \begin{figure}[htb]
     \centering
     \subfloat[Jerk in the base scenario, rendered in
-        fig~\ref{fig:accidentBaseStartPoint}\label{fig:accidentBaseJerk}]{
+        fig~\ref{fig:accidentBaseProgression}\label{fig:accidentBaseJerk}]{
         \includegraphics[width=0.45\textwidth]{experiment-material/accident-pics/base/jerk.png}
     }
     \hfill
     \subfloat[Jerk of the ego vehicle in the first minimally enhanced `accident' scenario, the one
-        from fig~\ref{fig:accidentMod1PileupBack}\label{fig:accidentMod1Jerk}]{
+        from fig~\ref{fig:accidentMod1StoppedVisual}\label{fig:accidentMod1Jerk}]{
         \includegraphics[width=0.45\textwidth]{experiment-material/accident-pics/mod-1/jerk.png}
     }
     \hfill

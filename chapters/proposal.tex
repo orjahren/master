@@ -1,6 +1,6 @@
 \chapter{Solution proposal \& implementation details}\label{chp:solutionProposal}
 
-\epigraph{Do or do not, there is no try.}{Master Yoda}
+\epigraph{The only difference between a problem and a solution is that people understand the solution.}{Charles F. Kettering}
 
 We have seen that \acrshort{ads} testing is \textit{complex} and that it is difficult to get a good
 test coverage (\Cref{sec:adsTestingComplexity}). Furthermore, we have seen that \acrshortpl{llm}
@@ -209,7 +209,7 @@ Having ran both the base test case and its enhanced counterpart, we have
 results. The results will be stored in \acrfull{csv} files, allowing \begin{inparaenum}
     \item further analysis in Python/Jupyter,
     and
-    \item easy translation to \LaTeX tables for the final report.
+    \item easy translation to \LaTeX~tables for the final report.
 \end{inparaenum}
 
 This is the final step of the envisioned pipeline. Where we have our result, and
@@ -274,9 +274,7 @@ than during their execution.
 
 Furthermore, it shall also be equipped with functionality for \emph{executing} \acrshort{ads}
 scenarios on Carla. This is trivial when using Carla's existing Scenario Runner
-module's functionality. As of now, this has not yet been implemented due to
-greater challenges in the \acrshort{llm} module -- Odin.
-
+module's functionality.
 
 % Rest API - running test cases - Thor
 % “Fast API”, Python
@@ -370,7 +368,7 @@ utilities\footnote{That architecturally might as well have been integrated in th
 These are essentially quite trivial helpers. Listing \ref{lst:odinScenarioUtils}
 renders the core functionality -- hopefully this is quite self-explaining.
 
-\lstinputlisting[caption={scenario\_utils.py, The implementation of an various scenario helper functions for executing prompts.}, label={lst:odinScenarioUtils}, language={Python}]{hefe-listings/scenario_utils.py}
+\lstinputlisting[caption={scenario\_utils.py, The implementation of various scenario helper functions for executing prompts.}, label={lst:odinScenarioUtils}, language={Python}]{hefe-listings/scenario_utils.py}
 
 \subsubsection{Prompts -- templating and usage}
 
