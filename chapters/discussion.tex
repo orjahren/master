@@ -2,12 +2,15 @@
 
 \epigraph{I would rather have questions that can't be answered than answers that can't be questioned.}{Feynman}
 
-The following will analyse the \Nref{chp:results} in light of what they achieve and evaluate the
-feasibility of the \hefe~approach in comparison to other methods.
-
-
+This chapter will analyse the \Nref{chp:results} in light of what they achieve and evaluate the
+feasibility of the \hefe~approach in comparison to other methods. Finally, we discuss som broader
+aspects related to scenario-based testing of \acrshortpl{ads}.
 
 \section{Result analysis}
+
+The following section will analyse the data presented in the \Nref{chp:results} chapter, evaluating
+the degree to which the results satisfy the research questions, and whether the \acrshort{llm} was
+able to decrease driveability in a meaningful degree.
 
 \subsection{Table of scenario failures}
 
@@ -15,9 +18,39 @@ Something the that the table fails to represent, which is interesting, is the di
 Certain scenarios tend to share the same kind of error across several enhancements. This can sway
 the results and make them appear worse than they are.
 
+\section{Research question analysis}
+
+Let us finish the result analysis by returning to our initial \Nref{sec:RQs} and review to what
+extent this work and its \Nref{chp:results} has answered them.
+
+\subsection{\ref{rq:decrease-driveability}}
+
+Recall that \ref{rq:decrease-driveability} says `\rqcontent{decrease-driveability}'.
+
+The answer to this is clearly \emph{yes}. \Nref{sec:examplesOfEnhancedScenarios} demonstrate
+decreased driveability in several scenarios, across 2 various scenes. The difference between the
+base and its enhanced counterpart is however typically not that significant, as various problems
+arose when the \acrshort{llm} was allowed to make excessive changes. The \Nref{sec:fwLlm} section of
+\Cref{chp:furtherWork} proposes several strategies for remedying this fact.
+
+\subsection{\ref{rq:no-human}}
+
+Recall that \ref{rq:no-human} says `\rqcontent{no-human}'.
+
+This is less clearly a success. While
+certain scenarios did work without human intervention, a greater number needed minor human
+adjustments (see \Cref{tab:scenarioFailures}). The \Nref{sec:fwLlm} section of \Nref{chp:furtherWork} also proposes several strategies for remedying this aspect.
+
+
+\section{Broader discussion}
+
+This section will discuss various aspects related to this \acrshort{llm}-based approach to decrease
+\acrshort{ads} simulator scenarios that are of a general nature and not tied to any specific
+experiment result.
+
 % Fokus her: Hefes value add
 % \section{Dette kontra tradisjonell generering}
-\section{Scenario modification versus scenario generation}
+\subsection{Scenario modification versus scenario generation}
 % TODO: Vil legge inn noe om concept blending her for å forsvare å ha det med i background
 % En LLM genererer et scenario ved å concept blende
 
@@ -26,7 +59,7 @@ many ways similar to scenario \emph{generation}, but there are also certain key 
 review some of these.
 
 % TODO: Gir det mening å ha dette som en subsection når det bare er én i seksjonen?
-\subsection{Unknown substrate}
+\subsubsection{Unknown substrate}
 
 When generating a new scenario, the principal factor in determining what it will contain, is a
 combination of your generation technique, and what sort of training data you will have used for
@@ -48,7 +81,7 @@ scenario substrate. While this is not the focus of this work, one potential aspe
 of grounding related to the `sim2real' gap, and the realism of the scene. Let us now delve further
 into this.
 
-\section{Realism in the enhanced scenario}
+\subsection{Realism in the enhanced scenario}
 
 If your task is to `obtain bad driveability in a scenario using \acrlongpl{llm}' in a very general
 sense, one can imagine all sorts of creative ways this can be achieved. But in our more narrow scope
@@ -74,7 +107,7 @@ version. This asserts a certain realism grounded in the initial scenario, assumi
 itself generally realistic. When generating a brand new scenario, it is plausible that we may lose
 this connection to reality.
 
-\subsection{Sim 2 real gap}
+\subsubsection{Sim 2 real gap}
 
 The so called `sim2real'-gap refers to the distance between a simulation and the real world. We
 typically wish to minimize this gap in order to increase the applicability of our simulations to
@@ -115,9 +148,9 @@ in such a way that base \acrshortpl{llm} typically don't have the possibility of
 doing without additional tooling that allows for executing Python code and
 determining what these position should have been.
 
-\section{LLM aspects}\label{sec:discussionLlmAspects}
+\subsection{LLM aspects}\label{sec:discussionLlmAspects}
 
-\subsection{Cost/benefits of using LLMs}
+\subsubsection{Cost/benefits of using LLMs}
 % \section{Environmental concerns}
 
 \acrshortpl{llm} consume significant resources (\Cref{sec:llmProblems}). In order to justify their
@@ -131,7 +164,7 @@ results in \Cref{chp:results}, it is important to keep in mind the environmental
 Perhaps future work can look into obtaining similar results using greener strategies.
 
 
-\subsection{Context size}
+\subsubsection{Context size}
 
 By their nature, \acrshortpl{llm} have a set context size. If your prompt exceeds the context size
 of the \acrshort{llm}, it will appear to `forget' parts of the input. This poses a potential problem
@@ -144,12 +177,12 @@ Furthermore, certain scenarios sometimes exist in one file. I.e., we use a singl
 several scenarios. This can potentially cause issues for the \acrshort{llm} in that it will need to
 know which scenario it is to focus on. This has, however, not caused significant issues for this project.
 
-\subsection{Alignment}
+\subsubsection{Alignment}
 
 AI alignment is a topic in of itself. How can we know that goals of the AI are the same goals as we
 have?
 
-\subsection{Bias}
+\subsubsection{Bias}
 
 One of the motivations for performing this project, was to circumvent potential bias with the
 scientists that manually create scenarios. But it's worth noting that this \hefe~scenario
@@ -164,7 +197,7 @@ Perhaps the \acrshort{llm} has some hidden bias preventing it from allowing us t
 aspects of the scenes?
 
 % Når LLMen endrer ting på andre siden av mapet osv som bare ikke påvirker ego vehicle overhode
-\subsection{What is being changed in the scenario?}
+\subsubsection{What is being changed in the scenario?}
 
 Scenarios centre on the ego vehicle. But what if the \acrshort{llm} changes parts of the scene that
 don't affect the ego? In these cases, all metrics should be more or less the same\footnote{Keep in
@@ -172,7 +205,7 @@ don't affect the ego? In these cases, all metrics should be more or less the sam
     not be identical.}. But then there is no point in having done the modification. This has also not
 been a problem for these experiments.
 
-\section{Scenario formats}
+\subsection{Scenario formats}
 % \section{Python / OpenScenario / DSI}
 
 This project utilises scenario in the Python format. Scenarios can also be represented by other
@@ -182,7 +215,7 @@ have their pros and cons. Let us discuss some of these.
 
 It's worth noting that the proposed solution can trivially be adapted to work with other formats.
 
-\subsection{Python}
+\subsubsection{Python}
 
 One major advantage with using Python formats is that most \acrshortpl{llm} have significant
 familiarity with it due to the significant extant Python training data. But this is a double-edged
@@ -204,7 +237,7 @@ In an ideal world, we would want an \acrshort{llm} that was fine tuned for this 
 optimize its knowledge of the relevant software versions and decrease the likelihood of it for
 whatever reason attempting to use bad versions that cause issues.
 
-\subsection{XML-based OpenSCENARIO}
+\subsubsection{XML-based OpenSCENARIO}
 
 The XML-based format is probably the most traditional. Due to its significantly less widespread
 usage, \acrshortpl{llm} are less likely to have widespread domain knowledge of it. A major advantage
@@ -214,7 +247,7 @@ change.d
 Something to note is that the Carla simulator only has limited support for the
 features of OpenSCENARIO.
 
-\subsection{DSL-based OpenSCENARIO}
+\subsubsection{DSL-based OpenSCENARIO}
 
 Similar to the XML-based format, the scenario \acrshort{dsl} is less widely available in training corpora. However, it also maintains the advantage of being more static and less prone to change.
 
@@ -260,7 +293,7 @@ Listing~\ref{lst:OSDSL} presents an example of an OpenSCENARIO \acrshort{dsl} sc
 additional context for understanding the concept of the format. The example is copied
 from the \href{https://github.com/carla-simulator/scenario_runner/blob/master/srunner/examples/acceleration.osc}{Carla scenario runner examples}.
 
-\section{When is enough -- when is the ADS \emph{safe}?}
+\subsection{When is enough -- when is the ADS \emph{safe}?}
 
 An interesting perspective regarding this scenario based testing of
 \acrshortpl{ads} is this: How can we ever know that it has been sufficiently
