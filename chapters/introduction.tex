@@ -55,9 +55,14 @@ testing. We therefore ask -- can these existing test scenarios be made less driv
 
 % TODO: Denne kan renames til noe a la "human factors"? \subsection{Cost and bias}
 
-Traditional techniques for obtaining \acrshort{ads} scenarios rely on high skilled manual labour.
-This incurs a significant cost, and is a major limitation in obtaining a large number of good
-scenarios.
+Traditional techniques for obtaining \acrshort{ads} scenarios rely on
+\begin{inparaenum}
+    \item highly skilled manual labour, Or
+    \item automated generation~\cite[1]{yao2025agentsllm}.
+\end{inparaenum}
+The prior incurs a significant cost, and is a major limitation in obtaining a large number of good
+scenarios. The latter incurs a \emph{distributional shift} from the original scnearios, which can
+undermine the validity of using them~\cite[1]{yao2025agentsllm}.
 
 %\subsection{Impossible to test all scenarios}
 Moreover, even if we were to imagine a world in which we had infinite \begin{inparaenum}
@@ -65,7 +70,7 @@ Moreover, even if we were to imagine a world in which we had infinite \begin{inp
     \item money, \end{inparaenum} we would not be able to successfully account for every possible
 scenario.
 There will always be more, unforeseen permutations of actors and actions. This is a reality
-we need to deal with.
+we need to deal with~\cite[1]{leahy2024grandchallenge}.
 One possible measure of remedying with this, could be to \textit{decrease} the
 driveability of our existing scenarios. Decreasing the driveability is not the same as suddenly
 having access to the infinite set of possible scenarios, but it is reasonable to infer that being
@@ -84,8 +89,7 @@ Finally, edge cases can be a major issue for \acrshort{ads} adaptation. The \tex
 it is known in the \acrshort{ml} field posits that \acrfull{ml} tasks are faced with a long tail of
 unseen cases. We can map these unseen cases, to our unseen \acrshort{ads} scenarios. Because of
 this, an \acrshort{ads} can be at risk of encountering an unseen edge case scenario during operation
--- something for which it might never have been tested.
-% TODO: Burde referere ting om tail problem? 
+-- something for which it might never have been tested~\cite[1]{yao2025agentsllm}.
 Arguing that the \acrshort{ads} would probably crash simply due to it finding itself in an unseen
 scenario is not logical. But it is important to keep in mind that the end we are pursing in the
 broader adaption of \acrfullpl{ads}, is increased safety and efficiency on our roads. Not
