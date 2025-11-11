@@ -181,4 +181,14 @@ Further work could look into defining mathematical properties for what qualifies
 decreased driveability'. \citeauthor{adsQualityMetrics21} propose several evaluation
 criteria~\cite[196]{adsQualityMetrics21}. One typical example could be to look at whether the jerk
 exceeded a certain threshold during scenario execution -- but even then, we neeed to define what
-this threshold should be. Several heuristics may be applicable.
+this threshold should be. Several heuristics may be applicable. And it really isn't the case that
+`more jerk' indicates the presence of a result, as maintaining \emph{the same} jerk could be equally
+indicative of a result. This has to be tailored to the specific scene, in light of what the
+\acrshort{llm} has changed. In certain cases it would be good to see an increased jerk, and in other
+cases we would want it to remain the same. The reason for this is that if the \acrshort{llm} changes
+something on the other side of the map that doesn't affect the \acrshort{ads} ego (c.f.
+\Cref{sec:whatIsBeingChanged}), we should not count it as a failure for the \acrshort{ads} if it
+fails to obtain more jerk -- it should be counted as a failure for the \acrshort{llm}.
+
+This is a \emph{hard} question and has been one of the major recurring challenges while working on
+this project.
