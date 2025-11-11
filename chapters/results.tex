@@ -3,45 +3,17 @@
 \epigraph{It doesn't matter how beautiful your theory is, it doesn't matter how smart you are. If it doesn't agree with experiment, it's wrong.}{Feynman}
 
 This chapter will survey a selection of results from performing various experiments (see
-\Nref{chp:experiments}). The experiments indicate that the initially proposed solution of feeding
-bare \acrshort{ads} scenarios represented by Python code into \acrshortpl{llm}, can yield meaningful
-results.
-While the \acrshort{llm} can propose excessive changes that causes issues when performing the
-simulation when left to its own initiative, the output scenarios are \emph{good} and provide
-increased insight into the \acrshort{ads} when the \acrshort{llm} is restricted to propose minimal
-changes to the scenario. Keeping the major components as they were appears to increase the
-likelihood of the scenario still being able to be be ran without excessive problems.
+\Nref{chp:experiments}). This chapter will \emph{present} the results, and they will then be
+analysed later in \Nref{sec:resultAnalysis}.
 
-See listingMoving the \Nref{sec:fileDiffs} appendix for some demonstrations of what the
+See the listings in the \Nref{sec:fileDiffs} appendix for some demonstrations of what the
 \acrlong{llm} is capable of doing to an scenarios with regard to the syntax of scnearios. Going
 ahead, we first look at some general aspects that are shared between all our experiments, before
 narrowing the scope and reviewing a selection of individual scenarios, highlighting the value added
 by the \hefe~tool.
 
-\section{General overview}
-\subsection{LLM evaluation}
-
-As outlined in \Nref{sec:llmExperimentation}, the experimentation was done using a locally hosted
-\num{7.2}B parameter Mistral model, and a far larger Gemini model -- \texttt{Gemini 2.5 flash}. The
-Gemini model obtained significantly better results than the Mistral model, probably due to its size.
-The mistral model produced incoherent output and was a lot slower\footnote{Argubably probably due to
-    it running on quite weak hardware. Speed is not a fair comparison.} This is way all the following
-results are done with the Gemini model.
-
-\subsection{Statistics of failure variants}\label{sec:resultsFailStats}
-
-As outlined in \Nref{sec:resultsHallucinations}, the \acrshort{llm} was found to be prone to
-hallucinate problematic output in certain scenarios. Table \ref{tab:scenarioFailures} gives a
-quantification of the various statuses encountered while performing
-\acrshort{llm} experiments for this thesis, outlining \begin{inparaenum}
-    \item to what extent scenarios just worked, and
-    \item giving statistics of the various kinds of failures.
-\end{inparaenum} Note that each modified scenario can only ever be
-counted as \num{1} sort of failure. So if a scenario fails due to hallucinated imports, it
-will not also count as a scenario that failed due to having illegally placed objects regardless of
-however many cases of this it might have attempted. In a similar fashion, we are only able to track
-the first instance of the error within a given scenario. So if a modified scenario contains \num{2}
-hallucinated imports, it will only be counted as \num{1} in table \ref{tab:scenarioFailures}.
+Table \ref{tab:scenarioFailures} following renders a table of the status of executing various
+scenarios after they have been processed by a Gemini \acrshort{llm}.
 
 \begin{table}[htbp]
     \centering
@@ -65,9 +37,7 @@ hallucinated imports, it will only be counted as \num{1} in table \ref{tab:scena
     \label{tab:scenarioFailures}
 \end{table}
 
-
-
-\subsection{Carla crashes with certain scenarios}\label{sec:resCarlaUnstable}
+% \subsection*{Carla crashes with certain scenarios}\label{sec:resCarlaUnstable}
 
 There appears to be a bug in Carla version 0.9.15\footnote{Which is the version
     employed for this project.} which causes the program to \emph{hard crash} when
@@ -205,9 +175,7 @@ Let us now review some of these enhanced versions of the scenario.
 
 \subsubsection{Enhanced scenarios}
 
-One result entails having there be a truck in the middle of the road. This significantly decreases
-the driveability of the scenario -- it is no longer possible to simple drive straight, the
-\acrshort{ads} \emph{must} handle the problem of a static vehicle in its path.
+The enhanced scenarios are simply presented here, and then analysed later in \Nref{sec:resultAnalysis}.
 
 % Disse 2 er hhv mod-1 og mod-2 fra Hefe
 
@@ -218,8 +186,7 @@ the driveability of the scenario -- it is no longer possible to simple drive str
 \end{figure}
 
 \Cref{fig:followMinimallyEnhanced1StartPoint} gives a visual representation of the initial state of
-the enhanced scenario, clearly highlighting how the \acrshort{ads} has decreased the driveability of
-the scenario by presenting additional motion planning challenges.
+one enhanced scenario,
 
 Another result (\Cref{fig:followMinimallyEnhanced2StartPoint}) places a vehicle parked on the edge
 of the road. This is inline with our prompt, representing a change that is both \begin{inparaenum}
@@ -258,22 +225,6 @@ scenario.
     \label{fig:jerkComparison}
 \end{figure}
 
-In the case of the base scenario (\Cref{fig:followBaseJerk}), we see that the jerk is mostly stable
-after the initial acceleration. This is in line with what we expect form the vehicle simply being
-able to continually drive straight at constant speed. The dip at the end represents the vehicle coming to a halt at a traffic light. This is the end of the
-scenario.
-
-In the case of the first minimally enhanced scenario (\Cref{fig:followMinimallyEnhanced1Jerk}), we
-see that the jerk is substantive at first, while converging at \num{0} after a short while. This is
-due to the \acrshort{ads} simply not being able to pass the truck in the middle of the road. This
-demonstrates a significant value in our proposed tool -- here lies a scenario that can be manually
-reviewed and used for evaluating \emph{why} the \acrshort{ads} failed to drive past the parked truck.
-
-The jerk in 2nd enhanced follow scenario (\Cref{fig:followMinimallyEnhanced2Jerk}) is stable. This
-tells us that our ego vehicle was able to pass the parked van without additional issues\footnote{In
-    the provided simulation execution, the other vehicle spent a substantial amount of time at the
-    intersection, which is why the jerk appears as \num{0} for some time before the simulation
-    terminates.}.
 
 \subsection{Base scenario: Accident}\label{chp:resultsAccidentScenario}
 
@@ -314,24 +265,15 @@ stopping behind the pileup of other vehicles.
 \end{figure}
 
 As for the `follow' scenario, we will enhance the scenario using \acrshortpl{llm} and measure the
-jerk of the ego vehicle between the executions of the scenarios.
+jerk of the ego vehicle between the executions of the scenarios, only presenting the enhanced
+scenarios and their data points here, and then analyzing them later in \Nref{sec:resultAnalysis}.
 
 \subsubsection{Enhanced scenarios}
 
 The first enhancement is done using the `minimal changes'-prompt (listing
-\ref{lst:minimalChangesPrompt}), and similarly to the `follow' scenario, it also works well for the
-`accident' scenario, resulting in an output scenario that is able to run on the Carla simulator
-without significant issues.
-
-However, due to the nature of the enhancement the \acrshort{llm} has opted for, no changes are being
-reflected in the jerk metrics. The \acrfull{llm} tries to make 2 modifications: \begin{inparaenum}
-    \item situating the piled-up vehicles on bollards,  and
-    \item spawning pedestrian actors.
-\end{inparaenum}
-The spawning of the pedestrian actors fails, but situating some of the vehicles on cones works. This
-has, however, minimal effect on the ego vehicle. It completes the same action as it did when the
-other vehicles were situated on the ground. Furthermore, the concept of having vehicles balancing on
-bollards in the middle of the road has some seriously dubious realism.
+\ref{lst:minimalChangesPrompt}). It is rendered visually in \Cref{fig:accidentMod1StoppedVisual} and
+the complete diff of this enhancement is rendered in listing \ref{lst:appendixDiffAccidentMod1} in
+\Cref{sec:appendixAccidentDiffs}.
 
 \begin{figure}[h]
     \centering
@@ -345,8 +287,6 @@ bollards in the middle of the road has some seriously dubious realism.
     \label{fig:accidentMod1StoppedVisual}
 \end{figure}
 
-The complete diff of this enhancement is rendered in listing \ref{lst:appendixDiffAccidentMod1} in
-\Cref{sec:appendixAccidentDiffs}.
 
 \begin{lstlisting}[language=python, label={lst:jerkPrompt}, caption={A prompt instructing the \acrshort{llm} to make as few changes as possible, while maximizing a specific metric.}]
   "minimal_changes_specific_metric": lambda python_carla_scenario_raw, specific_metric: f"""
@@ -372,8 +312,6 @@ of the \acrshort{llm} optimizing for the \emph{jerk} metric. The iterated prompt
 listing \ref{lst:jerkPrompt}. Note how the prompt is generic and takes the metric as an argument,
 allowing for other metrics to be used in a similar fashion.
 
-Utilising the jerk prompt yields similar results to the base prompt that doesn't mention any
-metrics.
 
 \begin{figure}[htb]
     \centering
@@ -403,12 +341,8 @@ seen in listing \ref{lst:jerkDiff}.
          self._offset = 0.6
 \end{lstlisting}
 
-While one could argue that this \emph{is} \textbf{an} enhancement, it is not that interesting. It is
-too minimal to be of any real value. Note that the prompt does instruct the \acrshort{llm} to indeed
-do be minimal, so this might be a matter of bad prompting.
-% TODO: Det er wack å si "det er en dårlig prompt" og så fortsette å bruke den dårlige delen lol
 Therefore, we do yet another iteration of the prompt, underlining what scenario the \acrshort{llm}
-should focus on:
+should focus on (listing \ref{lst:jerkPromptSpecificScenario}).
 
 \begin{lstlisting}[language=python, label={lst:jerkPromptSpecificScenario}, caption={A prompt instructing the \acrshort{llm} to make as few changes as possible, while maximizing a specific metric only in a specified scenario.}]
     "minimal_changes_shared_file_specific_metric": lambda python_carla_scenario_raw, scenario_name, specific_metric: f"""
@@ -432,11 +366,6 @@ should focus on:
     """,
 \end{lstlisting}
 
-Upon executing this final prompt, we get a better result, with a set of changes that only affect the
-relevant `accident' scenario. But even then, the execution of the scenario is in many ways the same.
-The most striking difference is that another vehicle is now moving. But this has no effect on the
-ego vehicle, as it stops before interacting with the now moving vehicle. The diff is rendered in
-listing \ref{lst:jerkOptimizedAccidentMod3}, and the visual state is shown in \Cref{fig:accidentMod3FinalFreecam}.
 
 \lstinputlisting[caption={The diff of the jerk-optimized Accident scenario with stricter specification.}, label={lst:jerkOptimizedAccidentMod3}, language={diff}]{experiment-material/accident-mod-3.diff}
 
@@ -449,12 +378,6 @@ listing \ref{lst:jerkOptimizedAccidentMod3}, and the visual state is shown in \C
 \end{figure}
 
 Note how the vehicle behind the taxicab is moving in \Cref{fig:accidentMod3FinalFreecam}.
-
-Finally, let us review the calculated jerk metrics from these runs of the `accident' scenario,
-similarly to the initial `follow' scenario. As shown in \Cref{fig:jerkComparisonAccident}, there are
-no significant gains. They all follow the same pattern, which is in line with what we expect from
-having
-coming to a halt behind stationary vehicles.
 
 \begin{figure}[htb]
     \centering
@@ -475,7 +398,3 @@ coming to a halt behind stationary vehicles.
     \caption{Jerk of the ego vehicle in the base and enhanced `accident' scenarios.}
     \label{fig:jerkComparisonAccident}
 \end{figure}
-
-Overall, this indicates this being a feasible way of obtaining \acrshort{ads} scenarios with minimal
-costs, in many ways helping with solving our stated problems (\Cref{sec:problemDescription}). Let us
-now further analyse the results and discuss what they mean in a broader sense.

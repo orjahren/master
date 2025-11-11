@@ -6,17 +6,153 @@ This chapter will analyse the \Nref{chp:results} in light of what they achieve a
 feasibility of the \hefe~approach in comparison to other methods. Finally, we discuss som broader
 aspects related to scenario-based testing of \acrshortpl{ads}.
 
-\section{Result analysis}
+\section{Result analysis}\label{sec:resultAnalysis}
 
 The following section will analyse the data presented in the \Nref{chp:results} chapter, evaluating
 the degree to which the results satisfy the research questions, and whether the \acrshort{llm} was
 able to decrease driveability in a meaningful degree.
 
+Overall, the experiments indicate that the initially proposed solution of feeding
+bare \acrshort{ads} scenarios represented by Python code into \acrshortpl{llm}, can yield meaningful
+results.
+While the \acrshort{llm} can propose excessive changes that causes issues when performing the
+simulation when left to its own initiative, the output scenarios are \emph{good} and provide
+increased insight into the \acrshort{ads} when the \acrshort{llm} is restricted to propose minimal
+changes to the scenario. Keeping the major components as they were appears to increase the
+likelihood of the scenario still being able to be be ran without excessive problems.
+
+\subsection{LLM evaluation}
+
+As outlined in \Nref{sec:llmExperimentation}, the experimentation was done using a locally hosted
+\num{7.2}B parameter Mistral model, and a far larger Gemini model -- \texttt{Gemini 2.5 flash}. The
+Gemini model obtained significantly better results than the Mistral model, probably due to its size.
+The mistral model produced incoherent output and was a lot slower\footnote{Argubably probably due to
+    it running on quite weak hardware. Speed is not a fair comparison.} This is why all the following
+results are done with the Gemini model.
+
 \subsection{Table of scenario failures}
+
+As outlined in \Nref{sec:resultsHallucinations}, the \acrshort{llm} was found to be prone to
+hallucinate problematic output in certain scenarios. Table \ref{tab:scenarioFailures} gives a
+quantification of the various statuses encountered while performing
+\acrshort{llm} experiments for this thesis, outlining \begin{inparaenum}
+    \item to what extent scenarios just worked, and
+    \item giving statistics of the various kinds of failures.
+\end{inparaenum} Note that each modified scenario can only ever be
+counted as \num{1} sort of failure. So if a scenario fails due to hallucinated imports, it
+will not also count as a scenario that failed due to having illegally placed objects regardless of
+however many cases of this it might have attempted. In a similar fashion, we are only able to track
+the first instance of the error within a given scenario. So if a modified scenario contains \num{2}
+hallucinated imports, it will only be counted as \num{1} in table \ref{tab:scenarioFailures}.
 
 Something the that the table fails to represent, which is interesting, is the dispersion of errors.
 Certain scenarios tend to share the same kind of error across several enhancements. This can sway
 the results and make them appear worse than they are.
+
+\subsection{Enhanced scenarios: Follow vehicle}
+
+As presented in \Nref{sec:followVehicleResults}, the \acrshort{llm} does be able to \emph{enhance}
+this scenario. We show how the most basic prompt (listing \ref{lst:basicPrompt}) fails to rein in
+the \acrshort{llm} which leads to hallucination that causes the scenario to fail to run.
+
+We then iterate on the prompt (listing \ref{lst:strictPrompt}) in order to reduce the halluciantions
+and be able to get a runnable scenario out form the \acrshort{llm}. But even this does not work --
+the enhanced scenario still fails to run.
+
+This is why we iterate on the prompt again, instructing the \acrshort{llm} to make \emph{minimal
+    changes} (listing \ref{lst:minimalChangesPrompt}), with the rationale that if the changes to an
+already working scenario are minimal, there is a greater chance that the output scenario will also
+work due to how similar they are.
+
+While this reduces our potenial gain -- it would naturally be more interesting to see significantly
+modified scenarios -- this does work, and the output scenario is runnable.
+
+The first enhnaced scneario -- \Cref{fig:followMinimallyEnhanced1StartPoint} -- entails having there
+be a truck in the middle of the road. This significantly decreases the driveability of the scenario
+-- it is no longer possible to simple drive straight, the \acrshort{ads} \emph{must} handle the
+problem of a static vehicle in its path.
+
+
+Comparing this visually to the base scenario (\Cref{fig:followBaseStartpoint}) clearly highlights
+how the \acrshort{ads} has decreased the driveability of  the scenario by presenting additional
+motion planning challenges. This intuition is corroborated by the jerk figures from executing the
+\num{2} scenarios (\Cref{fig:jerkComparison})
+
+In the case of the base scenario (\Cref{fig:followBaseJerk}), we see that the jerk is mostly stable
+after the initial acceleration. This is in line with what we expect form the vehicle simply being
+able to continually drive straight at constant speed. The dip at the end represents the vehicle coming to a halt at a traffic light. This is the end of the
+scenario.
+
+In the case of the first minimally enhanced scenario (\Cref{fig:followMinimallyEnhanced1Jerk}), we
+see that the jerk is substantive at first, while converging at \num{0} after a short while. This is
+due to the \acrshort{ads} simply not being able to pass the truck in the middle of the road. This
+demonstrates a significant value in our proposed tool -- here lies a scenario that can be manually
+reviewed and used for evaluating \emph{why} the \acrshort{ads} failed to drive past the parked truck.
+
+On the other hand, the other enhanced `follow' scenario
+(\Cref{fig:followMinimallyEnhanced2StartPoint}) is not indicated to have decreased driveability in
+the jerk graph. The jerk in 2nd enhanced follow scenario (\Cref{fig:followMinimallyEnhanced2Jerk})
+is stable. This tells us that our ego vehicle was able to pass the parked van without additional
+issues\footnote{In
+    the provided simulation execution, the other vehicle spent a substantial amount of time at the
+    intersection, which is why the jerk appears as \num{0} for some time before the simulation
+    terminates.}.
+
+And this makes sense. The \acrshort{ads} \emph{has} been presented with an additional challenge (the
+parked van on the side of the road), making the scene more complex, but it was able to solve the
+problem without any extra effort.
+This has given us increased insight into the workings of the \acrshort{ads}, making this count as a
+result. The jerk need not always \emph{increase} to count as a result -- the same jerk is still a
+meaningful result.
+
+\subsection{Enhanced scenarios: Accident}
+
+The first enhancement is done using the `minimal changes'-prompt (listing
+\ref{lst:minimalChangesPrompt}), and similarly to the `follow' scenario, it also works well for the
+`accident' scenario, resulting in an output scenario that is able to run on the Carla simulator
+without significant issues.
+
+However, due to the nature of the enhancement the \acrshort{llm} has opted for, no changes are being
+reflected in the jerk metrics. The \acrfull{llm} tries to make 2 modifications: \begin{inparaenum}
+    \item situating the piled-up vehicles on bollards,  and
+    \item spawning pedestrian actors.
+\end{inparaenum}
+The spawning of the pedestrian actors fails, but situating some of the vehicles on cones works. This
+has, however, minimal effect on the ego vehicle. It completes the same action as it did when the
+other vehicles were situated on the ground. Furthermore, the concept of having vehicles balancing on
+bollards in the middle of the road has some seriously dubious realism.
+
+Iterating on the prompt, we still want to optimize for the jerk metric and experiment with including
+this specific metric \emph{in} the prompt (c.f. listing \ref{lst:jerkPrompt}).
+Utilising the jerk prompt yields similar results to the base prompt that
+doesn't mention any metrics.
+% TODO: Det er wack å si "det er en dårlig prompt" og så fortsette å bruke den dårlige delen lol
+While one could argue that this \emph{is} \textbf{an} enhancement, it is not that interesting. It is
+too minimal to be of any real value. Note that the prompt does instruct the \acrshort{llm} to indeed
+do be minimal, so this might be a matter of bad prompting.
+
+Note how prompt \ref{lst:jerkPrompt} led to the \acrshort{llm} modifying \emph{several} scenarios.
+This is caused by the file in question housing several scenarios. This is not in itself \emph{wrong}
+per se, but we naturally wish to isolate the scenario we are working on and not distract the
+\acrshort{llm} with other secnarios. We therefore iterate on the prompt again and specify the
+\emph{name} of the relevant scenario in the file, as shown in listing
+\ref{lst:jerkPromptSpecificScenario}.
+
+Upon executing this final prompt, we get a better result, with a set of changes that only affect the
+relevant `accident' scenario. But even then, the execution of the scenario is in many ways the same.
+The most striking difference is that another vehicle is now moving. But this has no effect on the
+ego vehicle, as it stops before interacting with the now moving vehicle. The diff is rendered in
+listing \ref{lst:jerkOptimizedAccidentMod3}, and the visual state is shown in
+\Cref{fig:accidentMod3FinalFreecam}.
+
+Finally, let us review the calculated jerk metrics from these runs of the `accident' scenario,
+similarly to the initial `follow' scenario. As shown in \Cref{fig:jerkComparisonAccident}, there are
+no significant gains. They all follow the same pattern, which is in line with what we expect from
+having coming to a halt behind stationary vehicles.
+
+Overall, this indicates this being a feasible way of obtaining \acrshort{ads} scenarios with minimal
+costs, in many ways helping with solving our stated problems (\Cref{sec:problemDescription}). Let us
+now further analyse the results and discuss what they mean in a broader sense.
 
 \section{Research question analysis}
 
@@ -197,7 +333,7 @@ Perhaps the \acrshort{llm} has some hidden bias preventing it from allowing us t
 aspects of the scenes?
 
 % Når LLMen endrer ting på andre siden av mapet osv som bare ikke påvirker ego vehicle overhode
-\subsubsection{What is being changed in the scenario?}
+\subsubsection{What is being changed in the scenario?}\label{sec:whatIsBeingChanged}
 
 Scenarios centre on the ego vehicle. But what if the \acrshort{llm} changes parts of the scene that
 don't affect the ego? In these cases, all metrics should be more or less the same\footnote{Keep in
