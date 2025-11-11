@@ -3,18 +3,13 @@
 \epigraph{This inductively justifies the conclusion that induction cannot justify any conclusions.}{David Deutsch}
 
 In this master's thesis, we propose a tool -- \hefe{}~-- for using \acrlongpl{llm} to decrease the
-driveability of \acrfull{ads} scenarios in order to expose underlying weaknesses in the
-\acrshort{ads}. We show this work is in line with what is to be expected from other works in the
-field, validating the concept for focusing on making less significant changes to the original
-scenario with a focus on the jerk metric. When allowing the \acrshort{llm} to make excessive changes
-to the scenario, problems related to hallucination and simulator crashes arise under our
-\acrshort{llm}- and prompting strategy.
+driveability of \acrshort{ads} scenarios in order to increase confidence in the \acrshort{ads} and
+expose underlying weaknesses in the system. We show this work is in line with what is to be expected
+from comparison with other related works in the field, validating that the concept works quite well
+for focusing on making less significant changes to the original scenario with a focus on the jerk
+metric. When allowing the \acrshort{llm} to make excessive changes to the scenario, problems related
+to hallucination and simulator crashes arise under our current \acrshort{llm}- and prompting
+strategies.
 
-
-\section{Can large language models make our roads safer?}
-
-While there also are other feasible strategies
-for achieving this goal that fall outside of the scope of this
-thesis\footnote{\acrshort{llm}-powered assistants may for example allow human drives to maintain
-    their focus on the road.}, when focusing on exposing possible faults in \acrshortpl{ads} thanks to
-decreased driveability in simulator scenarios, we have shown the answer to be `yes'.
+We propose several strategies for improving this initial version of the tool in
+\Nref*{chp:furtherWork}.
