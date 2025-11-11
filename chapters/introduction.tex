@@ -8,25 +8,42 @@ Conventional cars are ubiquitous in society~\cite[1]{thorgersen2021why}. Whether
 trafficking or for humans, cars have great flexibility with their ability to go wherever without
 requiring tailored infrastructure such as railway tracks. They do, however, have one major weak
 point --- the human driver~\cite[67]{Riener2010}. For this reason, industry and academia have put
-forward efforts to enhancing cars with \acrfull{ads} capabilities. By \emph{empowering humans} with
+forward efforts to enhancing cars with \acrfull{ads} capabilities. By empowering humans with
 autonomous vehicles, it is expected that traffic safety and efficiency will increase along with
 comfort as well as enabling the development of several other new transportation methods~\cite[1-2,
     1]{Eichberger2020, weiADSAdoption}.
 
-Due to the critical safety situation of operating a car in a public setting where other external
-actors are present, it is essential that \acrlongpl{ads} are thoroughly tested before they are
-deployed so that they are confirmed to be sufficiently safe and capable of handling the situations
-in which they may typically end up~\cite[1]{surveyLLMScenarioBasedTesting}. But due to the
-complicated nature of the typical \acrshort{ads} operating environment, coming up with exhaustive
-system test solutions is near impossible~\cite[52]{DeepScenario}. For this reason we want a way of
-testing the system that is capable of pushing the \acrlong{ads} to its limits such that we can
-measure its performance and see if it is capable of handling complex scenarios.
+Due to the critical safety situation of operating a car, it is essential that \acrlongpl{ads} are
+thoroughly tested before they are deployed so that they are verified to be sufficiently safe and
+capable of handling the situations in which they may typically end
+up~\cite[1]{surveyLLMScenarioBasedTesting}.
+But due to the complicated nature of the typical
+\acrshort{ads} operating environment, coming up with exhaustive system test solutions is near
+impossible~\cite[52]{DeepScenario}. For this reason we want a way of testing the system that is
+capable of pushing the \acrlong{ads} to its limits such that we can measure its performance and see
+if it is capable of handling critical scenarios~\cite{yao2025agentsllm}.
 
-Having an existing repository of \acrlong{ads} simulator scenarios, we wish to improve them.
+Existing methods for testing \acrshortpl{ads} typically rely on driving billions of miles, but this
+incurs high cost, and is time-intensieve~\cite[1]{surveyLLMScenarioBasedTesting}. To address some
+of these concerns, \acrshort{ads} simulators have been utilised. But it's not the case that we will
+\emph{know} that the \acrshort{ads} is safe after it has driven $x$ kilometers on roads or
+$y$ kilometeres in a simulator -- we will never be able to predict all possible operating
+situations in advance~\cite[1]{leahy2024grandchallenge}.
+Therefore, we need to challenge the \acrshort{ads} as much as possible when testing it. Having it
+take on a set of low-driveability test scenarios in advance of real-world operations,
+we can be more confident in the correctness of our \acrshort{ads} if it is able to complete the
+scenario. By making the scenario \emph{more complex} -- less driveable -- for
+the \acrshort{ads}, our confidence in it will increase if it is able to complete the scenario. And
+if it fails at executing the more complex scenario, we will have potentially have uncovered an
+underlying issue in the \acrshort{ads} that we did not know about so that we can fix it before it
+causes harm in the real world.
+
+Having an existing repository of \acrlong{ads} simulator scenarios, we wish to improve
+them in such a way that they are less driveable and more challenging for the \acrshort{ads}.
 \acrfullpl{llm} have demonstrated great capabilities of context learning and emergent
 abilities~\cite[1]{LLM4AD}, which begs the question of their applicability for \acrshort{ads}
-testing. There are various methods of testing \acrlong{ads}~\cite[1]{surveyLLMScenarioBasedTesting}.
-Can these existing test methods be improved by applying \acrshort{llm} technology to them?
+testing. We therefore ask -- can these existing test scenarios be made less driveable by applying
+\acrshort{llm} technology to them?
 
 % Yet, testing is \textit{important} for \acrlong{ads}, and text case generation is costly. We
 % therefore pose the question: Can \acrshort{llms} be applied for (1) lowering the cost of testing,
@@ -41,8 +58,6 @@ Can these existing test methods be improved by applying \acrshort{llm} technolog
 Traditional techniques for obtaining \acrshort{ads} scenarios rely on high skilled manual labour.
 This incurs a significant cost, and is a major limitation in obtaining a large number of good
 scenarios.
-
-KAN BRUKE PAPER https://arxiv.org/abs/2411.14155 her
 
 %\subsection{Impossible to test all scenarios}
 Moreover, even if we were to imagine a world in which we had infinite \begin{inparaenum}
