@@ -4,7 +4,9 @@
 
 This chapter will give an introduction to \acrshortpl{ads} and \acrshortpl{llm},
 laying the foundation for understanding the motivation of the project more
-in-depth, such that the appeal of the later solution proposal is more clear. 
+in-depth, such that the appeal of the later solution proposal is more clear. Due
+to the significant attention that is afforded to \emph{driveability}, it gets
+its own section (\Cref{sec:adsDrivability}).
 
 
 % \subsection{Autonomous systems}
@@ -16,7 +18,7 @@ in-depth, such that the appeal of the later solution proposal is more clear.
 % environments. Some systems operate in the maritime domain, some in the air, and
 % others on the ground in the terrestrial operating domain~\cite[369-370]{watson2005autonomous}.
 
-\section{Autonomous driving systems (ADSs)}
+\section{Autonomous driving system testing}
 
 \acrfullpl{ads} are systems that enable automotive vehicles to drive autonomously. Due to the typical
 operating scenarios of a car it is pivotal that the \acrlong{ads} maintain a
@@ -24,84 +26,6 @@ high safety standard.
 This section focuses on presenting an outline of the concept of
 \emph{driveability}, and then the proceeding section will delve into further
 detali concerning aspects relating specifically to the \emph{testing} of \acrshortpl{ads}.
-
-\subsection{Autonomous driving system driveability}\label{sec:adsDrivability}
-
-\emph{Driveability} is a high-level estimator of the overall driving
-condition of an \acrshort{ads}, derived from several lower-level sources~\cite[3140]{safeToDrive}.
-It can be used to refer to various aspects of a scene.
-\citeauthor{safeToDrive} discuss the concept further, using the  scene definition
-of~\citeauthor{scenes} as outlined in  \Cref{sec:adsSimConcepts}, they describe
-how driveability can refer both to \begin{inparaenum}
-    \item road conditions, and
-    \item human driver performance.
-\end{inparaenum}
-\citeauthor{safeToDrive} go on to give an overview of how driveability
-can be used to refer to a \begin{inparaenum}\setcounter{enumi}{2}
-    \item \textit{driveability map} which divides a map into
-    cells indicating where the \acrshort{ads} expects that it will be able to go, and
-    \item \textit{object driveability}, which refers to the classification of physical objects in
-    the environment that the \acrshort{ads} expects that it can run over without causing damage to
-    the ego vehicle~\cite[3135-3136]{safeToDrive}.
-\end{inparaenum}
-
-The main method for assessing the driveability of a scene comes form assessing the environment of
-the scene. Factors such as \begin{inparaenum}
-    \item weather,
-    \item traffic flow,
-    \item road condition, and
-    \item obstacles \end{inparaenum} all play into this. The \acrshort{ads} infers information from
-observation~\cite[3136]{safeToDrive}.
-
-They continue to give an overview of various \textit{driveability factors} and their associated
-difficulties, using a a split between \textit{explicit} and \textit{implicit} factors.
-
-\emph{Explicit driveability factors} will typically include factors such as \emph{Extreme
-    weather} such as \begin{inparaenum}
-    \item fog,
-    \item heavy rain,
-    \item snow,
-\end{inparaenum}
-all serving to impair road visibility and causing increased difficulties for vision-based tasks such
-as road detection and object tracking~\cite[3136-3137]{safeToDrive}. \emph{Illumination} also
-poses various challenges for typical \acrshort{ads} tasks as a typical \acrshort{ads} will be
-required to operate in a plethora of scenes with varying degrees of illumination depending on
-factors such as time of day and location (e.g. if the \acrshort{ads} is operation in a dimly lit
-tunnel)~\cite[3137]{safeToDrive}. The authors highlight how low illumination may serve as an
-advantage for the \acrshort{ads} as this allows for using the head lights of other vehicles as a
-feature for detecting them, whereas it make pedestrian detection significantly more
-challenging~\cite[3137]{safeToDrive}. \emph{Road geometry} is another external factor, satisfying
-our natural intuition that \textit{intersections} and \textit{roundabouts} are more difficult to
-drive through than straight highways~\cite[3137]{safeToDrive}.
-
-\emph{Implicit driveability factors} consist of behaviours and intent of other road users
-interacting with the autonomous car~\cite[3138]{safeToDrive}. This includes the actions of other
-vehicles such as their \begin{inparaenum}
-    \item overtaking,
-    \item lane changing,
-    \item rear-ending,
-    \item speeding, and
-    \item failure to obey traffic laws \end{inparaenum}.~\citeauthor{safeToDrive} call these factors
-\emph{vehicle behaviours}~\cite[3138]{safeToDrive}. Furthermore, \emph{pedestrian behaviours}
-are also taken into account, noting how pedestrians can sometimes
-\begin{inparaenum}\setcounter{enumi}{5}
-    \item cross the road,
-    \item be inattentive, or
-    \item fail to comply with the traffic law \end{inparaenum}\cite[3138]{safeToDrive}. They go on
-to describe the \emph{driver behaviour} of other drivers pointing out how
-\begin{inparaenum}\setcounter{enumi}{8}
-    \item distraction, and
-    \item drowsiness \end{inparaenum} can be factors that cause accidents even for
-\acrshort{ads}-enhanced vehicles due to the other, manual, cars
-interfering with their operation~\cite[3138-3139]{safeToDrive}. Lastly
-\emph{motorcyclist/bicyclist behaviours} cause their own source of implicit driveability factors:
-The models and methods developed for analysing the group's behaviour are far more limited than other
-groups of road users~\cite[3139]{safeToDrive}.~\citeauthor{safeToDrive} theorise that this comes
-down to the lack of available datasets that capture and label the trajectories and behaviours
-of motorcyclists and bicyclists~\cite[3139]{safeToDrive}, causing potential issues for any
-\acrshort{ads} that wishes to operate in a shared traffic environment with this group.
-
-\section{Autonomous driving system testing}
 
 Testing is essential for assuring \acrshort{ads} operative safety~\cite[163]{ADTestingReview16}.
 Several methods for \acrshort{ads} testing exist, all testing various aspects of the \acrshort{ads}. An \acrshort{ads}
@@ -215,7 +139,7 @@ being confined by the  physical world that is available to the scientist that wi
 testing. Using a simulator, a Europe-based scientist can test their \acrshort{ads} for North
 American conditions, or vice-versa.
 
-\subsection{Overview of  ADS simulators}\label{sec:simulatorOverview}
+\subsubsection{Overview of  ADS simulators}\label{sec:simulatorOverview}
 
 Due to the appeal of running \acrshort{ads} simulation, several contenders exist
 on the market.
@@ -239,7 +163,7 @@ simulators we have seen, this also focused on autonomous vehicles outside of
 only cars, such as drones.
 
 
-\subsection{Concepts of ADS simulation}\label{sec:adsSimConcepts}
+\subsubsection{Concepts of ADS simulation}\label{sec:adsSimConcepts}
 
 \citeauthor{scenes} draw up an outline for the terms \textit{scene}, \textit{situation}, and
 \textit{scenario}, that are all concepts widely used in \acrshort{ads} simulation testing.
@@ -303,6 +227,82 @@ format~\cite[4941]{convOpenScenarioToCR}.
 
 % TODO: Skrive om Carlas støtte for Python-scenarioer
 % TODO: Skrive om Carla scenario runner her?
+
+\section{The concept of driveability}\label{sec:adsDrivability}
+
+\emph{Driveability} is a high-level estimator of the overall driving
+condition of an \acrshort{ads}, derived from several lower-level sources~\cite[3140]{safeToDrive}.
+It can be used to refer to various aspects of a scene.
+\citeauthor{safeToDrive} discuss the concept further, using the  scene definition
+of~\citeauthor{scenes} as outlined in  \Cref{sec:adsSimConcepts}, they describe
+how driveability can refer both to \begin{inparaenum}
+    \item road conditions, and
+    \item human driver performance.
+\end{inparaenum}
+\citeauthor{safeToDrive} go on to give an overview of how driveability
+can be used to refer to a \begin{inparaenum}\setcounter{enumi}{2}
+    \item \textit{driveability map} which divides a map into
+    cells indicating where the \acrshort{ads} expects that it will be able to go, and
+    \item \textit{object driveability}, which refers to the classification of physical objects in
+    the environment that the \acrshort{ads} expects that it can run over without causing damage to
+    the ego vehicle~\cite[3135-3136]{safeToDrive}.
+\end{inparaenum}
+
+The main method for assessing the driveability of a scene comes form assessing the environment of
+the scene. Factors such as \begin{inparaenum}
+    \item weather,
+    \item traffic flow,
+    \item road condition, and
+    \item obstacles \end{inparaenum} all play into this. The \acrshort{ads} infers information from
+observation~\cite[3136]{safeToDrive}.
+
+They continue to give an overview of various \textit{driveability factors} and their associated
+difficulties, using a a split between \textit{explicit} and \textit{implicit} factors.
+
+\emph{Explicit driveability factors} will typically include factors such as \emph{Extreme
+    weather} such as \begin{inparaenum}
+    \item fog,
+    \item heavy rain,
+    \item snow,
+\end{inparaenum}
+all serving to impair road visibility and causing increased difficulties for vision-based tasks such
+as road detection and object tracking~\cite[3136-3137]{safeToDrive}. \emph{Illumination} also
+poses various challenges for typical \acrshort{ads} tasks as a typical \acrshort{ads} will be
+required to operate in a plethora of scenes with varying degrees of illumination depending on
+factors such as time of day and location (e.g. if the \acrshort{ads} is operation in a dimly lit
+tunnel)~\cite[3137]{safeToDrive}. The authors highlight how low illumination may serve as an
+advantage for the \acrshort{ads} as this allows for using the head lights of other vehicles as a
+feature for detecting them, whereas it make pedestrian detection significantly more
+challenging~\cite[3137]{safeToDrive}. \emph{Road geometry} is another external factor, satisfying
+our natural intuition that \textit{intersections} and \textit{roundabouts} are more difficult to
+drive through than straight highways~\cite[3137]{safeToDrive}.
+
+\emph{Implicit driveability factors} consist of behaviours and intent of other road users
+interacting with the autonomous car~\cite[3138]{safeToDrive}. This includes the actions of other
+vehicles such as their \begin{inparaenum}
+    \item overtaking,
+    \item lane changing,
+    \item rear-ending,
+    \item speeding, and
+    \item failure to obey traffic laws \end{inparaenum}.~\citeauthor{safeToDrive} call these factors
+\emph{vehicle behaviours}~\cite[3138]{safeToDrive}. Furthermore, \emph{pedestrian behaviours}
+are also taken into account, noting how pedestrians can sometimes
+\begin{inparaenum}\setcounter{enumi}{5}
+    \item cross the road,
+    \item be inattentive, or
+    \item fail to comply with the traffic law \end{inparaenum}\cite[3138]{safeToDrive}. They go on
+to describe the \emph{driver behaviour} of other drivers pointing out how
+\begin{inparaenum}\setcounter{enumi}{8}
+    \item distraction, and
+    \item drowsiness \end{inparaenum} can be factors that cause accidents even for
+\acrshort{ads}-enhanced vehicles due to the other, manual, cars
+interfering with their operation~\cite[3138-3139]{safeToDrive}. Lastly
+\emph{motorcyclist/bicyclist behaviours} cause their own source of implicit driveability factors:
+The models and methods developed for analysing the group's behaviour are far more limited than other
+groups of road users~\cite[3139]{safeToDrive}.~\citeauthor{safeToDrive} theorise that this comes
+down to the lack of available datasets that capture and label the trajectories and behaviours
+of motorcyclists and bicyclists~\cite[3139]{safeToDrive}, causing potential issues for any
+\acrshort{ads} that wishes to operate in a shared traffic environment with this group.
 
 \section{Large language models (LLMs)}
 
