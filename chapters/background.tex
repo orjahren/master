@@ -36,7 +36,7 @@ used alongside more specialized \acrshort{ads} testing techniques such as \texti
 
 \subsection{Autonomous driving system driveability}\label{sec:adsDrivability}
 
-\textbf{Driveability} is a high-level estimator of the overall driving
+\emph{Driveability} is a high-level estimator of the overall driving
 condition of an \acrshort{ads}, derived from several lower-level sources~\cite[3140]{safeToDrive}.
 It can be used to refer to various aspects of a scene.
 \citeauthor{safeToDrive} discuss the concept further, using the  scene definition
@@ -65,25 +65,25 @@ observation~\cite[3136]{safeToDrive}.
 They continue to give an overview of various \textit{driveability factors} and their associated
 difficulties, using a a split between \textit{explicit} and \textit{implicit} factors.
 
-\textbf{Explicit driveability factors} will typically include factors such as \textbf{Extreme
+\emph{Explicit driveability factors} will typically include factors such as \emph{Extreme
     weather} such as \begin{inparaenum}
     \item fog,
     \item heavy rain,
     \item snow,
 \end{inparaenum}
 all serving to impair road visibility and causing increased difficulties for vision-based tasks such
-as road detection and object tracking~\cite[3136-3137]{safeToDrive}. \textbf{Illumination} also
+as road detection and object tracking~\cite[3136-3137]{safeToDrive}. \emph{Illumination} also
 poses various challenges for typical \acrshort{ads} tasks as a typical \acrshort{ads} will be
 required to operate in a plethora of scenes with varying degrees of illumination depending on
 factors such as time of day and location (e.g. if the \acrshort{ads} is operation in a dimly lit
 tunnel)~\cite[3137]{safeToDrive}. The authors highlight how low illumination may serve as an
 advantage for the \acrshort{ads} as this allows for using the head lights of other vehicles as a
 feature for detecting them, whereas it make pedestrian detection significantly more
-challenging~\cite[3137]{safeToDrive}. \textbf{Road geometry} is another external factor, satisfying
+challenging~\cite[3137]{safeToDrive}. \emph{Road geometry} is another external factor, satisfying
 our natural intuition that \textit{intersections} and \textit{roundabouts} are more difficult to
 drive through than straight highways~\cite[3137]{safeToDrive}.
 
-\textbf{Implicit driveability factors} consist of behaviours and intent of other road users
+\emph{Implicit driveability factors} consist of behaviours and intent of other road users
 interacting with the autonomous car~\cite[3138]{safeToDrive}. This includes the actions of other
 vehicles such as their \begin{inparaenum}
     \item overtaking,
@@ -91,19 +91,19 @@ vehicles such as their \begin{inparaenum}
     \item rear-ending,
     \item speeding, and
     \item failure to obey traffic laws \end{inparaenum}.~\citeauthor{safeToDrive} call these factors
-\textbf{vehicle behaviours}~\cite[3138]{safeToDrive}. Furthermore, \textbf{pedestrian behaviours}
+\emph{vehicle behaviours}~\cite[3138]{safeToDrive}. Furthermore, \emph{pedestrian behaviours}
 are also taken into account, noting how pedestrians can sometimes
 \begin{inparaenum}\setcounter{enumi}{5}
     \item cross the road,
     \item be inattentive, or
     \item fail to comply with the traffic law \end{inparaenum}\cite[3138]{safeToDrive}. They go on
-to describe the \textbf{driver behaviour} of other drivers pointing out how
+to describe the \emph{driver behaviour} of other drivers pointing out how
 \begin{inparaenum}\setcounter{enumi}{8}
     \item distraction, and
     \item drowsiness \end{inparaenum} can be factors that cause accidents even for
 \acrshort{ads}-enhanced vehicles due to the other, manual, cars
 interfering with their operation~\cite[3138-3139]{safeToDrive}. Lastly
-\textbf{motorcyclist/bicyclist behaviours} cause their own source of implicit driveability factors:
+\emph{motorcyclist/bicyclist behaviours} cause their own source of implicit driveability factors:
 The models and methods developed for analysing the group's behaviour are far more limited than other
 groups of road users~\cite[3139]{safeToDrive}.~\citeauthor{safeToDrive} theorise that this comes
 down to the lack of available datasets that capture and label the trajectories and behaviours
@@ -212,20 +212,20 @@ American conditions, or vice-versa.
 Due to the appeal of running \acrshort{ads} simulation, several contenders exist
 on the market.
 
-\textbf{Carla} is a widely used \acrshort{ads} simulator~\cite{Carla}. It is implemented
+\emph{Carla} is a widely used \acrshort{ads} simulator~\cite{Carla}. It is implemented
 using the game engine UnrealEngine~\cite{unrealengine} and allows for running
 test cases under various scenarios and collecting their results. Carla is fully
 open source and is under active development. It has been applied in projects such as KITTI-Carla,
 which generated a KITTI dataset using Carla~\cite{kittiCarla}.
 
-\textbf{LGSVL} is a deprecated simulator from LG~\cite{lgsvl}. It was used in projects such
+\emph{LGSVL} is a deprecated simulator from LG~\cite{lgsvl}. It was used in projects such
 as DeepScenario~\cite{DeepScenario}. It allowed for running various maps with various vehicles and
 tracking their data. It was also capable of generating HD
 maps \footnote{\url{https://github.com/lgsvl/simulator?tab=readme-ov-file\#introduction}}.
 DeepScenario is a project similar to this, concerned with testing \acrlongpl{ads}. Further details
 about it in are located in \Nref{sec:relatedWork}.
 
-\textbf{AirSim} is Microsoft's offering~\cite{airsim}. It has, like LGSVL,
+\emph{AirSim} is Microsoft's offering~\cite{airsim}. It has, like LGSVL,
 been deprecated. It is also built using UnrealEngine. Unlike the other
 simulators we have seen, this also focused on autonomous vehicles outside of
 only cars, such as drones.
@@ -236,12 +236,12 @@ only cars, such as drones.
 \citeauthor{scenes} draw up an outline for the terms \textit{scene}, \textit{situation}, and
 \textit{scenario}, that are all concepts widely used in \acrshort{ads} simulation testing.
 
-\textbf{scene} is a term that is used in different manners in various
+\emph{scene} is a term that is used in different manners in various
 articles~\cite[982]{scenes}, but \citeauthor{scenes} propose standardising the definition on
 \textit{a scene describing a snapshot of the environment including the scenery and dynamic elements,
     as well as  as all actors’ and observers’ self-representations, and the relationships among those entities}~\cite[983]{scenes}.
 
-\textbf{situation} is, like \textit{scene}, employed in various fashions. \citeauthor{scenes}
+\emph{situation} is, like \textit{scene}, employed in various fashions. \citeauthor{scenes}
 give a background detailing its usage ranging from \textit{"the entirety of circumstances,
     which are to be considered by a robot for its selection of an appropriate behaviour pattern in a
     particular moment'}\footnote{The translation from German is borrowed from \citeauthor{scenes},
@@ -254,7 +254,7 @@ described~\cite[892]{schmidtScenario}.
     the entirety of circumstances, which  are to be considered for the selection of an
     appropriate behaviour pattern at a particular point of time}~\cite[985]{scenes}.
 
-\textbf{scenario} refers to \textit{'the temporal development between several scenes in a sequence
+\emph{scenario} refers to \textit{'the temporal development between several scenes in a sequence
     of scenes'}\cite[986]{scenes}. We note how the definition a a scenario utilises that of a scene.
 Furthermore, \citeauthor{scenes} hold it to be the case that \textit{'every scenario starts with an
     initial scene. Actions \& events as well as goals \& values may be  specified to characterize
@@ -277,7 +277,7 @@ simulated as the \textit{ego vehicle}~\cite{egoDefinition}.
 
 \subsubsection{ADS scenario formats}\label{sec:adsScenarioFormats}
 
-\textbf{OpenSCENARIO} is a standard developed by the Association for Automation and
+\emph{OpenSCENARIO} is a standard developed by the Association for Automation and
 Measurement Systems (ASAM), which is dedicated to the description of dynamic
 scenarios~\cite[651]{generatingOpenScenario}. Under this format, only the
 \textit{dynamic} content of the scenario is recorded in the file. The static
@@ -287,7 +287,7 @@ OpenCRG~\cite[652]{generatingOpenScenario}. The simulator Carla (outlined in
 standard~\cite[652]{generatingOpenScenario}.
 
 Another widely popular scenario format is
-\textbf{CommonRoad}~\cite[4941]{convOpenScenarioToCR}, first proposed in
+\emph{CommonRoad}~\cite[4941]{convOpenScenarioToCR}, first proposed in
 \citedate{commonRoadOG}~\cite{commonRoadOG}. There are tools such as those
 proposed by \citeauthor{convOpenScenarioToCR} that allows for converting
 OpenSCENARIO scenarios to the CommonRoad
@@ -398,7 +398,7 @@ The Sapir-Whorf hypothesis posits that  \textit{The structure of anyone’s nati
 We note how this maps to our \acrshortpl{llm}, indicating that they will only ever
 be able to `know' the data on which they have come into contact with.
 
-Or: \textbf{Language} defines the possible room for \textbf{thought}.
+Or: \emph{Language} defines the possible room for \emph{thought}.
 
 
 \subsubsection{Conceptual blending}
@@ -432,11 +432,11 @@ linguistic data.
 A typical way of interacting with \acrshortpl{llm} is \textit{prompting}~\cite[44]{llmSurvey}. You
 prompt the model to solve various tasks. As we saw in \Nref{sec:emergentAbilities}, the level of
 performance you are able to extract from your \acrlong{llm} can depend a great deal on how you
-interact with it. The process of manually creating a suitable prompt is called \textbf{prompt
+interact with it. The process of manually creating a suitable prompt is called \emph{prompt
     engineering}~\cite[44]{llmSurvey}.~\citeauthor{llmSurvey} outline three principal prompting
 approaches:
 
-\textbf{\acrfull{icl}} is a representative prompting method that formulates the task
+\emph{\acrfull{icl}} is a representative prompting method that formulates the task
 description and/or demonstrations in natural language text~\cite[44]{llmSurvey}. It is based on
 \textit{tuning-free prompting} and it, as the name implies, never tunes the parameters of the
 \acrshort{llm}~\cite[15]{promptingSurvey}. One the one hand, this allows for efficiency, but on the
@@ -445,7 +445,7 @@ provide the \acrshort{llm} with several answered prompts~\cite[16]{promptingSurv
 terms, \acrshort{icl} entails including examples of the process you want the model to perform when
 prompting it.
 
-\textbf{\acrfull{cot} prompting} is proposed to enhance \acrlong{icl} by involving a
+\emph{\acrfull{cot} prompting} is proposed to enhance \acrlong{icl} by involving a
 series of intermediate reasoning steps in prompts~\cite[44, 52]{llmSurvey}. The basic concept of
 \acrshort{cot} prompting, is including an actual \acrlong{cot} inside the prompt that shows the way
 form the input to the output~\cite[52]{llmSurvey}.~\citeauthor{llmSurvey} note that the same effect
@@ -453,7 +453,7 @@ can be achieved by including simple instructions like `\textit{Let's think step 
 similar `magic prompts' in the prompt to the \acrshort{llm}, making \acrshort{cot} prompting easy to
 use~\cite[52]{llmSurvey}.
 
-\textbf{Planning} is proposed for solving complex tasks, which first breaks them down into smaller
+\emph{Planning} is proposed for solving complex tasks, which first breaks them down into smaller
 sub-tasks and then generates a plan of action to solve the sub-tasks one by
 one~\cite[44, 54]{llmSurvey}. The plans are being generated by the \acrshort{llm} itself upon
 prompting it, and there is a distinction between text-based and code-based approaches. Text-based
