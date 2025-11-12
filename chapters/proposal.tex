@@ -27,17 +27,21 @@ improve these, and run the improved versions and compare them to their original
 versions.
 
 This will allow us to learn the extent to which \acrshortpl{llm} can be applied for decrasing
-driveability in \acrlong{ads} test scenaiors, satisfying the \Nref{sec:problemDescription}. We will survey several \acrshortpl{llm} and evaluate their applicability
+driveability in \acrlong{ads} test scenarios, satisfying the \Nref{sec:problemDescription}. We will survey several \acrshortpl{llm} and evaluate their applicability
 for the problem at hand, in light of what we know about \acrshortpl{llm} (\Nref{sec:llmJungle}). We
 want to have a pipeline that is able to process several test cases in succession, in order to get a
 substantial dataset.
 
 
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/base/underway.png}
+    \caption{A screenshot from executing a Carla scenario.}\label{fig:carlaScenarioExample}
+\end{figure}
 
-Furthermore, as outlined in \citeauthor{LLM4AD}, \acrlongpl{llm} can be applied to several aspects
-of \acrlong{ads}. We will however focus on the driveability of the scenarios, in line with the
-\Nref{sec:problemDescription}.
-
+\Cref{fig:carlaScenarioExample} renders an example of how it can appear when exeucitng a test
+scenario on the Carla simulator. Runs like this will later ber presented in \Nref{chp:results} and
+then analysed in \Nref{chp:discussion} to evaluate the value of the \hefe~tool.
 
 % \section*{The applicability of \acrshortpl{llm} in \acrshort{ads} testing}
 \section{Broad architectural overview}
