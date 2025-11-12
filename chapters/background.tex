@@ -4,11 +4,10 @@
 
 This chapter will give an introduction to \acrshortpl{ads} and \acrshortpl{llm},
 laying the foundation for understanding the motivation of the project more
-in-depth, such that the appeal of the later solution proposal is more clear. Due
-to the significant attention that is afforded to \emph{driveability}, it gets
-its own section (\Cref{sec:adsDrivability}).
+in-depth, such that the appeal of the later solution proposal is more clear. 
 
 
+\section{Autonomous driving systems}
 % \subsection{Autonomous systems}
 % 
 % Autonomous systems are systems that are capable of changing their behaviour in
@@ -16,109 +15,13 @@ its own section (\Cref{sec:adsDrivability}).
 % operation~\cite[368]{watson2005autonomous}. Autonomous systems exist in several
 % different forms and they are typically tailored for their specific operating
 % environments. Some systems operate in the maritime domain, some in the air, and
-% others on the ground in the terrestrial operating domain~\cite[369-370]{watson2005autonomous}.
+% others on the ground in the terrestrial operating
+% domain~\cite[369-370]{watson2005autonomous}.
 
-\section{Autonomous driving system testing}
 
 \acrfullpl{ads} are systems that enable automotive vehicles to drive autonomously. Due to the typical
 operating scenarios of a car it is pivotal that the \acrlong{ads} maintain a
 high safety standard. 
-This section focuses on presenting an outline of the concept of
-\emph{driveability}, and then the proceeding section will delve into further
-detali concerning aspects relating specifically to the \emph{testing} of \acrshortpl{ads}.
-
-Testing is essential for assuring \acrshort{ads} operative safety~\cite[163]{ADTestingReview16}.
-Several methods for \acrshort{ads} testing exist, all testing various aspects of the \acrshort{ads}. An \acrshort{ads}
-typically exists of several modules, all working together and handling different aspect of the
-\acrshort{ads}. 
-In the context of this project, the module we target is the \emph{motion
-planner} -- the part of the \acrshort{ads} that is responsible for `driving' the car.
-A common way to test the motion planner is to use simulator based testing~\cite[1]{DeepScenario}.
-
-
-\citeauthor{ADTestingReview16} further outline several typical architectures for \acrshort{ads} testing,
-drawing on traditional software testing traditions outlining how \textit{software testing} can be
-used alongside more specialized \acrshort{ads} testing techniques such as \textit{simulation
-    testing} and \textit{X-in-the-loop testing}~\cite[163-164]{ADTestingReview16}.
-
-
-\subsection{Autonomous driving system testing metrics}\label{sec:adsMetrics}
-
-When evaluating \acrshort{ads} testing, several metrics can be used. What metric to use will depend
-on what the relevant test is measuring.
-
-Building on what we have learnt about driveability (\Cref{sec:adsDrivability}),
-we take after \citeauthor{safeToDrive} and review three metrics for
-quantifying driveability: \begin{inparaenum}
-    \item scene driveability,
-    \item collision-based risk, and
-    \item behaviour-based risk. Finally, we also investigate the mertric
-    \item jerk.
-\end{inparaenum}
-
-\emph{Scene driveability} refers to how easy a scene is for an
-\acrshort{ads} to navigate, and the \textit{scene driveability score} refers to
-how likely the \acrlong{ads} is to fail at traversing the
-scene~\cite[3140]{safeToDrive}. It is typically found through and end-to-end
-approach. Note how this is a metric for \textit{scenes}, without taking into
-account the performance of any specific \acrshort{ads}.
-
-\emph{Collision-based risk} comes in two kinds - \begin{inparaenum}
-    \item binary risk indicator, and
-    \item probabilistic risk indicator.
-\end{inparaenum} \citeauthor{safeToDrive} posit that the prior, binary metric, indicates whether a
-collision will happen in the near future in a binary `either-or' sense, whereas the latter yields a
-probability calculated based on current states, event, choice of hypothesis, future states and
-damage~\cite[3140]{safeToDrive}.
-
-\emph{Behaviour-based risk} estimation also represents a binary classification problem wherein
-nominal behaviours are learnt from data, and then dangerous behaviours are detected on that. This
-requires a definition of `nominal behaviour', which is typically defined on on acceptable speeds,
-traffic roles, location semantics, weather conditions and/or the level of fatigue of the
-driver~\cite[3140]{safeToDrive}. Furthermore \citeauthor{safeToDrive} describe how this metric also
-allows more than one \acrshort{ads} to be labelled as `conflicting' or `not
-conflicting'~\cite[3140]{safeToDrive}, representing a ruling on their compatibility. Finally, they
-note how behaviour-based risk assessment typically focuses on driver behaviours, not taking into
-account other actors in the scene such as pedestrians or cyclists.
-
-Furthermore, \emph{jerk} is a metric that renders the change of vehicle acceleration with respect to
-time. It has been used been used as a measure of the smoothness or abruptness of a movement in many
-domains such as the trajectory planning of the human arm and industrial
-robots~\cite[126]{fengJerk17}. Jerk has also been shown to relate to a driver’s
-physiological feelings of ride comfort~\cite[126]{fengJerk17}, giving it a clear relation to our
-previously stated definition of driveability.~\citeauthor{fengJerk17} go on to posit that a goal of
-driving should be to minimize the jerk, as it both is both \begin{inparaenum}
-    \item linked to comfort, and
-    \item detection of safety-critical events
-\end{inparaenum}\cite[126]{fengJerk17}.
-
-\subsection{The complexities of ADS testing}\label{sec:adsTestingComplexity}
-
-As we have seen, \acrshortpl{ads} can perform several tasks, in several environments. As such, there
-are several relevant factors for testing them. It is not feasible to test all potential variations
-of all potential environments in the real world, meaning that the \textit{test
-    coverage}\footnote{See \Nref{sec:testCoverage}} typically will be low.
-
-Some of the factors that complicate \acrshort{ads} operations are \begin{inparaenum}
-    \item timing,
-    \item sequence of events, and
-    \item parameter settings such as the different speeds of various vehicles and other actors.
-\end{inparaenum}
-
-\citeauthor{adsComplexityIndex18} posit that \textit{the concept of complexity exists everywhere,
-    but there is no agreement on one for driving situations}~\cite[1182]{adsComplexityIndex18}.
-Therefore they introduce their own concept of \acrfull{dsc}, which serves to give a metric of a
-the complexity of a given driving situation. Their \acrshort{dsc} is defined as the output of a
-mathematical formula taking into account the perplexity and standard deviation of several
-control variables $\mathcal{M}$ representing the surrounding vehicle's
-behaviour~\cite[1182]{adsComplexityIndex18}. Their formula also takes into account the ratio of
-\textit{V2X}-capable vehicles~\cite[1182]{adsComplexityIndex18}, i.e. the vehicles that are
-connected and capable of communicating~\cite[1]{v2xTestingSurvey2019}.
-
-% It is common to modularize the testing of \acrshort{ads} so that the individual modules can be
-% tested in isolation. The modules of an \acrshort{ads} typically include a motion planner, a
-% \acrfull{cv} system, and % LIDAR. This allows for testing the individual modules in a way that
-% makes sense for their specific domains.
 
 \subsection{ADS simulation}
 
@@ -228,7 +131,7 @@ format~\cite[4941]{convOpenScenarioToCR}.
 % TODO: Skrive om Carlas støtte for Python-scenarioer
 % TODO: Skrive om Carla scenario runner her?
 
-\section{The concept of driveability}\label{sec:adsDrivability}
+\subsection{The concept of driveability}\label{sec:adsDrivability}
 
 \emph{Driveability} is a high-level estimator of the overall driving
 condition of an \acrshort{ads}, derived from several lower-level sources~\cite[3140]{safeToDrive}.
@@ -303,6 +206,106 @@ groups of road users~\cite[3139]{safeToDrive}.~\citeauthor{safeToDrive} theorise
 down to the lack of available datasets that capture and label the trajectories and behaviours
 of motorcyclists and bicyclists~\cite[3139]{safeToDrive}, causing potential issues for any
 \acrshort{ads} that wishes to operate in a shared traffic environment with this group.
+
+\section{Autonomous driving system testing}
+
+This section focuses on presenting an outline of the concept of
+\emph{driveability}, and then the proceeding section will delve into further
+detali concerning aspects relating specifically to the \emph{testing} of \acrshortpl{ads}.
+
+Testing is essential for assuring \acrshort{ads} operative safety~\cite[163]{ADTestingReview16}.
+Several methods for \acrshort{ads} testing exist, all testing various aspects of the \acrshort{ads}. An \acrshort{ads}
+typically exists of several modules, all working together and handling different aspect of the
+\acrshort{ads}. 
+In the context of this project, the module we target is the \emph{motion
+planner} -- the part of the \acrshort{ads} that is responsible for `driving' the car.
+A common way to test the motion planner is to use simulator based testing~\cite[1]{DeepScenario}.
+
+
+\citeauthor{ADTestingReview16} further outline several typical architectures for \acrshort{ads} testing,
+drawing on traditional software testing traditions outlining how \textit{software testing} can be
+used alongside more specialized \acrshort{ads} testing techniques such as \textit{simulation
+testing} and \textit{X-in-the-loop testing}~\cite[163-164]{ADTestingReview16}.
+
+
+\subsection{The complexities of ADS testing}\label{sec:adsTestingComplexity}
+As we have seen, \acrshortpl{ads} can perform several tasks, in several environments. As such, there
+are several relevant factors for testing them. It is not feasible to test all potential variations
+of all potential environments in the real world, meaning that the \textit{test
+    coverage}\footnote{See \Nref{sec:testCoverage}} typically will be low.
+
+Some of the factors that complicate \acrshort{ads} operations are \begin{inparaenum}
+    \item timing,
+    \item sequence of events, and
+    \item parameter settings such as the different speeds of various vehicles and other actors.
+\end{inparaenum}
+
+\citeauthor{adsComplexityIndex18} posit that \textit{the concept of complexity exists everywhere,
+    but there is no agreement on one for driving situations}~\cite[1182]{adsComplexityIndex18}.
+Therefore they introduce their own concept of \acrfull{dsc}, which serves to give a metric of a
+the complexity of a given driving situation. Their \acrshort{dsc} is defined as the output of a
+mathematical formula taking into account the perplexity and standard deviation of several
+control variables $\mathcal{M}$ representing the surrounding vehicle's
+behaviour~\cite[1182]{adsComplexityIndex18}. Their formula also takes into account the ratio of
+\textit{V2X}-capable vehicles~\cite[1182]{adsComplexityIndex18}, i.e. the vehicles that are
+connected and capable of communicating~\cite[1]{v2xTestingSurvey2019}.
+
+% It is common to modularize the testing of \acrshort{ads} so that the individual modules can be
+% tested in isolation. The modules of an \acrshort{ads} typically include a motion planner, a
+% \acrfull{cv} system, and % LIDAR. This allows for testing the individual modules in a way that
+% makes sense for their specific domains.
+
+
+\subsection{Autonomous driving system testing metrics}\label{sec:adsMetrics}
+
+When evaluating \acrshort{ads} testing, several metrics can be used. What metric to use will depend
+on what the relevant test is measuring.
+
+Building on what we have learnt about driveability (\Cref{sec:adsDrivability}),
+we take after \citeauthor{safeToDrive} and review three metrics for
+quantifying driveability: \begin{inparaenum}
+    \item scene driveability,
+    \item collision-based risk, and
+    \item behaviour-based risk. Finally, we also investigate the mertric
+    \item jerk.
+\end{inparaenum}
+
+\emph{Scene driveability} refers to how easy a scene is for an
+\acrshort{ads} to navigate, and the \textit{scene driveability score} refers to
+how likely the \acrlong{ads} is to fail at traversing the
+scene~\cite[3140]{safeToDrive}. It is typically found through and end-to-end
+approach. Note how this is a metric for \textit{scenes}, without taking into
+account the performance of any specific \acrshort{ads}.
+
+\emph{Collision-based risk} comes in two kinds - \begin{inparaenum}
+    \item binary risk indicator, and
+    \item probabilistic risk indicator.
+\end{inparaenum} \citeauthor{safeToDrive} posit that the prior, binary metric, indicates whether a
+collision will happen in the near future in a binary `either-or' sense, whereas the latter yields a
+probability calculated based on current states, event, choice of hypothesis, future states and
+damage~\cite[3140]{safeToDrive}.
+
+\emph{Behaviour-based risk} estimation also represents a binary classification problem wherein
+nominal behaviours are learnt from data, and then dangerous behaviours are detected on that. This
+requires a definition of `nominal behaviour', which is typically defined on on acceptable speeds,
+traffic roles, location semantics, weather conditions and/or the level of fatigue of the
+driver~\cite[3140]{safeToDrive}. Furthermore \citeauthor{safeToDrive} describe how this metric also
+allows more than one \acrshort{ads} to be labelled as `conflicting' or `not
+conflicting'~\cite[3140]{safeToDrive}, representing a ruling on their compatibility. Finally, they
+note how behaviour-based risk assessment typically focuses on driver behaviours, not taking into
+account other actors in the scene such as pedestrians or cyclists.
+
+Furthermore, \emph{jerk} is a metric that renders the change of vehicle acceleration with respect to
+time. It has been used been used as a measure of the smoothness or abruptness of a movement in many
+domains such as the trajectory planning of the human arm and industrial
+robots~\cite[126]{fengJerk17}. Jerk has also been shown to relate to a driver’s
+physiological feelings of ride comfort~\cite[126]{fengJerk17}, giving it a clear relation to our
+previously stated definition of driveability.~\citeauthor{fengJerk17} go on to posit that a goal of
+driving should be to minimize the jerk, as it both is both \begin{inparaenum}
+    \item linked to comfort, and
+    \item detection of safety-critical events
+\end{inparaenum}\cite[126]{fengJerk17}.
+
 
 \section{Large language models (LLMs)}
 
