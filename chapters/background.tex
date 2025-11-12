@@ -103,13 +103,16 @@ of motorcyclists and bicyclists~\cite[3139]{safeToDrive}, causing potential issu
 
 \section{Autonomous driving system testing}
 
-Testing is essential for assuring \acrlong{ads} operative safety~\cite[163]{ADTestingReview16}.
-Several methods for testing exist, testing various aspects of the \acrlong{ads}. An \acrshort{ads}
+Testing is essential for assuring \acrshort{ads} operative safety~\cite[163]{ADTestingReview16}.
+Several methods for \acrshort{ads} testing exist, all testing various aspects of the \acrshort{ads}. An \acrshort{ads}
 typically exists of several modules, all working together and handling different aspect of the
-\acrlong{ads}. A common way to assert safety is to use simulator based testing~\cite[1]{DeepScenario}.
+\acrshort{ads}. 
+In the context of this project, the module we target is the \emph{motion
+planner} -- the part of the \acrshort{ads} that is responsible for `driving' the car.
+A common way to test the motion planner is to use simulator based testing~\cite[1]{DeepScenario}.
 
 
-\citeauthor{ADTestingReview16} outline several typical architectures for \acrshort{ads} testing,
+\citeauthor{ADTestingReview16} further outline several typical architectures for \acrshort{ads} testing,
 drawing on traditional software testing traditions outlining how \textit{software testing} can be
 used alongside more specialized \acrshort{ads} testing techniques such as \textit{simulation
     testing} and \textit{X-in-the-loop testing}~\cite[163-164]{ADTestingReview16}.
