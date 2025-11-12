@@ -1,24 +1,67 @@
 \chapter*{Abstract}
 
-\acrfullpl{ads} rely on extensive testing in order to verify their operational safety. But due to
-their nature of being able to operate in any unseen environment with arbitrary external actors,
-the number of potential scenarios is infinite. It is therefore important to obtain the least
-drivable scenarios for simulator testing ahead of real world deployment. We therefore propose
-applying \acrlongpl{llm} to \acrlong{ads} scenario files to decrease their driveability, exposing
-potential underlying issues in the \acrshort{ads} being tested in advance of it happening during
-real world operation, avoiding causing severe damage to its operator and/or other external actors.
+% NOTE: Denne er fra UiO GPT, med RAG på thesis, og så redigert litt
 
-% TODO: Disse 2 sammendragene er veldig forskjellige. Er det OK?
+\acrfullpl{ads} require rigorous testing across an effectively unbounded space of operating
+scenarios. To proactively surface weaknesses prior to real-world deployment, this thesis introduces
+\hefe~, a tool that leverages \acrfullpl{llm} to systematically decrease the driveability of
+\acrshort{ads} simulator scenarios. By transforming existing scenario descriptions to introduce more
+challenging conditions while preserving scenario validity, \hefe~aims to elicit failure modes
+earlier and improve confidence in \acrshort{ads} behavior.
+
+We evaluate \hefe~on a suite of simulator scenarios with a primary focus on the jerk metric as a
+proxy for ride quality, safety and control smoothness. Results indicate that, under prompting
+strategies that encourage bounded, minimally invasive edits, \hefe~reliably produces less drivable
+scenarios that increase challenge without invalidating simulations. Allowing broader changes leads
+to higher rates of hallucinated content and simulator crashes, highlighting trade-offs between
+scenario novelty and robustness. The findings align with related work on automated test generation
+and underscore the potential of \acrshort{llm}s for targeted test amplification, particularly to
+explore long-tail edge cases.
+
+Contributions include: \begin{inparaenum}
+    \item the \hefe~methodology and implementation for driveability reduction in \acrshort{ads}
+    scenarios;
+    \item an empirical assessment centered on jerk-based evaluation; and
+    \item practical insights on prompt design and constraints to mitigate hallucinations.
+\end{inparaenum}
+We conclude with recommendations for improving reliability and coverage, and outline directions for
+fully automated, human-out-of-the-loop scenario enhancement.
+
+
+% NOTE: Dette er samme som over, oversatt med UiO GPT, og så manuelt fixet til å være mer naturlig
+% (kunne sikkert med fordel blitt _enda_ mer naturlig)
 
 \begin{otherlanguage}{norsk}
-    \section*{Sammendrag}
-    For å kunne få selvkjørende biler ut på veiene, må vi være sikre på at de er trygge. Trygge både
-    for seg selv, sjåføren, og andre traffikanter. Men det ligger i en bils natur at den skal kunne
-    brukes overalt, med alle mulige folk inne i bildet. Derfor er det teoretisk umulig å forutse
-    alle mulige situasjoner og teste disse i forkant. På bakgrunn av dette fremmer vi i dette
-    arbeidet en metode for å ta ibruk KI til å gjøre dagens testscenarioer \textit{mer utrygge} enn
-    hva de allerede er. Å teste med disse forespeiles å ville kunne avdekke potensielle
-    underliggende feil i bilens systemer, slik at de kan rettes før den volder skade ute i verden.
+    \chapter*{Sammendrag}
+    Selvkjørende biler krever grundig testing på tvers av det som i praksis er et ubegrenset rom av
+    mulige scenarioer. For å avdekke underliggende svakheter i forkant av at de kommer til syne i
+    den virkelige verden introduserer denne masteroppgaven \hefe,~et verktøy som benytter store
+    språkmodeller (LLM) for å systematisk redusere kjørbarheten til simulator-scenarioer for
+    selvkjørende biler. Ved å transformere eksisterende scenariebeskrivelser for å introdusere mer
+    utfordrende forhold samtidig som gyldigheten til scenariene opprettholdes, har \hefe~som mål å
+    avdekke feil tidligere, dersom bilen ikke klarer scenarioet, og ellers styrke tilliten til
+    systemet dersom det klarer det mer utfordrende scenarioet uten videre problemer.
+
+    Vi tester \hefe~på en mengde av testscenarioer med fokus på jerk-metrikken som en proxy for
+    kjørekomfort, sikkerhet og kontrollflyt. Resultatene indikerer at med prompting-strategier som
+    tilrettelegger for begrensede, mindre substansielle endringer, klarer \hefe~å skaffe til veie
+    mindre kjørbare scenarier som øker utfordringen for den selvkjørende bilen uten å ugyldiggjøre
+    simuleringene. Å tillate bredere endringer fører til høyere forekomster av hallusinert innhold
+    og krasj i simulatoren, noe som poengterer en avveining mellom scenarioenes nyskapning og
+    robusthet. Funnene samsvarer med relaterte prosjekter innen automatisert testgenerering og
+    understreker potensialet til bruk av KI for målrettet testforsterkning, spesielt for å få bukt
+    med problematikk knyttet til lange haler av kanttilfeller.
+
+    Bidragene inkluderer: \begin{inparaenum}
+        \item \hefe-metodologien og implementasjon for reduksjon av kjørbarhet i
+        simulator-scenarioer for selvkjørende biler,
+        \item en empirisk vurdering basert på jerk-metrikken, og
+        \item praktiske innsikter om utforming av prompts og begrensninger for å redusere
+        hallusinasjoner.
+    \end{inparaenum}
+    Vi konkluderer med anbefalinger for å forbedre pålitelighet og dekning, og legger frem mulige
+    løyper å trå opp for å oppnå fullkomment automatisert, menneske-ute-av-loopen
+    scenarioforbedring.
 \end{otherlanguage}
 
 \chapter*{Preface}
@@ -34,9 +77,6 @@ and their progression. Hopefully all the issues are resolved by the time you rea
 used for the thesis experiments is available on the GitHub repo
 \url{https://github.com/orjahren/LLM4DD}. A similar issue tracking régime has been used for the
 code and experiments. The project has been undertaken on Fedora Linux 42.
-
-For better and worse, the thesis text has been written in its entirety without the use of generative
-AI tools.
 
 \begin{center}
     \vspace{2em}
