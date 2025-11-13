@@ -2,17 +2,40 @@
 
 \epigraph{The only difference between a problem and a solution is that people understand the solution.}{Charles F. Kettering}
 
-We have seen that \acrshort{ads} testing is \textit{complex} and that it is difficult to get a good
-test coverage (\Cref{sec:adsTestingComplexity}). Furthermore, we have seen that \acrshortpl{llm}
-have \textit{emergent abilities} (\Cref{sec:emergentAbilities}). We therefore propose a tool for
+Recall that have seen in the \Nref{chp:introduction} and \Nref{chp:background}
+that there are several complexities involved with \acrshort{ads} testing, such
+that we typically use simulator-based testing to aim at verifying the safety of
+the \acrshort{ads} before it gets deployed to the real world. But then we saw
+further that simulator-based testing can lead to a false sense of safety due to
+the \acrshort{ads} passing all our test scenarios, and then there can be a hole
+in what they test for, so that the \acrshort{ads} may actually have
+undiscovered faults that we haven't caught on to.
+
+Futhermore, we saw that \acrshortpl{llm} have capabilities for modifying textual
+data (such as e.g. scenario definitions) by natural language prompt engineering.
+In \Nref{chp:relatedWorkAndLitReview} we surveyed several projects that aim to
+enhance scenario-based testing of \acrshortpl{ads}, and we saw that some of them
+employed \acrshortpl{llm}. But no extant research has specifically used
+\acrshortpl{llm} to \emph{decrease driveability} of \acrshortpl{ads}
+scenarios\footnote{The most similar work, to the author's knowledge,
+is~\cite{yao2025agentsllm} -- \citetitle{yao2025agentsllm}.}. 
+
+This research gap is addressed by this thesis -- we propose a novel
+\acrshort{llm}-powered methodology for decreasing the driveability of
+\acrshort{ads} scenarios so that when the \acrshort{ads} is tested with the less
+driveable test scenarios, we can either \begin{inparaenum}
+    \item trigger it to fail and analyse what went wrong, or 
+    \item be more confident in the \acrshort{ads} being able to operate in
+    complex scenarios due to passing them.
+\end{inparaenum}
+
+To this end, we propose \hefe\footnote{`'\acrshortpl{llm} for decreased driveability'.}~-- a tool for
 \begin{inparaenum}
     \item running a base \acrshort{ads} test case,
     \item enhancing the test case using \acrshortpl{llm},
     \item running the enhanced test case, and
     \item comparing the results of the two runs.
 \end{inparaenum}
-
-Let the pipeline tool be known as \hefe~-- \acrshortpl{llm} for decreased driveability.
 The architecture of the tool is visualised in \Cref{fig:hefeArch}.
 
 \begin{figure}[h]
@@ -21,16 +44,16 @@ The architecture of the tool is visualised in \Cref{fig:hefeArch}.
     \caption{\hefe~pipeline architecture}\label{fig:hefeArch}
 \end{figure}
 
-The tool follows a natural pipeline structure. We have some base test cases that
+The tool follows a natural pipeline structure. We have some base test scenarios that
 need to be run in order to get a baseline for the results, we then have to
-improve these, and run the improved versions and compare them to their original
+enhance these, and run the improved versions and compare them to their original
 versions.
 
-This will allow us to learn the extent to which \acrshortpl{llm} can be applied for decreasing
-driveability in \acrlong{ads} test scenarios, satisfying the \Nref{sec:problemDescription}. We will survey several \acrshortpl{llm} and evaluate their applicability
-for the problem at hand, in light of what we know about \acrshortpl{llm} (\Nref{sec:llmJungle}). We
-want to have a pipeline that is able to process several test cases in succession, in order to get a
-substantial dataset.
+Experimenting with this tool will allow us to learn the extent to which
+\acrshortpl{llm} can be applied for decreasing  driveability in \acrlong{ads}
+test scenarios, satisfying the \Nref{sec:problemDescription}. The tool is
+implemented in an \acrshort{llm}- and scenario-agnostic fashion so that it is
+scalable to other combinations of \acrshort{llm} and scenario formats. 
 
 
 \begin{figure}[htb]
