@@ -45,15 +45,7 @@ abilities~\cite[1]{LLM4AD}, which begs the question of their applicability for \
 testing. We therefore ask -- can these existing test scenarios be made less driveable by applying
 \acrshort{llm} technology to them?
 
-% Yet, testing is \textit{important} for \acrlong{ads}, and text case generation is costly. We
-% therefore pose the question: Can \acrshort{llms} be applied for (1) lowering the cost of testing,
-% and (2) increasing the thouroughness of \acrlong{ads} testing?
-
 \section{Problem description}\label{sec:problemDescription}
-
-%We identify \num{3} principal areas for how \acrshortpl{llm} can be employed to benefit
-
-% TODO: Denne kan renames til noe a la "human factors"? \subsection{Cost and bias}
 
 Traditional techniques for obtaining \acrshort{ads} scenarios rely on
 \begin{inparaenum}
@@ -64,7 +56,6 @@ The prior incurs a significant cost, and is a major limitation in obtaining a la
 scenarios. The latter incurs a \emph{distributional shift} from the original scnearios, which can
 undermine the validity of using them~\cite[1]{yao2025agentsllm}.
 
-%\subsection{Impossible to test all scenarios}
 Moreover, even if we were to imagine a world in which we had infinite \begin{inparaenum}
     \item time and
     \item money, \end{inparaenum} we would not be able to successfully account for every possible
@@ -82,8 +73,6 @@ to handle all these more challenging scenarios. If it is not, they will have gai
 insight into the workings of their \acrshort{ads} and can take action to remedy the fault before it
 causes harm in the real world. And if the \acrshort{ads} \emph{does} still work, they can be more
 confident in their system.
-
-%\subsection{Edge cases}
 
 Finally, edge cases can be a major issue for \acrshort{ads} adaptation. The \textit{tail problem} as
 it is known in the \acrshort{ml} field posits that \acrfull{ml} tasks are faced with a long tail of
@@ -105,7 +94,7 @@ human scenario authors.
 Based on the problem description above, these are the formal research
 questions of the thesis:
 
-% Define each RQ as a macro so we can re-use them in the conclusion. DRY.
+% Define each RQ as a macro so we can re-use them in the discussion. DRY.
 \newcommand{\rqdecreasedriveability}{Can \acrlongpl{llm} be used to decrease the driveability of \acrlong{ads} simulator scenarios?}
 \newcommand{\rqnohuman}{Is it feasible to employ \acrshortpl{llm} for obtaining unseen scenarios for \acrshort{ads} testing without human intervention?}
 
@@ -117,6 +106,9 @@ questions of the thesis:
         \defrq{no-human}{\rqnohuman}\label{rq:no-human}
     \end{questions}
 \end{quote}
+
+\newpage % Legger inn en newpage siden den nye siden uansett blir brukt opp.
+% Dette ser bedre ut.
 
 \section{Thesis overview}
 
