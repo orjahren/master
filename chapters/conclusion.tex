@@ -2,7 +2,7 @@
 
 \epigraph{This inductively justifies the conclusion that induction cannot justify any conclusions.}{David Deutsch}
 
-In this master's thesis, we propose a tool -- \hefe{}~-- for using \acrlongpl{llm} to decrease the
+In this master's thesis, we propose a tool -- \hefe{}~-- for using \acrshortpl{llm} to decrease the
 driveability of \acrshort{ads} scenarios in order to increase confidence in the \acrshort{ads} and
 expose underlying weaknesses in the system. We show this work is in line with what is to be expected
 from comparison with other related works in the field, validating that the concept works quite well
@@ -10,6 +10,13 @@ for focusing on making less significant changes to the original scenario with a 
 metric. When allowing the \acrshort{llm} to make excessive changes to the scenario, problems related
 to hallucination and simulator crashes arise under our current \acrshort{llm}- and prompting
 strategies.
+
+We used the \acrshortpl{llm} \texttt{Mistral 7.2}B and \texttt{gemini-2.5-flash}
+and various original prompts. The scenarios we used for evaluating the tool came
+from the the example set provided with the Carla scenario runner. The results
+obtained indicate a \num{63}\% error rate of running a scenario after it has
+been enhanced. We classified these errors into \num{4} categories based on what
+caused the execution to fail.
 
 We propose several strategies for improving this initial version of the tool in
 \Nref*{chp:furtherWork}.
