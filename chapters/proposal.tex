@@ -116,227 +116,19 @@ want to use. Similarly, all the scenarios exist within the Thor module and are
 handled by it. As for the prompt, the user reqquests a list of available
 scenarios from the Thor module and makes a decision on which they want to use. 
 
-
-
-\subsection{Implementation language}
-
 The programming language \textsc{Python} is widely used for \acrshort{ads} simulation. It is a high
-level language, allowing the user great flexibility and developer experience. For this reason, I
-will implement \hefe~using Python.
-Python can be optimized using \acrfull{jit} compilers such as Numba~\cite{numba}, which can speed up
-our execution times. Libraries such as Joblib provide Python with plug-and-play
-meomization, which will allow us to re-use values that have already been
-computed, saving time and energy.
+level language, allowing the user great flexibility and developer experience.
+For this reason, it is the de facto goto-language for \acrshort{ads} simulation
+purposes and \hefe~is also implemented using Python.
 
+All code is available on the GitHub repo
+\href{https://github.com/orjahren/LLM4DD}{\hefe}.
 
-\subsection{Overview of the components of the \hefe~pipeline}\label{sec:hefeComponentOverview}
-
-The pipeline architecture is visualised in \Nref{fig:hefeArch}. Here we
-present the major components and their responsibilities.
-
-
-\subsection*{Test case enhancement}
-
-\subsubsection{Test case repositories}
-
-We have seen in \Nref{sec:relatedWork} that there are existing repositories of
-% TODO: Make more specific reference to what part of Related Work
-\acrshort{ads} test cases. These will provide us with \begin{inparaenum}
-    \item a baseline,
-    and
-    \item data onto which we can apply our \acrshort{llm} enhancements.
-\end{inparaenum}
-
-We do naturally have to walk before we can run. For this reason, the project will initially be
-tested on simple test scenarios provided by people behind the Carla simulator. When we have verified
-that the project is sufficiently working for its stated purpose, we can scale up the activities to
-other datasets. Several are presented in \Nref{sec:relatedWork}. The concept of applying
-\acrshortpl{llm} to \acrshort{ads} scenarios is quite universal in nature and is eligible for
-application for virtually \emph{all} datasets.
-
-\subsubsection{LLM enhancement}\label{sec:llmEnhancement}
-% TODO: Dette må spisses mot driveability
-
-The base test cases will individually be enhanced by prompting the
-\acrshort{llm}. We will experiment with several \acrshortpl{llm}.
-
-Note that we will not employ any traditional \acrfull{nlp} techniques related to e.g. tokenization
-or input processing -- we will leave this up to the internal mechanisms of the \acrshortpl{llm}.
-
-For performing the actual improvement, it is essential that we \begin{inparaenum}
-    \item test several \acrshort{llm},
-    \item give clear prompts
-    % \info{I'm inclined to find some fitting prompts through trial and error, as such a I do not wish to describe them in detail at this time.}
-    and
-    \item verify that the returned test case adheres to the strictly necessary
-    syntax rules. This last point is important due to our knowledge of
-    \acrshortpl{llm} hallucinating (see \Nref{sec:llmProblems}).
-    % TODO: More specific reference to Halucination intead of all LLm problems?
-\end{inparaenum}
-
-In order to facilitate testing various \acrlongpl{llm}, we should employ
-\acrshort{llm} agnostic software as a translation layer. This will allow us to
-write code for a common interface and test several \acrshortpl{llm} that may all
-have different internal \acrfullpl{api} without having to modify our test code
-for specific \acrshortpl{api}. This \begin{inparaenum}
-    \item saves time
-    and
-    \item makes for more even test conditions \end{inparaenum}. Some pieces of software providing
-this type of functionality include
-\textsc{aisuite}\footnote{\url{https://github.com/andrewyng/aisuite}}, RamaLama from
-RedHat\footnote{\url{https://github.com/containers/ramalama}}, and the MIT licensed
-Ollama\footnote{\url{https://github.com/ollama/ollama}}, both supporting a plethora of
-\acrlongpl{llm}.
-
-% TODO: Burde fjerne disse random Github-prosjektene som ikke blir brukt i den faktiske implementasjonen?
-\textsc{guidance}\footnote{\url{https://github.com/guidance-ai/guidance}} is a
-framework for limiting the room in which \acrshortpl{llm} may operate, which
-might be useful if we run into issues with excessive hallucination.
-
-
-\subsubsection{Enhanced test case validation}
-
-We must expect the \acrshort{llm} to hallucinate to some extent (\Cref{sec:llmHallucination}). We
-therefore propose to verify the format of the enhanced file before running it.
-
-As we saw in the section for \Nref{sec:adsScenarioFormats}, there exists several formats for
-\acrshort{ads} scenarios. In order to verify that the syntax of our enhanced test
-case is valid, we simply need to apply the syntax rules of our format.
-
-The CommonRoad format is XML-based~\cite[720]{commonRoadOG} and as such we can
-to some extent assess the degree of hallucination by parsing the XML structure.
-Furthermore, it has an exhaustive Python library with several utilities\footnote{\url{https://pypi.org/user/commonroad/}}.
-
-OpenSCENARIO exists both as XML and a domain-specific language (DSL). If we
-utilise the XML version, we can apply the same methodology as for the CommonRoad
-format. If using the DSL version, one way
-the OpenSCENARIO format can be verified is by using free
-online cloud services such as this offering from AVL
-\footnote{\url{https://smc.app.avl.com/validation}}. We should however strive for
-running a local verification service to \begin{inparaenum}
-    \item save time and compute,
-    and
-    \item preserve data privacy.
-\end{inparaenum}
-Besides, it is generally a good idea to limit the number of external dependencies\footnote{Note for
-    example how LGSVL\cite{lgsvl} was shut down, preventing projects such as DeepScenario of
-    \citeauthor{DeepScenario} to be further developed on the original platform.}.
-
-\subsection{Test case running and evaluation}
-
-\subsubsection{Test case runner}\label{sec:testCaseRunner}
-
-The system will automatically run all
-our base test cases using an \acrshort{ads} simulator, and collect data points to get a baseline. It
-will later also run the mutated \acrshort{llm}-enhanced versions of the base cases.
-
-We have already ran the test cases in their base form. We will now run their
-improved versions in order to compare them to see what effect the \acrshort{llm}
-enhancement (see \Cref{sec:llmEnhancement}) has had.
-
-For the reasons we have seen in~\Cref{sec:simulatorOverview}, we want to run our
-test cases on Carla. It is the best offering as it is open source, under active
-development and has a feature rich Python \acrshort{api}.
-
-We record a plethora of datapoints when executing scenarios on the simulator\footnote{This is again
-    provided by the Carla software suite. A complete overview of data points is provided in the
-    documentation, see e.g.~\url{https://carla.readthedocs.io/en/0.9.15/adv_recorder/}}.
-
-The way the Carla simulator works, one simulator run can be analysed post factum. The entire
-scenario execution is stored in a Carla-specific binary format. This binary file can then later be
-analysed, extracting various metrics from one run. This saves time not having to run the simulator
-more than necessary, and allows for reproducing the metric calculations from the original underlying
-binary log file.
-
-\subsubsection{Test case improvement evaluation}\label{sec:testCaseEval}
-
-We saw in \Cref{sec:adsMetrics} that there are several metrics for assessing
-\acrshort{ads}. We will use these metrics when evaluating our improvements.
-
-\subsubsection{Test case result reporting}
-
-We will compare the results from running
-the baseline unmodified test case and comparing it with the results from
-running the \acrshort{llm}-enhanced version and returning to the user. Ideally with
-some automatic analysis of the results.
-
-Having ran both the base test case and its enhanced counterpart, we have
-results. The results will be stored in \acrfull{csv} files, allowing \begin{inparaenum}
-    \item further analysis in Python/Jupyter,
-    and
-    \item easy translation to \LaTeX~tables for the final report.
-\end{inparaenum}
-
-This is the final step of the envisioned pipeline. Where we have our result, and
-need to analyse them.
-
-This last step has great opportunities for being scoped up to a fully integrated
-test suite which allows for both running test cases and analysing the results in
-a \acrfull{gui}. But we should focus on the prior steps for now, only creating a
-\acrshort{gui} if there is sufficient time towards the end of the project to
-focus on such non-\acrshort{llm} related topics.
-
-Initially, the results will consist of numerical comparison of the
-\acrshort{csv}s with regard to the relevant metrics outlined in
-\Nref{sec:testCaseEval}.
-
-We need to define what requirement we will use for determining the \textit{result} of a test case
-run. Without this, we cannot compare it to other test cases.
 
 \section{Component details}
 
-After having surveyed a broad overview of the details of the \hefe~pipeline, let us now narrow our scope
-and focus on the individual components.
-
-% Alt under her er kopiert over fra det gamle "implementation details"-chpt.
-% (Og så tilpasset litt, dekrementert heading levels osv )
-
-The implementation is what facilitates doing the actual experiments. For the most part, it follows
-what is outlined in the \Nref{sec:hefeComponentOverview}, with some minor practical differences.
-What follows will analyse the implementation of the components of the \hefe{} pipeline and explain
-more closely in detail not only \emph{what} they do, as that is already covered in the solution
-proposal, but \emph{how} they do it, with hands-on code examples.
-
-All code is available on the GitHub repo \href{https://github.com/orjahren/LLM4DD}{\hefe}.
-
-\subsection{Carla interface and scenario utilities -- Thor}
-
-The Thor module is responsible for all things related to the Carla \acrshort{ads}
-simulator. It provides the client with several scenario-related utilities, and
-is capable of executing the desired scenarios.
-
-
-Certain of its utilities are simple tools for asserting the liveness of Carla,
-such as the \texttt{get\_carla\_is\_up} function, shown in
-listing~\ref{lst:odinCarlaHealthCheck}. This function will use the Carla
-standard Python library and attempt to connect to the server on its default
-port\footnote{I.e. \num{2000}, line \#4 in listing
-    \ref{lst:odinCarlaHealthCheck}.}. Note that we refer to the host as simply
-\texttt{carla} -- this is possible due to the entire project running
-containerised with Docker Compose. Instead of referring to the specific IP
-address of the Carla server (typically localhost, if not running it externally),
-the Docker system will facilitate this name translation for us.
-
-\lstinputlisting[caption={Excerpt from carla\_interface.py, demonstrating the implementation of a Carla health check.}, label={lst:odinCarlaHealthCheck}, language={Python}]{hefe-listings/carla_interface.py}
-
-This is used both to assert the general liveness of the \hefe~pipeline, and to
-verify that the simulator is available before performing experiments. It is
-better to detect this illegal state \emph{before} running experiments rather
-than during their execution.
-
-Furthermore, it shall also be equipped with functionality for \emph{executing} \acrshort{ads}
-scenarios on Carla. This is trivial when using Carla's existing Scenario Runner
-module's functionality.
-
-% Rest API - running test cases - Thor
-% “Fast API”, Python
-% POST a test case to the API. It will be ran on the ‘server’
-% RabbitMQ for listening for finished test cases? So that the client knows it can fetch the results?
-% Will need UUID for test cases so the correct result can be fetched after it has been ran
-% Need to store these somewhere. NoSQL database?
-% This component should also accumulate results.
-% Huge TODO: What metric are these results?
-% Should be containerised (Docker/Podman)
+Let us now focus on the individual components and analyse how they solve their
+given tasks and how they all fit together to make up the total \hefe~pipeline tool.
 
 \subsection{LLM interface and prompt applications -- Odin}\label{sec:odinImplementation}
 
@@ -350,7 +142,6 @@ module's functionality.
 % https://github.com/andrewyng/aisuite
 % Should use same UUIDs as outlined above, but suffixed with e.g. “pure” and “tainted”
 % Containerized. Docker compose?
-
 The Odin module handles all things \acrshort{llm}. It provides a unified
 \acrshort{api} for applying various prompts to scenarios and returning the
 enhanced output resulting from having applied the prompt. We have implemented
@@ -363,19 +154,38 @@ support for the \acrshortpl{llm} that are available on \begin{inparaenum}
     \item gemini-2.5-flash
 \end{inparaenum}.
 
-\subsection*{LLM interface implementations}
+Note that we don't employ any traditional \acrfull{nlp} techniques related to e.g. tokenization
+or input processing -- we leave this up to the internal mechanisms of the
+\acrshortpl{llm}.
+
+In order to facilitate testing various \acrshortpl{llm}, the module is written to
+be as general as possible, exposing a simple \acrshort{api} that can be used
+with all various \acrshortpl{llm} with minimal modiciation necessary.
+This allows for experimenting with several \acrshortpl{llm} that may all
+have different internal \acrfullpl{api} without having to modify the major underlying code
+for specific \acrshortpl{api}. This saves time, and prevents repetetive manual work.
+
+\subsection{LLM interface implementations}
+
+Interfacing with \acrshortpl{llm} is the principal task of the Odin module. It
+offers a simple \acrshort{api} to Loki, and then Odin itself will handle all the
+complexities of making the \acrshort{llm} work with the provided prompt etc.
+
+As mentioned above, the current version of the \hefe~tool has support for Ollama
+and Gemini \acrshortpl{api}. Let us review how this has been achieved:
+
 \subsubsection{Gemini integration}
 
 The Gemini integration is quite straightforward, relying on Google's own
-\texttt{genai} Python module. Listing~\ref{lst:thorGeminiInterface} renders the
-\emph{entire} interface, again highlighting how straightforward this really is.
+\texttt{genai} Python module. 
 The one piece of complexity to not is that it requires that the user provides
 their own Gemini \acrshort{api} key and has this set as an environment variable
-with the proper name. Without this being as it should, the script will crash, as
-it would not possible for it to complete the desired \acrshort{llm} enhancement
-regardless as long as the \acrshort{api} key is not present.
+with the proper name. Without this being as it should, the script has been
+written to hard crash, as it would not possible for it to complete the desired
+\acrshort{llm} enhancement regardless as long as the \acrshort{api} key is not
+present.
 
-\lstinputlisting[caption={llm\_api\_interfaces/gemini\_interface.py, The implementation of a Gemini interface for executing prompts.}, label={lst:thorGeminiInterface}, language={Python}]{hefe-listings/gemini.py}
+% \lstinputlisting[caption={llm\_api\_interfaces/gemini\_interface.py, The implementation of a Gemini interface for executing prompts.}, label={lst:thorGeminiInterface}, language={Python}]{hefe-listings/gemini.py}
 
 \subsubsection{Ollama integration}
 
@@ -384,10 +194,6 @@ using any existing library modules for this specific purpose, instead relying on
 using the \texttt{json} and \texttt{requests} modules to implement the desired
 functionality from scratch, making it so that we need to handle network IO and
 marshalling the \acrfull{llm} response into a fitting return buffer.
-
-Listing~\ref{lst:thorOllamaInterface} renders the
-\emph{entire} interface. As we can see, it is not too bad although nowhere near
-as clean as the Gemini implementation (\ref{lst:thorGeminiInterface}).
 
 Its complexity arises principally from \num{2} major factors --
 \begin{inparaenum}
@@ -402,9 +208,9 @@ Similarly to how the Gemini implementation does it, this will crash if Ollama is
 not functioning properly as it would not possible for it to complete the desired
 \acrshort{llm} enhancement regardless if Ollama is unreachable.
 
-\lstinputlisting[caption={llm\_api\_interfaces/ollama.py, The implementation of an Ollama interface for executing prompts.}, label={lst:thorOllamaInterface}, language={Python}]{hefe-listings/ollama.py}
+% \lstinputlisting[caption={llm\_api\_interfaces/ollama.py, The implementation of an Ollama interface for executing prompts.}, label={lst:thorOllamaInterface}, language={Python}]{hefe-listings/ollama.py}
 
-\subsection*{Prompts and their associated code}
+\subsection{Prompts and their associated code}
 
 In this project, the prompts are the instruction to the \acrfull{llm} for
 applying the enhancement to the scenario. Quite possibly the most critical piece
@@ -414,16 +220,6 @@ it shall use as its base to apply enhancements that will decrease the
 driveability. For this reason, it also provides certain scenario
 utilities\footnote{That architecturally might as well have been integrated in the
     Thor module\ldots}.
-
-\subsubsection{Scenario utilities}
-
-These are essentially quite trivial helpers. Listing \ref{lst:odinScenarioUtils}
-renders the core functionality -- hopefully this is quite self-explaining.
-
-\lstinputlisting[caption={scenario\_utils.py, The implementation of various scenario helper functions for executing prompts.}, label={lst:odinScenarioUtils}, language={Python}]{hefe-listings/scenario_utils.py}
-
-\subsubsection{Prompts -- templating and usage}
-
 % TODO: Finnes det noe bigbrain måte å slippe å manuelt måtte referere ti llinjenummer?
 As mentioned, the prompts need to include the scenarios \emph{in} them, so that
 they are accessible to the \acrshort{llm}. How this is done, is rendered in
@@ -437,12 +233,83 @@ inserted into the output prompt at the location located at line \#21 in the list
 % TODO: Linjenummere må oppdateres
 % TODO: Må legge til at man også kan passe inn scenario-navn og metrics
 
-\lstinputlisting[caption={experiments/testbed/prompts.py, The implementation of a prompt testbed for executing prompts.}, label={lst:odinPromptTestbed}, language={Python}]{hefe-listings/testbed_prompts.py}
+%\lstinputlisting[caption={experiments/testbed/prompts.py, The implementation of a prompt testbed for executing prompts.}, label={lst:odinPromptTestbed}, language={Python}]{hefe-listings/testbed_prompts.py}
 
-Lastly, note the comments in the top of the file, intended to give GitHub
-Copilot increased understanding of the context, so that it can provide better
-aid during programming.
+%Lastly, note the comments in the top of the file, intended to give GitHub
+%Copilot increased understanding of the context, so that it can provide better
+%aid during programming.
 
+%\subsubsection{Scenario utilities}
+
+%These are essentially quite trivial helpers. Listing \ref{lst:odinScenarioUtils}
+%renders the core functionality -- hopefully this is quite self-explaining.
+
+%\lstinputlisting[caption={scenario\_utils.py, The implementation of various scenario helper functions for executing prompts.}, label={lst:odinScenarioUtils}, language={Python}]{hefe-listings/scenario_utils.py}
+
+\subsection{Carla interface and scenario utilities -- Thor}\label{sec:testCaseRunner}
+% Rest API - running test cases - Thor
+% “Fast API”, Python
+% POST a test case to the API. It will be ran on the ‘server’
+% RabbitMQ for listening for finished test cases? So that the client knows it can fetch the results?
+% Will need UUID for test cases so the correct result can be fetched after it has been ran
+% Need to store these somewhere. NoSQL database?
+% This component should also accumulate results.
+% Huge TODO: What metric are these results?
+% Should be containerised (Docker/Podman)
+
+The Thor module is responsible for all things related to the Carla \acrshort{ads}
+simulator. It provides the client with several scenario-related utilities, and
+is capable of executing the desired scenarios.
+
+For the reasons we have seen in~\Cref{sec:simulatorOverview}, we want to run our
+scenarios on Carla. It is the best offering as it is open source, under active
+development and has a feature rich Python \acrshort{api} with a first party
+`scenario runner' module.
+
+Executing \acrshort{ads} scenarios on Carla is quite straightforward when using
+Carla's existing Scenario Runner module's functionality. We have made
+our own fork of this in order to make it behave in a way that makes the most
+sense for the \hefe~situation\footnote{This fork is available on
+\url{https://github.com/orjahren/scenario_runner-LLM4DD}. It was mostly used for
+debugging purposes and the \hefe~tool should work just fine with the stock
+version as well.}. 
+
+We record a plethora of datapoints when executing scenarios on the simulator\footnote{This is again
+    provided by the Carla software suite. A complete overview of data points is provided in the
+    documentation, see e.g.~\url{https://carla.readthedocs.io/en/0.9.15/adv_recorder/}}.
+The way the Carla simulator works, one simulator run can be analysed several
+times post factum. The entire scenario execution is stored in a Carla-specific
+binary format. This binary file can then later be analysed, extracting various
+metrics from one run. This saves time not having to run the simulator more than
+necessary, and allows for reproducing the metric calculations from the original
+underlying binary log file.
+
+Certain of the Thor utilities are simple tools for asserting the liveness of
+Carla, such as the \texttt{get\_carla\_is\_up} function. This function will use
+the Carla standard Python library and attempt to connect to the server on its
+default port, i.e. \num{2000}, as per the Caral documentation. Note that we
+refer to the host as simply \texttt{carla} -- this is possible due to the entire
+project running containerised with Docker Compose. Instead of referring to the
+specific IP address of the Carla server (typically localhost, if not running it
+externally), the Docker system will facilitate this name translation for us.
+
+The Thor healthcheck is used both to assert the general liveness of the pipeline
+of the \hefe~pipeline, and to verify that the simulator is available before
+performing experiments. By `liveness' we mean to check that all components are running
+and ready to process work. Essentially checking that they haven't crashed.
+It is better to detect this illegal crash state \emph{before} running experiments rather
+than during their execution as that would cause \begin{inparaenum}
+    \item cumbersome debugging, and 
+    \item wasting time.
+\end{inparaenum}
+
+As described in the \Nref{chp:introduction}, we use the \emph{jerk} metric as a
+proxy for ride quality and safety. It is implemented as an extension to the
+Carla Scenario runner software suite. Using this, we can compare the results
+from running the baseline unmodified test case and comparing it with the results
+from running the \acrshort{llm}-enhanced version and returning to the user with
+regard to driveability. Jerk is to be calculated \emph{after} having executed
+the scenario, utilising the Carla binary file described above.
 
 \subsection{Execution tool / user oriented frontend -- Loki}
 
@@ -458,17 +325,9 @@ to be used by the user for operating the process. It \begin{inparaenum}
     \item execute that prompt to the scenario of their choosing.
 \end{inparaenum}
 
-\lstinputlisting[caption={loki/main.py, The implementation of the Loki script.}, label={lst:lokiMainImplementation}, language={Python}]{hefe-listings/loki_main.py}
+% \lstinputlisting[caption={loki/main.py, The implementation of the Loki script.}, label={lst:lokiMainImplementation}, language={Python}]{hefe-listings/loki_main.py}
 
-Listing~\ref{lst:lokiMainImplementation} renders the implementation of the
-script. It relies on the Odin and Thor modules for all essential functionality,
+The Loki module relies on the Odin and Thor modules for all essential functionality,
 which is in line with what is to be expected as this is simply a frontend client
-to \emph{reach} them.
-
-It is relies on the \texttt{requests} module for doing \acrfull{rpc} to the
-other modules. There is also the outlines of a RabbitMQ implementation, which is
-why \texttt{pika} is being imported. As of now, this is in non-functioning
-alpha. Implementation of RabbitMQ message passing has not been prioritized as
-there were, as mentioned, more important issues to focus on that would yield
-better and more important results when resolved. This would maintain feature
-parity with the \texttt{requests}-based approach.
+to \emph{reach} them. For these reasons, it's a quite simple Pytohn script that relies on
+\acrshort{rpc} to the \acrshortpl{api} of the other components of the pipeline.
