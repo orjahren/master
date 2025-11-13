@@ -37,12 +37,7 @@ To this end, we propose \hefe\footnote{`'\acrshortpl{llm} for decreased driveabi
     \item comparing the results of the two runs.
 \end{inparaenum}
 The architecture of the tool is visualised in \Cref{fig:hefeArch}.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{figures/d2-pdf/hefe.pdf}
-    \caption{\hefe~pipeline architecture}\label{fig:hefeArch}
-\end{figure}
+We summarize the motivation behind using the \hefe~tool in \Cref{user-history}.
 
 The tool follows a natural pipeline structure. We have some base test scenarios that
 need to be run in order to get a baseline for the results, we then have to
@@ -55,7 +50,6 @@ implemented in an \acrshort{llm}- and scenario-agnostic fashion so that it is
 scalable to other combinations of \acrshort{llm} and scenario formats than those
 experimented with in this specific work to verify the feasibility of the tool.
 
-
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/base/underway.png}
@@ -66,34 +60,68 @@ experimented with in this specific work to verify the feasibility of the tool.
 scenario on the Carla simulator. Runs like this will later ber presented in \Nref{chp:results} and
 then analysed in \Nref{chp:discussion} to evaluate the value of the \hefe~tool.
 
-% \section*{The applicability of \acrshortpl{llm} in \acrshort{ads} testing}
+\begin{figure}[htb]
+    \centering
+    \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=User history
+    of using \hefe]
+        \begin{itemize}
+            \item I have a set of \acrshort{ads} test scenarios. I provide this set to
+                    \hefe. It will run the entire set, and generate a baseline of my
+                    \acrshort{ads} performance.
+
+            \item \hefe~will then improve my test scenarios using \acrshortpl{llm}
+                to make them less driveable,  and run the enhanced versions.
+
+            \item Lastly \hefe~will report how the results differ from running the
+                base and enhanced version of a test case.
+
+            \item This will give me insight into my \acrshort{ads} by reviewing what
+                scenarios it failed to complete Then I can look into the cause of the
+                error state and uncover underlying faults in the \acrshort{ads} that i
+                did not know about beforehand. If the \acrshort{ads} \emph{is} able to
+                complete the less driveable scenarios, I can be more confident in it and
+                be more assured that it will work properly during real-world operation.
+            \end{itemize}
+    \end{tcolorbox}
+    \caption{User history of using \hefe}
+    \label{user-history}
+\end{figure}
+
 \section{\hefe~architectural overview}
 
+In order to decrease the driveability of the \acrshort{ads} we need \num{3}
+separate components: \begin{inparaenum}
+    \item something to handle the \acrshort{llm} interfacing, 
+    \item something that can integrate with the \acrshort{ads} simulator, and
+    finally 
+    \item some kind of human-facing interface to administrate the process. 
+\end{inparaenum}
+By compartmentalizing what component has responsibility for what task, we reduce
+complexity and increase the possibility of repurposing the modules for other
+possible tasks in the future. UNIX philosophy!
+These components and their relationship is rendered in \Cref{fig:hefeArch}.
 
-\acrlong{ads} are typically modular, as we have seen in \Cref{sec:adsTestingComplexity}.
-\acrshortpl{llm} are applicable to the different modules in different ways as we saw in
-\Nref{sec:relatedWork}. In order to further our goal of decreasing the driveability of the
-\acrshort{ads}, the module of our interest is the \emph{motion planner} -- the part of the
-\acrshort{ads} responsible for determining where to go and what to do.
+For the sake of making their roles more clear, we christen the components as
+follows: \begin{inparaenum}
+    \item Odin will be the module for interfacing with \acrshortpl{llm} and
+    performing the enhancement.
+    \item Thor will take \acrshort{ads} scenarios, run them on a simulator and
+    report the results. Finally,
+    \item Loki will interface with the human and start the process by
+    determining what \acrshort{llm} is to be used with what prompts with what scenarios.
+\end{inparaenum}
 
-\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=User history
-of using \hefe]\label{user-history}
-    \begin{itemize}
-        \item I have a set of \acrfull{ads} test cases. I provide this set
-                to \hefe. It will run the entire set, and generate a baseline of my
-                \acrshort{ads} performance.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/d2-pdf/hefe.pdf}
+    \caption{\hefe~pipeline architecture}\label{fig:hefeArch}
+\end{figure}
 
-        \item \hefe~will then improve my test cases using \acrlongpl{llm} and run
-    them again.
-
-        \item Lastly \hefe~will report how the results differ from running the base
-    and enhanced version of a test case.
-
-        \item This will give me insight into what caused my \acrshort{ads} to fail
-    so that I can look into the cause of the error state and uncover underlying
-    faults in the \acrlong{ads}.
-        \end{itemize}
-\end{tcolorbox}
+All the prompts exists as a part of the Odin module. Loki will request available
+prompts from Odin on behalf of the user, and the user will select which one they
+want to use. Similarly, all the scenarios exist within the Thor module and are
+handled by it. As for the prompt, the user reqquests a list of available
+scenarios from the Thor module and makes a decision on which they want to use. 
 
 
 \subsection{Implementation language}
