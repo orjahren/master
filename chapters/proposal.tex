@@ -169,12 +169,9 @@ This allows for experimenting with several \acrshortpl{llm} that may all
 have different internal \acrfullpl{api} without having to modify the major underlying code
 for specific \acrshortpl{api}. This saves time, and prevents repetetive manual work.
 
-\subsection*{LLM interface implementations}
-
-Interfacing with \acrshortpl{llm} is the principal task of the Odin module. It
+Therefore, interfacing with \acrshortpl{llm} is the principal task of the Odin module. It
 offers a simple \acrshort{api} to Loki, and then Odin itself will handle all the
 complexities of making the \acrshort{llm} work with the provided prompt etc.
-
 As mentioned above, the current version of the \hefe~tool has support for Ollama
 and Gemini \acrshortpl{api}. Let us review how this has been achieved:
 
@@ -214,7 +211,7 @@ not functioning properly as it would not possible for it to complete the desired
 
 % \lstinputlisting[caption={llm\_api\_interfaces/ollama.py, The implementation of an Ollama interface for executing prompts.}, label={lst:thorOllamaInterface}, language={Python}]{hefe-listings/ollama.py}
 
-\subsection*{Prompts and their associated code}
+\subsubsection{Prompts and their associated code}
 
 In this project, the prompts are the instruction to the \acrshort{llm} for
 applying the enhancement to the scenario. Quite possibly the most critical piece
