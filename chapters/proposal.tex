@@ -154,14 +154,9 @@ tool.
 The Odin module handles all things \acrshort{llm}. It provides a unified
 \acrshort{api} for applying various prompts to scenarios and returning the
 enhanced output resulting from having applied the prompt. We have implemented
-support for the \acrshortpl{llm} that are available on \begin{inparaenum}
-    \item Ollama, and
-    \item Gemini
-\end{inparaenum}. This allows for testing with \acrshortpl{llm} such as
-\begin{inparaenum}\setcounter{enumi}{2}
-    \item Mistral \num{7.2}B, and
-    \item gemini-2.5-flash
-\end{inparaenum}.
+support for the \acrshortpl{llm} that are available on Ollama, and Gemini. This
+allows for testing with \acrshortpl{llm} such as \texttt{Mistral \num{7.2}B},
+and \texttt{gemini-2.5-flash}.
 
 Note that we don't employ any traditional \acrfull{nlp} techniques related to e.g. tokenization
 or input processing -- we leave this up to the internal mechanisms of the
