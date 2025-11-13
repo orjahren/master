@@ -127,8 +127,17 @@ All code is available on the GitHub repo
 
 \section{Component details}
 
+All the components are intended to be ran as separate containerised processes on
+Docker, allowing for scaling them up to industrial scale in a \acrfull{k8s}
+setting. Docker is a piece of software that allows a piece of software to run in a
+reproducible \emph{pod} which allows for easy dependency management and scaling.
+The motivation for using \acrshort{k8s} technology in this project would lay in
+spinning up several Odin and Thor pods, allowing for processing several
+scenarios in parallell even if there is only \num{1} Loki client.
+
 Let us now focus on the individual components and analyse how they solve their
-given tasks and how they all fit together to make up the total \hefe~pipeline tool.
+given tasks and how they all fit together to make up the total \hefe~pipeline
+tool.
 
 \subsection{LLM interface and prompt applications -- Odin}\label{sec:odinImplementation}
 
