@@ -64,7 +64,7 @@ need to be run in order to get a baseline for the results, we then have to
 enhance these, and run the improved versions and compare them to their original
 versions.
 Experimenting with this tool will allow us to learn the extent to which
-\acrshortpl{llm} can be applied for decreasing  driveability in \acrlong{ads}
+\acrshortpl{llm} can be applied for decreasing  driveability in \acrshort{ads}
 test scenarios, satisfying the \Nref{sec:problemDescription}. The tool is
 implemented in an \acrshort{llm}- and scenario-agnostic fashion so that it is
 scalable to other combinations of \acrshort{llm} and scenario formats than those
@@ -193,7 +193,7 @@ The Ollama integration is a bit more cumbersome. This mostly comes down to it no
 using any existing library modules for this specific purpose, instead relying on
 using the \texttt{json} and \texttt{requests} modules to implement the desired
 functionality from scratch, making it so that we need to handle network IO and
-marshalling the \acrfull{llm} response into a fitting return buffer.
+marshalling the \acrshort{llm} response into a fitting return buffer.
 
 Its complexity arises principally from \num{2} major factors --
 \begin{inparaenum}
@@ -212,7 +212,7 @@ not functioning properly as it would not possible for it to complete the desired
 
 \subsection*{Prompts and their associated code}
 
-In this project, the prompts are the instruction to the \acrfull{llm} for
+In this project, the prompts are the instruction to the \acrshort{llm} for
 applying the enhancement to the scenario. Quite possibly the most critical piece
 of code related to the experiments. They need to take the base scenario as an
 input and integrate it into the \acrshort{llm} context, such that it knows what
