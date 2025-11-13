@@ -215,21 +215,39 @@ not functioning properly as it would not possible for it to complete the desired
 
 In this project, the prompts are the instruction to the \acrshort{llm} for
 applying the enhancement to the scenario. Quite possibly the most critical piece
-of code related to the experiments. They need to take the base scenario as an
+of code related to the experiments, outside of the base \acrshort{llm}
+integration that allows for running prompts altogether. 
+They need to take the base scenario as an
 input and integrate it into the \acrshort{llm} context, such that it knows what
 it shall use as its base to apply enhancements that will decrease the
-driveability. For this reason, it also provides certain scenario
-utilities\footnote{That architecturally might as well have been integrated in the
-    Thor module\ldots}.
-% TODO: Finnes det noe bigbrain måte å slippe å manuelt måtte referere ti llinjenummer?
+driveability. For this reason, the Odin module also provides certain scenario
+utilities, for facilitating prompt operations.
 As mentioned, the prompts need to include the scenarios \emph{in} them, so that
-they are accessible to the \acrshort{llm}. How this is done, is rendered in
-listing~\ref{lst:odinPromptTestbed}. The most interesting aspect is how the
-prompts are stored in the system as lambda functions. This makes it so that they
-can take an argument that represents the scenario --
-\texttt{python\_carla\_scenario\_raw}(line \#16) -- and simply \emph{execute} the
-function to insert the scenario into the prompt (line \#42). This is then
-inserted into the output prompt at the location located at line \#21 in the listing.
+they are accessible to the \acrshort{llm}. 
+The most interesting aspect about how we do this, is how the prompts are stored
+in the system as lambda functions. This makes it so that they 
+can take an argument that represents the scenario and simply \emph{execute} the
+function to insert the scenario into the prompt. This is then
+inserted into the output prompt. This is a very intuitive concept that might
+best be \emph{seen}
+
+Listing \ref{lst:odinPromptExample} renders an example how the prompts are stored in
+the code base. As mentioned, this is used in a such a manner that the
+\acrshort{ads} scenario is provided as an argument and is then inserted on that
+which is  line \num{4} in this example listing. This generalization of inserting
+the scenarios into template strings allows for using the same prompts for all
+scenarios without having to modify the underlying code.
+
+\begin{lstlisting}[language=python, label={lst:odinPromptExample}, caption={An example prompt.}]
+    "basic": lambda python_carla_scenario_raw: f"""
+        1 - Context: We are working with a driving simulation environment for the Carla simulator.
+        2 - Task: Decrease the driveability of the scenario by enhancing it with more details and complexity.
+        3 - Input: {python_carla_scenario_raw}
+        4 - Output: An enhanced version of the scenario description with additional
+        details and complexity, still in Python carla scenario format.
+    """,
+\end{lstlisting}
+
 
 % TODO: Linjenummere må oppdateres
 % TODO: Må legge til at man også kan passe inn scenario-navn og metrics
