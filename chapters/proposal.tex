@@ -37,7 +37,28 @@ To this end, we propose \hefe\footnote{`'\acrshortpl{llm} for decreased driveabi
     \item comparing the results of the two runs.
 \end{inparaenum}
 The architecture of the tool is visualised in \Cref{fig:hefeArch}.
-We summarize the motivation behind using the \hefe~tool in \Cref{user-history}.
+We summarize the motivation behind using the \hefe~tool in the following user story:
+
+\begin{enumerate}
+    \item I have a set of \acrshort{ads} test scenarios. I provide this
+            set to \hefe. It will run the entire set, and generate a
+            baseline of my \acrshort{ads} performance.
+
+    \item \hefe~will then improve my test scenarios using
+        \acrshortpl{llm} to make them less driveable,  and run the
+        enhanced versions.
+
+    \item Lastly \hefe~will report how the results differ from running
+        the base and enhanced version of a test case.
+
+    \item This will give me insight into my \acrshort{ads} by reviewing
+        what scenarios it failed to complete Then I can look into the
+        cause of the error state and uncover underlying faults in the
+        \acrshort{ads} that i did not know about beforehand. If the
+        \acrshort{ads} \emph{is} able to complete the less driveable
+        scenarios, I can be more confident in it and be more assured
+            that it will work properly during real-world operation.
+\end{enumerate}
 
 The tool follows a natural pipeline structure. We have some base test scenarios that
 need to be run in order to get a baseline for the results, we then have to
@@ -59,33 +80,6 @@ experimented with in this specific work to verify the feasibility of the tool.
 \Cref{fig:carlaScenarioExample} renders an example of how it can appear when exeucitng a test
 scenario on the Carla simulator. Runs like this will later ber presented in \Nref{chp:results} and
 then analysed in \Nref{chp:discussion} to evaluate the value of the \hefe~tool.
-
-\begin{figure}[htb]
-    \centering
-    \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=User history
-    of using \hefe]
-        \begin{itemize}
-            \item I have a set of \acrshort{ads} test scenarios. I provide this set to
-                    \hefe. It will run the entire set, and generate a baseline of my
-                    \acrshort{ads} performance.
-
-            \item \hefe~will then improve my test scenarios using \acrshortpl{llm}
-                to make them less driveable,  and run the enhanced versions.
-
-            \item Lastly \hefe~will report how the results differ from running the
-                base and enhanced version of a test case.
-
-            \item This will give me insight into my \acrshort{ads} by reviewing what
-                scenarios it failed to complete Then I can look into the cause of the
-                error state and uncover underlying faults in the \acrshort{ads} that i
-                did not know about beforehand. If the \acrshort{ads} \emph{is} able to
-                complete the less driveable scenarios, I can be more confident in it and
-                be more assured that it will work properly during real-world operation.
-            \end{itemize}
-    \end{tcolorbox}
-    \caption{User history of using \hefe}
-    \label{user-history}
-\end{figure}
 
 \section{\hefe~architectural overview}
 
