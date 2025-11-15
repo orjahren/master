@@ -7,7 +7,7 @@ the \acrshort{llm}. The lines in black are unchanged.
 
 \section{Follow vehicle}
 
-See \Cref{sec:followVehicleResults} for analysis of this output.
+See \Cref{sec:followVehicleResults} for an overview and \Cref{sec:discFollow} for analysis of this output.
 
 \subsection{Initial enhancement}
 
@@ -23,23 +23,23 @@ See \Cref{sec:followVehicleResults} for analysis of this output.
 
 \subsection{Minimal changes}
 
+This scenario is outlined in \Cref{chp:resultsAccidentScenario} and analysed in \Cref{sec:discAcc}.
+
 \lstinputlisting[caption={The diff of a minimally \acrshort{llm}-enhanced Accident scenario.}, label={lst:appendixDiffAccidentMod1}, language={diff}]{experiment-material/accident-mod-1.diff}
 
-This scenario is analysed in \Cref{chp:resultsAccidentScenario}.
 
 \subsection{Optimized for jerk}\label{sec:appendixJerkOptimizedAccident}
 
-This scenario is also analysed in \Cref{chp:resultsAccidentScenario}.
+This scenario is also outlined in \Cref{chp:resultsAccidentScenario} and analysed in \Cref{sec:discAcc}.
 
-\subsubsection{Mod 1}
+\subsubsection{First iteration}
 
 \lstinputlisting[caption={The diff of the jerk-optimized Accident scenario.}, label={lst:jerkOptimizedAccidentMod2}, language={diff}]{experiment-material/accident-mod-2.diff}
 
 
-\subsubsection{Mod 2}
+\subsubsection{Second iteration, with a more strict prompt}
 
 \lstinputlisting[caption={The diff of the jerk-optimized Accident scenario with stricter specification.}, label={lst:jerkOptimizedAccidentMod3}, language={diff}]{experiment-material/accident-mod-3.diff}
-
 
 \chapter{Scenario error messages}\label{sec:errorMessages}
 
@@ -75,7 +75,7 @@ No more scenarios .... Exiting
 
 \end{lstlisting}
 
-The scenario that triggered this error is analysed in \Cref{sec:followVehicleResults} and the
+The scenario that triggered this error is presented in \Cref{sec:followVehicleResults} and the
 contents of the \acrshort{llm} enhancement are presented in listing
 \ref{lst:hallucinatedFollowDiff}.
 
