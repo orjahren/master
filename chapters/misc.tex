@@ -1,67 +1,65 @@
 \chapter*{Abstract}
 
-% NOTE: Denne er fra UiO GPT, med RAG på thesis, og så redigert litt
-
-\acrfullpl{ads} require rigorous testing across an effectively unbounded space of operating
-scenarios. To proactively surface weaknesses prior to real-world deployment, this thesis introduces
-\hefe~, a tool that leverages \acrfullpl{llm} to systematically decrease the driveability of
-\acrshort{ads} simulator scenarios. By transforming existing scenario descriptions to introduce more
-challenging conditions while preserving scenario validity, \hefe~aims to elicit failure modes
-earlier and improve confidence in \acrshort{ads} behavior.
-
-We evaluate \hefe~on a suite of simulator scenarios with a primary focus on the jerk metric as a
-proxy for ride quality, safety and control smoothness. Results indicate that, under prompting
-strategies that encourage bounded, minimally invasive edits, \hefe~reliably produces less drivable
-scenarios that increase challenge without invalidating simulations. Allowing broader changes leads
-to higher rates of hallucinated content and simulator crashes, highlighting trade-offs between
-scenario novelty and robustness. The findings align with related work on automated test generation
-and underscore the potential of \acrshort{llm}s for targeted test amplification, particularly to
-explore long-tail edge cases.
-
-Contributions include: \begin{inparaenum}
-    \item the \hefe~methodology and implementation for driveability reduction in \acrshort{ads}
-    scenarios;
-    \item an empirical assessment centered on jerk-based evaluation; and
-    \item practical insights on prompt design and constraints to mitigate hallucinations.
+\acrfullpl{ads} should be capable of tackling any challenge they may be faced
+with while driving. Before deploying such \acrshortpl{ads}, it is important to
+be confident that they \emph{are} capable of handling potential challenges in a
+fitting manner. But there is a near infinite set of potential scenarios that an
+\acrshort{ads} may be faced with, making it impossible to predict and test on
+all possible scenarios in advance. To this end, we propose using
+\acrshortpl{llm} to decrease the driveability of our existing \acrshort{ads}
+scenarios, enabling the \acrshort{ads} to face a more challenging test
+environment. By using these more challenging test scenarios, we can either
+\begin{inparaenum}
+    \item cause it to fail and analyze why the \acrshort{ads} failed, or 
+    \item increase our confidence in it being able to operate in challenging scenarios. 
 \end{inparaenum}
-We conclude with recommendations for improving reliability and coverage, and outline directions for
-fully automated, human-out-of-the-loop scenario enhancement.
+We implement a tool --- \hefe{} --- for doing this and evaluate it with regard
+to the jerk metric. We compare the jerk of the \acrshort{ads} in the `base' and
+`enhanced' versions of the scenario, assessing if the driveability was decreased
+and how the \acrshort{ads} responsed to this more challenging operating
+environment. We also perform a literature review to survey the extant related
+works and evaluate how \hefe{} fits into the state of the art. 
+Experimental results show that using \acrshortpl{llm} to decrease
+driveability is a promising strategy if the range of the changes the
+\acrshort{llm} is allowed to make is limited, whereas problems related to
+halluciantion and simulator crashes arise if the \acrshort{llm} makes excessive
+changes to the original scenario. Based on the results, we present the research
+and outline several strategies for improving \hefe{} in future research.
 
-
-% NOTE: Dette er samme som over, oversatt med UiO GPT, og så manuelt fixet til å være mer naturlig
-% (kunne sikkert med fordel blitt _enda_ mer naturlig)
 
 \begin{otherlanguage}{norsk}
     \chapter*{Sammendrag}
-    Selvkjørende biler krever grundig testing på tvers av det som i praksis er et ubegrenset rom av
-    mulige scenarioer. For å avdekke underliggende svakheter i forkant av at de kommer til syne i
-    den virkelige verden introduserer denne masteroppgaven \hefe,~et verktøy som benytter store
-    språkmodeller (LLM) for å systematisk redusere kjørbarheten til simulator-scenarioer for
-    selvkjørende biler. Ved å transformere eksisterende scenariebeskrivelser for å introdusere mer
-    utfordrende forhold samtidig som gyldigheten til scenariene opprettholdes, har \hefe~som mål å
-    avdekke feil tidligere, dersom bilen ikke klarer scenarioet, og ellers styrke tilliten til
-    systemet dersom det klarer det mer utfordrende scenarioet uten videre problemer.
-
-    Vi tester \hefe~på en mengde av testscenarioer med fokus på jerk-metrikken som en proxy for
-    kjørekomfort, sikkerhet og kontrollflyt. Resultatene indikerer at med prompting-strategier som
-    tilrettelegger for begrensede, mindre substansielle endringer, klarer \hefe~å skaffe til veie
-    mindre kjørbare scenarier som øker utfordringen for den selvkjørende bilen uten å ugyldiggjøre
-    simuleringene. Å tillate bredere endringer fører til høyere forekomster av hallusinert innhold
-    og krasj i simulatoren, noe som poengterer en avveining mellom scenarioenes nyskapning og
-    robusthet. Funnene samsvarer med relaterte prosjekter innen automatisert testgenerering og
-    understreker potensialet til bruk av KI for målrettet testforsterkning, spesielt for å få bukt
-    med problematikk knyttet til lange haler av kanttilfeller.
-
-    Bidragene inkluderer: \begin{inparaenum}
-        \item \hefe-metodologien og implementasjon for reduksjon av kjørbarhet i
-        simulator-scenarioer for selvkjørende biler,
-        \item en empirisk vurdering basert på jerk-metrikken, og
-        \item praktiske innsikter om utforming av prompts og begrensninger for å redusere
-        hallusinasjoner.
+    Selvkjørende biler burde være i stand til å hanskes med enhver utfordring
+    som måtte komme deres vei mens de er ute og kjører. Før man slipper
+    selvkjørende biler fri ut i verden er det derfor viktig å være viss på at de
+    \emph{er} i stand til å håndtere slike potensielle utfordringer. Men det er
+    nært sagt et uendelig antall mulige scenarioer en bil kan komme til å stå
+    ovenfor, slik at det er umulig å forutse alle scnarioer og teste på disse i
+    forkant. Derfor foreslår vi å anvende store språkmodeller for å gjøre dagens
+    eksisterende scenarioer mindre kjørbare enn hva de allerede er, slik at
+    bilen får bryne seg på større utfordringer i forkant av å møte på dem ute i
+    verden. Ved å benytte disse mer komplekse testscenarioene vil vi enten kunne
+    \begin{inparaenum}
+        \item trigge den til å feile slik at vi kan analysere hva som gikk galt
+        og lære noe nytt om bilen, eller 
+        \item være mer trygge på at bilen er i stand til å hanskes med komplekse
+        scenarioer.
     \end{inparaenum}
-    Vi konkluderer med anbefalinger for å forbedre pålitelighet og dekning, og legger frem mulige
-    løyper å trå opp for å oppnå fullkomment automatisert, menneske-ute-av-loopen
-    scenarioforbedring.
+    På bakgrunn av dette implementerer vi et verktøy --- \hefe{} --- for å gjøre
+    nettopp dette og evaluerer det med hensyn på rykk-metriken. Vi sammenligner
+    rykk i den selvkjørende bilen på tvers av baseformen av scenarioet og dets
+    forbedrede versjoner, og ser på om kjørbarheten har blitt forverret fra
+    hvordan den var opprinnelig og hvordan bilen forholder seg til dette mer
+    utfordrende scenarioet. Vi har også gjennomført en litteraturgjennomgang og
+    sett på et bredt utvalg forskning fra feltet slik at vi kan ta stilling til
+    hvor \hefe{} passer inn i terrenget. Eksperimentene våre indikerer at dette
+    konseptet med å bruke store språkmodeller til å senke kjørbarheten er en
+    lovende fremgangsmåte all den tid språkmodellen begrenses i hvor
+    \emph{brede} endringer den får lov til å gjøre. Dersom den slippes fri uten
+    tøyler, støter vi på problemer knyttet til hallusinering og at simulatoren
+    krasjer. Basert på resultatene presenterer vi selve forskningen, samt en
+    rekke videre strategier for å forbedre \hefe{} i fremtidig arbeid.
+
 \end{otherlanguage}
 
 \chapter*{Preface}
