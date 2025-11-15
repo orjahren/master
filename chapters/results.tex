@@ -12,7 +12,7 @@ ahead, we first look at some general aspects that are shared between all our exp
 narrowing the scope and reviewing a selection of individual scenarios, highlighting the value added
 by the \hefe~tool.
 
-Table \ref{tab:scenarioFailures} following renders a table of the status of executing various
+Table \ref{tab:scenarioFailures} renders a table of the status of executing various
 scenarios after they have been processed by a Gemini \acrshort{llm}.
 
 \begin{table}[htbp]
@@ -48,7 +48,7 @@ reported to the project GitHub\footnote{By several members of the scientific com
               \url{https://github.com/carla-simulator/carla/issues/9349}\end{itemize}}, but as of 2025-10-15
 it has not been resolved. Testing shows that the same scenarios may be ran without crashing when
 \textbf{not recording}, but this naturally has severe implications for our
-opportunities of obtaining data from the simulation run. The `record' function
+opportunities of obtaining data from the simulation run. The `record' functionality
 of the scenario runner is the crux of measuring the driveability of the
 scenario.
 
@@ -74,7 +74,7 @@ Carla simulator, these basic scenarios are used for the purposes of the thesis e
 as a validation of the concept and laying the groundwork for adapting the method to other scenario
 sources in the future.
 
-As mentioned in \Nref{sec:testCaseRunner}, Carla scenario excutions are saved to binary log files.
+As mentioned in \cref{sec:testCaseRunner}, Carla scenario excutions are saved to binary log files.
 But these files are \emph{huge}, typically being several hundred megabytes depending on the duration
 of the scenario execution\footnote{Keep in mind that they record data for all actors in the scenario
     over time.}. As such, publishing all our raw files is not feasible. A selection is available in the
@@ -188,10 +188,10 @@ The enhanced scenarios are simply presented here, and then analysed later in \Nr
 \end{figure}
 
 \Cref{fig:followMinimallyEnhanced1StartPoint} gives a visual representation of the initial state of
-one enhanced scenario,
+one enhanced scenario.
 
 Another result (\Cref{fig:followMinimallyEnhanced2StartPoint}) places a vehicle parked on the edge
-of the road. This is inline with our prompt, representing a change that is both \begin{inparaenum}
+of the road. This is in line with our prompt, representing a change that is both \begin{inparaenum}
     \item minimal, and still
     \item decreasing driveability.
 \end{inparaenum}
@@ -205,10 +205,9 @@ of the road. This is inline with our prompt, representing a change that is both 
 
 % TODO: Også legge inn den tredje?
 
-Let us now review the jerk metric for these variations of the scenario. First out is the initial
-scenario.
+Let us now review the jerk metric for these variations of the scenario (\Cref{fig:jerkComparison}).
 
-\begin{figure}[htb]
+\begin{figure}[!htb]
     \centering
     \subfloat[Jerk in the base scenario, rendered in fig~\ref{fig:followBaseStartpoint}\label{fig:followBaseJerk}]{
         \includegraphics[width=0.45\textwidth]{experiment-material/follow-base-jerk.png}
@@ -226,6 +225,9 @@ scenario.
     \caption{Jerk of the ego vehicle in the base and enhanced `follow' scenarios.}
     \label{fig:jerkComparison}
 \end{figure}
+
+\FloatBarrier{} % gjør så alle floats (bilder) MÅ inn i PDFen før man kan rendre
+% mer tekst
 
 
 \subsection{Base scenario: Accident}\label{chp:resultsAccidentScenario}
@@ -276,8 +278,6 @@ The first enhancement is done using the `minimal changes'-prompt (listing
 \ref{lst:minimalChangesPrompt}). It is rendered visually in \Cref{fig:accidentMod1StoppedVisual} and
 the complete diff of this enhancement is rendered in listing \ref{lst:appendixDiffAccidentMod1} in
 \Cref{sec:appendixAccidentDiffs}.
-
-\newpage % Legger inn ny side for å få hele listingen på en side
 
 \begin{figure}[h]
     \centering
@@ -367,12 +367,10 @@ should focus on (listing \ref{lst:jerkPromptSpecificScenario}).
 
 \begin{figure}[h]
     \centering
-    \subfloat[A screenshot from the jerk optimized `accident' scenario with the
-        \acrshort{llm} strictly focusing on modifying the correct scenario. See
+    \subfloat[A screenshot from the jerk optimized \\`accident' scenario with the focused on\\ modifying the correct scenario. See
         listing \ref{lst:jerkOptimizedAccidentMod3}.\label{fig:accidentMod3FinalFreecam}]{
         \includegraphics[width=0.48\textwidth]{experiment-material/accident-pics/mod-3/freecam.png}
     }
-    \vspace{1em}
     \subfloat[A screenshot from the jerk optimized `accident' scenario with the
     ego stopped.\label{fig:accidentMod2FinalFreecam}]{
         \includegraphics[width=0.48\textwidth]{experiment-material/accident-pics/mod-2/freecam.png}
