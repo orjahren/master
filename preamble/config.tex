@@ -34,10 +34,9 @@
 \definecolor{diffrem}{named}{OrangeRed}
 
 \lstdefinelanguage{diff}{
-  %basicstyle=\ttfamily\small,
-  morecomment=[f][\color{diffstart}]{@@},
-  morecomment=[f][\color{diffincl}]{+\ },
-  morecomment=[f][\color{diffrem}]{-\ },
+  morecomment=[l][\color{diffstart}]{@@},
+  morecomment=[l][\color{diffincl}]{+},
+  morecomment=[l][\color{diffrem}]{-},
 }
 
 % Skrur av links i glossary-entries, se #5.
