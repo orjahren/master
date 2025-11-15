@@ -80,21 +80,19 @@ causes harm in the real world. And if the \acrshort{ads} \emph{does} still work,
 confident in their system.
 
 Finally, edge cases can be a major issue for \acrshort{ads} adaptation. The \textit{tail problem} as
-it is known in the \acrshort{ml} field posits that \acrfull{ml} tasks are faced with a long tail of
+it is known in the \acrfull{ml} field posits that \acrshort{ml} tasks are faced with a long tail of
 unseen cases. We can map these unseen cases, to our unseen \acrshort{ads} scenarios. Because of
 this, an \acrshort{ads} can be at risk of encountering an unseen edge case scenario during operation
 -- something for which it might never have been tested~\cite[1]{yao2025agentsllm}.
 Arguing that the \acrshort{ads} would probably crash simply due to it finding itself in an unseen
 scenario is not logical. But it is important to keep in mind that the end we are pursing in the
-broader adaption of \acrfullpl{ads}, is increased safety and efficiency on our roads. Not
+broader adaption of \acrshort{ads}, is increased safety and efficiency on our roads. Not
 sufficiently testing the \acrshort{ads} before deploying it would not serve our goal of increasing
 road safety -- it would be a gamble with human lives. Not all edge cases are relevant for all
 contexts and environments. As such, \acrshort{ads} system developers could employ \acrshortpl{llm}
-to obtain more of a certain scenario that they wish to test, if they were to only be in possession of
-a tangentially related form. Say for example that they wished to obtain a set of scenario in which
-certain properties are met, or certain situations occur. Or if they wish to wash out the bias of the
-human scenario authors.
-% TODO: Bias er ikke relevnt her??
+to obtain more variants of a certain scenario that they wish to test, if they were to only be in possession of
+a similar form. Say for example that they wished to obtain a set of scenarios in which
+certain properties are met, or certain situations occur. 
 
 Based on the problem description above, these are the formal research
 questions of the thesis:
@@ -125,7 +123,7 @@ Following this Introduction chapter, the thesis is structured as follows:
     \item \Cref{chp:solutionProposal} details our proposed solution and its technical aspects.
     \item \Cref{chp:experiments} describes the experimental setup used to evaluate the solution.
     \item \Cref{chp:results} presents the findings from the experiments.
-    \item \Cref{chp:discussion} analyses and contextualizes the results in relation to existing work.
+    \item \Cref{chp:discussion} analyses and contextualizes the results.
     \item \Cref{chp:furtherWork} suggests directions for future research.
     \item \Cref{chp:conclusion} summarizes the main contributions and findings.
 \end{itemize}
