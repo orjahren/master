@@ -5,13 +5,22 @@
 In this master's thesis, we propose a tool -- \hefe{}~-- for using
 \acrshortpl{llm} to decrease the driveability of \acrshort{ads} scenarios in
 order to increase confidence in the \acrshort{ads} and expose underlying
-weaknesses in the system. We show that this work is in line with what is to be
+weaknesses in the system. We do a literaview with both a theoretical and applied
+focus. We show that this work is in line with what is to be
 expected from comparison with other related works in the field, validating that
-the concept works quite well for focusing on making less significant changes to
+the \hefe{} concept works quite well for focusing on making less significant changes to
 the original scenario with a focus on the jerk metric. When allowing the
 \acrshort{llm} to make excessive changes to the scenario, the results indicate
 that problems related to hallucination and simulator crashes arise under our
 current \acrshort{llm}- and prompting strategies.
+
+The \hefe{} tool is a modularized pipeline tool, consisting of the components
+\texttt{Odin}, \texttt{Thor}, and \texttt{Loki}, each component being
+respectively responsible for handling \begin{inparaenum}
+    \item \acrshort{llm} integration,
+    \item \acrshort{ads} integration, and 
+    \item user-based orchestration.
+\end{inparaenum}
 
 We used the \acrshortpl{llm} \texttt{Mistral 7.2}B and \texttt{gemini-2.5-flash}
 and various original prompts. The scenarios we used for evaluating the tool came
@@ -22,5 +31,13 @@ obtained indicate a \num{63}\% error rate of running a scenario after it has
 been enhanced. We classified these errors into \num{4} categories based on what
 caused the execution to fail.
 
+\newpage
+
 We propose several strategies for improving this initial version of the tool in
-\Nref*{chp:furtherWork}.
+\Nref{chp:furtherWork}.
+
+In conclusion, this thesis shows that \acrshortpl{llm} can indeed be used to
+decrease the driveability of \acrshort{ads} scenarios. The
+\acrshort{llm}-based approach presented in this thesis and evaluated by
+implementing the \hefe{} tool, appears as a promising contribution to
+furthering the state of the art of \acrshort{ads} verification research.
