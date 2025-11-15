@@ -244,7 +244,7 @@ the scenarios into template strings allows for using the same prompts for all
 scenarios without having to modify the underlying code.
 
 \begin{lstlisting}[language=python, label={lst:odinPromptExample}, caption={An example prompt.}]
-    "basic": lambda python_carla_scenario_raw: f"""
+    lambda python_carla_scenario_raw: f"""
         1 - Context: We are working with a driving simulation environment for the Carla simulator.
         2 - Task: Decrease the driveability of the scenario by enhancing it with more details and complexity.
         3 - Input: {python_carla_scenario_raw}
