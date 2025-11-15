@@ -16,7 +16,7 @@ the \acrshort{ads} passing all our test scenarios, and then there can be a hole
 in what they test for, so that the \acrshort{ads} may actually have
 undiscovered faults that we haven't caught on to.
 
-Futhermore, we saw that \acrshortpl{llm} have capabilities for modifying textual
+Furthermore, we saw that \acrshortpl{llm} have capabilities for modifying textual
 data (such as e.g. scenario definitions) by natural language prompt engineering.
 In \Nref{chp:relatedWorkAndLitReview} we surveyed several projects that aim to
 enhance scenario-based testing of \acrshortpl{ads}, and we saw that some of them
@@ -81,8 +81,8 @@ experimented with in this specific work to verify the feasibility of the tool.
     \caption{A screenshot from executing a Carla scenario.}\label{fig:carlaScenarioExample}
 \end{figure}
 
-\Cref{fig:carlaScenarioExample} renders an example of how it can appear when exeucitng a test
-scenario on the Carla simulator. Runs like this will later ber presented in \Nref{chp:results} and
+\Cref{fig:carlaScenarioExample} renders an example of how it can appear when executing a test
+scenario on the Carla simulator. Runs like this will later be presented in \Nref{chp:results} and
 then analysed in \Nref{chp:discussion} to evaluate the value of the \hefe~tool.
 
 \section{Architectural overview}
@@ -118,7 +118,7 @@ These components and their relationship is rendered in \Cref{fig:hefeArch}.
 All the prompts exists as a part of the Odin module. Loki will request available
 prompts from Odin on behalf of the user, and the user will select which one they
 want to use. Similarly, all the scenarios exist within the Thor module and are
-handled by it. As for the prompt, the user reqquests a list of available
+handled by it. As for the prompt, the user requests a list of available
 scenarios from the Thor module and makes a decision on which they want to use. 
 
 The programming language \textsc{Python} is widely used for \acrshort{ads} simulation. It is a high
@@ -138,7 +138,7 @@ setting. Docker is a piece of software that allows a piece of software to run in
 reproducible \emph{pod} which allows for easy dependency management and scaling.
 The motivation for using \acrshort{k8s} technology in this project would lay in
 spinning up several Odin and Thor pods, allowing for processing several
-scenarios in parallell even if there is only \num{1} Loki client.
+scenarios in parallel even if there is only \num{1} Loki client.
 
 Let us now focus on the individual components and analyse how they solve their
 given tasks and how they all fit together to make up the total \hefe{} pipeline
@@ -169,10 +169,10 @@ or input processing -- we leave this up to the internal mechanisms of the
 
 In order to facilitate testing various \acrshortpl{llm}, the module is written to
 be as general as possible, exposing a simple \acrshort{api} that can be used
-with all various \acrshortpl{llm} with minimal modiciation necessary.
+with all various \acrshortpl{llm} with minimal modification necessary.
 This allows for experimenting with several \acrshortpl{llm} that may all
 have different internal \acrfullpl{api} without having to modify the major underlying code
-for specific \acrshortpl{api}. This saves time, and prevents repetetive manual work.
+for specific \acrshortpl{api}. This saves time, and prevents repetitive manual work.
 
 Therefore, interfacing with \acrshortpl{llm} is the principal task of the Odin module. It
 offers a simple \acrshort{api} to Loki, and then Odin itself will handle all the

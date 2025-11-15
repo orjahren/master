@@ -15,7 +15,7 @@ manner, based on \begin{inparaenum}
 section reviews various \acrshort{llm}-related aspects that may stand to
 serve the goal of employing \acrshortpl{llm} for decreasing driveability in
 \acrshort{ads} simulator scenarios. The proposed strategies stem from the
-experiences gained while performing the experimenst and analysing the results,
+experiences gained while performing the experiments and analysing the results,
 and they relate both \begin{inparaenum}
     \item  to the actual \acrshortpl{llm},
     \item  how the \acrshort{llm} can be exploited with prompts, and 
@@ -151,7 +151,7 @@ of all the other scenarios.
 
 \subsubsection{Python-specific enhancements}
 
-The Python-based \hefe~implementaiton can be optimized using \acrfull{jit}
+The Python-based \hefe~implementation can be optimized using \acrfull{jit}
 compilers such as Numba~\cite{numba}, which can speed up our execution times.
 Libraries such as Joblib provide Python with plug-and-play meomization, which
 will allow us to re-use values that have already been computed, saving time and
@@ -198,7 +198,7 @@ for the Carla stability, finding that version \num{470} supposedly is optimal an
 The experiments of this project have been done using version \num{580}.
 
 A possible alternate strategy could be to undertake a similar work within the CommonRoad framework,
-bypassying Carla altogther\footnote{See e.g. \url{https://commonroad.in.tum.de/tools/drivability-checker}.}.
+bypassing Carla altogether\footnote{See e.g. \url{https://commonroad.in.tum.de/tools/drivability-checker}.}.
 
 \newpage % Legger inn ny side siden den uansett konsummeres og det ser bedre ut 
 
@@ -211,7 +211,7 @@ there is a lot to be gained by formalizing the process.
 Further work could look into defining mathematical properties for what qualifies as a `meaningfully
 decreased driveability'. \citeauthor{adsQualityMetrics21} propose several evaluation
 criteria~\cite[196]{adsQualityMetrics21}. One typical example could be to look at whether the jerk
-exceeded a certain threshold during scenario execution -- but even then, we neeed to define what
+exceeded a certain threshold during scenario execution -- but even then, we need to define what
 this threshold should be. Several heuristics may be applicable. And it really isn't the case that
 `more jerk' indicates the presence of a result, as maintaining \emph{the same} jerk could be equally
 indicative of a result. This has to be tailored to the specific scene, in light of what the

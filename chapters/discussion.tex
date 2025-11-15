@@ -26,7 +26,7 @@ likelihood of the scenario still being able to be be ran without excessive probl
 As outlined in \Nref{sec:llmExperimentation}, the experimentation was done using a locally hosted
 \num{7.2}B parameter Mistral model, and a far larger Gemini model -- \texttt{Gemini 2.5 flash}. The
 Gemini model obtained significantly better results than the Mistral model, probably due to its size.
-The mistral model produced incoherent output and was a lot slower\footnote{Argubably probably due to
+The mistral model produced incoherent output and was a lot slower\footnote{Arguably probably due to
     it running on quite weak hardware. Speed is not a fair comparison.}. This is why all the following
 results are done with the Gemini model.
 
@@ -55,7 +55,7 @@ As presented in \Nref{sec:followVehicleResults}, the \acrshort{llm} does be able
 this scenario. We show how the most basic prompt (listing \ref{lst:basicPrompt}) fails to rein in
 the \acrshort{llm} which leads to hallucination that causes the scenario to fail to run.
 
-We then iterate on the prompt (listing \ref{lst:strictPrompt}) in order to reduce the halluciantions
+We then iterate on the prompt (listing \ref{lst:strictPrompt}) in order to reduce the hallucinations
 and be able to get a runnable scenario out form the \acrshort{llm}. But even this does not work --
 the enhanced scenario still fails to run.
 
@@ -64,10 +64,10 @@ This is why we iterate on the prompt again, instructing the \acrshort{llm} to ma
 already working scenario are minimal, there is a greater chance that the output scenario will also
 work due to how similar they are.
 
-While this reduces our potenial gain -- it would naturally be more interesting to see significantly
+While this reduces our potential gain -- it would naturally be more interesting to see significantly
 modified scenarios -- this does work, and the output scenario is runnable.
 
-The first enhnaced scneario -- \Cref{fig:followMinimallyEnhanced1StartPoint} -- entails having there
+The first enhanced scenario -- \Cref{fig:followMinimallyEnhanced1StartPoint} -- entails having there
 be a truck in the middle of the road. This significantly decreases the driveability of the scenario
 -- it is no longer possible to simple drive straight, the \acrshort{ads} \emph{must} handle the
 problem of a static vehicle in its path.
@@ -134,7 +134,7 @@ do be minimal, so this is not strictly speaking a mistake by the \acrshort{llm}.
 Note how prompt \ref{lst:jerkPrompt} led to the \acrshort{llm} modifying \emph{several} scenarios.
 This is caused by the file in question housing several scenarios. This is not in itself \emph{wrong}
 per se, but we naturally wish to isolate the scenario we are working on and not distract the
-\acrshort{llm} with other secnarios. We therefore iterate on the prompt again and specify the
+\acrshort{llm} with other scenarios. We therefore iterate on the prompt again and specify the
 \emph{name} of the relevant scenario in the file, as shown in listing
 \ref{lst:jerkPromptSpecificScenario}.
 
@@ -153,7 +153,7 @@ having coming to a halt behind stationary vehicles.
 Overall, this indicates this being a feasible way of obtaining less driveable
 \acrshort{ads} scenarios with minimal costs, in many ways helping with solving
 our stated problems (\Cref{sec:problemDescription}). \acrshortpl{llm} seem
-cabable of performing \Nref{sec:conceptualBlending} between the concept of an
+capable of performing \Nref{sec:conceptualBlending} between the concept of an
 \acrshort{ads} scenario and the concept of driveability.  
 
 \section{Research question analysis}
@@ -220,7 +220,7 @@ into this.
 
 \citeauthor{yao2025agentsllm} point out that generating new scenarios compared to enhancing existing
 ones may lead to a distributional shift from the original underlying scenes, which can undermine the
-validity of using these scenes for testing purposes~\cite[1]{yao2025agentsllm}, wheras using
+validity of using these scenes for testing purposes~\cite[1]{yao2025agentsllm}, whereas using
 real-world driving data as a basis for enhancing the scenario would to a greater extent assert that
 their data distribution is in line with what can be expected in the real world~\cite[2]{yao2025agentsllm}.
 
@@ -293,7 +293,7 @@ determining what these position should have been.
 
 \subsection{LLM aspects}\label{sec:discussionLlmAspects}
 
-This section discusses various aspects related to employing specifcally
+This section discusses various aspects related to employing specifically
 \acrshortpl{llm} for this project. It outlines potential ethical issues and
 discusses why \acrshortpl{llm} may not be perfectly suited for the task at hand.
 
@@ -456,13 +456,13 @@ that it will also pass the hypothetical `one billion and one-th'?
 
 This is one of the principal problems precented in the motivation, and this project has perhaps
 contributed \emph{somewhat} to the problem by presenting a way by which we can increase our
-confidence in the \acrshort{ads}, but the inital problem presented in the Introduction, as outlined
+confidence in the \acrshort{ads}, but the initial problem presented in the Introduction, as outlined
 by \citeauthor{leahy2024grandchallenge} remain.
 
 Furthermore, even if it does pass all these tests, how can we be sure that it
 acts in an ethical manner? There are several possible courses of action that it
 can take in various situations and we need to be confident in the \acrshort{ads} making the choice
-we deem the correct one on several levels -- not only whatever the inexplainable \acrshort{ads}
+we deem the correct one on several levels -- not only whatever the unexplainable \acrshort{ads}
 motion planner places the highest. The \emph{trolley problem} of ethical
 philosophy~\cite{JJThomson1985TrolleyProblem} comes to mind -- we should be prepared for our
 \acrshort{ads} to have to handle such cases in operation.
