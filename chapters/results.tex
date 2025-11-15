@@ -147,6 +147,8 @@ sure to strictly adhere to the Carla \acrshort{api}. This yields a similar probl
 \acrshort{llm} attempts to make an import that does not exist. This diff is presented in listing
 \ref{lst:hallucinatedFollowDiffStrict}.
 
+\newpage % Legger inn ny side for å få hele listingen på én side.
+
 Iterating further, we realize that we must walk before we can run. We therefore instruct the
 \acrshort{llm} to make as few changes as possible. The intuition being that if it does this and
 relies on the options that are already present in the file, it is more plausible that we will get a
@@ -275,9 +277,11 @@ The first enhancement is done using the `minimal changes'-prompt (listing
 the complete diff of this enhancement is rendered in listing \ref{lst:appendixDiffAccidentMod1} in
 \Cref{sec:appendixAccidentDiffs}.
 
+\newpage % Legger inn ny side for å få hele listingen på en side
+
 \begin{figure}[h]
     \centering
-    \subfloat[The ego stopped behind the pileup, with the vehicles on bollards.\label{fig:accidentMod1PileupBack}]{
+    \subfloat[The ego stopped behind the pileup, \\with the vehicles on bollards.\label{fig:accidentMod1PileupBack}]{
         \includegraphics[width=0.48\textwidth]{experiment-material/accident-pics/mod-1/back.png}
     }
     \subfloat[The same situation from a different perspective.\label{fig:accidentMod1PileupFreecam}]{
@@ -313,12 +317,6 @@ listing \ref{lst:jerkPrompt}. Note how the prompt is generic and takes the metri
 allowing for other metrics to be used in a similar fashion.
 
 
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/mod-2/freecam.png}
-    \caption{A screenshot from the jerk optimized `accident' scenario with the ego
-        stopped.}\label{fig:accidentMod2FinalFreecam}
-\end{figure}
 
 So, what \emph{did} the \acrshort{llm} do? For brevity, the diff is rendered in the appendix
 \Cref{sec:appendixAccidentDiffs} (listing \ref{lst:jerkOptimizedAccidentMod2}). From inspecting the
@@ -367,14 +365,19 @@ should focus on (listing \ref{lst:jerkPromptSpecificScenario}).
 \end{lstlisting}
 
 
-\lstinputlisting[caption={The diff of the jerk-optimized Accident scenario with stricter specification.}, label={lst:jerkOptimizedAccidentMod3}, language={diff}]{experiment-material/accident-mod-3.diff}
-
-\begin{figure}[htb]
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.95\textwidth]{experiment-material/accident-pics/mod-3/freecam.png}
-    \caption{A screenshot from the jerk optimized `accident' scenario with the \acrshort{llm}
-        strictly focusing on modifying the correct scenario. See listing
-        \ref{lst:jerkOptimizedAccidentMod3}.}\label{fig:accidentMod3FinalFreecam}
+    \subfloat[A screenshot from the jerk optimized `accident' scenario with the
+        \acrshort{llm} strictly focusing on modifying the correct scenario. See
+        listing \ref{lst:jerkOptimizedAccidentMod3}.\label{fig:accidentMod3FinalFreecam}]{
+        \includegraphics[width=0.48\textwidth]{experiment-material/accident-pics/mod-3/freecam.png}
+    }
+    \vspace{1em}
+    \subfloat[A screenshot from the jerk optimized `accident' scenario with the
+    ego stopped.\label{fig:accidentMod2FinalFreecam}]{
+        \includegraphics[width=0.48\textwidth]{experiment-material/accident-pics/mod-2/freecam.png}
+    }
+    \caption{The final ego vehicle state in two enhanced `accident' scenarios.}
 \end{figure}
 
 Note how the vehicle behind the taxicab is moving in \Cref{fig:accidentMod3FinalFreecam}.
