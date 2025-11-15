@@ -5,7 +5,7 @@
 This chapter will give an introduction to \acrshortpl{ads}, testing,
 \acrshort{ads} testing and \acrshortpl{llm}.
 This will lay the foundation for understanding the motivation of the project more
-in-depth, such that the appeal of the later solution proposal is clearer. 
+in-depth, such that the appeal of the later solution proposal is clearer.
 
 
 \section{Autonomous driving systems}
@@ -22,7 +22,7 @@ in-depth, such that the appeal of the later solution proposal is clearer.
 
 \acrfullpl{ads} are systems that enable automotive vehicles to drive autonomously. Due to the typical
 operating scenarios of a car it is pivotal that the \acrlong{ads} maintain a
-high safety standard. 
+high safety standard.
 
 \subsection{ADS simulation}
 
@@ -139,7 +139,7 @@ format~\cite[4941]{convOpenScenarioToCR}.
 % TODO: Skrive om Carlas støtte for Python-scenarioer
 % TODO: Skrive om Carla scenario runner her?
 
-\subsection{The concept of driveability}\label{sec:adsDrivability}
+\subsection{The concept of driveability}\label{sec:adsDriveability}
 
 \emph{Driveability} is a high-level estimator of the overall driving
 condition of an \acrshort{ads}, derived from several lower-level sources~\cite[3140]{safeToDrive}.
@@ -249,16 +249,16 @@ detail concerning aspects relating specifically to the \emph{testing} of \acrsho
 Testing is essential for assuring \acrshort{ads} operative safety~\cite[163]{ADTestingReview16}.
 Several methods for \acrshort{ads} testing exist, all testing various aspects of the \acrshort{ads}. An \acrshort{ads}
 typically exists of several modules, all working together and handling different aspect of the
-\acrshort{ads}. 
+\acrshort{ads}.
 In the context of this project, the module we target is the \emph{motion
-planner} -- the part of the \acrshort{ads} that is responsible for `driving' the car.
+    planner} -- the part of the \acrshort{ads} that is responsible for `driving' the car.
 A common way to test the motion planner is to use simulator based testing~\cite[1]{DeepScenario}.
 
 
 \citeauthor{ADTestingReview16} further outline several typical architectures for \acrshort{ads} testing,
 drawing on traditional software testing traditions outlining how \textit{software testing} can be
 used alongside more specialized \acrshort{ads} testing techniques such as \textit{simulation
-testing} and \textit{X-in-the-loop testing}~\cite[163-164]{ADTestingReview16}.
+    testing} and \textit{X-in-the-loop testing}~\cite[163-164]{ADTestingReview16}.
 
 
 \subsection{The complexities of ADS testing}\label{sec:adsTestingComplexity}
@@ -294,7 +294,7 @@ connected and capable of communicating~\cite[1]{v2xTestingSurvey2019}.
 When evaluating \acrshort{ads} testing, several metrics can be used. What metric to use will depend
 on what the relevant test is measuring.
 
-Building on what we have learnt about driveability (\Cref{sec:adsDrivability}),
+Building on what we have learnt about driveability (\Cref{sec:adsDriveability}),
 we take after \citeauthor{safeToDrive} and review three metrics for
 quantifying driveability: \begin{inparaenum}
     \item scene driveability,
