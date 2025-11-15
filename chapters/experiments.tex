@@ -72,8 +72,8 @@ usage in the experiments, detailing the usage of prompts and determining what
 Prompting is our principal way of interfacing with the \acrshort{llm}. For this reason, our results
 depend on \begin{inparaenum}
     \item good, and
-    \item fitting prompts
-\end{inparaenum}. Without this, we won't get far.
+    \item fitting prompts.
+\end{inparaenum} Without this, we won't get far.
 
 We therefore propose several prompting strategies, taking after related research
 (\Nref{sec:relatedWork}).
@@ -102,8 +102,10 @@ details and complexity, still in Python carla scenario format.
 \subsection{Finding a suitable LLM}\label{sec:llmExperimentation}
 
 As we learnt in \Cref{sec:llmJungle}, there are several \acrshortpl{llm} extant. We should
-experiment with various different \acrshortpl{llm} to maximize our chance of testing with a `good'
-\acrshort{llm} that goes well with our stated purpose.
+be able to experiment with various different \acrshortpl{llm} to maximize our
+chance of testing with a `good' \acrshort{llm} that goes well with our stated
+purpose. Due to the \acrshort{llm}-agnostic implementation of the \texttt{Odin}
+moduele, this is quite straightforward.
 
 The experiments were first carried out using a locally hosted \num{7.2}B parameter Mistral model.
 This model is interesting in that it has been shown to outperform significantly larger models
@@ -131,6 +133,8 @@ syntax, the entire \acrshort{llm} response being a Markdown-formatted code block
 that the output \emph{is} code, and what language it is in,to the first and last line of the output
 (Listing~\ref{lst:llmOutputMarkdown}). Several leaked \acrshort{llm} system prompts corroborate this
 behaviour\footnote{See e.g.\url{https://github.com/search?q=repo\%3Ajujumilk3\%2Fleaked-system-prompts\%20markdown&type=code}.}.
+
+\newpage % legger inn ny side for å ikke splitte listingen
 
 % \begin{lstlisting}[language=Markdown]
 \begin{lstlisting}[caption={LLM-generated Python code with Markdown syntax. The bracketed part on line 3 has been added for demonstration purposes, removing the actual code for brevity.}, label={lst:llmOutputMarkdown}]
