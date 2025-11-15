@@ -133,7 +133,13 @@ relevant data is less prolific and existing scenes are scarce.
 % TODO: Dette ble en veldig rar setning^
 
 \subsection{Efficiency}
-\subsection{Concurrency of scenario processing}
+
+Due to the somewhat `proof of concept' nature of the current \hefe{}
+implementation, performance and efficiency has not been afforded significant
+attention. There are however some quite low-hanging fruits that stand to be
+exploited. This subsection outlines some of these.
+
+\subsubsection{Concurrency of scenario processing}
 
 \acrshort{ads} scenarios are independent of each other. This means that our problem is
 \textit{embarrassingly parallelizable}
@@ -141,7 +147,7 @@ relevant data is less prolific and existing scenes are scarce.
 several test cases in parallel. Both performing the \acrshort{llm} enhancement, and executing them
 on Carla, can be done regardless of all the other scenarios.
 
-\subsection{JIT-compilation}
+\subsubsection{JIT-compilation}
 
 The Python-based \hefe~implementaiton can be optimized using \acrfull{jit}
 compilers such as Numba~\cite{numba}, which can speed up our execution times.
