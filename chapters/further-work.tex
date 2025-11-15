@@ -2,7 +2,8 @@
 
 \epigraph{Whenever a theory appears to you as the only possible one, take this as a sign that you have neither understood the theory nor the problem which it was intended to solve.}{Popper}
 
-This chapter proposes directions for further research aimed at solving the same problem in a similar
+This penultimate chapter proposes directions for further research aimed at
+solving the same problem in a similar 
 manner, based on \begin{inparaenum}
     \item the experiences gained during this work, and
     \item approaches that there was not time to go through with.
@@ -55,22 +56,22 @@ temperature \acrshort{llm} to be more relevant.
 
 \acrfull{rag} is a novel technique that inserts pieces of relevant external knowledge into an
 \acrshort{llm}'s context~\cite[88-89]{llmSurvey}. It would be interesting to employ such a strategy
-for this work. By adding existing scenarios to the \acrfull{llm}'s context, it would be able to
+for this work. By adding existing scenarios to the \acrshort{llm}'s context, it would be able to
 leverage these as a source of legal ways of modifying scenarios in a way that we would know to be
 both \begin{inparaenum}
     \item legal, and
     \item supported by the simulator.
-\end{inparaenum}
+\end{inparaenum} Perhaps this could provide better results with less hallucinations?
 
 \subsection{Model context protocol (MCP)}
 
 Recently, a technique called \acrfull{mcp} has been proposed\footnote{See e.g.
     \url{https://www.anthropic.com/news/model-context-protocol}}, that allows for defining a specific
 interface for \acrshortpl{llm} to interact with. Further work could construct such an interface for
-modifying scenes, clearly demarcating what the \acrshort{llm} can and cannot do.
+modifying scenarios, clearly demarcating what the \acrshort{llm} can and cannot do.
 
 In a somewhat similar fashion to \acrshort{rag}, albeit with more strict limitations imposed on the
-\acrshort{llm}, which would allow us to be more confident in knowing that it would perform legal actions.
+\acrshort{llm}, this could allow us to be more confident in knowing that it would perform legal actions.
 
 \subsection{Tool manipulation}
 
@@ -85,7 +86,7 @@ having to concern itself with the ontological issues of object spawning.
 \section{Implementation oriented aspects}
 
 This section proposes methods for enhancing the existing implementation (see
-\cref{chp:solutionProposal}) with additional features, motivating why the
+\cref{chp:solutionProposal}) with additional features or better techniques, motivating why the
 additional features would be useful.
 
 \subsection{Static analysis of the enhanced scenario}
@@ -123,13 +124,13 @@ For this thesis, a selection of quite basic scenarios from the Carla scenario ru
 scenario collection was used. However, the concept should work for \emph{any} Carla-compatible
 \acrshort{ads} scenarios. Several such options are presented in \Nref{sec:relatedWork}.
 
-\subsection{More diverse scenes}
+\subsection{More diverse scenarios}
 %CULRUTRAL ASPECTS OF THE SCENE
-The base scenes used for this work are generally western in nature. Global \acrshort{ads} adaptation
-requires universal testing on a broad range of scenes with various traffic conditions and cultural
+The base scenarios used for this work are generally western in nature. Global \acrshort{ads} adaptation
+requires universal testing on a broad range of scenarios with various traffic conditions and cultural
 aspects. Future work may stand to benefit from employ this \acrshort{llm}-based approach in order
-to obtain a greater number of scenarios from less widely available scenes from regions where
-relevant data is less prolific and existing scenes are scarce.
+to obtain a greater number of scenarios from less widely available scenarios from regions where
+relevant data is less prolific and existing scenarios are scarce.
 % TODO: Dette ble en veldig rar setning^
 
 \subsection{Efficiency}
@@ -142,12 +143,13 @@ exploited. This subsection outlines some of these.
 \subsubsection{Concurrency of scenario processing}
 
 \acrshort{ads} scenarios are independent of each other. This means that our problem is
-\textit{embarrassingly parallelizable}
-\footnote{\url{https://en.wikipedia.org/wiki/Embarrassingly_parallel}} and we can trivially process
-several test cases in parallel. Both performing the \acrshort{llm} enhancement, and executing them
-on Carla, can be done regardless of all the other scenarios.
+\textit{embarrassingly
+parallelizable}\footnote{\url{https://en.wikipedia.org/wiki/Embarrassingly_parallel}}
+and we can trivially process several test cases in parallel. Both performing the
+\acrshort{llm} enhancement, and executing them on Carla, can be done regardless
+of all the other scenarios. 
 
-\subsubsection{JIT-compilation}
+\subsubsection{Python-specific enhancements}
 
 The Python-based \hefe~implementaiton can be optimized using \acrfull{jit}
 compilers such as Numba~\cite{numba}, which can speed up our execution times.
@@ -161,11 +163,12 @@ energy.
 These experiments have been performed using only default file-formats, relying on manual labour to
 track \begin{inparaenum}
     \item what scenario x' is the modified version of what scenario x,
-    \item what prompt was used,.
+    \item what prompt was used,
     \item what\footnote{If any \ldots} manual changes was needed for executing,
 \end{inparaenum} etc.
 
-This could stand to benefit from developing a domain-specific file format for this specific purpose.
+The scientific community could stand to benefit from developing a
+domain-specific file format for this specific purpose. 
 E.g. a JSON-based file format that contained a copy of the \begin{inparaenum}
     \item base scenario, the
     \item enhanced scenario,
@@ -196,6 +199,8 @@ The experiments of this project have been done using version \num{580}.
 
 A possible alternate strategy could be to undertake a similar work within the CommonRoad framework,
 bypassying Carla altogther\footnote{See e.g. \url{https://commonroad.in.tum.de/tools/drivability-checker}.}.
+
+\newpage % Legger inn ny side siden den uansett konsummeres og det ser bedre ut 
 
 \subsection{More scientific way of evaluating a result}\label{sec:fwDetermine}
 
