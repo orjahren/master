@@ -84,18 +84,12 @@ it is known in the \acrfull{ml} field posits that \acrshort{ml} tasks are faced 
 unseen cases. We can map these unseen cases, to our unseen \acrshort{ads} scenarios. Because of
 this, an \acrshort{ads} can be at risk of encountering an unseen edge case scenario during operation
 -- something for which it might never have been tested~\cite[1]{yao2025agentsllm}.
-Arguing that the \acrshort{ads} would probably crash simply due to it finding itself in an unseen
-scenario is not logical. But it is important to keep in mind that the end we are pursing in the
-broader adaption of \acrshort{ads}, is increased safety and efficiency on our roads. Not
-sufficiently testing the \acrshort{ads} before deploying it would not serve our goal of increasing
-road safety -- it would be a gamble with human lives. Not all edge cases are however relevant for
-all contexts and environments, and as such, \acrshort{ads} system developers could employ
-\acrshortpl{llm} to obtain more variants of a certain scenario that they wish to test for.
-Say for example that they wished to obtain a set of scenarios in which certain properties are met,
-or certain situations occur -- could they use \acrshortpl{llm} to enhance their existing scenarios
-so that they meet the new requirements?
+By increasing the size of our test scenario datasets, the likelyhood of encountering totally unseen
+situations in the wild will decrease. But using manual labour to create scenarios incurs significant
+cost, and using pure \acrshort{ml} strategies to generate brand new scenarios can lead to their own
+challenges.
 
-Summarizing the problem description above, these are the formal research
+Summarizing the problem description, these are the formal research
 questions of the thesis:
 
 % Define each RQ as a macro so we can re-use them in the discussion. DRY.
