@@ -2,8 +2,8 @@
 
 \epigraph{Whenever a theory appears to you as the only possible one, take this as a sign that you have neither understood the theory nor the problem which it was intended to solve.}{Popper}
 
-This penultimate chapter proposes directions for further research aimed at
-solving the same problem in a similar 
+This penultimate chapter proposes directions for future research aimed at
+solving the same problem in a similar
 manner, based on \begin{inparaenum}
     \item the experiences gained during this work, and
     \item approaches that there was not time to go through with.
@@ -18,13 +18,13 @@ serve the goal of employing \acrshortpl{llm} for decreasing driveability in
 experiences gained while performing the experiments and analysing the results,
 and they relate both \begin{inparaenum}
     \item  to the actual \acrshortpl{llm},
-    \item  how the \acrshort{llm} can be exploited with prompts, and 
+    \item  how the \acrshort{llm} can be exploited with prompts, and
     \item recent techniques that aim to reduce problems with \acrshort{llm} hallucinations.
 \end{inparaenum}
 
 \subsection{Prompting strategies}
 
-For a work like this, the importance of the \emph{prompts} cannot be understated. Further work may
+For a work like this, the importance of the \emph{prompts} cannot be understated. Future work may
 stand to benefit from exploring different prompting strategies. See for
 example~\cite{girayPromptEngineering23}. Prompting techniques for persuading \acrshortpl{llm} to
 perform actions they may find objectionable are presented by \citeauthor{meincke2025overtale} and
@@ -33,7 +33,7 @@ alignment and bias issues (see \cref{sec:discussionLlmAspects}).
 
 \subsection{Experimenting with other models}
 
-\acrshortpl{llm} typically have different properties. Further work could evaluate different models
+\acrshortpl{llm} typically have different properties. Future work could evaluate different models
 on the same experiments. Both for models that already exist today, and models that will exist in the future.
 
 \subsection{Fine-tuned model}
@@ -43,7 +43,7 @@ fine-tune a model specifically for this purpose, using scenario definitions as t
 
 \subsection{Temperature configurations}
 As a consequence of how \acrshortpl{llm} work internally, they have a \emph{temperature} that
-affects their output. For the same reasons that further work can explore the applicability of other
+affects their output. For the same reasons that future work can explore the applicability of other
 \acrshortpl{llm}, testing the same \acrshortpl{llm} with different temperature configurations may
 also yield an interesting insight into their applicability for decreasing driveability in
 \acrshort{ads} simulator scenarios.
@@ -67,7 +67,7 @@ both \begin{inparaenum}
 
 Recently, a technique called \acrfull{mcp} has been proposed\footnote{See e.g.
     \url{https://www.anthropic.com/news/model-context-protocol}}, that allows for defining a specific
-interface for \acrshortpl{llm} to interact with. Further work could construct such an interface for
+interface for \acrshortpl{llm} to interact with. Future work could construct such an interface for
 modifying scenarios, clearly demarcating what the \acrshort{llm} can and cannot do.
 
 In a somewhat similar fashion to \acrshort{rag}, albeit with more strict limitations imposed on the
@@ -144,10 +144,10 @@ exploited. This subsection outlines some of these.
 
 \acrshort{ads} scenarios are independent of each other. This means that our problem is
 \textit{embarrassingly
-parallelizable}\footnote{\url{https://en.wikipedia.org/wiki/Embarrassingly_parallel}}
+    parallelizable}\footnote{\url{https://en.wikipedia.org/wiki/Embarrassingly_parallel}}
 and we can trivially process several test cases in parallel. Both performing the
 \acrshort{llm} enhancement, and executing them on Carla, can be done regardless
-of all the other scenarios. 
+of all the other scenarios.
 
 \subsubsection{Python-specific enhancements}
 
@@ -168,7 +168,7 @@ track \begin{inparaenum}
 \end{inparaenum} etc.
 
 The scientific community could stand to benefit from developing a
-domain-specific file format for this specific purpose. 
+domain-specific file format for this specific purpose.
 E.g. a JSON-based file format that contained a copy of the \begin{inparaenum}
     \item base scenario, the
     \item enhanced scenario,
@@ -208,7 +208,7 @@ As of now, the process of evaluating an experiment as failed or succeeded (see
 \Nref{sec:experimentsMetrics}), is not that scientific. It works sufficiently for our purposes, but
 there is a lot to be gained by formalizing the process.
 
-Further work could look into defining mathematical properties for what qualifies as a `meaningfully
+Future work could look into defining mathematical properties for what qualifies as a `meaningfully
 decreased driveability'. \citeauthor{adsQualityMetrics21} propose several evaluation
 criteria~\cite[196]{adsQualityMetrics21}. One typical example could be to look at whether the jerk
 exceeded a certain threshold during scenario execution -- but even then, we need to define what
