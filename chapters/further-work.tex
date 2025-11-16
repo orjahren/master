@@ -224,3 +224,18 @@ fails to obtain more jerk -- it should be counted as a failure for the \acrshort
 
 This is a \emph{hard} question and has been one of the major recurring challenges while working on
 this project.
+
+\section{Repurposing the \hefe{} implementation for other applications}
+
+As we have discussed at length, this project and its initial version om the \hefe{} pipeline is
+concerned wth driveability of \acrshort{ads} simulator scenarios. But as we saw in the latter part
+of \cref{sec:adsInduction}, there are a several other kinds of open questions related to
+\acrshortpl{ads} -- e.g. ethical ones. Future work should be able to repurpose the \hefe{}
+implementtion by simply modifying the prompts located in the \texttt{Odin} module and obtaining
+scenarios that are enhanced with regard to other aspects outside of driveability. Due to the
+\acrshortpl{llm}' ability to concept blend (c.f. \cref{sec:conceptualBlending}), members of the
+scientific community should be able to experiment with most concepts. Perhaps the \acrshort{llm} is
+able to obtain a set of scenarios in which the \acrshort{ads} ego must make ethical choises?
+In that case, this could serve to further the insight into the latter topics of
+\cref{sec:adsInduction} significantly by opening the door for widespread experimentation at
+minimal cost.
