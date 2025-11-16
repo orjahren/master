@@ -154,7 +154,7 @@ Overall, this indicates this being a feasible way of obtaining less driveable
 \acrshort{ads} scenarios with minimal costs, in many ways helping with solving
 our stated problems (\Cref{sec:problemDescription}). \acrshortpl{llm} seem
 capable of performing \Nref{sec:conceptualBlending} between the concept of an
-\acrshort{ads} scenario and the concept of driveability.  
+\acrshort{ads} scenario and the concept of driveability.
 
 \section{Research question analysis}
 
@@ -185,7 +185,7 @@ adjustments (see \Cref{tab:scenarioFailures}). The \Nref{sec:fwLlm} section of \
 
 This section will discuss various aspects related to this \acrshort{llm}-based approach to decrease
 driveability in \acrshort{ads} simulator scenarios that are of a general nature
-and not necessarily tied to any specific experiment result. 
+and not necessarily tied to any specific experiment result.
 
 % Fokus her: Hefes value add
 % \section{Dette kontra tradisjonell generering}
@@ -352,6 +352,18 @@ don't affect the ego? In these cases, all metrics should be more or less the sam
     not be identical.}. But then there is no point in having done the modification. This has also not
 been a problem for these experiments.
 
+\subsubsection{Who will own the scenario data?}
+
+Different scenario datasets are licensed under various terms, and similarly, different
+\acrshortpl{llm}\footnote{Or more specifically, their (typically commercial) REST \acrshortpl{api}.}
+offer various terms for how the data they recieve as input is to be processed. If the scenario is
+non-public or strictly licensed, using it as input to an \acrshort{llm} may not be all that
+straightforward. A workaround could be to use on-prem \acrshortpl{llm}, but this requires
+significant compute resources.
+
+Avoiding these kinds of legal questions is one of the reasons for why the \hefe{} implementation was
+evaluated using highly publisized MIT-licensed first-party scenarios.
+
 \subsection{Scenario formats}
 % \section{Python / OpenScenario / DSI}
 
@@ -398,7 +410,7 @@ features of OpenSCENARIO.
 
 Similar to the XML-based format, the scenario \acrshort{dsl} is less widely
 available in training corpora. However, it also maintains the advantage of being
-more static and less prone to change. 
+more static and less prone to change.
 
 
 \begin{lstlisting}[label={lst:OSDSL}, caption={An example of an OpenSCENARIO DSL scenario.}]
