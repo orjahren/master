@@ -20,16 +20,16 @@ Furthermore, we saw that \acrshortpl{llm} have capabilities for modifying textua
 data (such as e.g. scenario definitions) by natural language prompt engineering.
 In \Nref{chp:relatedWorkAndLitReview} we surveyed several projects that aim to
 enhance scenario-based testing of \acrshortpl{ads}, and we saw that some of them
-employed \acrshortpl{llm}. But no extant research has specifically used
+employed \acrshortpl{llm}. But no research appears to have specifically used
 \acrshortpl{llm} to \emph{decrease driveability} of \acrshortpl{ads}
 scenarios\footnote{The most similar work, to the author's knowledge,
-is~\cite{yao2025agentsllm} -- \citetitle{yao2025agentsllm}.}. 
+    is~\cite{yao2025agentsllm} -- \citetitle{yao2025agentsllm}.}.
 
 This research gap is addressed by this thesis -- we propose a novel
 \acrshort{llm}-powered methodology for decreasing the driveability of
 \acrshort{ads} scenarios so that when the \acrshort{ads} is tested with the less
 driveable test scenarios, we can either \begin{inparaenum}
-    \item trigger it to fail and analyse what went wrong, or 
+    \item trigger it to fail and analyse what went wrong, or
     \item be more confident in the \acrshort{ads} being able to operate in
     complex scenarios due to passing them.
 \end{inparaenum}
@@ -45,23 +45,23 @@ We summarize the motivation behind using the \hefe~tool in the following user st
 
 \begin{enumerate}
     \item I have a set of \acrshort{ads} test scenarios. I provide this
-            set to \hefe. It will run the entire set, and generate a
-            baseline of my \acrshort{ads} performance.
+          set to \hefe. It will run the entire set, and generate a
+          baseline of my \acrshort{ads} performance.
 
     \item \hefe~will then improve my test scenarios using
-        \acrshortpl{llm} to make them less driveable,  and run the
-        enhanced versions.
+          \acrshortpl{llm} to make them less driveable,  and run the
+          enhanced versions.
 
     \item Lastly \hefe~will report how the results differ from running
-        the base and enhanced version of a test case.
+          the base and enhanced version of a test case.
 
     \item This will give me insight into my \acrshort{ads} by reviewing
-        what scenarios it failed to complete. Then I can look into the
-        cause of the error state and uncover underlying faults in the
-        \acrshort{ads} that i did not know about beforehand. If the
-        \acrshort{ads} \emph{is} able to complete the less driveable
-        scenarios, I can be more confident in it and be more assured
-            that it will work properly during real-world operation.
+          what scenarios it failed to complete. Then I can look into the
+          cause of the error state and uncover underlying faults in the
+          \acrshort{ads} that i did not know about beforehand. If the
+          \acrshort{ads} \emph{is} able to complete the less driveable
+          scenarios, I can be more confident in it and be more assured
+          that it will work properly during real-world operation.
 \end{enumerate}
 
 The tool follows a natural pipeline structure. We have some base test scenarios that
@@ -89,10 +89,10 @@ then analysed in \Nref{chp:discussion} to evaluate the value of the \hefe~tool.
 
 In order to decrease the driveability of the \acrshort{ads} scenarios, we need \num{3}
 separate components: \begin{inparaenum}
-    \item something to handle the \acrshort{llm} interfacing, 
+    \item something to handle the \acrshort{llm} interfacing,
     \item something that can integrate with the \acrshort{ads} simulator, and
-    finally 
-    \item some kind of human-facing interface to administrate the process. 
+    finally
+    \item some kind of human-facing interface to administrate the process.
 \end{inparaenum}
 By compartmentalizing what component has responsibility for what task, we reduce
 complexity and increase the possibility of repurposing the modules for other
@@ -119,7 +119,7 @@ All the prompts exists as a part of the Odin module. Loki will request available
 prompts from Odin on behalf of the user, and the user will select which one they
 want to use. Similarly, all the scenarios exist within the Thor module and are
 handled by it. As for the prompt, the user requests a list of available
-scenarios from the Thor module and makes a decision on which they want to use. 
+scenarios from the Thor module and makes a decision on which they want to use.
 
 The programming language \textsc{Python} is widely used for \acrshort{ads} simulation. It is a high
 level language, allowing the user great flexibility and developer experience.
@@ -183,7 +183,7 @@ and Gemini \acrshortpl{api}. Let us review how this has been achieved:
 \subsubsection{Gemini integration}
 
 The Gemini integration is quite straightforward, relying on Google's own
-\texttt{genai} Python module. 
+\texttt{genai} Python module.
 The one piece of complexity to not is that it requires that the user provides
 their own Gemini \acrshort{api} key and has this set as an environment variable
 with the proper name. Without this being as it should, the script has been
@@ -221,16 +221,16 @@ not functioning properly as it would not possible for it to complete the desired
 In this project, the prompts are the instruction to the \acrshort{llm} for
 applying the enhancement to the scenario. Quite possibly the most critical piece
 of code related to the experiments, outside of the base \acrshort{llm}
-integration that allows for running prompts altogether. 
+integration that allows for running prompts altogether.
 They need to take the base scenario as an
 input and integrate it into the \acrshort{llm} context, such that it knows what
 it shall use as its base to apply enhancements that will decrease the
 driveability. For this reason, the Odin module also provides certain scenario
 utilities, for facilitating prompt operations.
 As mentioned, the prompts need to include the scenarios \emph{in} them, so that
-they are accessible to the \acrshort{llm}. 
+they are accessible to the \acrshort{llm}.
 The most interesting aspect about how we do this, is how the prompts are stored
-in the system as lambda functions. This makes it so that they 
+in the system as lambda functions. This makes it so that they
 can take an argument that represents the scenario and simply \emph{execute} the
 function to insert the scenario into the prompt. This is then
 inserted into the output prompt. This is a very intuitive concept that might
@@ -294,9 +294,9 @@ Executing \acrshort{ads} scenarios on Carla is quite straightforward when using
 Carla's existing Scenario Runner module's functionality. We have made
 our own fork of this in order to make it behave in a way that makes the most
 sense for the \hefe~situation\footnote{This fork is available on
-\url{https://github.com/orjahren/scenario_runner-LLM4DD}. It was mostly used for
-debugging purposes and the \hefe~tool should work just fine with the stock
-version as well.}. 
+    \url{https://github.com/orjahren/scenario_runner-LLM4DD}. It was mostly used for
+    debugging purposes and the \hefe~tool should work just fine with the stock
+    version as well.}.
 
 We record a plethora of datapoints when executing scenarios on the simulator\footnote{This is again
     provided by the Carla software suite. A complete overview of data points is provided in the
@@ -323,7 +323,7 @@ performing experiments. By `liveness' we mean to check that all components are r
 and ready to process work. Essentially checking that they haven't crashed.
 It is better to detect this illegal crash state \emph{before} running experiments rather
 than during their execution as that would cause \begin{inparaenum}
-    \item cumbersome debugging, and 
+    \item cumbersome debugging, and
     \item wasting time.
 \end{inparaenum}
 
