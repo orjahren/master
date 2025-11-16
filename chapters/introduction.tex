@@ -18,15 +18,15 @@ autonomous vehicles, it is expected that traffic safety and efficiency will incr
 comfort as well as enabling the development of several other new transportation methods~\cite[1-2,
     1]{Eichberger2020, weiADSAdoption}.
 
-Due to the critical safety situation of operating a car, it is essential that \acrshort{ads} are
+Due to the critical safety situation of operating a car, it is essential that \acrshortpl{ads} are
 thoroughly tested before they are deployed so that they are verified to be sufficiently safe and
 capable of handling the situations in which they may typically end
 up~\cite[1]{surveyLLMScenarioBasedTesting}.
 But due to the complicated nature of the typical
 \acrshort{ads} operating environment, coming up with exhaustive system test solutions is near
 impossible~\cite[52]{DeepScenario}. For this reason, we want a way of testing the system that is
-capable of pushing the \acrshort{ads} to its limits such that we can measure its performance and see
-if it is capable of handling critical scenarios~\cite{yao2025agentsllm}.
+capable of pushing the \acrshort{ads} to its limits such that we can evaluate its performance and
+see if it is capable of handling critical scenarios~\cite{yao2025agentsllm}.
 
 Existing methods for testing \acrshortpl{ads} typically rely on driving billions of miles, but this
 incurs high cost, and is time-intensive~\cite[1]{surveyLLMScenarioBasedTesting}. To address some
@@ -34,7 +34,7 @@ of these concerns, \acrshort{ads} simulators have been utilised. But it's not th
 \emph{know} that the \acrshort{ads} is safe after it has driven $x$ kilometres on roads or
 $y$ kilometres in a simulator -- we will never be able to predict all possible operating
 situations in advance~\cite[1]{leahy2024grandchallenge}.
-Therefore, we need to challenge the \acrshort{ads} as much as possible when testing it. Having it
+Therefore, we need to challenge the \acrshort{ads} as much as possible when testing it. By having it
 take on a set of low-driveability test scenarios in advance of real-world operations,
 we can be more confident in the correctness of our \acrshort{ads} if it is able to complete the
 scenario. By making the scenario \emph{more complex} -- less driveable -- for
@@ -45,7 +45,7 @@ causes harm in the real world.
 
 Having an existing repository of \acrshort{ads} simulator scenarios, we wish to improve
 them in such a way that they are less driveable and more challenging for the \acrshort{ads}.
-\acrfullpl{llm} have demonstrated great capabilities of context learning and emergent
+\acrfullpl{llm} have demonstrated great capabilities of in-context learning and emergent
 abilities~\cite[1]{LLM4AD}, which begs the question of their applicability for \acrshort{ads}
 testing. We therefore ask: Can these existing test scenarios be made less driveable by applying
 \acrshort{llm} technology to them?
@@ -79,7 +79,7 @@ insight into the workings of their \acrshort{ads} and can take action to remedy 
 causes harm in the real world. And if the \acrshort{ads} \emph{does} still work, they can be more
 confident in their system.
 
-Finally, edge cases can be a major issue for \acrshort{ads} adaptation. The \textit{tail problem} as
+Finally, edge cases can be a major issue for \acrshort{ads} adaptation. The \emph{tail problem} as
 it is known in the \acrfull{ml} field posits that \acrshort{ml} tasks are faced with a long tail of
 unseen cases. We can map these unseen cases, to our unseen \acrshort{ads} scenarios. Because of
 this, an \acrshort{ads} can be at risk of encountering an unseen edge case scenario during operation
@@ -88,13 +88,14 @@ Arguing that the \acrshort{ads} would probably crash simply due to it finding it
 scenario is not logical. But it is important to keep in mind that the end we are pursing in the
 broader adaption of \acrshort{ads}, is increased safety and efficiency on our roads. Not
 sufficiently testing the \acrshort{ads} before deploying it would not serve our goal of increasing
-road safety -- it would be a gamble with human lives. Not all edge cases are relevant for all
-contexts and environments. As such, \acrshort{ads} system developers could employ \acrshortpl{llm}
-to obtain more variants of a certain scenario that they wish to test, if they were to only be in possession of
-a similar form. Say for example that they wished to obtain a set of scenarios in which
-certain properties are met, or certain situations occur.
+road safety -- it would be a gamble with human lives. Not all edge cases are however relevant for
+all contexts and environments, and as such, \acrshort{ads} system developers could employ
+\acrshortpl{llm} to obtain more variants of a certain scenario that they wish to test for.
+Say for example that they wished to obtain a set of scenarios in which certain properties are met,
+or certain situations occur -- could they use \acrshortpl{llm} to enhance their existing scenarios
+so that they meet the new requirements?
 
-Based on the problem description above, these are the formal research
+Summarizing the problem description above, these are the formal research
 questions of the thesis:
 
 % Define each RQ as a macro so we can re-use them in the discussion. DRY.
