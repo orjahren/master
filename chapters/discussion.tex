@@ -51,7 +51,10 @@ the results and make them appear worse than they are.
 
 \subsection{Enhanced scenarios: Follow vehicle}\label{sec:discFollow}
 
-As presented in \Nref{sec:followVehicleResults}, the \acrshort{llm} does be able to \emph{enhance}
+Let us now analyse the results from the experiments that used the\\
+\texttt{FollowLeadingVehicle} scenario as their base.
+
+As presented in \Nref{sec:followVehicleResults}, the \acrshort{llm} is \emph{indeed} able to enhance
 this scenario. We show how the most basic prompt (listing \ref{lst:basicPrompt}) fails to rein in
 the \acrshort{llm} which leads to hallucination that causes the scenario to fail to run.
 
@@ -67,10 +70,10 @@ work due to how similar they are.
 While this reduces our potential gain -- it would naturally be more interesting to see significantly
 modified scenarios -- this does work, and the output scenario is runnable.
 
-The first enhanced scenario -- \Cref{fig:followMinimallyEnhanced1StartPoint} -- entails having there
-be a truck in the middle of the road. This significantly decreases the driveability of the scenario
--- it is no longer possible to simple drive straight, the \acrshort{ads} \emph{must} handle the
-problem of a static vehicle in its path.
+The first runnable enhanced scenario -- \Cref{fig:followMinimallyEnhanced1StartPoint} -- entails
+having there be a truck in the middle of the road. This significantly decreases the driveability of
+the scenario -- it is no longer possible to simple drive straight, the \acrshort{ads} \emph{must}
+handle the problem of a static vehicle in its path.
 
 
 Comparing this visually to the base scenario (\Cref{fig:followBaseStartpoint}) clearly highlights
@@ -89,7 +92,7 @@ due to the \acrshort{ads} simply not being able to pass the truck in the middle 
 demonstrates a significant value in our proposed tool -- here lies a scenario that can be manually
 reviewed and used for evaluating \emph{why} the \acrshort{ads} failed to drive past the parked truck.
 
-On the other hand, the other enhanced `follow' scenario
+On the other hand, the other runnable enhanced `follow' scenario
 (\Cref{fig:followMinimallyEnhanced2StartPoint}) is not indicated to have decreased driveability in
 the jerk graph. The jerk in 2nd enhanced follow scenario (\Cref{fig:followMinimallyEnhanced2Jerk})
 is stable. This tells us that our ego vehicle was able to pass the parked van without additional
@@ -106,6 +109,9 @@ result. The jerk need not always \emph{increase} to count as a result -- the sam
 meaningful result\footnote{See also \Cref{sec:fwDetermine}.}.
 
 \subsection{Enhanced scenarios: Accident}\label{sec:discAcc}
+
+Let us now analyse the results from the experiments that used the \texttt{Accident}
+scenario as their base.
 
 The first enhancement is done using the `minimal changes'-prompt (listing
 \ref{lst:minimalChangesPrompt}), and similarly to the `follow' scenario, it also works well for the
@@ -183,8 +189,8 @@ adjustments (see \Cref{tab:scenarioFailures}). The \Nref{sec:fwLlm} section of \
 
 \section{Broader discussion}
 
-This section will discuss various aspects related to this \acrshort{llm}-based approach to decrease
-driveability in \acrshort{ads} simulator scenarios that are of a general nature
+This section will discuss various aspects related to this \acrshort{llm}-based approach of
+decreasing driveability in \acrshort{ads} simulator scenarios that are of a general nature
 and not necessarily tied to any specific experiment result.
 
 % Fokus her: Hefes value add
@@ -193,10 +199,7 @@ and not necessarily tied to any specific experiment result.
 
 This project concerns itself with taking existing scenarios and \emph{modifying} them. This is in
 many ways similar to scenario \emph{generation}, but there are also certain key differences. Let us
-review some of these.
-
-% TODO: Gir det mening å ha dette som en subsection når det bare er én i seksjonen?
-\subsubsection{Unknown substrate}
+review some of these:
 
 When generating a new scenario, the principal factor in determining what it will contain, is a
 combination of your generation technique, and what sort of training data you will have used for
@@ -213,16 +216,16 @@ increased awareness \emph{of} the base scenario and its substrate. As we have se
 \Nref{chp:results}, the changes made by the \acrshort{llm} typically don't alter the underlying
 ontology of the scene.
 
-This touches on a broader topic concerning the \emph{value} of having this knowledge of the
-scenario substrate. While this is not the focus of this work, one potential aspect could be a sort
-of grounding related to the `sim2real' gap, and the realism of the scene. Let us now delve further
-into this.
-
 \citeauthor{yao2025agentsllm} point out that generating new scenarios compared to enhancing existing
 ones may lead to a distributional shift from the original underlying scenes, which can undermine the
 validity of using these scenes for testing purposes~\cite[1]{yao2025agentsllm}, whereas using
 real-world driving data as a basis for enhancing the scenario would to a greater extent assert that
 their data distribution is in line with what can be expected in the real world~\cite[2]{yao2025agentsllm}.
+
+This touches on a broader topic concerning the \emph{value} of having this knowledge of the
+scenario substrate. While this is not the focus of this work, one potential aspect could be a sort
+of grounding related to the `sim2real' gap, and the realism of the scene. Let us now delve further
+into this.
 
 \subsection{Realism in the enhanced scenario}
 
@@ -405,6 +408,8 @@ changed.
 
 Something to note is that the Carla simulator only has limited support for the
 features of OpenSCENARIO.
+
+\newpage % Ser bedre ut
 
 \subsubsection{DSL-based OpenSCENARIO}
 
