@@ -205,9 +205,10 @@ bypassing Carla altogether\footnote{See e.g. \url{https://commonroad.in.tum.de/t
 
 \subsection{More scientific way of evaluating a result}\label{sec:fwDetermine}
 
-As of now, the process of evaluating an experiment as failed or succeeded (see
-\Nref{sec:experimentsMetrics}), is not that scientific. It works sufficiently for our purposes, but
-there is a lot to be gained by formalizing the process.
+The current process of evaluating an experiment as failed or succeeded (see
+\Nref{sec:experimentsMetrics}), is not that scientific. It works sufficiently for our purposes of
+evaluating the feasibility of the proposed solutions, but there is a lot to be gained by formalizing
+the evaluation process.
 
 Future work could look into defining mathematical properties for what qualifies as a `meaningfully
 decreased driveability'. \citeauthor{adsQualityMetrics21} propose several evaluation
@@ -222,9 +223,6 @@ something on the other side of the map that doesn't affect the \acrshort{ads} eg
 \Cref{sec:whatIsBeingChanged}), we should not count it as a failure for the \acrshort{ads} if it
 fails to obtain more jerk -- it should be counted as a failure for the \acrshort{llm}.
 
-This is a \emph{hard} question and has been one of the major recurring challenges while working on
-this project.
-
 \section{Repurposing the \hefe{} implementation for other applications}
 
 As we have discussed at length, this project and its initial version of the \hefe{} pipeline is
@@ -237,5 +235,5 @@ scenarios that are enhanced with regard to other aspects outside of driveability
 scientific community should be able to experiment with most concepts. Perhaps the \acrshort{llm} is
 able to obtain a set of scenarios in which the \acrshort{ads} ego must make ethical choices?
 In that case, this could serve to further the insight into the latter topics of
-\cref{sec:adsInduction} significantly by opening the door for widespread experimentation at
+\cref{sec:adsInduction} significantly by opening the door to widespread experimentation at
 minimal cost.
